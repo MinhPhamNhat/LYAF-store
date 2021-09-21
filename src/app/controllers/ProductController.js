@@ -32,5 +32,5 @@ class ProductController{
 
     }
 }
-// ABC
+// AB
 module.exports = new ProductController;
