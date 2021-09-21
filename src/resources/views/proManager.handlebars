@@ -1,0 +1,99 @@
+<div class="proManager_container">
+<div class="side__bar"> 
+            <div class="grid__nav">
+    
+                <div class="side__bar--title">
+                    <div class="side__bar--title-name">
+        
+                        <i class="fas fa-laptop-code"></i>
+                        <span>Product Manager</span>
+                    </div>
+                    <i class="fas fa-list"></i>
+                </div>
+        
+                <div class="side__bar--category">
+                    <ul class="side__bar--list">
+                        <li class="side__bar--item">
+                            <i class="fas fa-home hoverI"></i>
+                            <span>Home</span>
+                        </li>
+                        <li class="side__bar--item">
+                            <i class="fas fa-users hoverI"></i>
+                            <span id="createObj">Create product</span>
+                        </li>
+                        <li class="side__bar--item">
+                            <i class="fas fa-building hoverI"></i>
+                            <span>Manager</span>
+                        </li>
+                        <li class="side__bar--item">
+                            <i class="fas fa-calendar-alt hoverI"></i>
+                            <span>Schedule</span>
+                        </li>
+                        <li class="side__bar--item">
+                            <i class="fas fa-bell hoverI"></i>
+                            <span>Notification</span>
+                        </li>
+                        <li class="side__bar--item">
+                            <i class="fas fa-cogs hoverI"></i>
+                            <span>Setting</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="proTable">
+
+        <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Origin</th>
+            <th scope="col">Price</th>
+            <th scope="col">Sale</th>
+            <th scope="col">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    
+                </div>
+            </th>
+            </tr>
+        </thead>
+        <tbody class="data__table">
+            <tr id="empty__table">
+                <td colspan="6" >
+                    <div>
+                        <span>
+                            Danh sách sản phẩm trống !. <a href="/create">Thêm sản phẩm ngay</a>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            {{#each data}}
+                <tr class="available__tr">
+                    <th scope="row">{{ indexSum @index 1}}</th>
+                    <td>{{this.name}}</td>
+                    <td>{{this.origin}}</td>
+                    <td>{{this.price}}đ</td>
+                    <td>{{this.sale}}</td>
+                    <td>
+                        <div class="dropdown__menu">
+                            <span>Tasks</span>
+                            <div class="dropdown__item">
+                                <ul class="actions">
+                                    <li><span >Edit</span></li>
+                                    <li  id="deleteObj"><span><a href="/del/{{this._id}}">Delete</a></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    
+                    </td>
+                </tr>
+
+                
+            {{/each}}
+        </tbody>
+        </table>
+        </div>
+</div>
+<script src="./js/productManager.js"></script>

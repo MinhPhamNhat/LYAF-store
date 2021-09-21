@@ -1,0 +1,65 @@
+//B1: npm i express
+//B2:npm nodemon ("start": "nodemon src/index.js", "main":"src/index.js")
+//B3:npm i express-handlebars
+//B4: tạo file resources - [scss + views]
+//B5: tạo file layouts trong views
+//B6: tạo file public - [img]
+//B7: require node-sass (npm install node-sass --save-dev)
+//B8: tạo file app.scss trong file scss 
+//B9: tạo file css trong public và đăt tên file css giống với file scss ("watch": "node-sass --watch src/resources/scss/ -o src/public/css/") 
+//B10: npm run watch
+//B11: cài boostrap (css & js)
+//B12:Tạo file routes - [index.js + route files]
+//B13:tạo file app - controllers - [controller files]
+//B14: Tạo middleware cho phương thức post:
+//B15: connect MongoBD (npm i mongoose)
+//B16:Tạo file config - db - index.js - Nhập code connect MongoDB
+//B17:Require link connect DB
+//B18:Tạo file models trong app - (tên collection viết hoa chữ cái đầu và bỏ s).js - Nhập code tạo model mới Schema mongoose
+//B19:Cài mongoose soft delete (npm install mongoose-delete)
+//B20:require mongoose-delete vào model và add plugin
+//B21: cài method-override (npm install method-override)
+//B22: Require method-override
+//B23: Lưu ý đúng thứ tự require tất cả
+//Require express:
+const express = require('express');
+const app = express();
+const port = 2000;
+
+//Require handlebars:
+const hdbars = require('express-handlebars');
+const path = require('path');
+app.use(express.static(path.join(__dirname,'public')));
+
+////set engine (handlebars):
+app.engine('handlebars',hdbars({
+  helpers:{
+    indexSum: (index,n) =>{ return index + n}
+  }
+}));
+app.set('view engine','handlebars');
+app.set('views', path.join(__dirname, 'resources/views'));
+
+//use express middleware:
+app.use(express.urlencoded({
+    extended:true,
+  }));
+app.use(express.json());
+
+//method Override
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
+//route:
+const route = require('./routes/index');
+route(app);
+
+//Connect MonngoDB:
+const connect_db = require('./config/db/index.js');
+connect_db();
+
+
+
+
+//Listen port:
+app.listen(port);

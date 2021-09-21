@@ -1,0 +1,27 @@
+:root{
+    --width-sidebar: 250px;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Titillium Web', sans-serif;
+}
+
+.grid__nav{
+    padding: 0 10px;
+    padding-top: 10px;
+}
+
+i{
+    cursor: pointer;
+   
+}
+
+// @media screen and (max-width: 992px) {
+
+//     .side__bar{
+//          width: 70px;
+//     }
+// }
