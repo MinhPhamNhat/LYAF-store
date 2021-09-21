@@ -1,7 +1,8 @@
-<div class="create_container">
+<div class="create_container"  onload="test()">
     <div class="create_title">
         <span>Create New Product</span>
     </div>
+
     <div class="create__form">
         <form action="/create/done" method="post">
         <div class="form-group">
@@ -18,9 +19,9 @@
         </div>
          <div class="form-group">
             <label for="proSale">Sale ?</label>
-           <select id="proSale__select" class="form-control" name="proSale">
+           <select id="proSale__select" class="form-control" name="proSale" onchange="change()">
                 <option id="yes" value="Yes">Yes</option>
-                <option id="no" value="No" aria-selected="false">No</option>
+                <option id="no" value="No" aria-selected="false" selected="selected">No</option>
                 
             </select>
         </div>
