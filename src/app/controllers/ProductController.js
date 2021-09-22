@@ -17,6 +17,9 @@ class ProductController{
     //[POST] /create/done
     createDone(req,res,next){
         const newPro = req.body;
+        if(newPro.proSaleValue == ''){
+            newPro.proSaleValue = 'No';
+        }
         newPro.proUrl = `test-detail`;
         const newProValue = new proModel({name:newPro.proName,price:newPro.proPrice,origin:newPro.proOrigin,url:newPro.proUrl,sale:newPro.proSaleValue});
         newProValue.save()
