@@ -47,6 +47,8 @@
   color: black; }
 
 .LYAF-header-right {
+  display: flex;
+  font-size: 20px; }
 
 .LYAF-header-right div {
   margin: 5px; }
