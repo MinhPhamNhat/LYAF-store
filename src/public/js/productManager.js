@@ -48,10 +48,16 @@ title_icon.addEventListener('click',function(){
 });
 const createObj = document.querySelector('#createObj');
 const deleteObj = document.querySelector('#deleteObj');
-createObj.onclick = () =>{
-  window.location.href = '/create';
-};
+const create__product = document.querySelector('.create__product');
+const table_show = document.querySelector('.table');
+// createObj.onclick = () =>{
+//   window.location.href = '/create';
+// };
 
+createObj.onclick = () =>{
+  create__product.classList.add('create__product_show');
+  table_show.classList.add('table_hide');
+}
 
 //Edit Empty Table:
 
@@ -89,3 +95,4 @@ for(var item in actions_item){
 
 const LYAFHeader = document.querySelector('.LYAF-header');
 // LYAFHeader.classList.add('zoomout_sidebar-p');
+
