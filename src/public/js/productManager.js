@@ -53,6 +53,7 @@ const createObj__span = document.querySelector('#createObj span');
 const deleteObj = document.querySelector('#deleteObj');
 const create__product = document.querySelector('.create__product');
 const table_show = document.querySelector('.table');
+const createObj_sub = document.querySelector('#createObj_sub'); 
 createObj_flag = 0;
 // createObj.onclick = () =>{
 //   window.location.href = '/create';
@@ -83,6 +84,18 @@ createObj.onclick = () =>{
     createObj_flag = 0;
   }
   
+}
+
+createObj_sub.onclick = () =>{
+  create__product.classList.add('create__product_show');
+  table_show.classList.add('table_hide');
+  createObj.classList.add('show_table_done');
+  creaeObj_cart_plus.classList.remove('icon__show');
+  creaeObj_cart_plus.classList.add('icon__hide');
+  creaeObj_fa_file_excel.classList.remove('icon__hide');
+  creaeObj_fa_file_excel.classList.add('icon__show');
+  createObj__span.innerHTML = `Cancel (Create)`;
+  createObj_flag = 1;
 }
 
 //Edit Empty Table:
@@ -122,3 +135,20 @@ for(var item in actions_item){
 const LYAFHeader = document.querySelector('.LYAF-header');
 // LYAFHeader.classList.add('zoomout_sidebar-p');
 
+//Create Product:
+const create_title = document.querySelector('.create_title');
+const proSale_select = document.querySelector('#proSale__select');
+const proSaleValueShow = document.querySelector('#proSaleValueShow');
+const proSale_select_yes = document.querySelector('#yes');
+const proSale_select_no = document.querySelector('#no');
+
+// onload on body
+const change =  ()  =>{
+    var option = $("#proSale__select option:selected").attr("id")
+    if (option === "no"){
+        proSaleValueShow.classList.add('proSaleValueShow');
+    }
+    else{
+        proSaleValueShow.classList.remove('proSaleValueShow');
+    }
+}
