@@ -47,16 +47,42 @@ title_icon.addEventListener('click',function(){
   
 });
 const createObj = document.querySelector('#createObj');
+const creaeObj_cart_plus = document.querySelector('#createObj .fa-cart-plus');
+const creaeObj_fa_file_excel = document.querySelector('#createObj .fa-file-excel');
+const createObj__span = document.querySelector('#createObj span');
 const deleteObj = document.querySelector('#deleteObj');
 const create__product = document.querySelector('.create__product');
 const table_show = document.querySelector('.table');
+createObj_flag = 0;
 // createObj.onclick = () =>{
 //   window.location.href = '/create';
 // };
 
 createObj.onclick = () =>{
-  create__product.classList.add('create__product_show');
-  table_show.classList.add('table_hide');
+  if(createObj_flag === 0){
+
+    create__product.classList.add('create__product_show');
+    table_show.classList.add('table_hide');
+    createObj.classList.add('show_table_done');
+    creaeObj_cart_plus.classList.remove('icon__show');
+    creaeObj_cart_plus.classList.add('icon__hide');
+    creaeObj_fa_file_excel.classList.remove('icon__hide');
+    creaeObj_fa_file_excel.classList.add('icon__show');
+    createObj__span.innerHTML = `Cancel (Create)`;
+    createObj_flag = 1;
+  }
+  else{
+    create__product.classList.remove('create__product_show');
+    table_show.classList.remove('table_hide');
+    createObj.classList.add('show_table_done');
+    creaeObj_cart_plus.classList.add('icon__show');
+    creaeObj_cart_plus.classList.remove('icon__hide');
+    creaeObj_fa_file_excel.classList.add('icon__hide');
+    creaeObj_fa_file_excel.classList.remove('icon__show');
+    createObj__span.innerHTML = `Create Product`;
+    createObj_flag = 0;
+  }
+  
 }
 
 //Edit Empty Table:
