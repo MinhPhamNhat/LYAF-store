@@ -13,3 +13,12 @@
 
 i {
   cursor: pointer; }
+
+.show {
+  display: block; }
+
+.none {
+  display: none; }
+
+.flex {
+  display: flex; }

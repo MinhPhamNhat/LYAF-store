@@ -15,6 +15,9 @@ class SideController{
                 })
     }
 
+    loader_logo(req,res,next){
+        res.render('loader_logo');
+    }
 }
 
 module.exports = new SideController;
