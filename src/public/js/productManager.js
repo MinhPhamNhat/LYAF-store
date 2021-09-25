@@ -1,4 +1,8 @@
 
+//Remove header:
+const LYAF_header = document.querySelector('.LYAF-header');
+LYAF_header.classList.add('none');
+//
 $(document).ready(()=>{
     $(".LYAF-side-bar-header i").on("click", () => {
         if ($(".LYAF-side-bar-header i").hasClass("fa-bars")){
