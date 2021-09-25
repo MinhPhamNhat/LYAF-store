@@ -4,30 +4,110 @@
         <i class="fas fa-window-close"></i>
     </div>
     <div class="LYAF-side-bar-menu">
-        <div class="LYAF-profit-menu LYAF-menu" onmouseover="changeIcon(this)" onmouseout="changeBackIcon(this)">
-            <i class="fas fa-hand-holding-usd icon"></i>
-            <span class="title">Revenue</span>
-            <i class="fas fa-chevron-right end"></i>
+        <div class="LYAF-profit-menu LYAF-menu" onmouseover="activeMenu(this)" onmouseout="deactiveMenu(this)">
+            <div class="LYAF-menu-header" onclick="tongleMenu(this)">
+                <i class="fas fa-hand-holding-usd icon"></i>
+                <span class="title">Revenue</span>
+                <i class="fas fa-chevron-right end"></i>
+            </div>
+            <div class="LYAF-menu-content">
+                <div class="LYAF-menu-option" onmouseover="activeOption(this)" onmouseout="deactiveOption(this)">
+                    <i class="fas fa-circle icon"></i>
+                    <span class="title">Revenue</span>
+                </div>
+                <div class="LYAF-menu-option" onmouseover="activeOption(this)" onmouseout="deactiveOption(this)">
+                    <i class="fas fa-circle icon"></i>
+                    <span class="title">Revenue</span>
+                </div>
+                <div class="LYAF-menu-option" onmouseover="activeOption(this)" onmouseout="deactiveOption(this)">
+                    <i class="fas fa-circle icon"></i>
+                    <span class="title">Revenue</span>
+                </div>
+            </div>
         </div>
-        <div class="LYAF-admin-menu LYAF-menu" onmouseover="changeIcon(this)" onmouseout="changeBackIcon(this)">
-            <i class="fas fa-user-shield icon"></i>
-            <span class="title">Admin</span>
-            <i class="fas fa-chevron-right end"></i>
+        <div class="LYAF-admin-menu LYAF-menu" onmouseover="activeMenu(this)" onmouseout="deactiveMenu(this)">
+            <div class="LYAF-menu-header" onclick="tongleMenu(this)">
+                <i class="fas fa-user-shield icon"></i>
+                <span class="title">Admin</span>
+                <i class="fas fa-chevron-right end"></i>
+            </div>
+            <div class="LYAF-menu-content">
+                <div class="LYAF-menu-option LYAF-option-active" onmouseover="activeOption(this)" onmouseout="deactiveOption(this)">
+                    <i class="fas fa-circle icon"></i>
+                    <span class="title">Revenue</span>
+                </div>
+                <div class="LYAF-menu-option" onmouseover="activeOption(this)" onmouseout="deactiveOption(this)">
+                    <i class="fas fa-circle icon"></i>
+                    <span class="title">Revenue</span>
+                </div>
+                <div class="LYAF-menu-option" onmouseover="activeOption(this)" onmouseout="deactiveOption(this)">
+                    <i class="fas fa-circle icon"></i>
+                    <span class="title">Revenue</span>
+                </div>
+            </div>
         </div>
-        <div class="LYAF-user-menu LYAF-menu" onmouseover="changeIcon(this)" onmouseout="changeBackIcon(this)">
-            <i class="fas fa-users icon"></i>
-            <span class="title">User</span>
-            <i class="fas fa-chevron-right end"></i>
+        <div class="LYAF-user-menu LYAF-menu" onmouseover="activeMenu(this)" onmouseout="deactiveMenu(this)">
+            <div class="LYAF-menu-header" onclick="tongleMenu(this)">
+                <i class="fas fa-users icon"></i>
+                <span class="title">User</span>
+                <i class="fas fa-chevron-right end"></i>
+            </div>
+            <div class="LYAF-menu-content">
+                <div class="LYAF-menu-option" onmouseover="activeOption(this)" onmouseout="deactiveOption(this)">
+                    <i class="fas fa-circle icon"></i>
+                    <span class="title">Revenue</span>
+                </div>
+                <div class="LYAF-menu-option" onmouseover="activeOption(this)" onmouseout="deactiveOption(this)">
+                    <i class="fas fa-circle icon"></i>
+                    <span class="title">Revenue</span>
+                </div>
+                <div class="LYAF-menu-option" onmouseover="activeOption(this)" onmouseout="deactiveOption(this)">
+                    <i class="fas fa-circle icon"></i>
+                    <span class="title">Revenue</span>
+                </div>
+            </div>
         </div>
-        <div class="LYAF-staff-menu LYAF-menu" onmouseover="changeIcon(this)" onmouseout="changeBackIcon(this)">
-            <i class="fas fa-user-check icon"></i>
-            <span class="title">Staff</span>
-            <i class="fas fa-chevron-right end"></i>
+        <div class="LYAF-staff-menu LYAF-menu" onmouseover="activeMenu(this)" onmouseout="deactiveMenu(this)">
+            <div class="LYAF-menu-header" onclick="tongleMenu(this)">
+                <i class="fas fa-user-check icon"></i>
+                <span class="title">Staff</span>
+                <i class="fas fa-chevron-right end"></i>
+            </div>
+            <div class="LYAF-menu-content">
+                <div class="LYAF-menu-option" onmouseover="activeOption(this)" onmouseout="deactiveOption(this)">
+                    <i class="fas fa-circle icon"></i>
+                    <span class="title">Revenue</span>
+                </div>
+                <div class="LYAF-menu-option" onmouseover="activeOption(this)" onmouseout="deactiveOption(this)">
+                    <i class="fas fa-circle icon"></i>
+                    <span class="title">Revenue</span>
+                </div>
+                <div class="LYAF-menu-option" onmouseover="activeOption(this)" onmouseout="deactiveOption(this)">
+                    <i class="fas fa-circle icon"></i>
+                    <span class="title">Revenue</span>
+                </div>
+            </div>
         </div>
-        <div class="LYAF-product-menu LYAF-menu" onmouseover="changeIcon(this)" onmouseout="changeBackIcon(this)">
-            <i class="fab fa-product-hunt icon"></i>
-            <span class="title">Product</span>
-            <i class="fas fa-chevron-right end"></i>
+        <div class="LYAF-product-menu LYAF-menu" onmouseover="activeMenu(this)" onmouseout="deactiveMenu(this)">
+            <div class="LYAF-menu-header" onclick="tongleMenu(this)">
+                <i class="fab fa-product-hunt icon"></i>
+                <span class="title">Product</span>
+                <i class="fas fa-chevron-right end"></i>
+            </div>
+            <div class="LYAF-menu-content">
+                <div class="LYAF-menu-option" onmouseover="activeOption(this)" onmouseout="deactiveOption(this)">
+                    <i class="fas fa-circle icon"></i>
+                    <span class="title">Revenue</span>
+                </div>
+                <div class="LYAF-menu-option" onmouseover="activeOption(this)" onmouseout="deactiveOption(this)">
+                    <i class="fas fa-circle icon"></i>
+                    <span class="title">Revenue</span>
+                </div>
+                <div class="LYAF-menu-option" onmouseover="activeOption(this)" onmouseout="deactiveOption(this)">
+                    <i class="fas fa-circle icon"></i>
+                    <span class="title">Revenue</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
