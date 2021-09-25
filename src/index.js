@@ -63,4 +63,4 @@ connect_db();
 
 
 //Listen port:
-app.listen(port);
+app.listen(port, () => {console.log("http://localhost:"+2000)});
