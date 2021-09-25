@@ -1,3 +1,24 @@
+
+/* width */
+::-webkit-scrollbar {
+    width: 2px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(145, 145, 145); 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(20, 20, 46); 
+  }
+
 .LYAF-side-bar{
     width: 250px;
     height: 100%;
@@ -6,15 +27,19 @@
     position: fixed;
     background-color: #1E1E2D;
     transition: 0.5s;
+    overflow-y:auto;
 }
 
 .LYAF-side-bar .LYAF-side-bar-header{
-    width: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 25px;
     color: white;
+    background-color: #1B1B28;
 }
 
 .LYAF-side-bar .LYAF-side-bar-header i{
@@ -25,6 +50,11 @@
     font-size: 20px;
 }
 
+.LYAF-side-bar .LYAF-side-bar-menu{	
+    position:relative;
+    top: 100px;
+    padding-bottom: 25px;
+}
 .LYAF-side-bar-menu .LYAF-menu{
     color: rgb(183, 183, 185);
     position: relative;
@@ -39,10 +69,6 @@
     flex-direction: row;
     align-items: center;
 }
-// .LYAF-side-bar-menu .LYAF-menu-header:hover{
-//     background-color: #1B1B28;
-//     color: white;
-// }
 .LYAF-side-bar-menu .LYAF-menu .title{
     position: relative;
     left: 0;
@@ -70,7 +96,6 @@
 }
 .LYAF-side-bar-menu .LYAF-menu .LYAF-menu-content{
     display: none;
-
 }
 .LYAF-side-bar-menu .LYAF-menu .LYAF-menu-content .LYAF-menu-option{
     padding: 25px;
@@ -79,4 +104,8 @@
 
 .LYAF-side-bar-menu .LYAF-menu .LYAF-menu-content .LYAF-menu-option .icon{
     font-size: 10px;
+}
+
+.LYAF-dasboard-main{
+    margin-left: 100px;
 }
