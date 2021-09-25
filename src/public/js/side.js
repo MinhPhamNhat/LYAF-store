@@ -4,4 +4,4 @@ LYAF_header.classList.add('none');
 
 setTimeout(() =>{
     window.location.href = '/manager';
-}, 3500);
+}, 4000);
