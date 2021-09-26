@@ -1,5 +1,4 @@
 //Edit Header:
-
 $(document).ready(()=>{
     $("#btn-dropdown").on('click', () =>{
         $("#dropdown-action").toggle()
