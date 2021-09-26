@@ -20,6 +20,7 @@
   }
 
 .LYAF-side-bar{
+    z-index: 10;
     width: 250px;
     height: 100%;
     left: 0;
@@ -106,6 +107,130 @@
     font-size: 10px;
 }
 
-.LYAF-dasboard-main{
-    margin-left: 100px;
+.LYAF-dasboard-body{
+    padding-left: 70px;
+    background-color: #F5F8FA;
+}
+
+.LYAF-dasboard-body .LYAF-dashboard-header{
+    z-index: 9;
+    width: 100%;
+    padding: 15px;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    box-shadow: 1px 1px 50px 1px #F5F8FA;
+}
+
+.LYAF-dasboard-body .row{
+    margin: 0;
+}
+
+.LYAF-dasboard-body .LYAF-dashboard-content{
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.LYAF-dasboard-body .LYAF-dashboard-header span{
+    font-size: 20px;
+}
+
+.LYAF-dasboard-body .LYAF-dashboard-block{
+    margin: 15px;
+    padding: 20px;
+    background-color: white;
+    margin-bottom: 25px;  
+    border-radius: 10px;
+}
+
+.LYAF-dasboard-body .LYAF-dashboard-block .splide__slide{
+    margin: 10px;
+    box-shadow: 1px 1px 10px 1px rgb(168, 168, 168);
+    border-radius: 10px;
+}
+
+.LYAF-dasboard-body .LYAF-dashboard-block .splide__slide img {
+	width : 200px;
+    height: auto;
+}
+
+.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-block-title{
+    font-size: 20px;
+}
+.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-block-content{
+    margin: 10px;
+}
+
+.LYAF-dasboard-body .LYAF-dashboard-block .description{
+    margin: 20px;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border: 1px dashed #b8b8b8;
+    border-radius: 10px;
+    color: rgb(100, 100, 100);
+}
+.LYAF-dasboard-body .LYAF-dashboard-block .insert-image{
+    display: block;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+.LYAF-dasboard-body .LYAF-dashboard-block .insert-image input{
+    z-index: 3;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.LYAF-dasboard-body .LYAF-dashboard-block .insert-image .image-upload-holder {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    padding-top: 10px;
+    height: 100%;
+    width: 100%;
+    border: 2px dashed #cbd9ca;
+    background-color: #f0f6f2;
+    background-image: url(https://file4.batdongsan.com.vn/images/opt/bg-upload-image.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    text-align: center;
+}
+
+.LYAF-dasboard-body .LYAF-dashboard-block .remove-image i{
+    font-size: 20px;
+    margin: 5px;
+    float: right;
+    transition: 0.3s;
+}
+.LYAF-dasboard-body .LYAF-dashboard-block .remove-image i:hover{
+    font-size: 30px;
+}
+
+.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-product-name,
+.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-product-description{
+    display: flex;
+    flex-direction: column;
+}
+
+.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-product-name span,
+.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-product-description span{
+    margin-bottom: 10px;
+}
+
+.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-product-name input{
+    padding: 10px;
+    border: 2px dashed #b8b8b8;
+    outline-width: 2px;
+    outline-color: #b8b8b8;
+    margin-bottom: 10px;
+}
+
+.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-product-description textarea{
+    min-height: 100% !important;
 }

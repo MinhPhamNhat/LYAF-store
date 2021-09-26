@@ -4,6 +4,21 @@ const LYAF_header = document.querySelector('.LYAF-header');
 LYAF_header.classList.add('none');
 //
 $(document).ready(()=>{
+    new Splide( '#image-slider',{
+        width       : 600,
+        trimSpace   : false,
+        perPage     : 2,
+        cover       : true,
+		heightRatio : 0.5,
+    }).mount();
+    
+    tinymce.init({
+        height      : "300",
+        selector    : 'textarea',
+        plugins     : 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        toolbar_mode: 'floating',
+     });
+
     checkActiveElement($(".LYAF-option-active"))
     showMenu($(".LYAF-option-active").parent().parent())
 
@@ -85,14 +100,12 @@ const deactiveMenu = (element) => {
 const showMenu = (element) => {
     $(element).find(".LYAF-menu-header .end").css("transform","rotate(90deg)")
     $(element).find(".LYAF-menu-content").slideDown()
-    activeMenu(element)
-
 }
 
 const hideMenu = (element) => {
     $(element).find(".LYAF-menu-header .end").css("transform","rotate(0deg)")
     $(element).find(".LYAF-menu-content").slideUp()
-    deactiveMenu(element)
+    // deactiveMenu(element)
 }
 
 const tongleMenu = (element) => {
@@ -107,9 +120,11 @@ const tongleMenu = (element) => {
                     $(i).removeClass("LYAF-menu-active")
                 }
                 hideMenu(i)
+                deactiveMenu(i)
             }
             $(element).addClass("LYAF-menu-active")
             showMenu(element)
+            activeMenu(element)
         }else{
             $(element).removeClass("LYAF-menu-active")
             hideMenu(element)
