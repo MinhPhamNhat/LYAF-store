@@ -11,7 +11,7 @@ $(document).ready(()=>{
         cover       : true,
 		heightRatio : 0.5,
     }).mount();
-    
+
     tinymce.init({
         height      : "300",
         selector    : 'textarea',
@@ -36,6 +36,30 @@ $(document).ready(()=>{
                 }
             }
         }
+    })
+
+    $(".LYAF-dasboard-body .LYAF-dashboard-block i").hover( function(){
+        if (!$(this).find(".LYAF-tooltip").is(':visible'))
+        $(this).find(".LYAF-tooltip").fadeIn(200)
+    }, function(){
+        if ($(this).find(".LYAF-tooltip").is(':visible'))
+        $(this).find(".LYAF-tooltip").fadeOut(200)
+    })
+
+    $(".LYAF-menu").hover(function(){
+        activeMenu($(this))
+    }, function(){
+        deactiveMenu($(this))
+    })
+
+    $(".LYAF-menu-option").hover(function(){
+        activeOption($(this))
+    }, function(){
+        deactiveOption($(this))
+    })
+
+    $(".LYAF-menu-header").click(function(){
+        tongleMenu($(this))
     })
 })
 
