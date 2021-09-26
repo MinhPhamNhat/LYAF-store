@@ -2,15 +2,36 @@
 //Remove header:
 const LYAF_header = document.querySelector('.LYAF-header');
 LYAF_header.classList.add('none');
-//
+
 $(document).ready(()=>{
-    new Splide( '#image-slider',{
-        width       : 600,
-        trimSpace   : false,
-        perPage     : 2,
-        cover       : true,
-		heightRatio : 0.5,
-    }).mount();
+    // new Splide( '#image-slider',{
+    //     width       : 500,
+    //     trimSpace   : false,
+    //     perPage     : 2,
+    //     cover       : true,
+	// 	heightRatio : 0.5,
+    // }).mount();
+    var drake = dragula([document.querySelector('.LYAF-preview-list'),document.querySelector('.LYAF-remove-list')], {revertOnSpill: false});
+
+    
+    drake.on('drop', function(el, target, source, sibling){
+        console.log(1)
+        $(".LYAF-preview-container .info").html(`${$(".LYAF-preview-list .LYAF-image-preview").length} images`)
+        $(".LYAF-remove-container .info").html(`${$(".LYAF-remove-list .LYAF-image-preview").length} images`)
+    });
+
+    var scroll = autoScroll([
+        window,
+        document.querySelector('.LYAF-preview-list'),
+        document.querySelector('.LYAF-remove-list'),
+    ],{
+    margin: 100,
+    maxSpeed : 6,
+    scrollWhenOutside: true,
+    autoScroll: function(){
+        return this.down && drake.dragging;
+    }
+    });
 
     tinymce.init({
         height      : "300",
@@ -19,9 +40,16 @@ $(document).ready(()=>{
         toolbar_mode: 'floating',
      });
 
-    checkActiveElement($(".LYAF-option-active"))
-    showMenu($(".LYAF-option-active").parent().parent())
 
+    checkActiveElement($(".LYAF-option-active"))
+    hideSidebars()
+    hideMenu($(".LYAF-menu-active"))
+    for (i of $(".LYAF-menu-active")){
+        if (!$(i).find(".LYAF-menu-content .LYAF-option-active").hasClass("LYAF-option-active")){
+            $(i).removeClass("LYAF-menu-active")
+            deactiveMenu(i)
+        }
+    }
     $(".LYAF-side-bar-header i").on("click", () => {
         if ($(".LYAF-side-bar-header i").hasClass("fa-bars")){
             showSidebars()
@@ -39,11 +67,11 @@ $(document).ready(()=>{
     })
 
     $(".LYAF-dasboard-body .LYAF-dashboard-block i").hover( function(){
-        if (!$(this).find(".LYAF-tooltip").is(':visible'))
-        $(this).find(".LYAF-tooltip").fadeIn(200)
+        if (!$(this).parent().find(".LYAF-tooltip").is(':visible'))
+        $(this).parent().find(".LYAF-tooltip").fadeIn(200)
     }, function(){
-        if ($(this).find(".LYAF-tooltip").is(':visible'))
-        $(this).find(".LYAF-tooltip").fadeOut(200)
+        if ($(this).parent().find(".LYAF-tooltip").is(':visible'))
+        $(this).parent().find(".LYAF-tooltip").fadeOut(200)
     })
 
     $(".LYAF-menu").hover(function(){
@@ -61,23 +89,48 @@ $(document).ready(()=>{
     $(".LYAF-menu-header").click(function(){
         tongleMenu($(this))
     })
+
+    $(".image-upload").change(function () {
+        var files = $(".image-upload")[0].files
+        
+        for (f of files){
+            if (f) {
+                $(".LYAF-preview-list").append(`
+                    <div class="LYAF-image-preview">
+                        <img src="${URL.createObjectURL(f)}" height="auto" width="100">
+                        <span>${f.name}</span>
+                    </div>
+                `)
+            }
+        }
+        $(".LYAF-preview-container .info").html(`${$(".LYAF-preview-list .LYAF-image-preview").length} images`)
+    })
+
+    $(".remove-image").click(()=>{
+        $(".LYAF-remove-container .LYAF-image-preview").remove()
+        $(".LYAF-remove-container .info").html(`${$(".LYAF-remove-list .LYAF-image-preview").length} images`)
+    })
 })
 
 const showSidebars = () => {
     $(".LYAF-side-bar").css("left","0")
     $(".LYAF-side-bar-menu .LYAF-menu .LYAF-menu-header .icon").css("left","0")
+    $(".LYAF-dasboard-body").css("left","180px")
 
+    $(".LYAF-side-bar-menu .LYAF-menu .LYAF-menu-header .icon").css("left","0")
     $(".LYAF-side-bar-menu .LYAF-menu .end").fadeIn(500)
     $(".LYAF-side-bar-menu .LYAF-menu .title").fadeIn(500)
 
     $(".LYAF-side-bar-header i").addClass("fas fa-window-close")
     $(".LYAF-side-bar-header i").removeClass("fas fa-bars")
     $(".LYAF-side-bar-header i").addClass("fas fa-window-close")
+    
 }
 
 const hideSidebars = () => {
     $(".LYAF-side-bar").css("left","-180px")
     $(".LYAF-side-bar-menu .LYAF-menu .LYAF-menu-header .icon").css("left","180px")
+    $(".LYAF-dasboard-body").css("left","0")
 
     $(".LYAF-side-bar-menu .LYAF-menu .end").fadeOut(100)
     $(".LYAF-side-bar-menu .LYAF-menu .title").fadeOut(100)

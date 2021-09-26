@@ -23,7 +23,7 @@
     z-index: 10;
     width: 250px;
     height: 100%;
-    left: 0;
+    left: -180px;
     top: 0;
     position: fixed;
     background-color: #1E1E2D;
@@ -108,8 +108,11 @@
 }
 
 .LYAF-dasboard-body{
+    position: relative;
+    left: 0;
     padding-left: 70px;
     background-color: #F5F8FA;
+    transition: 0.5s;
 }
 
 .LYAF-dasboard-body .LYAF-dashboard-header{
@@ -173,13 +176,19 @@
     border-radius: 10px;
     color: rgb(100, 100, 100);
 }
+
+.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-image-input{
+    display: flex;
+    flex-direction: row;
+}
+
 .LYAF-dasboard-body .LYAF-dashboard-block .insert-image{
     display: block;
     position: relative;
     height: 100%;
     width: 100%;
 }
-.LYAF-dasboard-body .LYAF-dashboard-block .insert-image input{
+.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-preview-wrapper .image-upload{
     z-index: 3;
     height: 100%;
     width: 100%;
@@ -205,16 +214,6 @@
     background-repeat: no-repeat;
     cursor: pointer;
     text-align: center;
-}
-
-.LYAF-dasboard-body .LYAF-dashboard-block .remove-image i{
-    font-size: 20px;
-    margin: 5px;
-    float: right;
-    transition: 0.3s;
-}
-.LYAF-dasboard-body .LYAF-dashboard-block .remove-image i:hover{
-    font-size: 30px;
 }
 
 .LYAF-dasboard-body .LYAF-dashboard-block .LYAF-product-name,
@@ -246,4 +245,86 @@
     border: #1E1E2D;
     background-color: #b8b8b8;
     display: none;
+}
+
+.LYAF-preview-wrapper {
+    display:flex;
+    flex-direction: row;
+    width: 800px;
+}
+
+.LYAF-preview-wrapper .list-title{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.LYAF-preview-wrapper .list-title .title-info{
+    display:flex;
+    flex-direction: column;
+}
+
+.LYAF-preview-wrapper .list-title .title{
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.LYAF-preview-wrapper .list-title .info{
+    font-size: 13px;
+    color: #b8b8b8;
+}
+
+.LYAF-preview-wrapper .list-title .add-image,
+.LYAF-preview-wrapper .list-title .remove-image{
+    position: relative;
+    font-size: 11px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: fit-content;
+    margin-right: 10px;
+    border-radius: 10px;
+    background-color: #e0e0e0;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.LYAF-preview-wrapper .list-title .add-image:hover,
+.LYAF-preview-wrapper .list-title .remove-image:hover{
+    background-color: rgb(187, 187, 187)
+}
+
+
+.LYAF-preview-wrapper .LYAF-image-preview{
+    touch-action: none;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    align-items: center;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+.LYAF-preview-wrapper .LYAF-image-preview:nth-child(even){
+    background-color: #e0e0e0;
+}
+
+.LYAF-preview-wrapper .LYAF-image-preview img{
+    width: 100px;
+    margin-right: 20px;
+}
+
+.LYAF-preview-container,
+.LYAF-remove-container{
+    margin-right: 40px;
+    width: 50%;
+}
+
+.LYAF-preview-list,
+.LYAF-remove-list{
+    height: 400px;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
