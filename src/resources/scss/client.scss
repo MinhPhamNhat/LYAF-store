@@ -17,25 +17,25 @@
     background:rgba(138, 133, 133, 0.419);
     color: white;
   /* Center slide text vertically */
-//   display: -webkit-box;
-//   display: -ms-flexbox;
-//   display: -webkit-flex;
-//   display: flex;
-//   -webkit-box-pack: center;
-//   -ms-flex-pack: center;
-//   -webkit-justify-content: center;
-//   justify-content: center;
-//   -webkit-box-align: center;
-//   -ms-flex-align: center;
-//   -webkit-align-items: center;
-//   align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
 }
 
 .swiper-slide img {
   display: block;
-  width: 100%;
-  height: 420px;
-  object-fit: contain;
+  width: 2000px;
+  height: 480px;
+  object-fit: fill;
 }
 
 .swiper-button-next, .swiper-button-prev{
@@ -45,4 +45,13 @@
 }
 .swiper-button-prev{
     transform: rotate(180deg);
+}
+
+.swiper-pagination-bullet{
+    width: 15px;
+    height: 15px;
+}
+.swiper-pagination-bullet-active {
+    background: rgb(16,0,255);
+    background: linear-gradient(149deg, rgba(16,0,255,1) 37%, rgba(239,0,246,1) 58%);
 }
