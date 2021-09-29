@@ -4,6 +4,7 @@ const LYAF_header = document.querySelector('.LYAF-header');
 LYAF_header.classList.add('none');
 
 $(document).ready(()=>{
+    console.log(1)
     // new Splide( '#image-slider',{
     //     width       : 500,
     //     trimSpace   : false,
@@ -23,7 +24,7 @@ $(document).ready(()=>{
     var scroll = autoScroll([
         window,
         document.querySelector('.LYAF-preview-list'),
-        document.querySelector('.LYAF-remove-list'),
+        // document.querySelector('.LYAF-remove-list'),
     ],{
     margin: 100,
     maxSpeed : 6,
@@ -50,7 +51,7 @@ $(document).ready(()=>{
             deactiveMenu(i)
         }
     }
-    $(".LYAF-side-bar-header i").on("click", () => {
+    $(".LYAF-side-bar-header i").click(() => {
         if ($(".LYAF-side-bar-header i").hasClass("fa-bars")){
             showSidebars()
             showMenu($(".LYAF-option-active").parent().parent())
@@ -61,6 +62,22 @@ $(document).ready(()=>{
                 if (!$(i).find(".LYAF-menu-content .LYAF-option-active").hasClass("LYAF-option-active")){
                     $(i).removeClass("LYAF-menu-active")
                     deactiveMenu(i)
+                }
+            }
+        }
+    })
+    
+    $(document).click((e)=>{
+        var $target = $(e.target);
+        if(!$target.closest('.LYAF-side-bar').length) {
+            if ($(".LYAF-side-bar-header i").hasClass("fa-window-close")){
+                hideSidebars()
+                hideMenu($(".LYAF-menu-active"))
+                for (i of $(".LYAF-menu-active")){
+                    if (!$(i).find(".LYAF-menu-content .LYAF-option-active").hasClass("LYAF-option-active")){
+                        $(i).removeClass("LYAF-menu-active")
+                        deactiveMenu(i)
+                    }
                 }
             }
         }
@@ -95,20 +112,39 @@ $(document).ready(()=>{
         
         for (f of files){
             if (f) {
-                $(".LYAF-preview-list").append(`
+                $(".LYAF-preview-list").prepend(`
                     <div class="LYAF-image-preview">
                         <img src="${URL.createObjectURL(f)}" height="auto" width="100">
-                        <span>${f.name}</span>
+                        <span class="image-name">${f.name}</span>
+                        <span class="remove-image-btn"><i class="fa fa-trash"></i></span>
                     </div>
                 `)
             }
         }
         $(".LYAF-preview-container .info").html(`${$(".LYAF-preview-list .LYAF-image-preview").length} images`)
+        $(".image-upload").val(null)
     })
 
     $(".remove-image").click(()=>{
         $(".LYAF-remove-container .LYAF-image-preview").remove()
         $(".LYAF-remove-container .info").html(`${$(".LYAF-remove-list .LYAF-image-preview").length} images`)
+    })
+
+    $(document).on('click',".remove-image-btn",function (){
+        $(this).parent().find(".image-name")
+    })
+
+    $(".thumbnail-upload-holder input").change(function (){
+        var currentParent = $(this).parent()
+        var file = currentParent.find("input")[0].files[0]
+        console.log(currentParent.find("#thumbnail-preview"))
+        currentParent.find("p").hide()
+        currentParent.find("input").hide()
+        currentParent.find("#thumbnail-preview")[0].src = URL.createObjectURL(file)
+        currentParent.find("#thumbnail-preview")[0].onload = function() {
+            URL.revokeObjectURL(currentParent.find("#thumbnail-preview")[0].src) // free memory
+          }
+        currentParent.find("#thumbnail-preview").show();
     })
 })
 

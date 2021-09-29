@@ -18,7 +18,9 @@
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(20, 20, 46); 
   }
-
+.LYAF-block-content .col{
+    padding: 0;
+}
 .LYAF-side-bar{
     z-index: 10;
     width: 250px;
@@ -177,7 +179,7 @@
     color: rgb(100, 100, 100);
 }
 
-.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-image-input{
+.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-product-image{
     display: flex;
     flex-direction: row;
 }
@@ -187,33 +189,6 @@
     position: relative;
     height: 100%;
     width: 100%;
-}
-.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-preview-wrapper .image-upload{
-    z-index: 3;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.LYAF-dasboard-body .LYAF-dashboard-block .insert-image .image-upload-holder {
-    position: absolute;
-    left: 0;
-    top: 0;
-    border-radius: 10px;
-    z-index: 2;
-    padding-top: 10px;
-    height: 100%;
-    width: 100%;
-    border: 2px dashed #cbd9ca;
-    background-color: #f0f6f2;
-    background-image: url(https://file4.batdongsan.com.vn/images/opt/bg-upload-image.png);
-    background-position: center center;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    text-align: center;
 }
 
 .LYAF-dasboard-body .LYAF-dashboard-block .LYAF-product-name,
@@ -247,6 +222,17 @@
     display: none;
 }
 
+.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-preview-wrapper .image-upload{
+    z-index: 3;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+}
+
 .LYAF-preview-wrapper {
     display:flex;
     flex-direction: row;
@@ -274,9 +260,7 @@
     font-size: 13px;
     color: #b8b8b8;
 }
-
-.LYAF-preview-wrapper .list-title .add-image,
-.LYAF-preview-wrapper .list-title .remove-image{
+.LYAF-preview-wrapper .list-title .add-image{
     position: relative;
     font-size: 11px;
     padding: 10px;
@@ -290,9 +274,13 @@
     cursor: pointer;
 }
 
+.LYAF-preview-wrapper .list-title .add-image *{
+    cursor: pointer;
+}
+
 .LYAF-preview-wrapper .list-title .add-image:hover,
 .LYAF-preview-wrapper .list-title .remove-image:hover{
-    background-color: rgb(187, 187, 187)
+    background-color: rgb(187, 187, 187);
 }
 
 
@@ -303,8 +291,19 @@
     padding: 10px;
     align-items: center;
     margin: 10px;
-    transition: 0.3s;
+    animation: move 0.5s ease-out;
 }
+
+@-webkit-keyframes move {
+    0% {margin-top: 42px;}
+   100% {margin-top: 2px;}
+}
+
+@keyframes move {
+    0% {margin-top: 42px;}
+   100% {margin-top: 2px;}
+}
+
 
 .LYAF-preview-wrapper .LYAF-image-preview:nth-child(even){
     background-color: #e0e0e0;
@@ -315,10 +314,45 @@
     margin-right: 20px;
 }
 
+.LYAF-preview-wrapper .LYAF-image-preview .image-name{
+    width: 80%;
+}
+
+.LYAF-preview-wrapper .LYAF-image-preview .remove-image-btn i{
+    width: 20%;
+    font-size: 15px;
+    transition: 0.2s ease-out;
+}
+
+.LYAF-preview-wrapper .LYAF-image-preview .remove-image-btn{
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 10px;
+    display: block;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.LYAF-preview-wrapper .LYAF-image-preview .remove-image-btn:hover{
+    background-color: #b8b8b8;
+}
+
+#hr-in-image-supplement{
+    display:none;
+    height:1px; 
+    width:100%; 
+    border-width:0; 
+    color:rgb(214, 214, 214); 
+    background-color:rgb(214, 214, 214)
+}
+.LYAF-preview-wrapper .LYAF-image-preview .image-name {
+    font-size: 13px;
+  }
+
 .LYAF-preview-container,
 .LYAF-remove-container{
-    margin-right: 40px;
-    width: 50%;
+    width: 100%;
 }
 
 .LYAF-preview-list,
@@ -328,3 +362,97 @@
     overflow-y: scroll;
     overflow-x: hidden;
 }
+
+.LYAF-thumbnail-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.LYAF-thumbnail-input .thumbnail-upload-holder {
+    cursor: pointer;
+    height: 300px;
+    width: 270px;
+    border: 2px dashed #cbd9ca;
+    border-radius: 10px;
+    background-color: #f0f6f2;
+    background-image: url(https://file4.batdongsan.com.vn/images/opt/bg-upload-image.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    margin: 20px;
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+}
+
+// .LYAF-dasboard-body .LYAF-dashboard-block .insert-image .image-upload-holder {
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     border-radius: 10px;
+//     z-index: 2;
+//     padding-top: 10px;
+//     height: 100%;
+//     width: 100%;
+//     border: 2px dashed #cbd9ca;
+//     background-color: #f0f6f2;
+//     background-image: url(https://file4.batdongsan.com.vn/images/opt/bg-upload-image.png);
+//     background-position: center center;
+//     background-repeat: no-repeat;
+//     cursor: pointer;
+//     text-align: center;
+// }
+.LYAF-thumbnail-input .thumbnail-upload-holder  input{
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+}
+
+.LYAF-thumbnail-input .thumbnail-upload-holder  img{
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: none;
+}
+
+.LYAF-thumbnail-input .thumbnail-upload-holder p {
+    position: absolute;
+    bottom: 50px;
+    cursor: pointer;
+    
+}
+
+
+
+
+@media only screen and (max-width: 620px) {
+    /* For mobile phones: */
+    .LYAF-preview-wrapper .LYAF-image-preview img {
+      width: 50px;
+      height: auto;
+    }
+    
+    #hr-in-image-supplement{
+        display:block;
+    }
+
+    .LYAF-thumbnail-input {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .LYAF-thumbnail-input .thumbnail-upload-holder{
+        width: 100%;
+        height: 270px;
+    }
+    .LYAF-thumbnail-input .thumbnail-upload-holder  img{
+        width: 100%;
+        height: auto;
+    }
+  }

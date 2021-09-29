@@ -24,6 +24,9 @@
 .LYAF-navbar {
   padding: 15px; }
 
+.LYAF-header-dropdown:hover {
+  color: white; }
+
 .LYAF-header-dropdown .LYAF-product-dropdown {
   display: flex;
   flex-wrap: wrap;
@@ -34,6 +37,9 @@
   font-size: 13px;
   margin-left: 10px;
   color: darkgray; }
+
+.LYAF-header-dropdown .nav-link:hover {
+  color: white; }
 
 .LYAF-header-dropdown .dropdown-item:hover {
   background-color: transparent;
