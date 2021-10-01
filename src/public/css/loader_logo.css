@@ -35,6 +35,9 @@
     text-shadow: none; }
   90% {
     color: #ffff00;
+    text-shadow: 0 0 8px #fff900, 0 0 30px #fff900, 0 0 60px #fff900; }
+  100% {
+    color: #ffff00;
     text-shadow: 0 0 8px #fff900, 0 0 30px #fff900, 0 0 60px #fff900; } }
 
 .loader li:nth-child(1) {

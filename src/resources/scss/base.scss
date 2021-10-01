@@ -27,6 +27,188 @@ i{
 //     }
 // }
 
+.newPro__logo{
+    height: 100px;
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.newPro__logo img{
+    width: 80px;
+    height: 80px;
+    object-fit: fill;
+}
+
+.newPro__logo span{
+    font-size:200%;
+    font-weight: 700;
+    margin-top: 20px;
+    background: #756D75;
+    background: -webkit-linear-gradient(to top, #756D75 50%, #000000 0%);
+    background: -moz-linear-gradient(to top, #756D75 50%, #000000 0%);
+    background: linear-gradient(to top, #756D75 50%, #000000 0%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.grid{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.grid__item{
+    width: 20%;
+    padding: 0 10px;
+    margin-top: 30px;
+}
+
+.product{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 6px 1px rgba(120,120,120,1); 
+    box-shadow: 0px 0px 6px 1px rgba(120,120,120,1);
+    cursor: pointer;
+    position: relative;
+}
+.product::before{
+    content: " ";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgb(16,0,255);
+    background: linear-gradient(149deg, rgba(16,0,255,1) 37%, rgba(239,0,246,1) 58%);
+    border-radius: 5px;
+    // visibility:hidden;
+    // opacity:0;
+    // transition:visibility 0.3s linear,opacity 0.3s linear;
+    transform: scaleY(0);
+    transition: transform 0.3s;
+    transform-origin: top;
+   
+}
+
+.product::after{
+    content: "Xem Chi Tiết ";
+    text-align: center;
+    width: 60%;
+    height: 50px;
+    position: absolute;
+    top:50%;
+    margin-top: -50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: radial-gradient(circle at 100% 100%, transparent 21px, #d50000 21px, #d50000 24px, transparent 24px), linear-gradient(to right, #d50000, #304ffe), radial-gradient(circle at 0% 100%, transparent 21px, #304ffe 21px, #304ffe 24px, transparent 24px), linear-gradient(to bottom, #304ffe, #00bfa5), radial-gradient(circle at 0% 0%, transparent 21px, #00bfa5 21px, #00bfa5 24px, transparent 24px), linear-gradient(to left, #00bfa5, #ffd600), radial-gradient(circle at 100% 0%, transparent 21px, #ffd600 21px, #ffd600 24px, transparent 24px), linear-gradient(to top, #ffd600, #d50000);
+    background-size: 24px 24px, calc(100% - 48px) 3px, 24px 24px, 3px calc(100% - 48px);
+    background-position: top left,top center,top right,center right, bottom right,bottom center,bottom left,center left;
+    background-repeat: no-repeat;
+    color: white;
+    font-weight: 600;
+    visibility:hidden;
+    opacity:0;
+    transition:visibility 0.3s linear,opacity 0.3s linear;
+}    
+
+.product:hover::before{
+    // visibility:visible;
+    // opacity:1;
+    transform: scaleY(1);
+}
+.product:hover::after{
+    visibility:visible;
+    opacity:1;
+}
+.product__avatar{
+    width:100% ;
+    height: 75%;
+}
+
+.product__avatar--img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 5px 5px 0 0;
+}
+
+.product__detail{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 5px;
+    margin-top: 10px;
+}
+.product_detail--sub1{
+    text-align: center;
+    font-size: 100%;
+    display: inline-block;
+    font-weight: 780;
+}
+
+.product_detail--sub2{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    font-size: 100%;
+    font-weight: 800;
+    margin-top: 5px;
+}
+.product_detail--price{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items: flex-start;
+}
+
+.new__price, .appreciate__value{
+    background: #121FCF;
+    background: -webkit-radial-gradient(circle farthest-corner at center center, #121FCF 13%, #CF1512 100%);
+    background: -moz-radial-gradient(circle farthest-corner at center center, #121FCF 13%, #CF1512 100%);
+    background: radial-gradient(circle farthest-corner at center center, #121FCF 13%, #CF1512 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.appreciate i{
+    color: rgb(228, 228, 17);
+}
+.old__price{
+    text-decoration: line-through;
+    color:rgb(177, 168, 168);
+    font-weight: 700;
+}
+@media only screen and (max-width: 1100px) {
+    
+    .grid__item{
+        width: 25%;
+        padding: 0 10px;
+        margin-top: 10px;
+    }
+    
+  }
+
+  @media only screen and (max-width: 975px) {
+    
+    .grid__item{
+        width: 50%;
+        padding: 0 10px;
+        margin-top: 10px;
+    }
+    
+  }
 //display:
 
 .show{
