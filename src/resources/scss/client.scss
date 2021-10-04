@@ -82,22 +82,36 @@
     cursor: pointer;
     position: relative;
 }
-.product::before{
-    content:" ";
+
+.slideDownBg{
     width: 100%;
     height: 100%;
     position: absolute;
-    background-image: url("../img/sp1.jpg");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    border-radius: 5px;
-    // visibility:hidden;
-    // opacity:0;
-    // transition:visibility 0.3s linear,opacity 0.3s linear;
     transform: scaleY(0);
-    transition: transform 0.3s;
-    transform-origin: top;
+    transition: all .45s ease-in-out;
+    transform-origin:top;
 }
+.slideDownBg img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+// .product::before{
+//     content:" ";
+//     width: 100%;
+//     height: 100%;
+//     position: absolute;
+//     background-image: url("../img/sp1.jpg");
+//     background-size: 100% 75%;
+//     background-repeat: no-repeat;
+//     border-radius: 5px;
+//     // visibility:hidden;
+//     // opacity:0;
+//     // transition:visibility 0.3s linear,opacity 0.3s linear;
+//     transform: scaleY(0);
+//     transition: transform 0.3s;
+//     transform-origin: top;
+// }
 
 .product::after{
     content: "Xem Chi Tiết ";
@@ -121,19 +135,23 @@
     transition:visibility 0.3s linear,opacity 0.3s linear;
     z-index: 2;
 }    
-
-.product:hover::before{
-    // visibility:visible;
-    // opacity:1;
+.product:hover .slideDownBg{
     transform: scaleY(1);
 }
+// .product:hover::before{
+//     // visibility:visible;
+//     // opacity:1;
+//     transform: scaleY(1);
+// }
+
 .product:hover::after{
     visibility:visible;
     opacity:1;
 }
 .product__avatar{
     width:100% ;
-    height: 75%;
+    height: 65%;
+    transition: height 0.3s ease-in;
 }
 
 .product__avatar--img{
@@ -282,11 +300,12 @@
     background-color: #CF1512;
     position: fixed;
     right: 10px;
-    bottom: 30%;
+    bottom: 23%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    z-index: 3;
 }
 
 .scrolltotop span{

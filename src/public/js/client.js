@@ -63,3 +63,5 @@ var swiper = new Swiper(".sale_product--swiper", {
     prevEl: ".swiper-button-prev",
   },
 });
+
+//Event in product
