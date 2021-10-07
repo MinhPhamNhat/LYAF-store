@@ -354,6 +354,50 @@
   bottom: 50px;
   cursor: pointer; }
 
+.LYAF-category-holder {
+  position: relative; }
+
+.LYAF-advanced-select .LYAF-advanced-option:first-child {
+  border-radius: 10px 10px 0 0; }
+
+.LYAF-select-category {
+  background-color: #fcfcfc;
+  display: none;
+  border: 1px solid #b8b8b8;
+  border-radius: 10px;
+  position: absolute;
+  width: 200px; }
+
+.LYAF-select-category hr {
+  margin: 0; }
+
+.LYAF-select-category #cancel-option {
+  text-align: center;
+  color: cornflowerblue;
+  cursor: pointer; }
+
+.LYAF-category-selected .product-category {
+  display: flex;
+  flex-direction: row; }
+
+.LYAF-category-selected span i {
+  margin-left: 10px;
+  margin-right: 10px; }
+
+.LYAF-category-selected span:hover {
+  color: #005499;
+  cursor: pointer; }
+
+.LYAF-advanced-select .LYAF-advanced-option {
+  padding: 10px;
+  cursor: pointer; }
+
+.LYAF-advanced-select .LYAF-advanced-option i {
+  margin-right: 10px; }
+
+.LYAF-advanced-select .LYAF-advanced-option:hover {
+  background-color: #d6d6d6; }
+
 @media only screen and (max-width: 620px) {
   /* For mobile phones: */
   .LYAF-preview-wrapper .LYAF-image-preview img {
