@@ -66,7 +66,7 @@ var swiper = new Swiper(".sale_product--swiper", {
 //Load Page in the fisrt access:
 $(document).ready(() =>{
   $(window).on("load", function () {
-    $(".loader_box").css("display", "flex")
+    // $(".loader_box").css("display", "flex")
   });
 });
 

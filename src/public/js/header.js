@@ -1,7 +1,15 @@
 //Edit Header:
 $(document).ready(()=>{
-    $("#btn-dropdown").on('click', () =>{
-        $("#dropdown-action").toggle()
+    $(".LYAF-header-dropdown").hover(() =>{
+        if (!$("#dropdown-action").is(':visible')){
+            $("#dropdown-action").show(100)
+            $(".LYAF-header-dropdown #btn-dropdown").css("color", "black")
+        }
+    },function() {
+        if ($("#dropdown-action").is(':visible')){
+            $("#dropdown-action").hide(100)
+            $(".LYAF-header-dropdown #btn-dropdown").css("color", "white")
+        }
     })
   
     $(".LYAF-header-search").on('click', () => {

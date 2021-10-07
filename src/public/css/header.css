@@ -15,7 +15,13 @@
   max-height: 100%;
   margin-right: 0; }
 
-.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link {
+#navbarNavDropdown .nav-item.active {
+  background-color: white; }
+
+.navbar-light .navbar-nav .nav-link.active {
+  color: black; }
+
+.navbar-light .navbar-nav .nav-link {
   color: white; }
 
 .font-weight-bold {
@@ -23,9 +29,6 @@
 
 .LYAF-navbar {
   padding: 15px; }
-
-.LYAF-header-dropdown:hover {
-  color: white; }
 
 .LYAF-header-dropdown #dropdown-action {
   z-index: 10; }
@@ -40,6 +43,9 @@
   font-size: 13px;
   margin-left: 10px;
   color: darkgray; }
+
+#navbarNavDropdown .nav-item:hover {
+  background-color: white; }
 
 .LYAF-header-dropdown .nav-link:hover {
   color: white; }
@@ -62,33 +68,20 @@
 .LYAF-header-right div {
   margin: 5px; }
 
-.LYAF-header-right .fa-user-circle:hover {
-  color: #5a0856;
-  cursor: pointer; }
-
 .LYAF-header-right .LYAF-header-cart {
   position: relative;
   cursor: pointer; }
 
-.LYAF-header-right .LYAF-header-cart:hover {
-  color: #08325a; }
-
 .LYAF-header-right .LYAF-header-cart .LYAF-no-products {
   position: absolute;
-  left: 15px;
-  top: 2px;
+  left: 10px;
+  top: 4px;
   color: #0c0707;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 15px; }
 
 .LYAF-header-right .LYAF-header-search, .LYAF-header-cart, .LYAF-header-account {
   cursor: pointer;
-  color: white; }
-
-.LYAF-header-right .LYAF-header-search:hover {
-  color: #5a0856; }
-
-.LYAF-header-right .LYAF-header-cart:hover .LYAF-no-products {
   color: white; }
 
 .shake:hover {
