@@ -3,8 +3,155 @@
 const LYAF_header = document.querySelector('.LYAF-header');
 LYAF_header.classList.add('none');
 
+var currentInput = {
+    name: '',
+    desc: '',
+    price: null,
+    category: null,
+    productID: null,
+    color: null,
+    size: null,
+    images: null,
+    thumbnails: null,
+}
+
+const categoryList = [
+    {
+        name: "Áo",
+        categoryID: "A",
+        child: [
+            {
+                name: "Áo Thun",
+                categoryID: "AT",
+                parent: "A",
+            },
+            {
+                name: "Áo Sơ mi",
+                categoryID: "ASM",
+                parent: "A",
+            },
+            {
+                name: "Áo khoác",
+                categoryID: "AK",
+                parent: "A",
+            },
+            {
+                name: "Áo Hoodie",
+                categoryID: "AH",
+                parent: "A",
+            },
+            {
+                name: "Áo len",
+                categoryID: "AL",
+                parent: "A",
+            },
+            {
+                name: "Áo polo",
+                categoryID: "AP",
+                parent: "A",
+            }
+        ]
+    },
+    {
+        name: "Quần",
+        categoryID: "Q",
+        child: [
+            {
+                name: "Quần jean",
+                categoryID: "QJ",
+                parent: "Q",
+            },
+            {
+                name: "Quần tây",
+                categoryID: "QT",
+                parent: "Q",
+            },
+            {
+                name: "Quần short",
+                categoryID: "QS",
+                parent: "Q",
+            }
+        ]
+    },
+    {
+        name: "Giày, dép",
+        categoryID: "GD",
+        child: [
+            {
+                name: "Giày sandal",
+                categoryID: "GS",
+                parent: "GD",
+            },
+            {
+                name: "Giày thể thao",
+                categoryID: "GT",
+                parent: "GD",
+            },
+            {
+                name: "Dép kẹp",
+                categoryID: "DK",
+                parent: "GD",
+            }
+        ]
+    }
+]
 $(document).ready(()=>{
-    console.log(1)
+
+    if ($(".LYAF-advanced-select")){
+        categoryList.forEach(_ => $(".LYAF-advanced-select").append(`
+            <div class="LYAF-advanced-option" data-action="to" data-id="${_.categoryID}">${_.name}</div>
+        `))
+        
+        $("#cancel-option").click(()=>{
+            $(".LYAF-select-category").hide(300)
+        })
+
+        $(document).on('click', '.LYAF-category-selected .product-category span', function(){
+            var categoryParent = categoryList.find(_ => _.categoryID === this.dataset.parent)
+            if (categoryParent){
+                $(".LYAF-advanced-option").remove()
+                categoryParent.child.forEach(_ => $(".LYAF-advanced-select").append(`
+                    <div class="LYAF-advanced-option" data-parent="${categoryParent.categoryID}" data-id="${_.categoryID}">${_.name}</div>
+                `))
+            }else{
+                $(".LYAF-advanced-option").remove()
+                categoryList.forEach(_ => $(".LYAF-advanced-select").append(`
+                    <div class="LYAF-advanced-option" data-id="${_.categoryID}">${_.name}</div>
+                `))
+            }
+            if (!$(".LYAF-select-category").is(':visible')){
+                $(".LYAF-select-category").show(300)
+            }
+        })
+
+        $(document).on('click','.LYAF-advanced-option',function(){
+            var category = this.dataset
+            if (category.parent){
+                var currentCategory = categoryList.find(_ => _.categoryID === category.parent);
+                currentCategory = currentCategory.child.find(_ => _.categoryID === category.id);
+            }else{
+                var currentCategory = categoryList.find(_ => _.categoryID === category.id);
+            }
+            if (currentCategory.child){
+                $(".LYAF-advanced-option").remove()
+                currentCategory.child.forEach(_ => $(".LYAF-advanced-select").append(`
+                    <div class="LYAF-advanced-option" data-parent="${currentCategory.categoryID}" data-id="${_.categoryID}">${_.name}</div>
+                `))
+                $(".LYAF-category-selected .product-category span").remove()
+            }else{
+                $(".LYAF-select-category").hide(300)
+            }
+            if ($(".LYAF-category-selected .product-category span").length > 1){
+                $(".LYAF-category-selected .product-category span")[$(".LYAF-category-selected .product-category span").length - 1].remove()
+            }
+            $(`<span ${category.parent?`data-parent="${category.parent}"`:""}> ${currentCategory.name} <i class="fas fa-chevron-right"></i></span>`).insertBefore(".LYAF-category-selected .product-category .product-name")
+        })
+    }
+    
+    $(".LYAF-product-name input").on('input',()=>{
+        $('.product-name').html($(".LYAF-product-name input").val())
+    })
+
     // new Splide( '#image-slider',{
     //     width       : 500,
     //     trimSpace   : false,
@@ -12,28 +159,30 @@ $(document).ready(()=>{
     //     cover       : true,
 	// 	heightRatio : 0.5,
     // }).mount();
-    var drake = dragula([document.querySelector('.LYAF-preview-list'),document.querySelector('.LYAF-remove-list')], {revertOnSpill: false});
+    if (document.querySelector('.LYAF-preview-list')){
+        var drake = dragula([document.querySelector('.LYAF-preview-list'),document.querySelector('.LYAF-remove-list')], {revertOnSpill: false});
 
     
-    drake.on('drop', function(el, target, source, sibling){
-        console.log(1)
-        $(".LYAF-preview-container .info").html(`${$(".LYAF-preview-list .LYAF-image-preview").length} images`)
-        $(".LYAF-remove-container .info").html(`${$(".LYAF-remove-list .LYAF-image-preview").length} images`)
-    });
-
-    var scroll = autoScroll([
-        window,
-        document.querySelector('.LYAF-preview-list'),
-        // document.querySelector('.LYAF-remove-list'),
-    ],{
-    margin: 100,
-    maxSpeed : 6,
-    scrollWhenOutside: true,
-    autoScroll: function(){
-        return this.down && drake.dragging;
+        drake.on('drop', function(el, target, source, sibling){
+            console.log(1)
+            $(".LYAF-preview-container .info").html(`${$(".LYAF-preview-list .LYAF-image-preview").length} images`)
+            $(".LYAF-remove-container .info").html(`${$(".LYAF-remove-list .LYAF-image-preview").length} images`)
+        });
+    
+        var scroll = autoScroll([
+            window,
+            document.querySelector('.LYAF-preview-list'),
+            // document.querySelector('.LYAF-remove-list'),
+        ],{
+        margin: 100,
+        maxSpeed : 6,
+        scrollWhenOutside: true,
+        autoScroll: function(){
+            return this.down && drake.dragging;
+        }
+        });
     }
-    });
-
+    
     tinymce.init({
         height      : "300",
         selector    : 'textarea',
@@ -147,6 +296,10 @@ $(document).ready(()=>{
         currentParent.find("#thumbnail-preview").show();
     })
 })
+
+const showSelectOption = (list) => {
+    
+}
 
 const showSidebars = () => {
     $(".LYAF-side-bar").css("left","0")
