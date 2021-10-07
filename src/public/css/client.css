@@ -1,4 +1,3 @@
-@charset "UTF-8";
 .clientBody {
   width: 90%;
   position: relative;
@@ -13,7 +12,6 @@
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-  background: rgba(138, 133, 133, 0.419);
   color: white;
   /* Center slide text vertically */
   display: -webkit-box;
@@ -27,12 +25,13 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   -webkit-align-items: center;
-  align-items: center; }
+  align-items: center;
+  border-radius: 5px; }
 
 .swiper-slide .img-carousel {
   display: block;
   width: 100%;
-  height: 500px;
+  height: 550px;
   object-fit: fill; }
 
 .swiper-button-next, .swiper-button-prev {
@@ -74,23 +73,14 @@
   cursor: pointer;
   position: relative; }
 
-.slideDownBg {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  transform: scaleY(0);
-  transition: all .45s ease-in-out;
-  transform-origin: top; }
+.img_hover {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute; }
 
-.slideDownBg img {
-  width: 100%;
-  height: 100%;
-  object-fit: fill; }
-
-.product::after {
-  content: "Xem Chi Tiết ";
+.detail_toast {
   text-align: center;
-  width: 60%;
+  width: 55%;
   height: 50px;
   position: absolute;
   top: 50%;
@@ -109,21 +99,56 @@
   transition: visibility 0.3s linear,opacity 0.3s linear;
   z-index: 2; }
 
-.product:hover .slideDownBg {
-  transform: scaleY(1); }
+.detail_toast span {
+  font-size: 16px;
+  background: #F2FF3D;
+  background: -webkit-linear-gradient(to bottom, #F2FF3D 35%, #37A637 82%);
+  background: -moz-linear-gradient(to bottom, #F2FF3D 35%, #37A637 82%);
+  background: linear-gradient(to bottom, #F2FF3D 35%, #37A637 82%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; }
 
-.product:hover::after {
+.more_product_wraper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px; }
+
+.more_product {
+  text-align: center;
+  width: 110px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: radial-gradient(circle at 100% 100%, transparent -3px, #d50000 -3px, #d50000 1px, transparent 1px), linear-gradient(to right, #d50000, #304ffe), radial-gradient(circle at 0% 100%, transparent -3px, #304ffe -3px, #304ffe 1px, transparent 1px), linear-gradient(to bottom, #304ffe, #00bfa5), radial-gradient(circle at 0% 0%, transparent -3px, #00bfa5 -3px, #00bfa5 1px, transparent 1px), linear-gradient(to left, #00bfa5, #ffd600), radial-gradient(circle at 100% 0%, transparent -3px, #ffd600 -3px, #ffd600 1px, transparent 1px), linear-gradient(to top, #ffd600, #d50000);
+  background-size: 1px 1px, calc(100% - 2px) 4px, 1px 1px, 4px calc(100% - 2px);
+  background-position: top left,top center,top right,center right, bottom right,bottom center,bottom left,center left;
+  background-repeat: no-repeat;
+  color: #d50000;
+  font-weight: 600;
+  visibility: visible;
+  opacity: 1;
+  cursor: pointer; }
+
+.more_product span {
+  font-weight: 800;
+  background: #756D75;
+  background: -webkit-linear-gradient(to top, #756D75 50%, #000000 0%);
+  background: -moz-linear-gradient(to top, #756D75 50%, #000000 0%);
+  background: linear-gradient(to top, #756D75 50%, #000000 0%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; }
+
+.product:hover .detail_toast {
   visibility: visible;
   opacity: 1; }
-
-.product__avatar {
-  width: 100%;
-  height: 65%;
-  transition: height 0.3s ease-in; }
 
 .product__avatar--img {
   width: 100%;
   height: 100%;
+  max-height: 100%;
   object-fit: fill;
   border-radius: 5px 5px 0 0; }
 
@@ -175,6 +200,23 @@
   color: #b1a8a8;
   font-weight: 700; }
 
+.product__avatar {
+  width: 100%;
+  height: 65%;
+  transition: height 0.3s ease-in;
+  position: relative;
+  display: flex;
+  justify-content: center; }
+
+.pro_img_hover {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease-out; }
+
+.product:hover .pro_img_hover {
+  opacity: 1; }
+
 @media only screen and (max-width: 1100px) {
   .grid__item {
     width: 25%;
@@ -187,30 +229,107 @@
     padding: 0 10px;
     margin-top: 10px; } }
 
-.sale__product {
+.Sub__Banner {
   width: 100%;
-  margin-bottom: 50px; }
+  height: 550px;
+  margin-top: 70px;
+  background-color: #000000;
+  border-radius: 5px; }
 
-.sale_product--item {
-  display: block;
+.Sub__Banner img {
   width: 100%;
   height: 100%;
   object-fit: fill;
-  background-color: aliceblue;
-  color: black; }
+  border-radius: 5px; }
+
+.sale__product {
+  width: 100%;
+  height: 100%;
+  padding-top: 10px;
+  border-radius: 5px;
+  margin-bottom: 50px;
+  margin-top: 20px;
+  padding-bottom: 20px; }
+
+.sale_product_wrapper {
+  border-radius: 5px;
+  padding: 10px 0px; }
+
+.product_sale--item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 6px 1px #787878;
+  box-shadow: 0px 0px 6px 1px #787878;
+  cursor: pointer;
+  position: relative; }
 
 .grid__item-sale {
   width: 100%;
+  height: 348px; }
+
+.product__avatar_sale {
+  width: 100%;
+  height: 60%;
+  transition: height 0.3s ease-in;
+  position: relative;
+  display: flex;
+  justify-content: center; }
+
+.product_sale--item:hover .detail_toast {
+  visibility: visible;
+  opacity: 1; }
+
+.sale_img_hover {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease-out; }
+
+.product_sale--item:hover .sale_img_hover {
+  opacity: 1; }
+
+.product__avatar_sale--img {
+  width: 100%;
   height: 100%;
-  object-fit: fill; }
+  max-height: 100%;
+  object-fit: fill;
+  border-radius: 5px 5px 0 0; }
+
+.product__detail_sale {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 5px;
+  margin-top: 10px; }
+
+.product_detail_sale--sub1 {
+  text-align: center;
+  font-size: 100%;
+  display: inline-block;
+  font-weight: 780;
+  color: #000000; }
+
+.product_detail_sale--sub2 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  font-size: 100%;
+  font-weight: 800;
+  margin-top: 5px; }
 
 .sale_logo {
   width: 100%;
-  height: 200px;
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px; }
+  margin-top: 70px; }
 
 .sale_logo img {
   width: 60px;
@@ -243,12 +362,13 @@
   position: fixed;
   right: 10px;
   bottom: 23%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
-  z-index: 3; }
+  z-index: 3;
+  display: none; }
 
 .scrolltotop span {
   color: white;
-  font-weight: 600; }
+  font-weight: 600;
+  position: absolute;
+  top: 28%;
+  left: 22%; }

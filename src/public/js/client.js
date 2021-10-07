@@ -32,7 +32,6 @@ var swiper = new Swiper(".sale_product--swiper", {
   slidesPerView: 2,
   spaceBetween: 20,
   slidesPerGroup: 2,
-  freeMode: true,
   loop: true,
   loopFillGroupWithBlank: false,
   breakpoints: {
@@ -64,4 +63,10 @@ var swiper = new Swiper(".sale_product--swiper", {
   },
 });
 
-//Event in product
+//Load Page in the fisrt access:
+$(document).ready(() =>{
+  $(window).on("load", function () {
+    $(".loader_box").css("display", "flex")
+  });
+});
+

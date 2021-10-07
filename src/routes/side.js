@@ -8,6 +8,6 @@ const SideController = require('../app/controllers/SideController');
 //Body
 // route.post('/',SideController.checkpass);
 route.put('/done',SideController.checkpass);
-route.get('/',SideController.loader_logo);
+route.get('/loader',SideController.loader_logo);
 
 module.exports = route;
