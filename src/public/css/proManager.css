@@ -165,7 +165,10 @@
   width: 100%; }
 
 .LYAF-dasboard-body .LYAF-dashboard-block .LYAF-product-name,
-.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-product-description {
+.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-product-description,
+.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-product-price,
+.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-product-category,
+.LYAF-dasboard-body .LYAF-dashboard-block .LYAF-product-ID {
   display: flex;
   flex-direction: column; }
 
@@ -366,7 +369,8 @@
   border: 1px solid #b8b8b8;
   border-radius: 10px;
   position: absolute;
-  width: 200px; }
+  width: 200px;
+  z-index: 10; }
 
 .LYAF-select-category hr {
   margin: 0; }
@@ -375,6 +379,9 @@
   text-align: center;
   color: cornflowerblue;
   cursor: pointer; }
+
+.LYAF-category-selected {
+  margin-bottom: 10px; }
 
 .LYAF-category-selected .product-category {
   display: flex;

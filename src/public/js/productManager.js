@@ -1,7 +1,9 @@
 
 //Remove header:
-const LYAF_header = document.querySelector('.LYAF-header');
-LYAF_header.classList.add('none');
+if ($(".LYAF-header")){
+    const LYAF_header = document.querySelector('.LYAF-header');
+    LYAF_header.classList.add('none');
+}
 
 var currentInput = {
     name: '',
@@ -103,7 +105,7 @@ $(document).ready(()=>{
         `))
         
         $("#cancel-option").click(()=>{
-            $(".LYAF-select-category").hide(300)
+            $(".LYAF-select-category").hide(100)
         })
 
         $(document).on('click', '.LYAF-category-selected .product-category span', function(){
@@ -120,7 +122,7 @@ $(document).ready(()=>{
                 `))
             }
             if (!$(".LYAF-select-category").is(':visible')){
-                $(".LYAF-select-category").show(300)
+                $(".LYAF-select-category").show(100)
             }
         })
 
@@ -139,12 +141,13 @@ $(document).ready(()=>{
                 `))
                 $(".LYAF-category-selected .product-category span").remove()
             }else{
-                $(".LYAF-select-category").hide(300)
+                $(".LYAF-select-category").hide(100)
             }
             if ($(".LYAF-category-selected .product-category span").length > 1){
                 $(".LYAF-category-selected .product-category span")[$(".LYAF-category-selected .product-category span").length - 1].remove()
             }
             $(`<span ${category.parent?`data-parent="${category.parent}"`:""}> ${currentCategory.name} <i class="fas fa-chevron-right"></i></span>`).insertBefore(".LYAF-category-selected .product-category .product-name")
+            $(".product-id").text(`${currentCategory.categoryID} -`)
         })
     }
     
