@@ -275,15 +275,8 @@ $(document).ready(()=>{
         $('.product-name').html($(".LYAF-product-name input").val())
     })
 
-    // new Splide( '#image-slider',{
-    //     width       : 500,
-    //     trimSpace   : false,
-    //     perPage     : 2,
-    //     cover       : true,
-	// 	heightRatio : 0.5,
-    // }).mount();
-    if (document.querySelector('.LYAF-preview-list')){
-        var drake = dragula([document.querySelector('.LYAF-preview-list'),document.querySelector('.LYAF-remove-list')], {
+    if ($('.LYAF-preview-list')){
+        var drake = dragula([document.querySelector('.LYAF-preview-list')], {
             revertOnSpill: false,
             moves: function (el, container, handle) {
                 return !($(handle).hasClass("remove-image-btn") || $(handle).hasClass("fa-trash") || $(handle).hasClass("$@da@#"));
@@ -327,6 +320,12 @@ $(document).ready(()=>{
             }
         });
     })
+
+    $(".LYAF-thumbnail .thumbnail-upload-holder").magnificPopup({
+        delegate: 'a', 
+        type: 'image'
+    });
+
 
     checkActiveElement($(".LYAF-option-active"))
     hideSidebars()
@@ -432,6 +431,7 @@ $(document).ready(()=>{
         currentParent.find("p").hide()
         currentParent.find("input").hide()
         currentParent.find("#thumbnail-preview")[0].src = URL.createObjectURL(file)
+        currentParent.find("a").attr("href", URL.createObjectURL(file)) 
         currentParent.find("#thumbnail-preview")[0].onload = function() {
             URL.revokeObjectURL(currentParent.find("#thumbnail-preview")[0].src) // free memory
           }
@@ -444,6 +444,7 @@ $(document).ready(()=>{
         currentParent.find("p").show()
         currentParent.find("input").show()
         currentParent.find("#thumbnail-preview").hide();
+        currentParent.find("a").attr("href",null) 
         currentParent.find(".remove-thumbnail").hide()
         currentParent.find("#thumbnail-preview")[0].src =""
         currentParent.find("input").val(null)
