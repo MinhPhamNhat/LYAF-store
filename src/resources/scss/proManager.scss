@@ -320,6 +320,7 @@
 
 .LYAF-preview-wrapper .LYAF-image-preview .image-name{
     width: 80%;
+    font-size: 13px;
 }
 
 .LYAF-preview-wrapper .LYAF-image-preview .remove-image-btn i{
@@ -350,9 +351,6 @@
     color:rgb(214, 214, 214); 
     background-color:rgb(214, 214, 214)
 }
-.LYAF-preview-wrapper .LYAF-image-preview .image-name {
-    font-size: 13px;
-  }
 
 .LYAF-preview-container,
 .LYAF-remove-container{
@@ -491,7 +489,22 @@
     background-color:rgb(214, 214, 214)
 }
 
+.LYAF-dashboard-block .col:nth-child(even){
+    margin-left: 20px;
+}
 
+.LYAF-thumbnail .LYAF-thumbnail-input .remove-thumbnail{
+    display: none;
+    font-size: 20px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    transition: 0.3s;
+}
+
+.LYAF-thumbnail .LYAF-thumbnail-input .remove-thumbnail:hover{
+    font-size: 25px;
+}
 @media only screen and (max-width: 620px) {
     /* For mobile phones: */
     .LYAF-preview-wrapper .LYAF-image-preview img {
@@ -516,6 +529,10 @@
         width: 100%;
         height: auto;
     }
+    .LYAF-dashboard-block .col{
+        width: 100%;
+    }
+    .LYAF-dashboard-block .col:nth-child(even){
+        margin-left: 0;
+    }
   }
-
-  

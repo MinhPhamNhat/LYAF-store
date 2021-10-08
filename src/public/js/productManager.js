@@ -5,7 +5,7 @@ if ($(".LYAF-header")){
     LYAF_header.classList.add('none');
 }
 
-var currentInput = {
+var G_currentInput = {
     name: '',
     desc: '',
     price: null,
@@ -16,6 +16,77 @@ var currentInput = {
     images: null,
     thumbnails: null,
 }
+
+const colorList = [
+    {
+        name: "Đỏ",
+        colorID: "R",
+        colorImage: "color-red.jpg"
+    },
+    {
+        name: "Camo rêu",
+        colorID: "CR",
+        colorImage: "color-camo-green.jpg"
+    },
+    {
+        name: "Camo xám",
+        colorID: "CX",
+        colorImage: "color-camo-grey.jpg"
+    },
+    {
+        name: "Camo xanh",
+        colorID: "CXA",
+        colorImage: "color-camo-blue.jpg"
+    },
+    {
+        name: "Camo xanh",
+        colorID: "CXA",
+        colorImage: "color-camo-blue.jpg"
+    },
+    {
+        name: "Camo xanh",
+        colorID: "CXA",
+        colorImage: "color-camo-blue.jpg"
+    }
+]
+
+const sizeList = [
+    {
+        name: "XXS",
+        sizeID: "XXS",
+        desc: "Rất rất nhỏ",
+    },
+    {
+        name: "XS",
+        sizeID: "XS",
+        desc: "Rất nhỏ",
+    },
+    {
+        name: "S",
+        sizeID: "S",
+        desc: "Nhỏ",
+    },
+    {
+        name: "M",
+        sizeID: "M",
+        desc: "Trung bình",
+    },
+    {
+        name: "L",
+        sizeID: "L",
+        desc: "Lớn",
+    },
+    {
+        name: "XL",
+        sizeID: "XL",
+        desc: "Rất lớn",
+    },
+    {
+        name: "XXL",
+        sizeID: "XXL",
+        desc: "Rất rất lớn",
+    }
+]
 
 const categoryList = [
     {
@@ -99,6 +170,55 @@ const categoryList = [
 ]
 $(document).ready(()=>{
 
+
+    if ($(".color-selecter")){
+        colorList.forEach(_ => $(".color-selecter").append(`<option value="${_.colorID}" data-image="../img/${_.colorImage}">${_.name}</option>`))
+    }
+    if ($(".size-selecter")){
+        sizeList.forEach(_ => $(".size-selecter").append(`<option value="${_.sizeID}">${_.name} - ${_.desc}</option>`))
+    }
+    // LC_SELECT
+    if ($(".LYAF-selecter"))
+    new lc_select('.LYAF-selecter', {
+
+        // (bool) whether to enable fields search
+        enable_search : true, 
+        
+        // (int) minimum options number to show search
+        min_for_search : 7,   
+        
+        // (bool) whether to automatically focus search field on desktop (NB: will break tabindex chain)
+        autofocus_search: false,
+        
+        // (string) defines the wrapper width: "auto" to leave it up to CSS, "inherit" 
+        // to statically copy input field width, or any other CSS sizing 
+        wrap_width : 'auto',
+        
+        // (array) custom classes assigned to the field wrapper (.lcslt-wrap) and 
+        // dropdown (#lc-select-dd)
+        addit_classes : [], 
+        
+        // (bool) if true, on simple dropdowns without a selected value, prepend 
+        // an empty option using placeholder text
+        pre_placeh_opt : false, 
+        
+        // (int|false) defining maximum selectable options for multi-select
+        max_opts : false, 
+        
+        // (function) triggered every time field value changes. Passes value and 
+        // target field object as parameters
+        on_change : null, // function(new_value, target_field) {},
+    
+        // (array) option used to translate script texts
+        labels : [ 
+            'search options',
+            'add options',
+            'Select options ..',
+            '.. no matching options ..',
+        ],
+    })
+
+
     if ($(".LYAF-advanced-select")){
         categoryList.forEach(_ => $(".LYAF-advanced-select").append(`
             <div class="LYAF-advanced-option" data-action="to" data-id="${_.categoryID}">${_.name}</div>
@@ -163,11 +283,15 @@ $(document).ready(()=>{
 	// 	heightRatio : 0.5,
     // }).mount();
     if (document.querySelector('.LYAF-preview-list')){
-        var drake = dragula([document.querySelector('.LYAF-preview-list'),document.querySelector('.LYAF-remove-list')], {revertOnSpill: false});
+        var drake = dragula([document.querySelector('.LYAF-preview-list'),document.querySelector('.LYAF-remove-list')], {
+            revertOnSpill: false,
+            moves: function (el, container, handle) {
+                return !($(handle).hasClass("remove-image-btn") || $(handle).hasClass("fa-trash") || $(handle).hasClass("$@da@#"));
+              }
+        });
 
     
         drake.on('drop', function(el, target, source, sibling){
-            console.log(1)
             $(".LYAF-preview-container .info").html(`${$(".LYAF-preview-list .LYAF-image-preview").length} images`)
             $(".LYAF-remove-container .info").html(`${$(".LYAF-remove-list .LYAF-image-preview").length} images`)
         });
@@ -191,12 +315,23 @@ $(document).ready(()=>{
         selector    : 'textarea',
         plugins     : 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
         toolbar_mode: 'floating',
-     });
+    });
 
+
+    $('.LYAF-preview-list').each(function(){
+         $(this).magnificPopup({
+            delegate: 'a', 
+            type: 'image',
+            gallery: {
+              enabled:true
+            }
+        });
+    })
 
     checkActiveElement($(".LYAF-option-active"))
     hideSidebars()
     hideMenu($(".LYAF-menu-active"))
+
     for (i of $(".LYAF-menu-active")){
         if (!$(i).find(".LYAF-menu-content .LYAF-option-active").hasClass("LYAF-option-active")){
             $(i).removeClass("LYAF-menu-active")
@@ -266,7 +401,7 @@ $(document).ready(()=>{
             if (f) {
                 $(".LYAF-preview-list").prepend(`
                     <div class="LYAF-image-preview">
-                        <img src="${URL.createObjectURL(f)}" height="auto" width="100">
+                        <a href="${URL.createObjectURL(f)}"><img src="${URL.createObjectURL(f)}" class="$@da@#" height="auto" width="100"></a>
                         <span class="image-name">${f.name}</span>
                         <span class="remove-image-btn"><i class="fa fa-trash"></i></span>
                     </div>
@@ -277,6 +412,11 @@ $(document).ready(()=>{
         $(".image-upload").val(null)
     })
 
+    $(document).on('click',".LYAF-preview-list .remove-image-btn",function(){
+        $(this).parent().remove()
+        $(".LYAF-preview-container .info").html(`${$(".LYAF-preview-list .LYAF-image-preview").length} images`)
+    })
+    
     $(".remove-image").click(()=>{
         $(".LYAF-remove-container .LYAF-image-preview").remove()
         $(".LYAF-remove-container .info").html(`${$(".LYAF-remove-list .LYAF-image-preview").length} images`)
@@ -289,7 +429,6 @@ $(document).ready(()=>{
     $(".thumbnail-upload-holder input").change(function (){
         var currentParent = $(this).parent()
         var file = currentParent.find("input")[0].files[0]
-        console.log(currentParent.find("#thumbnail-preview"))
         currentParent.find("p").hide()
         currentParent.find("input").hide()
         currentParent.find("#thumbnail-preview")[0].src = URL.createObjectURL(file)
@@ -297,6 +436,17 @@ $(document).ready(()=>{
             URL.revokeObjectURL(currentParent.find("#thumbnail-preview")[0].src) // free memory
           }
         currentParent.find("#thumbnail-preview").show();
+        currentParent.find(".remove-thumbnail").show()
+    })
+
+    $(".LYAF-thumbnail .LYAF-thumbnail-input .remove-thumbnail").click(function(){
+        var currentParent = $(this).parent()
+        currentParent.find("p").show()
+        currentParent.find("input").show()
+        currentParent.find("#thumbnail-preview").hide();
+        currentParent.find(".remove-thumbnail").hide()
+        currentParent.find("#thumbnail-preview")[0].src =""
+        currentParent.find("input").val(null)
     })
 })
 

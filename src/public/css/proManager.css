@@ -276,7 +276,8 @@
   margin-right: 20px; }
 
 .LYAF-preview-wrapper .LYAF-image-preview .image-name {
-  width: 80%; }
+  width: 80%;
+  font-size: 13px; }
 
 .LYAF-preview-wrapper .LYAF-image-preview .remove-image-btn i {
   width: 20%;
@@ -302,9 +303,6 @@
   border-width: 0;
   color: #d6d6d6;
   background-color: #d6d6d6; }
-
-.LYAF-preview-wrapper .LYAF-image-preview .image-name {
-  font-size: 13px; }
 
 .LYAF-preview-container,
 .LYAF-remove-container {
@@ -405,6 +403,20 @@
 .LYAF-advanced-select .LYAF-advanced-option:hover {
   background-color: #d6d6d6; }
 
+.LYAF-dashboard-block .col:nth-child(even) {
+  margin-left: 20px; }
+
+.LYAF-thumbnail .LYAF-thumbnail-input .remove-thumbnail {
+  display: none;
+  font-size: 20px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  transition: 0.3s; }
+
+.LYAF-thumbnail .LYAF-thumbnail-input .remove-thumbnail:hover {
+  font-size: 25px; }
+
 @media only screen and (max-width: 620px) {
   /* For mobile phones: */
   .LYAF-preview-wrapper .LYAF-image-preview img {
@@ -420,4 +432,8 @@
     height: 270px; }
   .LYAF-thumbnail-input .thumbnail-upload-holder img {
     width: 100%;
-    height: auto; } }
+    height: auto; }
+  .LYAF-dashboard-block .col {
+    width: 100%; }
+  .LYAF-dashboard-block .col:nth-child(even) {
+    margin-left: 0; } }
