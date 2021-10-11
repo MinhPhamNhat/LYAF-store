@@ -37,16 +37,6 @@ const colorList = [
         name: "Camo xanh",
         colorID: "CXA",
         colorImage: "color-camo-blue.jpg"
-    },
-    {
-        name: "Camo xanh",
-        colorID: "CXA",
-        colorImage: "color-camo-blue.jpg"
-    },
-    {
-        name: "Camo xanh",
-        colorID: "CXA",
-        colorImage: "color-camo-blue.jpg"
     }
 ]
 
