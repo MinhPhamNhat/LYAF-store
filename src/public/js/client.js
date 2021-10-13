@@ -63,13 +63,7 @@ var swiper = new Swiper(".sale_product--swiper", {
   },
 });
 
-<<<<<<< Updated upstream
-//Load Page in the fisrt access:
-$(document).ready(() =>{
-  // $(".loader_box").css("display", "none")
-$(window).load(function() {
-  // $(".loader_box").css("display", "flex")
 
-})});
-=======
->>>>>>> Stashed changes
+
+
+
