@@ -536,3 +536,84 @@
         margin-left: 0;
     }
   }
+
+
+//   list product 
+.LYAF-product-list #LYAF-list #list-product-color{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin:2px;
+    transition: 0.2;
+}
+
+.LYAF-product-list{
+    padding: 20px;
+
+}
+
+.LYAF-product-list #LYAF-list{
+    border-spacing: 0 10px !important;
+    border-collapse: separate;
+}
+
+table.dataTable thead th {
+    border-bottom: none;
+}
+.LYAF-product-list #LYAF-list td{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.LYAF-product-list #LYAF-list td:last-child{
+    border-radius:0 20px 20px 0;
+}
+
+.LYAF-product-list #LYAF-list td:first-child{
+    border-radius: 20px 0 0 20px;
+    width: fit-content;
+    text-align: center;
+
+}
+
+.LYAF-product-list #LYAF-list #list-product-check{
+    width: 20px;
+    height: 20px;
+}
+
+.LYAF-product-list #LYAF-list #color-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+}
+.LYAF-product-list #LYAF-list #list-product-detail{
+    display: flex;
+    flex-direction: row;
+    align-items: center;;
+}
+
+.LYAF-product-list #LYAF-list #list-product-info{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;;
+}
+
+.LYAF-product-list #LYAF-list #list-product-size{
+    font-size: 11px;
+    color: #979797;
+}
+
+.LYAF-product-list #LYAF-list #list-product-thumbail{
+    border-radius: 10px;
+    height: 100%;
+    width: 75px;;
+}
+
+.LYAF-popup-info{
+    display: none;
+    position: absolute;
+}
+.LYAF-popup-info img{
+    width: 150px;
+    height: auto;
+    border-radius: 10px;;
+}
