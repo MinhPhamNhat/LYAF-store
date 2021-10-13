@@ -32,3 +32,9 @@ $(document).ready(()=>{
         $(".LYAF-header .LYAF-cart-box").css("right", "-500px")
     })
   })
+
+  //fa-user-circle:
+  const fa_user_circle = document.querySelector('.fa-user-circle');
+  fa_user_circle.addEventListener('click',() => {
+      window.location.href = "/access/login";
+  });

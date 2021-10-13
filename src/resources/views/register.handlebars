@@ -1,0 +1,53 @@
+<div class="form__wrapper">
+    <div class="form__login">
+    
+        <form>
+            <div class="form__title" style="margin-top: 30px;">
+                <span class="form__title--name">
+                    Đăng Ký
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+             <div class="form-group">
+                <label for="exampleInputPassword1">Xác nhận Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <button type="submit" class="form__login--submit">Đăng ký</button>
+            <div class="register_ask_toast">
+                <span>Bạn đã có tài khoản?</span>
+                <span class="link_login_btn">Đăng nhập ngay</span>
+            </div>
+        </form>
+        <div class="social__link" style="margin-top: 30px;">
+                <i class="fab fa-facebook"></i>
+                <img src="https://img.icons8.com/color/48/000000/google-logo.png"/>
+        </div>
+    </div>
+
+    <div class="form__logo">
+        <img class="form__logo--img" src="../img/form_logo.png" alt="">
+    </div>
+   
+</div>
+<script src="../js/access.js"></script>
+<script>
+     function changeHeight_415(x) {
+    if (x.matches) { // If media query matches
+        form__login.style.height =`calc(${window.getComputedStyle(form__login).getPropertyValue('width')} + 300px)`;
+        window.addEventListener('resize', (e) =>{
+            form__login.style.height = `calc(${window.getComputedStyle(form__login).getPropertyValue('width')} + 300px)`;
+        });
+        form__title_name.style.fontSize = '25px';
+        pass_issues.style.fontSize = '13px';
+        document.querySelector('.form-check-input').style.height = "5px" ;
+    } 
+  }
+ changeHeight_415(window.matchMedia("(max-width: 415px)"));
+</script>

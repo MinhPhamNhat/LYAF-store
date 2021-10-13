@@ -17,7 +17,7 @@ var swiper = new Swiper(".mySwiper", {
   });
 
 
-//Grid Iten:
+//Grid Item:
 const grid__item = document.querySelectorAll('.grid__item');
 
 for(let i of grid__item){
@@ -63,6 +63,7 @@ var swiper = new Swiper(".sale_product--swiper", {
   },
 });
 
+<<<<<<< Updated upstream
 //Load Page in the fisrt access:
 $(document).ready(() =>{
   // $(".loader_box").css("display", "none")
@@ -70,3 +71,5 @@ $(window).load(function() {
   // $(".loader_box").css("display", "flex")
 
 })});
+=======
+>>>>>>> Stashed changes

@@ -4,7 +4,10 @@ const proModel = require('../models/Product');
 class AccessController{
 
     login(req,res,next){
-        res.render('access');
+        res.render('login');
+    }
+    register(req,res,next){
+        res.render('register');
     }
 }
 
