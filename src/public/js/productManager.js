@@ -166,112 +166,245 @@ const categoryList = [
     ],
   },
 ];
-const myProduct = {
-  id: "ANS1001",
-  name: "Áo thun",
-  thumbnail: "ANS1001-img1.jpg",
-  category: {
-    name: "Áo",
-    categoryID: "A",
-    child: {
-      name: "Áo Thun",
-      categoryID: "AT",
-      parent: "A",
-    },
-  },
-  color: [
-    {
-      name: "Đỏ",
-      colorID: "R",
-      colorImage: "color-red.jpg",
-    },
-    {
-      name: "Đen",
-      colorID: "B",
-      colorImage: "color-black.jpg",
-    },
-    {
-      name: "Camo rêu",
-      colorID: "CR",
-      colorImage: "color-camo-green.jpg",
-    },
-    {
-      name: "Camo xám",
-      colorID: "CX",
-      colorImage: "color-camo-grey.jpg",
-    },
-    {
-      name: "Caro đen",
-      colorID: "CRB",
-      colorImage: "color-caro-black.jpg",
-    },
-    {
-      name: "Caro vàng",
-      colorID: "CRY",
-      colorImage: "color-caro-yellow.jpg",
-    },
-    {
-      name: "Camo xanh",
-      colorID: "CXA",
-      colorImage: "color-camo-blue.jpg",
-    },
-  ],
-  price: 200,
-  quantity: 200,
-  rate: 4.5,
-};
-const productList = [
+
+const myProducts = [
   {
     id: "ANS1001",
-    productDetail: `
-                    <div id="list-product-detail">
-                        <img id="list-product-thumbail" src='./img/ANS1001-img1.jpg'>
-                        <div id="list-product-info">
-                            <span id="list-product-name">Áo sơmi caro</span>
-                            <span id="list-product-size">XSS, XS, XL, L, M</span>
-                        </div>
-                    </div>`,
-    categories: "Áo, Áo Sơmi",
-    color: `<div id="color-wrapper">
-                    <img title='Đen' id='list-product-color' src='./img/color-black.jpg'> 
-                    <img title='Đỏ' id='list-product-color' src='./img/color-red.jpg'>
-                    <img title='Camo xanh' id='list-product-color' src='./img/color-camo-green.jpg'>
-                    <img title='Caro vàng' id='list-product-color' src='./img/color-caro-yellow.jpg'>
-                    <img title='Caro đen' id='list-product-color' src='./img/color-caro-black.jpg'>
-                    <img title='Camo xám' id='list-product-color' src='./img/color-camo-grey.jpg'>
-                </div>`,
-    price: "200.000 VNĐ",
-    quantity: "200 Cái",
-    rate: "4.5",
-    action: "",
-    check: "<input id='list-product-check' type='checkbox'>",
+    name: "Áo Sơmi",
+    thumbnail: "ANS1001-img1.jpg",
+    category: {
+      name: "Áo",
+      categoryID: "A",
+      child: {
+        name: "Áo Sơ mi",
+        categoryID: "ASM",
+        parent: "A",
+      },
+    },
+    size: [
+      {
+        name: "XXS",
+        sizeID: "XXS",
+        desc: "Rất rất nhỏ",
+      },
+      {
+        name: "XS",
+        sizeID: "XS",
+        desc: "Rất nhỏ",
+      },
+      {
+        name: "S",
+        sizeID: "S",
+        desc: "Nhỏ",
+      },
+      {
+        name: "M",
+        sizeID: "M",
+        desc: "Trung bình",
+      },
+      {
+        name: "L",
+        sizeID: "L",
+        desc: "Lớn",
+      },
+      {
+        name: "XL",
+        sizeID: "XL",
+        desc: "Rất lớn",
+      },
+      {
+        name: "XXL",
+        sizeID: "XXL",
+        desc: "Rất rất lớn",
+      },
+    ],
+    color: [
+      {
+        name: "Đỏ",
+        colorID: "R",
+        colorImage: "color-red.jpg",
+      },
+      {
+        name: "Đen",
+        colorID: "B",
+        colorImage: "color-black.jpg",
+      },
+      {
+        name: "Camo rêu",
+        colorID: "CR",
+        colorImage: "color-camo-green.jpg",
+      },
+      {
+        name: "Camo xám",
+        colorID: "CX",
+        colorImage: "color-camo-grey.jpg",
+      },
+      {
+        name: "Caro đen",
+        colorID: "CRB",
+        colorImage: "color-caro-black.jpg",
+      },
+      {
+        name: "Caro vàng",
+        colorID: "CRY",
+        colorImage: "color-caro-yellow.jpg",
+      },
+      {
+        name: "Camo xanh",
+        colorID: "CXA",
+        colorImage: "color-camo-blue.jpg",
+      },
+    ],
+    price: 200,
+    quantity: 200,
+    rate: 3,
   },
   {
-    id: "ANS1002",
-    productDetail: `
-                    <div id="list-product-detail">
-                        <img id="list-product-thumbail" src='./img/ANS1001-img2.jpg'>
-                        <div id="list-product-info">
-                            <span id="list-product-name">Áo thun</span>
-                            <span id="list-product-size">XSS, XS, XL, L, M</span>
-                        </div>
-                    </div>`,
-    categories: "Áo, Áo Thun",
-    color: `<div id="color-wrapper">
-                    <img title='Đen' id='list-product-color' src='./img/color-black.jpg'> 
-                    <img title='Đỏ' id='list-product-color' src='./img/color-red.jpg'>
-                    <img title='Camo xanh' id='list-product-color' src='./img/color-camo-green.jpg'>
-                    <img title='Caro vàng' id='list-product-color' src='./img/color-caro-yellow.jpg'>
-                    <img title='Caro đen' id='list-product-color' src='./img/color-caro-black.jpg'>
-                    <img title='Camo xám' id='list-product-color' src='./img/color-camo-grey.jpg'>
-                </div>`,
-    price: "200.000 VNĐ",
-    quantity: "200 Cái",
-    rate: "4.5",
-    action: "",
-    check: "<input id='list-product-check' type='checkbox'>",
+    id: "ANS1001",
+    name: "Áo thun",
+    thumbnail: "ANS1001-img2.jpg",
+    category: {
+      name: "Áo",
+      categoryID: "A",
+      child: {
+        name: "Áo Thun",
+        categoryID: "AT",
+        parent: "A",
+      },
+    },
+    size: [
+      {
+        name: "XS",
+        sizeID: "XS",
+        desc: "Rất nhỏ",
+      },
+      {
+        name: "S",
+        sizeID: "S",
+        desc: "Nhỏ",
+      },
+      {
+        name: "M",
+        sizeID: "M",
+        desc: "Trung bình",
+      },
+      {
+        name: "L",
+        sizeID: "L",
+        desc: "Lớn",
+      },
+    ],
+    color: [
+      {
+        name: "Đen",
+        colorID: "B",
+        colorImage: "color-black.jpg",
+      },
+      {
+        name: "Camo rêu",
+        colorID: "CR",
+        colorImage: "color-camo-green.jpg",
+      },
+      {
+        name: "Camo xám",
+        colorID: "CX",
+        colorImage: "color-camo-grey.jpg",
+      },
+      {
+        name: "Caro đen",
+        colorID: "CRB",
+        colorImage: "color-caro-black.jpg",
+      },
+      {
+        name: "Camo xanh",
+        colorID: "CXA",
+        colorImage: "color-camo-blue.jpg",
+      },
+    ],
+    price: 250,
+    quantity: 500,
+    rate: 4.5,
   },
 ];
+
+const parseToElements = (obj) => {
+  var check = `<input id='list-product-check' type='checkbox'>`;
+  var productDetail = `<div id="list-product-detail">
+                        <img id="list-product-thumbail" src='./img/${
+                          obj.thumbnail
+                        }'>
+                        <div id="list-product-info">
+                            <span id="list-product-name">${obj.name}</span>
+                            <span id="list-product-size">${obj.size
+                              .map((_) => _.name)
+                              .toString()}</span>
+                        </div>
+                      </div>`;
+  var id = obj.id;
+  var categories =
+    obj.category.name +
+    (obj.category.child ? ", " + obj.category.child.name : "");
+  console.log(
+    "😻 ~ file: productManager.js ~ line 274 ~ parseToElements ~ obj.category.name",
+    obj.category.name
+  );
+  var color = `<div id="color-wrapper">
+                ${obj.color
+                  .map(
+                    (_) =>
+                      `<img title='${_.name}' id='list-product-color' src='./img/${_.colorImage}'>`
+                  )
+                  .join(" ")}
+              </div>`;
+  var price = `${obj.price}.000 VNĐ`;
+  var quantity = `${obj.quantity} Cái`;
+  var rateStar = [];
+  for (var i = 0; i < 5; i++) {
+    if (obj.rate - i >= 1) {
+      rateStar.push('<span><i class="fas fa-star"></i></span>');
+    } else if (obj.rate - i > 0 && obj.rate - i < 1) {
+      rateStar.push('<span><i class="fas fa-star-half-alt"></i></span>');
+    } else {
+      rateStar.push('<span><i class="far fa-star"></i></span>');
+    }
+  }
+  var rate = ` <div id='list-product-rating'>
+                <div id="rating-star">
+                  ${rateStar.map((_) => _).join(" ")}
+                </div>
+                <div id="rating-value">
+                  <span>${obj.rate}/5</span>
+                </div>
+              </div>`;
+  var action = ` <div id="list-product-action">
+                  <div class="btn-group dropup">
+                    <button type="button" class="btn btn-outline-secondary">
+                      Edit
+                    </button>
+                    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Remove</a>
+                      <a class="dropdown-item" href="#">Detail</a>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Separated link</a>
+                    </div>
+                  </div>
+                </div>`;
+  return {
+    check,
+    productDetail,
+    id,
+    categories,
+    color,
+    price,
+    quantity,
+    rate,
+    action,
+  };
+};
+const productList = myProducts.map(_ => parseToElements(_))
 
 $(document).ready(() => {
   const LYAF_header = document.querySelector(".LYAF-header");
@@ -279,7 +412,6 @@ $(document).ready(() => {
 
   // data table
   if ($("#LYAF-list")[0]) {
-    var columnName = Object.keys(productList[0]);
     var columns = [
       {
         title: "Check",
@@ -324,24 +456,24 @@ $(document).ready(() => {
       data: productList,
       columns,
     });
-  }
 
-  $("#LYAF-list #list-product-color").hover(
-    function (e) {
-      if (!$(".LYAF-popup-info").is(":visible")) {
-        $(".LYAF-popup-info").css("left", e.pageX + "px");
-        $(".LYAF-popup-info").css("top", e.pageY + "px");
-        $(".LYAF-popup-info").append(`<img src='${$(this).attr("src")}'>`);
-        $(".LYAF-popup-info").show();
+    $("#LYAF-list #list-product-color").hover(
+      function (e) {
+        if (!$(".LYAF-popup-info").is(":visible")) {
+          $(".LYAF-popup-info").append(`<img src='${$(this).attr("src")}'>`);
+          $(".LYAF-popup-info").css("left", e.pageX + "px");
+          $(".LYAF-popup-info").css("top", e.pageY + "px");
+          $(".LYAF-popup-info").show();
+        }
+      },
+      function () {
+        if ($(".LYAF-popup-info").is(":visible")) {
+          $(".LYAF-popup-info img").remove();
+          $(".LYAF-popup-info").hide();
+        }
       }
-    },
-    function () {
-      if ($(".LYAF-popup-info").is(":visible")) {
-        $(".LYAF-popup-info img").remove();
-        $(".LYAF-popup-info").hide();
-      }
-    }
-  );
+    );
+  }
 
   if ($(".color-selecter")) {
     colorList.forEach((_) =>
@@ -492,10 +624,6 @@ $(document).ready(() => {
         scrollWhenOutside: true,
         autoScroll: function () {
           return this.down && drake.dragging;
-          console.log(
-            "😻 ~ file: productManager.js ~ line 485 ~ $ ~ this",
-            this
-          );
         },
       }
     );
