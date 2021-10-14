@@ -469,6 +469,18 @@ table.dataTable thead th {
   width: fit-content;
   text-align: center; }
 
+.LYAF-product-list #LYAF-list th:first-child {
+  cursor: default; }
+
+.LYAF-product-list #LYAF-list th:first-child::after {
+  content: ""; }
+
+.LYAF-product-list #LYAF-list th:first-child::before {
+  content: ""; }
+
+.LYAF-product-list #LYAF-list th:first-child::after {
+  content: ""; }
+
 .LYAF-product-list #LYAF-list #list-product-check {
   width: 20px;
   height: 20px; }
@@ -517,3 +529,73 @@ table.dataTable thead th {
   width: 150px;
   height: auto;
   border-radius: 10px; }
+
+.LYAF-product-filter-wrapper {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
+
+.LYAF-product-filter-wrapper .LYAF-product-filter {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; }
+
+.LYAF-product-filter-wrapper .LYAF-product-filter .LYAF-product-filter-title {
+  font-weight: 600;
+  margin-right: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #4d4d4d;
+  color: white; }
+
+.LYAF-product-filter-wrapper .LYAF-product-filter #tag {
+  font-size: 12px;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: white;
+  margin: 5px;
+  border: 2px solid #4d4d4d;
+  color: #4d4d4d; }
+
+.LYAF-product-filter-wrapper .LYAF-product-filter #tag i {
+  margin-left: 10px;
+  transition: 0.3s; }
+
+.LYAF-product-filter-wrapper .LYAF-product-filter #tag i:hover {
+  font-size: 18px; }
+
+.LYAF-product-filter-wrapper .LYAF-product-filter-add-btn {
+  cursor: pointer;
+  padding: 10px 15px 10px 15px;
+  border-radius: 10px;
+  background-color: #4d4d4d;
+  margin: 10px;
+  color: white;
+  border: 2px solid #4d4d4d;
+  transition: 0.3s; }
+
+.LYAF-product-filter-wrapper .LYAF-product-filter-add-btn:hover {
+  background-color: white;
+  color: #4d4d4d; }
+
+.LYAF-product-filter-wrapper .LYAF-product-filter-add-btn::after {
+  content: none; }
+
+.LYAF-product-filter-wrapper .LYAF-product-filter .LYAF-product-filter-search {
+  font-weight: 600;
+  margin-right: 20px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #007BFF;
+  color: white;
+  cursor: pointer;
+  border: 2px solid #007BFF;
+  transition: 0.3s; }
+
+.LYAF-product-filter-wrapper .LYAF-product-filter .LYAF-product-filter-search:hover {
+  color: #007BFF;
+  background-color: white; }
+
+.LYAF-product-filter-wrapper .LYAF-product-filter .child-menu {
+  padding: 10px; }

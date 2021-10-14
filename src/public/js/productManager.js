@@ -344,10 +344,6 @@ const parseToElements = (obj) => {
   var categories =
     obj.category.name +
     (obj.category.child ? ", " + obj.category.child.name : "");
-  console.log(
-    "😻 ~ file: productManager.js ~ line 274 ~ parseToElements ~ obj.category.name",
-    obj.category.name
-  );
   var color = `<div id="color-wrapper">
                 ${obj.color
                   .map(
@@ -404,13 +400,22 @@ const parseToElements = (obj) => {
     action,
   };
 };
-const productList = myProducts.map(_ => parseToElements(_))
+const productList = myProducts.map((_) => parseToElements(_));
 
 $(document).ready(() => {
   const LYAF_header = document.querySelector(".LYAF-header");
   LYAF_header.classList.add("none");
 
-  // data table
+  // DROPDOWN MENU FILTER 
+  $(".LYAF-product-filter-add-btn").click(function(){
+    $(".LYAF-product-filter-add .child-menu").hide();
+  })
+  $(".LYAF-product-filter-add").on("click", ".parent-menu", (e) => {
+    e.stopPropagation();
+  });
+  // END DROPDOWN MENU FILTER
+
+  // DATATABLE
   if ($("#LYAF-list")[0]) {
     var columns = [
       {
@@ -455,6 +460,7 @@ $(document).ready(() => {
       responsive: true,
       data: productList,
       columns,
+      columnDefs: [{ orderable: false, targets: 0 }],
     });
 
     $("#LYAF-list #list-product-color").hover(
@@ -549,7 +555,6 @@ $(document).ready(() => {
 
     $(document).on("click", ".LYAF-advanced-option", function () {
       var category = this.dataset;
-      console.log("😻 ~ file: productManager.js ~ line 410 ~ this", this);
       if (category.parent) {
         var currentCategory = categoryList.find(
           (_) => _.categoryID === category.parent
@@ -709,37 +714,29 @@ $(document).ready(() => {
   $(".LYAF-dasboard-body .LYAF-dashboard-block i").hover(
     function () {
       if (!$(this).parent().find(".LYAF-tooltip").is(":visible"))
-        console.log("😻 ~ file: productManager.js ~ line 572 ~ $ ~ this", this);
-      $(this).parent().find(".LYAF-tooltip").fadeIn(200);
-      console.log("😻 ~ file: productManager.js ~ line 574 ~ $ ~ this", this);
+        $(this).parent().find(".LYAF-tooltip").fadeIn(200);
     },
     function () {
       if ($(this).parent().find(".LYAF-tooltip").is(":visible"))
-        console.log("😻 ~ file: productManager.js ~ line 578 ~ $ ~ this", this);
-      $(this).parent().find(".LYAF-tooltip").fadeOut(200);
-      console.log("😻 ~ file: productManager.js ~ line 580 ~ $ ~ this", this);
+        $(this).parent().find(".LYAF-tooltip").fadeOut(200);
     }
   );
 
   $(".LYAF-menu").hover(
     function () {
       activeMenu($(this));
-      console.log("😻 ~ file: productManager.js ~ line 587 ~ $ ~ this", this);
     },
     function () {
       deactiveMenu($(this));
-      console.log("😻 ~ file: productManager.js ~ line 591 ~ $ ~ this", this);
     }
   );
 
   $(".LYAF-menu-option").hover(
     function () {
       activeOption($(this));
-      console.log("😻 ~ file: productManager.js ~ line 598 ~ $ ~ this", this);
     },
     function () {
       deactiveOption($(this));
-      console.log("😻 ~ file: productManager.js ~ line 602 ~ $ ~ this", this);
     }
   );
 
@@ -817,7 +814,10 @@ $(document).ready(() => {
   );
 });
 
-const showSelectOption = (list) => {};
+const showFilterPopup = (a) => {
+  $(".LYAF-product-filter-add .child-menu").hide();
+  $(`.filter-${a.dataset.filter}`).show();
+};
 
 const showSidebars = () => {
   $(".LYAF-side-bar").css("left", "0");

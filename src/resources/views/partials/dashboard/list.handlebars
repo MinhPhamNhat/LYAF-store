@@ -2,11 +2,103 @@
     <span class="text-uppercase font-weight-bold">Product</span>
 </div>
 <div class="LYAF-dashboard-content">
+    <div class="LYAF-product-filter-wrapper">
+        <div class="LYAF-product-filter">
+            <div class="LYAF-product-filter-title">
+                <span>Filter <i class="fas fa-filter"></i></span>
+            </div>
+            <span id="tag"><strong>ID</strong> has AS <i class="fas fa-times"></i></span>
+            <span id="tag"><strong>Category</strong> has Áo <i class="fas fa-times"></i></span>
+            <span id="tag"><strong>Color</strong> has Đỏ, Đen <i class="fas fa-times"></i></span>
+            <div class="LYAF-product-filter-add">
+                <div class="btn-group">
+                    <div class="LYAF-product-filter-add-btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="dropdown-menu parent-menu id-menu">
+                        <div class="btn-group dropright" style="width: 100%;">
+                            <button href="javascript:void(0)" data-filter="id" onclick=showFilterPopup(this) class="dropdown-item menu-toggle-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ID</button>
+                            <div class="dropdown-menu child-menu filter-id">
+                                <div id="filter-menu has-filter" data-filter="id">
+                                    <input id="radio-has" type="radio">
+                                    <label for="radio">contain</label>
+                                    
+                                    <label for="input-for-has">text</label>
+                                    <input id="input-for-has" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group dropright" style="width: 100%;">
+                            <button href="javascript:void(0)" data-filter="name" onclick=showFilterPopup(this) class="dropdown-item menu-toggle-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Name</button>
+                            <div class="dropdown-menu child-menu filter-name">
+                                <a href="#" class="dropdown-item">4</a>
+                                <a href="#" class="dropdown-item">5</a>
+                                <a href="#" class="dropdown-item">6</a>
+                            </div>
+                        </div>
+                        <div class="btn-group dropright" style="width: 100%;">
+                            <button href="javascript:void(0)" data-filter="category" onclick=showFilterPopup(this) class="dropdown-item menu-toggle-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category</button>
+                            <div class="dropdown-menu child-menu filter-category">
+                                <a href="#" class="dropdown-item">4</a>
+                                <a href="#" class="dropdown-item">5</a>
+                                <a href="#" class="dropdown-item">6</a>
+                            </div>
+                        </div>
+                        <div class="btn-group dropright" style="width: 100%;">
+                            <button href="javascript:void(0)" data-filter="color" onclick=showFilterPopup(this) class="dropdown-item menu-toggle-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Color</button>
+                            <div class="dropdown-menu child-menu filter-color">
+                                <a href="#" class="dropdown-item">4</a>
+                                <a href="#" class="dropdown-item">5</a>
+                                <a href="#" class="dropdown-item">6</a>
+                            </div>
+                        </div>
+                        <div class="btn-group dropright" style="width: 100%;">
+                            <button href="javascript:void(0)" data-filter="price" onclick=showFilterPopup(this) class="dropdown-item menu-toggle-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Price</button>
+                            <div class="dropdown-menu child-menu filter-price">
+                                <a href="#" class="dropdown-item">4</a>
+                                <a href="#" class="dropdown-item">5</a>
+                                <a href="#" class="dropdown-item">6</a>
+                            </div>
+                        </div>
+                        <div class="btn-group dropright" style="width: 100%;">
+                            <button href="javascript:void(0)" data-filter="quantity" onclick=showFilterPopup(this) class="dropdown-item menu-toggle-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Stock</button>
+                            <div class="dropdown-menu child-menu filter-quantity">
+                                <a href="#" class="dropdown-item">4</a>
+                                <a href="#" class="dropdown-item">5</a>
+                                <a href="#" class="dropdown-item">6</a>
+                            </div>
+                        </div>
+                        <div class="btn-group dropright" style="width: 100%;">
+                            <button href="javascript:void(0)" data-filter="rate" onclick=showFilterPopup(this) class="dropdown-item menu-toggle-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rate</button>
+                            <div class="dropdown-menu child-menu filter-rate">
+                                <a href="#" class="dropdown-item">4</a>
+                                <a href="#" class="dropdown-item">5</a>
+                                <a href="#" class="dropdown-item">6</a>
+                            </div>
+                        </div>
+                        <div class="btn-group dropright" style="width: 100%;">
+                            <button href="javascript:void(0)" data-filter="size" onclick=showFilterPopup(this) class="dropdown-item menu-toggle-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Size</button>
+                            <div class="dropdown-menu child-menu filter-size">
+                                <a href="#" class="dropdown-item">4</a>
+                                <a href="#" class="dropdown-item">5</a>
+                                <a href="#" class="dropdown-item">6</a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="LYAF-product-filter-search">
+                <span>Apply filters <i class="fas fa-search"></i></span>
+            </div>
+        </div>
+    </div>
     <div class="LYAF-product-list">
-        <table id="LYAF-list" class="">
-            
+        <table id="LYAF-list" class="table-striped dt-responsive nowrap"  style="width:100%">
         </table>
     </div>
     <div class="LYAF-popup-info">
+    </div>
+    <div class="LYAF-filter-popup">
     </div>
 </div>
