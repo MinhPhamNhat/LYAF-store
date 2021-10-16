@@ -1,3 +1,5 @@
+import {Filter} from "../js/module/Filter.js"
+
 var G_currentInput = {
   name: "",
   desc: "",
@@ -406,14 +408,41 @@ $(document).ready(() => {
   const LYAF_header = document.querySelector(".LYAF-header");
   LYAF_header.classList.add("none");
 
-  // DROPDOWN MENU FILTER 
-  $(".LYAF-product-filter-add-btn").click(function(){
-    $(".LYAF-product-filter-add .child-menu").hide();
-  })
-  $(".LYAF-product-filter-add").on("click", ".parent-menu", (e) => {
-    e.stopPropagation();
-  });
-  // END DROPDOWN MENU FILTER
+  
+  new Filter("aaaa",{
+          data:[{
+              property: "id",
+              title: "ID",
+              type: "text"
+          },{
+              property: "name",
+              title: "Name",
+              type: "text"
+          },{
+              property: "price",
+              title: "Price",
+              type: "number"
+          },{
+              property: "category",
+              title: "Category",
+              type: "category"
+          },{
+              property: "color",
+              title: "Color",
+              type: "category"
+          },{
+              property: "quantity",
+              title: "Stock",
+              type: "number"
+          },{
+              property: "rate",
+              title: "Rate",
+              type: "number"
+          },{
+              property: "size",
+              title: "Size",
+              type: "category"
+          }], sizeList, colorList, categoryList})
 
   // DATATABLE
   if ($("#LYAF-list")[0]) {
@@ -495,14 +524,14 @@ $(document).ready(() => {
       )
     );
   }
+
   // LC_SELECT
-  if ($(".LYAF-selecter"))
+  if ($(".LYAF-selecter")[0])
     new lc_select(".LYAF-selecter", {
       enable_search: true,
       min_for_search: 7,
       autofocus_search: false,
-      wrap_width: "auto",
-      addit_classes: [],
+      wrap_width: "100%",
       pre_placeh_opt: false,
       max_opts: false,
       on_change: null,
@@ -513,6 +542,7 @@ $(document).ready(() => {
         ".. no matching options ..",
       ],
     });
+
 
   if ($(".LYAF-advanced-select")) {
     categoryList.forEach((_) =>
@@ -661,7 +691,7 @@ $(document).ready(() => {
   hideSidebars();
   hideMenu($(".LYAF-menu-active"));
 
-  for (i of $(".LYAF-menu-active")) {
+  for (var i of $(".LYAF-menu-active")) {
     if (
       !$(i)
         .find(".LYAF-menu-content .LYAF-option-active")
@@ -812,12 +842,8 @@ $(document).ready(() => {
       currentParent.find("input").val(null);
     }
   );
-});
 
-const showFilterPopup = (a) => {
-  $(".LYAF-product-filter-add .child-menu").hide();
-  $(`.filter-${a.dataset.filter}`).show();
-};
+});
 
 const showSidebars = () => {
   $(".LYAF-side-bar").css("left", "0");
