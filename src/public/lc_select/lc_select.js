@@ -381,7 +381,7 @@
                     const img = (opt.hasAttribute('data-image')) ? '<i class="lcslt-img" style="background-image: url(\''+ opt.getAttribute('data-image').trim() +'\')"></i>' : ''; 
                         
                     if(is_multiple) {
-                        code += '<div class="lcslt-multi-selected" data-val="'+ opt.getAttribute('value') +'" title="'+ opt.innerHTML +'"><span>'+ img + opt.innerHTML +'</span></div>';
+                        code += '<div class="lcslt-multi-selected" data-val="'+ opt.getAttribute('value') +'" title="'+ opt.dataset.name +'"><span>'+ img + opt.dataset.name +'</span></div>';
                     } 
                     else {
                         const single_placeh_mode = (options.pre_placeh_opt && opt.hasAttribute('data-lcslt-placeh')) ? 'class="lcslt-placeholder"' : ''; 

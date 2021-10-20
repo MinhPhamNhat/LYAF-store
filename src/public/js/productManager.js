@@ -92,80 +92,77 @@ const categoryList = [
   {
     name: "Áo",
     categoryID: "A",
-    child: [
-      {
-        name: "Áo Thun",
-        categoryID: "AT",
-        parent: "A",
-      },
-      {
-        name: "Áo Sơ mi",
-        categoryID: "ASM",
-        parent: "A",
-      },
-      {
-        name: "Áo khoác",
-        categoryID: "AK",
-        parent: "A",
-      },
-      {
-        name: "Áo Hoodie",
-        categoryID: "AH",
-        parent: "A",
-      },
-      {
-        name: "Áo len",
-        categoryID: "AL",
-        parent: "A",
-      },
-      {
-        name: "Áo polo",
-        categoryID: "AP",
-        parent: "A",
-      },
-    ],
+    child: ["AT", "ASM", "AK", "AH", "AL", "AP"],
+  },
+  {
+    name: "Áo Thun",
+    categoryID: "AT",
+    parent: "A",
+  },
+  {
+    name: "Áo Sơ mi",
+    categoryID: "ASM",
+    parent: "A",
+  },
+  {
+    name: "Áo khoác",
+    categoryID: "AK",
+    parent: "A",
+  },
+  {
+    name: "Áo Hoodie",
+    categoryID: "AH",
+    parent: "A",
+  },
+  {
+    name: "Áo len",
+    categoryID: "AL",
+    parent: "A",
+  },
+  {
+    name: "Áo polo",
+    categoryID: "AP",
+    parent: "A",
   },
   {
     name: "Quần",
     categoryID: "Q",
-    child: [
-      {
-        name: "Quần jean",
-        categoryID: "QJ",
-        parent: "Q",
-      },
-      {
-        name: "Quần tây",
-        categoryID: "QT",
-        parent: "Q",
-      },
-      {
-        name: "Quần short",
-        categoryID: "QS",
-        parent: "Q",
-      },
-    ],
+    child: ["QJ", "QT", "QS"],
+  },
+  {
+    name: "Quần jean",
+    categoryID: "QJ",
+    parent: "Q",
+  },
+  {
+    name: "Quần tây",
+    categoryID: "QT",
+    parent: "Q",
+  },
+  {
+    name: "Quần short",
+    categoryID: "QS",
+    parent: "Q",
   },
   {
     name: "Giày, dép",
     categoryID: "GD",
-    child: [
-      {
-        name: "Giày sandal",
-        categoryID: "GS",
-        parent: "GD",
-      },
-      {
-        name: "Giày thể thao",
-        categoryID: "GT",
-        parent: "GD",
-      },
-      {
-        name: "Dép kẹp",
-        categoryID: "DK",
-        parent: "GD",
-      },
-    ],
+    child: ["GS","GT","DK"],
+  },
+  {
+    name: "Giày sandal",
+    categoryID: "GS",
+    parent: "GD",
+  },
+  {
+    name: "Giày thể thao",
+    categoryID: "GT",
+    parent: "GD",
+  },
+  {
+    name: "Dép kẹp",
+    categoryID: "DK",
+    parent: "GD",
   },
 ];
 
@@ -407,9 +404,7 @@ const productList = myProducts.map((_) => parseToElements(_));
 $(document).ready(() => {
   const LYAF_header = document.querySelector(".LYAF-header");
   LYAF_header.classList.add("none");
-
-  
-  new Filter("aaaa",{
+  var filters = new Filter("aaaa",{
           data:[{
               property: "id",
               title: "ID",
@@ -508,6 +503,16 @@ $(document).ready(() => {
         }
       }
     );
+      var tableTrs = $(`.LYAF-product-list #LYAF-list tbody tr`)
+      tableTrs.each(function() {
+        var tds = $(this).find(`td:not([style*="display: none"])`)
+        if (tds.length === 1){
+          tds.css("border-radius","20px")
+        }else{
+          $(tds[0]).css("border-radius","20px 0 0 20px")
+          $(tds[tds.length-1]).css("border-radius", "0 20px 20px 0")
+        }
+      })
   }
 
   if ($(".color-selecter")) {
@@ -708,7 +713,7 @@ $(document).ready(() => {
     } else if ($(".LYAF-side-bar-header i").hasClass("fa-window-close")) {
       hideSidebars();
       hideMenu($(".LYAF-menu-active"));
-      for (i of $(".LYAF-menu-active")) {
+      for (var i of $(".LYAF-menu-active")) {
         if (
           !$(i)
             .find(".LYAF-menu-content .LYAF-option-active")
@@ -727,7 +732,7 @@ $(document).ready(() => {
       if ($(".LYAF-side-bar-header i").hasClass("fa-window-close")) {
         hideSidebars();
         hideMenu($(".LYAF-menu-active"));
-        for (i of $(".LYAF-menu-active")) {
+        for ( var i of $(".LYAF-menu-active")) {
           if (
             !$(i)
               .find(".LYAF-menu-content .LYAF-option-active")
@@ -777,7 +782,7 @@ $(document).ready(() => {
   $(".image-upload").change(function () {
     var files = $(".image-upload")[0].files;
 
-    for (f of files) {
+    for (var f of files) {
       if (f) {
         $(".LYAF-preview-list").prepend(`
                     <div class="LYAF-image-preview">
@@ -931,7 +936,7 @@ const tongleMenu = (element) => {
     : null;
   if (element) {
     if (!$(element).find(".LYAF-menu-content").is(":visible")) {
-      for (i of $(".LYAF-menu-active")) {
+      for (var i of $(".LYAF-menu-active")) {
         if (
           !$(i)
             .find(".LYAF-menu-content .LYAF-option-active")
