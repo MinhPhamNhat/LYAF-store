@@ -40,9 +40,10 @@ export class Filter {
     tags = [
         this.tag1,this.tag2,this.tag3
     ]
-    constructor(elementClassName, {data, sizeList, colorList, categoryList}){
+    constructor(elementClassName, {data, submit, sizeList, colorList, categoryList}){
         this.elementClassName = elementClassName
         this.data = data
+        this.submit = submit
         $(`.${elementClassName}`).append(generateFilter(this.data, this.tags))
   
        // DROPDOWN MENU FILTER 
@@ -178,12 +179,12 @@ export class Filter {
 
 
       $(`.${elementClassName} .LYAF-product-filter-search`).on('click', () => {
-        console.log(this.extractTags())
+        this.extractTags()
       })
     }
 
     extractTags = () => {
-      return this.tags
+      this.submit()
     }
   }
 

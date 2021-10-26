@@ -426,8 +426,10 @@
 .LYAF-thumbnail .LYAF-thumbnail-input .remove-thumbnail:hover {
   font-size: 25px; }
 
+table.dataTable thead th {
+  border-bottom: none; }
+
 .LYAF-product-list {
-  z-index: 1;
   height: fit-content;
   position: relative; }
 
@@ -441,18 +443,19 @@
   padding-bottom: 20px; }
 
 .LYAF-product-list .LYAF-table-loading {
+  text-align: center;
   z-index: 10;
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(184, 184, 184, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: rgba(199, 233, 255, 0.2);
+  display: none;
   border-radius: 10px; }
 
-table.dataTable thead th {
-  border-bottom: none; }
+.LYAF-product-list .LYAF-table-loading img {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); }
 
 .LYAF-product-list #LYAF-list td {
   padding: 20px 5px 20px 5px;

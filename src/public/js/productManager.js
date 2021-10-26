@@ -402,8 +402,10 @@ const parseToElements = (obj) => {
 const productList = myProducts.map((_) => parseToElements(_));
 
 $(document).ready(() => {
-  const LYAF_header = document.querySelector(".LYAF-header");
-  LYAF_header.classList.add("none");
+  if ($(".LYAF-header")[0]){
+    $(".LYAF-header").hide();
+  }
+
   var filters = new Filter("aaaa",{
           data:[{
               property: "id",
@@ -437,7 +439,14 @@ $(document).ready(() => {
               property: "size",
               title: "Size",
               type: "category"
-          }], sizeList, colorList, categoryList})
+          }],
+          submit: function() {
+            console.log(this.tags)
+            $(".LYAF-product-list .LYAF-table-loading").show()
+            setTimeout(() => {
+              $(".LYAF-product-list .LYAF-table-loading").hide()
+            }, 300);
+          }, sizeList, colorList, categoryList})
 
   // DATATABLE
   if ($("#LYAF-list")[0]) {

@@ -9,6 +9,11 @@ class ClientController{
         
         res.render('productDetail');
     }
+
+    productCollection(req,res,next){
+        
+        res.render('productCollection');
+    }
 }
 
 module.exports = new ClientController;

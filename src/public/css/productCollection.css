@@ -1,0 +1,107 @@
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+    display: none; }
+  100% {
+    opacity: 1;
+    display: block; } }
+
+@keyframes fadeOutAnimation {
+  0% {
+    opacity: 1;
+    display: block; }
+  100% {
+    opacity: 0;
+    display: none; } }
+
+.LYAF-collection-container {
+  display: flex;
+  flex-direction: column; }
+  .LYAF-collection-container .LYAF-collection-header {
+    display: flex;
+    flex-direction: column; }
+    .LYAF-collection-container .LYAF-collection-header #title {
+      text-align: center;
+      font-weight: 600; }
+  .LYAF-collection-container .LYAF-collection-filter {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center; }
+  .LYAF-collection-container .LYAF-collection-wrapper {
+    padding: 10px;
+    width: fit-content;
+    display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 5px; }
+    .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component {
+      width: fit-content;
+      padding: 5px;
+      border: 1px solid transparent; }
+      .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component .LYAF-product-thumbnails {
+        cursor: pointer;
+        position: relative; }
+        .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component .LYAF-product-thumbnails img {
+          max-width: 300px;
+          height: auto; }
+        .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component .LYAF-product-thumbnails #main-thumbnail {
+          animation-name: fadeInAnimation;
+          animation-fill-mode: both;
+          animation-duration: .5s; }
+        .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component .LYAF-product-thumbnails #second-thumbnail {
+          position: absolute;
+          top: 0;
+          left: 0;
+          opacity: 0; }
+      .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component .LYAF-product-info {
+        position: relative; }
+        .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component .LYAF-product-info #price {
+          position: absolute;
+          top: -30px;
+          font-weight: 600;
+          background-color: rgba(240, 248, 255, 0.7);
+          transition: 0.2s; }
+          .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component .LYAF-product-info #price span {
+            margin-right: 5px;
+            margin-left: 5px; }
+          .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component .LYAF-product-info #price #true-price {
+            font-size: 16px; }
+          .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component .LYAF-product-info #price #sale-price {
+            font-size: 13px;
+            text-decoration: line-through red; }
+        .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component .LYAF-product-info #name {
+          font-weight: 600;
+          font-size: 16px;
+          width: 300px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis; }
+        .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component .LYAF-product-info #category {
+          line-height: 1; }
+          .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component .LYAF-product-info #category a {
+            font-weight: 600;
+            font-size: 12px;
+            color: #858585; }
+        .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component .LYAF-product-info #rating {
+          display: flex;
+          flex-direction: row;
+          font-weight: 600;
+          justify-content: space-between; }
+    .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component:hover {
+      border: 1px solid black; }
+      .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component:hover .LYAF-product-thumbnails #main-thumbnail {
+        animation-name: fadeOutAnimation;
+        animation-fill-mode: both;
+        animation-duration: .5s; }
+      .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component:hover .LYAF-product-thumbnails #second-thumbnail {
+        animation-name: fadeInAnimation;
+        animation-fill-mode: both;
+        animation-duration: .5s; }
+      .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component:hover .LYAF-product-info #price {
+        top: -40px; }
+  .LYAF-collection-container .LYAF-collection-pagination {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center; }
