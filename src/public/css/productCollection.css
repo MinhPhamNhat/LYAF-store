@@ -31,19 +31,21 @@
   .LYAF-collection-container .LYAF-collection-wrapper {
     padding: 10px;
     width: fit-content;
-    display: inline-flex;
+    display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
-    gap: 5px; }
+    gap: 10px; }
     .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component {
-      width: fit-content;
+      max-width: 300px;
+      min-width: 150px;
+      border: 1px solid transparent;
       padding: 5px;
-      border: 1px solid transparent; }
+      flex-grow: 4;
+      flex: 1 30%; }
       .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component .LYAF-product-thumbnails {
         cursor: pointer;
         position: relative; }
         .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component .LYAF-product-thumbnails img {
-          max-width: 300px;
+          max-width: 100%;
           height: auto; }
         .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component .LYAF-product-thumbnails #main-thumbnail {
           animation-name: fadeInAnimation;
@@ -73,7 +75,7 @@
         .LYAF-collection-container .LYAF-collection-wrapper .LYAF-product-component .LYAF-product-info #name {
           font-weight: 600;
           font-size: 16px;
-          width: 300px;
+          width: 100%;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis; }
