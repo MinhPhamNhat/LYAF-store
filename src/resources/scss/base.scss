@@ -1,7 +1,9 @@
 :root{
     --width-sidebar: 250px;
 }
-
+body *{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 *{
     padding: 0;
     margin: 0;
@@ -18,7 +20,9 @@ i{
     cursor: pointer;
 }
 
-
+#breadcrumb{
+    font-weight: 600;
+}
 
 // @media screen and (max-width: 992px) {
 
