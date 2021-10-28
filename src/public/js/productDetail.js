@@ -24,7 +24,6 @@
 $(document).ready(()=>{
         $('.xzoom, .xzoom-gallery').xzoom({
             position: 'lens', 
-            lensShape: 'circle', 
             sourceClass: 'xzoom-hidden',
             defaultScale: -0.5,
         });

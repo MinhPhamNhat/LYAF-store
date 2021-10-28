@@ -214,9 +214,14 @@
 //     margin-top: 40px;
 // }
 
-$myColor: #e9e9e9;
+$myColor: #eafeff;
 
 .LYAF-detail-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  padding-right: 150px;
+  padding-left: 150px;
   .selected {
     border: 2px solid black;
   }
@@ -234,18 +239,22 @@ $myColor: #e9e9e9;
       height: 100%;
     }
   }
-  padding: 20px;
-  display: flex;
-  flex-direction: row;
-  padding-right: 150px;
-  padding-left: 150px;
   .LYAF-image-detail {
+    width: 50%;
+    .thumbails{
+      max-width: 100%;
+      width: 100% !important;
+      height: auto;
+      margin-bottom: 10px;
+    }
     .xzoom-hidden img {
+      width: 900px;
       height: auto;
     }
   }
 
   .LYAF-infor-detail {
+    width: 50%;
     padding: 20px;
 
     .option-title {
@@ -358,6 +367,15 @@ $myColor: #e9e9e9;
       }
     }
 
+    #stock{
+      font-weight: 600;
+      #number{
+        color: red;
+        font-size: 18px;
+        margin: 10px 10px;
+      }
+    }
+
     #quantity {
       margin-bottom: 20px;
       .warpper {
@@ -401,24 +419,38 @@ $myColor: #e9e9e9;
           border: 2px dashed darkgray;
           padding: 10px;
           font-size: 26px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
           #value {
             font-weight: 600;
-          }
-          #currency {
-            font-weight: 600;
-            font-size: 20px;
-            text-decoration: underline;
+            display: flex;
+            flex-direction: column;
+            #true{
+              #currency {
+                font-size: 20px;
+                text-decoration: underline;
+              }
+            }
+            #sale{
+              line-height: 0;
+              font-size: 13px;
+              text-decoration: line-through red;
+              #currency {
+                text-decoration: underline;
+              }
+            }
           }
           #slash {
             position: relative;
             bottom: -10px;
-            font-weight: 600;
+            font-size: 13px;
           }
           #unit {
             position: relative;
             bottom: -10px;
             font-weight: 600;
-            font-size: 16px;
+            font-size: 13px;
           }
         }
       }
@@ -440,6 +472,13 @@ $myColor: #e9e9e9;
       }
     }
 
+    #infor-bellow{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      font-weight: 600;
+    }
+
     #description {
       .title {
         font-weight: 600;
@@ -450,6 +489,19 @@ $myColor: #e9e9e9;
         padding: 10px;
         border: 1px dashed black;
       }
+    }
+  }
+}
+
+@media only screen and (max-width: 620px) { 
+  .LYAF-detail-container{
+    flex-direction: column;
+    padding: 0;
+    .LYAF-image-detail{
+      width: 100%;
+    }
+    .LYAF-infor-detail{
+      width: 100%;
     }
   }
 }

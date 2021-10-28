@@ -1,1 +1,39 @@
-@import './_productComponent'
+
+.LYAF-collection-container{
+    display: flex;
+    flex-direction: column;
+
+    .LYAF-collection-header{
+        display: flex;
+        flex-direction: column;
+        #title{
+            text-align: center;
+            font-weight: 600;
+        }
+    }
+
+    .LYAF-collection-filter{
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .LYAF-collection-wrapper{
+        padding: 10px;
+        width: fit-content;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        
+        
+        @import './_productComponent';
+    }
+    
+    .LYAF-collection-pagination{
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+}

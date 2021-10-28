@@ -1,6 +1,7 @@
 {{!-- IMAGE GALLERY https://www.jqueryscript.net/gallery/Feature-rich-Product-Gallery-With-Image-Zoom-xZoom.html  --}}
 {{!-- Thêm croper --}}
 <link rel="stylesheet" href="https://unpkg.com/xzoom/dist/xzoom.css">
+    <link rel="stylesheet" href="../css/productDetail.css">
 {{!-- <div class="detail__wrapper">
     <div class="aaaa"></div>
     <div class="detail__img">
@@ -85,7 +86,7 @@
 <div class="LYAF-detail-container">
     <div class="LYAF-image-detail">
         <div class="xzoom-container">
-            <img class="xzoom" src="../img/ATNS1001-1.jpg" xoriginal="../img/ATNS1001-1.jpg" title="The description goes here" width="900">
+            <img class="xzoom thumbails" src="../img/ATNS1001-1.jpg" xoriginal="../img/ATNS1001-1.jpg" title="The description goes here" width="900">
             <div class="xzoom-thumbs">
                 <a href="../img/ATNS1001-1.jpg"><img class="xzoom-gallery xactive" width="80" src="../img/ATNS1001-1.jpg" title="The description goes here"></a>
                 <a href="../img/ATNS1001-2.jpg"><img class="xzoom-gallery" width="80" src="../img/ATNS1001-2.jpg" title="The description goes here"></a>
@@ -143,12 +144,17 @@
                 <button class="btn btn-outline-secondary btn-plus"><i class="fa fa-plus"></i></button>
             </div>
         </div>
+        <div id="stock">
+            <span>Còn lại <span id="number">12</span> sản phẩm</span>
+        </div>
         <hr>
         <div class="LYAF-order-section">
             <div id="price">
                 <div class="warpper">
-                    <span id="value">300.000</span>
-                    <span id="currency">đ</span>
+                    <div id="value">
+                        <span id="true">200.000<span id="currency">đ</span></span>
+                        <span id="sale">300.000<span id="currency">đ</span></span>
+                    </div>
                     <span id="slash">/</span>
                     <span id="unit">Cái</span>
                 </div>
@@ -156,6 +162,11 @@
             <div id="add-cart">
                 <button><i class="fas fa-cart-plus"></i> Thêm giỏ hàng</button>
             </div>
+        </div>
+        <hr>
+        <div id="infor-bellow">
+            <span><i class="fas fa-shipping-fast"></i> Giao hàng miễn phí</span>
+            <span><i class="far fa-handshake"></i> Thanh toán khi nhận hàng</span>
         </div>
         <hr>
         <div id="description">

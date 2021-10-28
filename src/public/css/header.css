@@ -1,6 +1,5 @@
 .LYAF-header {
-  background-color: black;
-  margin-bottom: 20px; }
+  background-color: black; }
 
 .text-uppercase {
   letter-spacing: 0.08em; }
@@ -188,10 +187,8 @@
 .LYAF-header .LYAF-search-box .LYAF-search-output .LYAF-search-product {
   cursor: pointer;
   display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
-  justify-content: center;
-  width: 70%; }
+  justify-content: center; }
 
 .LYAF-header .LYAF-search-box .LYAF-search-output .LYAF-search-product-info {
   display: flex;
@@ -368,3 +365,7 @@
   color: black; }
 
 /* END CART SITE */
+@media screen and (max-width: 640px) {
+  .LYAF-header .LYAF-search-box,
+  .LYAF-header .LYAF-cart-box {
+    width: 300px; } }

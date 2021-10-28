@@ -2,7 +2,7 @@ const proModel = require('../models/Product');
 class ClientController{
 
     client(req,res,next){
-        res.render('client');
+        res.render('home');
     }
 
     productDetail(req,res,next){
