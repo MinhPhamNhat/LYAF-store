@@ -44,6 +44,7 @@ form{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+   
 }
 
 .form__title{
@@ -90,7 +91,13 @@ form{
     font-size: 18px;
     background: linear-gradient(to right,rgba(253,29,29,1) 7%, rgba(252,176,69,1) 50%, rgb(29, 253, 115) 43%);
     background-size: 200%;
-    transition: .5s ease-out;
+    transition: .3s ease-out;
+}
+
+.form__login--submit:hover{
+    border: none;
+    outline:none;
+    background-position:right;
 }
 
 .form__login--submit:focus{

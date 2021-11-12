@@ -77,7 +77,12 @@ form {
   font-size: 18px;
   background: linear-gradient(to right, #fd1d1d 7%, #fcb045 50%, #1dfd73 43%);
   background-size: 200%;
-  transition: .5s ease-out; }
+  transition: .3s ease-out; }
+
+.form__login--submit:hover {
+  border: none;
+  outline: none;
+  background-position: right; }
 
 .form__login--submit:focus {
   border: none;
