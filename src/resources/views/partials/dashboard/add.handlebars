@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.css" integrity="sha512-+VDbDxc9zesADd49pfvz7CgsOl2xREI/7gnzcdyA9XjuTxLXrdpuz21VVIqc5HPfZji2CypSbxx1lgD7BgBK5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="LYAF-dashboard-header">
     <span class="text-uppercase font-weight-bold">ADD PRODUCT</span>
 </div>
@@ -19,7 +20,7 @@
                 </div>
                 <div class="LYAF-product-description">
                     <span class=" font-weight-bold">Product description :</span>
-                    <textarea>
+                    <textarea id="desc">
                     </textarea>
                 </div>
             </div>
@@ -107,7 +108,7 @@
         </div>
         <div class="LYAF-block-content">
             <div class="row">
-                <div class="LYAF-product-image col">
+                <div class="LYAF-product-image col-12 col-md-6 col-sm-12">
                     <div class="LYAF-preview-wrapper">
                         <div class="LYAF-preview-container">
                             <div class="list-title">
@@ -123,14 +124,32 @@
                             </div>
                             <div class="LYAF-preview-list">
                             </div>
-                        
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="description">
                                 <b>Drag</b> products up or down for seriated uploading.
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="LYAF-thumbnail col">
+                <div class="LYAF-thumbnail col-12 col-md-6 col-sm-12">
                     
                     <hr id="hr-in-image-supplement">
                     <div class="LYAF-thumbnail-container">
@@ -140,7 +159,7 @@
                     <div class="description">
                         These <b>thumbnails</b> will present on your product component. Please select proper <b>images raito (10:9)</b> for better demonstration.  
                     </div>
-                    <div class="LYAF-thumbnail-input">
+                    {{!-- <div class="LYAF-thumbnail-input">
                         <div class="thumbnail-upload-holder ">
                             <input type="file" accept="image/*" id="thumbnail">
                             <p>Thumbnail 1</p>
@@ -153,6 +172,9 @@
                             <a><img id="thumbnail-preview"></a>
                             <span class="remove-thumbnail"><i class="fas fa-times-circle"></i></span>
                         </div>
+                    </div> --}}
+                    <div class="LYAF-cropper-image">
+                        <img id="cropper-image" src="">
                     </div>
                 </div>
             </div>
@@ -181,3 +203,24 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="categoryModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js" integrity="sha512-ooSWpxJsiXe6t4+PPjCgYmVfr1NS5QXJACcR/FPpsdm6kqG1FmQ2SVyg2RXeVuCRBLr0lWHnWJP6Zs1Efvxzww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
