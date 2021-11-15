@@ -271,12 +271,11 @@
   align-items: center;
   gap: 10px;
   width: fit-content;
-  color: #fffc4f;
+  color: #9c9a12;
   border-radius: 5px;
   padding: 2px;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: rgba(0, 0, 0, 0.171);
   top: 0; }
   .LYAF-preview-wrapper .LYAF-image-preview .LYAF-asssA img {
     border: 1px solid white;

@@ -189,80 +189,7 @@ $(document).ready(()=>{
 
 
   if ($(".LYAF-advanced-select")[0]) {
-    // categoryList.forEach((_) =>
-    //   $(".LYAF-advanced-select").append(`
-    //         <div class="LYAF-advanced-option" data-action="to" data-id="${_.categoryID}">${_.name}</div>
-    //     `)
-    // );
-
-    // $("#cancel-option").click(() => {
-    //   $(".LYAF-select-category").hide(100);
-    // });
-
-    // $(document).on(
-    //   "click",
-    //   ".LYAF-category-selected .product-category span",
-    //   function () {
-    //     var categoryParent = categoryList.find(
-    //       (_) => _.categoryID === this.dataset.parent
-    //     );
-    //     if (categoryParent) {
-    //       $(".LYAF-advanced-option").remove();
-    //       categoryParent.child.forEach((_) =>
-    //         $(".LYAF-advanced-select").append(`
-    //                 <div class="LYAF-advanced-option" data-parent="${categoryParent.categoryID}" data-id="${_.categoryID}">${_.name}</div>
-    //             `)
-    //       );
-    //     } else {
-    //       $(".LYAF-advanced-option").remove();
-    //       categoryList.forEach((_) =>
-    //         $(".LYAF-advanced-select").append(`
-    //                 <div class="LYAF-advanced-option" data-id="${_.categoryID}">${_.name}</div>
-    //             `)
-    //       );
-    //     }
-    //     if (!$(".LYAF-select-category").is(":visible")) {
-    //       $(".LYAF-select-category").show(100);
-    //     }
-    //   }
-    // );
-
     $(document).on("click", ".LYAF-advanced-option", function () {
-      // var category = this.dataset;
-      // if (category.parent) {
-      //   var currentCategory = categoryList.find(
-      //     (_) => _.categoryID === category.parent
-      //   );
-      //   currentCategory = currentCategory.child.find(
-      //     (_) => _.categoryID === category.id
-      //   );
-      // } else {
-      //   var currentCategory = categoryList.find(
-      //     (_) => _.categoryID === category.id
-      //   );
-      // }
-      // if (currentCategory.child) {
-      //   $(".LYAF-advanced-option").remove();
-      //   currentCategory.child.forEach((_) =>
-      //     $(".LYAF-advanced-select").append(`
-      //               <div class="LYAF-advanced-option" data-parent="${currentCategory.categoryID}" data-id="${_.categoryID}">${_.name}</div>
-      //           `)
-      //   );
-      //   $(".LYAF-category-selected .product-category span").remove();
-      // } else {
-      //   $(".LYAF-select-category").hide(100);
-      // }
-      // if ($(".LYAF-category-selected .product-category span").length > 1) {
-      //   $(".LYAF-category-selected .product-category span")[
-      //     $(".LYAF-category-selected .product-category span").length - 1
-      //   ].remove();
-      // }
-      // $(
-      //   `<span ${category.parent ? `data-parent="${category.parent}"` : ""}> ${
-      //     currentCategory.name
-      //   } <i class="fas fa-chevron-right"></i></span>`
-      // ).insertBefore(".LYAF-category-selected .product-category .product-name");
-      // $(".product-id").text(`${currentCategory.categoryID} -`);
     });
   }
 
@@ -297,7 +224,7 @@ $(document).ready(()=>{
         `${$(".LYAF-remove-list .LYAF-image-preview").length} images`
       );
     });
-
+    
     var scroll = autoScroll(
       [
         window,
@@ -356,41 +283,40 @@ $(document).ready(()=>{
   $(".image-upload").change(function () {
     var files = $(".image-upload")[0].files;
     for (var f of files) {
-      var indx = $(".LYAF-image-preview").length+1
+      var uuid = uuidv4()
+      console.log(uuid)
       if (f) {
         var size = humanFileSize(f.size)
         $(".LYAF-preview-list").prepend(`
-            <div class="LYAF-image-preview preview-${indx}">
-                
-                <a class="LYAF-aaaa" href="${URL.createObjectURL(f)}">
-                  <img src="${URL.createObjectURL(f)}" class="$@da@# " height="auto" width="100">
-                </a>
-                <span class="image-info font-weight-bold">
-                  <span class="LYAF-asssA">
-                    <span><i class="fas fa-star"></i></span>
-                    <span><img src="../img/color-black.jpg" height="25" width="25"></span>
-                  </span>
-                  <span id="name">${f.name}</span>
-                  <span id="size">${size}</span>
-                  
+            <div class="LYAF-image-preview preview-${uuid}">
+              <a class="LYAF-aaaa" href="${URL.createObjectURL(f)}">
+                <img src="${URL.createObjectURL(f)}" class="$@da@# " height="auto" width="100">
+              </a>
+              <span class="image-info font-weight-bold">
+                <span class="LYAF-asssA">
+                  <span id="thumbnail"></span>
+                  <span id="color"><img src="../img/color-black.jpg" height="25" width="25"></span>
                 </span>
-                <div class="LYAF-image-preview-edit dropdown show">
-                  <a class="dropdown-toggle" href="javascript:void(0)" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-ellipsis-h"></i>
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <div class="form-group form-check">
-                      <input type="checkbox" class="form-check-input" id="set-thumnail">
-                      <label class="form-check-label" data-id="${indx}" for="set-thumnail">Set as thumbnail <span id="number">0/2</span></label>
-                    </div>
-                    <hr>
-                    <a class="dropdown-item" href="javascript:void(0)">Set as color thumbnail</a>
-                    <a class="dropdown-item crop-image" data-id="${indx}" href="javascript:void(0)">Crop image</a>
+                <span id="name">${f.name}</span>
+                <span id="size">${size}</span>
+              </span>
+              <div class="LYAF-image-preview-edit dropdown show">
+                <a class="dropdown-toggle" href="javascript:void(0)" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-ellipsis-h"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input set-thumbnail" data-id="${uuid}" id="set-thumbnail-${uuid}">
+                    <label class="form-check-label" data-id="${uuid}" for="set-thumbnail-${uuid}">Set as thumbnail <span id="number">0/2</span></label>
                   </div>
+                  <hr>
+                  <a class="dropdown-item" href="javascript:void(0)">Set as color thumbnail</a>
+                  <a class="dropdown-item crop-image" data-id="${uuid}" href="javascript:void(0)">Crop image</a>
                 </div>
-                <span class="remove-image-btn"><i class="fa fa-trash"></i></span>
+              </div>
+              <span class="remove-image-btn"><i class="fa fa-trash"></i></span>
             </div>
-        `);
+        `)
       }
     }
     $(".LYAF-preview-container .info").html(
@@ -399,19 +325,24 @@ $(document).ready(()=>{
     $(".image-upload").val(null);
   });
 
+  $(document).on("change",".set-thumbnail", function (){
+    var id = this.dataset.id
+    console.log(id)
+    toggleThumbnail(id)
+  })
 
   var cropper = new Cropper($(`.LYAF-cropper-image #cropper-image`)[0],{
-    viewMode: 1, // 0, 1, 2, 3
-    initialAspectRatio: 1,
-    aspectRatio: 1,
-    autoCropArea: 1,
-    zoomable: false,
-    minCropBoxWidth: 100,
-    minCropBoxHeight: 100,
-    ready: function(){
-       console.log($(`.LYAF-cropper-image #cropper-image`)[0].cropper.getCroppedCanvas().toDataURL("image/png"))
-    }
- })
+      viewMode: 1,
+      initialAspectRatio: 1,
+      aspectRatio: 1,
+      autoCropArea: 1,
+      zoomable: false,
+      minCropBoxWidth: 100,
+      minCropBoxHeight: 100,
+      ready: function(){
+        console.log($(`.LYAF-cropper-image #cropper-image`)[0].cropper.getCroppedCanvas().toDataURL("image/png"))
+      }
+  })
 
   $(document).on('click', ".LYAF-image-preview .crop-image", function(){
     var id = this.dataset.id
@@ -537,4 +468,26 @@ $(document).ready(()=>{
   const blob = await response.blob();
   const file = new File([blob], 'image.jpg', {type: blob.type});
   return file
+}
+
+/**
+ * Generate uuid
+ * 
+ * @return an id.
+ */
+function uuidv4() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  );
+}
+
+
+function toggleThumbnail(id) {
+  if($(`.preview-${id} #thumbnail`).hasClass("set")){
+    $(`.preview-${id} #thumbnail`).removeClass("set")
+    $(`.preview-${id} #thumbnail`).html("");
+  }else{
+    $(`.preview-${id} #thumbnail`).addClass('set')
+    $(`.preview-${id} #thumbnail`).append('<i class="fas fa-star"></i>')
+  }
 }
