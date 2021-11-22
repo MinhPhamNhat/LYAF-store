@@ -1,0 +1,49 @@
+const express = require('express');
+const app = express();
+class LoginController{
+
+    login(req,res,next){
+        res.render('login');
+    }
+    // register(req,res,next){
+    //     res.render('register');
+    // }
+    loginSuccess(req,res,next){
+        res.render('home');
+    }
+    
+    logout(req,res,next){
+        req.logout();
+        res.render('home');
+    }
+
+    test(req,res,next){
+        console.log(req.user);
+    }
+
+        // passport.serializeUser((user,done) =>{
+        // done(null,user.usr);
+        // });
+
+        // passport.deserializeUser((name,done) =>{
+        // fs.readFile('db',()=>{
+        //     const db = JSON.parse(data);
+        //     const userc = db.find(user => user.usr == name);
+        //     if(userc){
+        //     return done(null,userc);
+        //     }
+        //     else{
+        //     return done(null,falses);
+        //     }
+        // });
+        // })
+
+        // app.get('pricv',(q,s)=>{
+        // if(q.isAuthenticated()){
+            
+        // }
+        // })
+    
+}
+
+module.exports = new LoginController;

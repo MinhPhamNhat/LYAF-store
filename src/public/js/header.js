@@ -36,5 +36,5 @@ $(document).ready(()=>{
   //fa-user-circle:
   const fa_user_circle = document.querySelector('.fa-user-circle');
   fa_user_circle.addEventListener('click',() => {
-      window.location.href = "/access/login";
+      window.location.href = "/login";
   });

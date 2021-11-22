@@ -7,7 +7,7 @@ class ClientController{
 
     client(req,res,next){
         District.find({provinceCode: "P-79"}).exec((err, data)=>{
-            console.log(data)
+            // console.log(data)
         })
         res.render('home');
     }

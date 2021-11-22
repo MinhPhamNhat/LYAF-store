@@ -20,11 +20,15 @@
 //B20:require mongoose-delete vào model và add plugin
 //B21: cài method-override (npm install method-override)
 //B22: Require method-override
+//B23: Tải gói passport
 //B23: Lưu ý đúng thứ tự require tất cả
 
 //Require express:
 const express = require('express');
 const app = express();
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const passport = require('passport');
 const port = 2000;
 
 //Require handlebars:
@@ -41,6 +45,7 @@ app.engine('handlebars',hdbars({
 app.set('view engine','handlebars');
 app.set('views', path.join(__dirname, 'resources/views'));
 
+
 //use express middleware:
 app.use(express.urlencoded({
     extended:true,
@@ -50,7 +55,19 @@ app.use(express.json());
 //method Override
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
-
+//Set up Passport:
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({secret: 'ratbaomatthe',
+                        resave: true,
+                        saveUninitialized: true,
+                        cookie:{
+                          maxAge:1000*60*60,
+                        }
+                        }));
+app.use(passport.initialize()); 
+app.use(passport.session());
+require('./config/passport');
 //route:
 const route = require('./routes/index');
 route(app);
@@ -58,6 +75,7 @@ route(app);
 //Connect MonngoDB:
 const connect_db = require('./config/db/index.js');
 connect_db();
+
 
 
 

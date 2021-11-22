@@ -1,19 +1,19 @@
 <div class="form__wrapper">
     <div class="form__login">
     
-        <form>
+        <form action="/login" method="post">
             <div class="form__title">
                 <span class="form__title--name">
                     Đăng Nhập
                 </span>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail1">Email</label>
-                <input type="email" class="form-control" placeholder="Nhập email">
+                <label for="exampleInputEmail1">Tên đăng nhập:</label>
+                <input type="text" name="username" class="form-control" placeholder="Nhập tên người dùng">
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" placeholder="Nhâp mật khẩu">
+                <label for="exampleInputPassword1">Mật khẩu:</label>
+                <input type="password" name="password" class="form-control" placeholder="Nhâp mật khẩu">
             </div>
             <div class="form-group form-check" id="pass_issues">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1" style="outline: none;">
