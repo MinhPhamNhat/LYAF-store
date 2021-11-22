@@ -2,7 +2,7 @@ const accModel = require('../app/models/Account');
 const userModel = require('../app/models/User');
 const LocalStrategy = require('passport-local').Strategy;
 const passport = require('passport');
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 
 passport.serializeUser(function(user, done) {
@@ -20,7 +20,7 @@ passport.use(new LocalStrategy(
             username : username
         }).exec()
         .then((data) => {
-            if(password == data.password){
+            if(bcrypt.compareSync(password, data.password)){
                 
                
                     userModel.findOne({username: username}).exec()

@@ -1,4 +1,6 @@
 const accModel = require('../models/Account');
+const userModel = require('../models/User');
+const bcrypt = require('bcrypt');
 class RegisterController{
 
     accessRegister(req,res,next){
@@ -16,7 +18,28 @@ class RegisterController{
            res.render('register',{error,placeholder});
        }
        else{
-
+        const bcryptpassword = bcrypt.hashSync(rpassword, 10);
+        const newacc = new accModel({
+            username:rusername,
+            password:bcryptpassword
+        })
+        newacc.save()
+              .then(() =>{
+                const newuser = new userModel({
+                    username:rusername,
+                    name:rusername,
+                })
+                newuser.save()
+                        .then(()=>{
+                            res.render('login');
+                        })
+                        .catch()
+              }
+                  
+              )
+              .catch(next)
+        
+              
        }
     }
 }
