@@ -228,3 +228,31 @@ form{
         font-size: 15px;
     }
 }
+
+//Error-toast
+.errorToast{
+    position: absolute;
+    width: 400px;
+    height: 150px;
+    color:white;
+    margin-left: -200px;
+    border-radius:5px ;
+    background-color: rgba(20, 20, 18, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 90px;
+    right: -400px;
+    // visibility:hidden;
+    // opacity:0;
+    transition: right 0.5s linear;
+}
+
+
+.errorToast span{
+    text-align: center;
+    font-size: 22px;
+    width: 100%;
+    
+}

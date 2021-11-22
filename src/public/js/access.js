@@ -18,7 +18,7 @@ window.addEventListener('resize', (e) =>{
 const link_login_btn = document.querySelector('.link_login_btn');
 if(link_register_btn != null){
     link_register_btn.addEventListener('click',() =>{
-        window.location.href = "/access/register";
+        window.location.href = "/register";
     });
 }
 
@@ -57,3 +57,12 @@ function changeHeight_400(x) {
 changeHeight_400(window.matchMedia("(max-width: 420px)"));
 changeHeight_420(window.matchMedia("(max-width: 420px)"));
  
+//errorToast:
+const errorToast = document.querySelector('.errorToast');
+if(document.querySelector('#error') != null){
+    errorToast.style.right = "100px";
+    
+    setTimeout(() => {  
+        errorToast.style.right = "-400px";
+    }, 3000);
+}
