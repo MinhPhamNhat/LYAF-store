@@ -29,6 +29,7 @@ const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const flash = require('connect-flash');
 const hdbHelper = require('./helper/handlebars/helper')
 require('dotenv').config();
 const port = process.env.PORT;
@@ -65,6 +66,7 @@ app.use(session({secret: 'ratbaomatthe',
                           maxAge:1000*10,
                         }
                         }));
+app.use(flash());
 app.use(passport.initialize()); 
 app.use(passport.session());
 
