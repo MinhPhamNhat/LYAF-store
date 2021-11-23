@@ -26,16 +26,16 @@ passport.use(new LocalStrategy(
                     req.flash('error','Tài khoản không hợp lệ !');
                     return(null,false);
                 }
-                if(bcrypt.compareSync(password, data.password)){
+                else if(bcrypt.compareSync(password, data.password)){
                         userModel.findOne({username: username}).exec()
                         .then((user) =>{
                             return done(null, user);
                         })
                 
                     }
-                    else{
-                        req.flash('error','Mật khẩu không hợp lệ !');
-                        return done(null,false);
+                else{
+                    req.flash('error','Mật khẩu không hợp lệ !');
+                    return done(null,false);
                     }   
                     
                 })
