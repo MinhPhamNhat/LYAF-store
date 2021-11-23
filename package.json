@@ -20,6 +20,7 @@
     "mongoose-delete": "^0.5.4",
     "nodemon": "^2.0.13",
     "passport": "^0.5.0",
+    "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "swiper": "^7.0.6"
   },

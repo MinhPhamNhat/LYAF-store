@@ -21,6 +21,7 @@
 
 .form__login {
   width: 30%;
+  height: 700px;
   background-color: #e8ebee;
   margin-top: 80px;
   margin-left: 200px;
@@ -117,7 +118,7 @@ form {
 
 .social__link .fab {
   font-size: 40px;
-  margin-top: 30px;
+  margin-top: 60px;
   margin-left: calc(50% - 60px);
   cursor: pointer; }
 

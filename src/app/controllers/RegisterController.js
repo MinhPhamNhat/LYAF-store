@@ -8,23 +8,27 @@ class RegisterController{
     }
 
     checkRegister(req,res,next){
+        const rname = req.body.rname;
         const rusername = req.body.rusername;
         const rpassword = req.body.rpassword;
         const rpasswordcheck = req.body.rpasswordcheck;
         var error;
-        var placeholder;
+        var valuename;
+        var valueuser;
        if(rpassword != rpasswordcheck){
            error = 'Xác nhận mật khẩu thất bại !';
-           placeholder = rusername;
-           res.render('register',{error,placeholder});
+           valuename = rname;
+            valueuser = rusername;
+           res.render('register',{error,valuename,valueuser});
        }
         else{
             accModel.findOne({username: rusername}).exec()
             .then((data)=>{
                 if(data != null){
                     error = 'Tên đăng nhập đã được sử dụng !';
-                    placeholder = rusername;
-                    res.render('register',{error,placeholder});
+                    valuename = rname;
+                    valueuser = rusername;
+                    res.render('register',{error,valuename,valueuser});
                 }
                 else{
                     const bcryptpassword = bcrypt.hashSync(rpassword, 10);
@@ -36,7 +40,7 @@ class RegisterController{
                         .then(() =>{
                             const newuser = new userModel({
                                 username:rusername,
-                                name:rusername,
+                                name:rname,
                             })
                             newuser.save()
                                     .then(()=>{
