@@ -21,7 +21,7 @@ passport.use(
       callbackURL: "http://localhost:2000/login/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
-      accModel.findOne({username : profile._json})
+      accModel.findOne({username : profile._json.sub})
       .exec()
       .then((data) => {
           if(data == null){
