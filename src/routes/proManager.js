@@ -7,7 +7,6 @@ const proManager = require('../app/controllers/ProductController');
 
 //Body
 route.get('/',proManager.proManager);
-route.get('/create',proManager.create);
-route.post('/create/done',proManager.createDone);
-route.get('/del/:id',proManager.delete);
+route.get('/add',proManager.create);
+route.get('/list',proManager.list);
 module.exports = route;

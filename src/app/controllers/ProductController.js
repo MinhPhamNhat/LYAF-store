@@ -12,21 +12,11 @@ class ProductController{
     }
 
     create(req,res,next){
-        res.render('createPro');
+        res.render('proManager', {route: "add"});
     }
-    //[POST] /create/done
-    createDone(req,res,next){
-        const newPro = req.body;
-        if(newPro.proSaleValue == ''){
-            newPro.proSaleValue = 'No';
-        }
-        newPro.proUrl = `test-detail`;
-        const newProValue = new proModel({name:newPro.proName,price:newPro.proPrice,origin:newPro.proOrigin,url:newPro.proUrl,sale:newPro.proSaleValue});
-        newProValue.save()
-              .then(()=>( res.redirect('/')))
-              .catch(next)
+    list(req, res, next){
+        res.render('proManager', {route: "list"});
     }
-
     delete(req,res,next){
         const proId = req.params.id;
         proModel.delete({id: proId})

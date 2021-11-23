@@ -17,13 +17,17 @@
 
 const Color = require('../models/Color')
 
-exports.model = {
+module.exports = {
     getList: async ()=>{
-        Color.find().exec()
-        .then((data) => {
-
+        return Color.find().exec()
+        .then(data => {
+            return {
+                code: 1,
+                message: "Thấy dữ liệu thành công",
+                data
+            }
         })
-        .catch((err)=>{
+        .catch(err=>{
             return {
                 code: -1,
                 message: err.errors
