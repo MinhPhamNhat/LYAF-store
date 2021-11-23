@@ -15,7 +15,13 @@ class RegisterController{
         var error;
         var valuename;
         var valueuser;
-       if(rpassword != rpasswordcheck){
+        if(rusername == '' || rpassword == ''){
+            error = 'Tài khoản hoăc mật khẩu đang trống !';
+           valuename = rname;
+            valueuser = rusername;
+           res.render('register',{error,valuename,valueuser});
+        }
+       else if(rpassword != rpasswordcheck){
            error = 'Xác nhận mật khẩu thất bại !';
            valuename = rname;
             valueuser = rusername;
