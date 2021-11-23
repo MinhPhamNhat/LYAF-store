@@ -1,3 +1,12 @@
+var G_DATA = {
+  name: "",
+  price: 0,
+  desc: "",
+  categoryId: "",
+  images: [],
+  subList: [],
+}
+
 const colorList = [
   {
     name: "Đỏ",
@@ -157,28 +166,39 @@ $(document).ready(()=>{
   if ($(".color-selecter")) {
     colorList.forEach((_) =>
       $(".color-selecter").append(
-        `<option value="${_.colorID}" data-image="../img/${_.colorImage}">${_.name}</option>`
+        `<option value="${_.colorID}" data-image="../img/${_.colorImage}" data-name="${_.name}">${_.name}</option>`
       )
     );
   }
-  if ($(".size-selecter")) {
-    sizeList.forEach((_) =>
-      $(".size-selecter").append(
-        `<option value="${_.sizeID}">${_.name} - ${_.desc}</option>`
+  // if ($(".size-selecter")) {
+  //   sizeList.forEach((_) =>
+  //     $(".size-selecter").append(
+  //       `<option value="${_.sizeID}" data-name="${_.name}">${_.name} - ${_.desc}</option>`
+  //     )
+  //   );
+  // }
+  if ($(".category-selecter")){
+    categoryList.forEach((_) =>
+      $(".category-selecter").append(
+        `<option value="${_.categoryID}" data-name="${_.name}">${_.name}</option>`
       )
     );
   }
 
   // LC_SELECT
   if ($(".LYAF-selecter")[0])
-    new lc_select(".LYAF-selecter", {
+    new lc_select(".color-selecter", {
       enable_search: true,
       min_for_search: 7,
       autofocus_search: false,
       wrap_width: "100%",
       pre_placeh_opt: false,
       max_opts: false,
-      on_change: null,
+      on_change: function(val, ele){
+        if ($(ele).hasClass("color-selecter")){
+          setUpSubList(val[0])
+        }
+      },
       labels: [
         "search options",
         "add options",
@@ -289,13 +309,12 @@ $(document).ready(()=>{
         var size = humanFileSize(f.size)
         $(".LYAF-preview-list").prepend(`
             <div class="LYAF-image-preview preview-${uuid}">
-              <a class="LYAF-aaaa" href="${URL.createObjectURL(f)}">
+              <a class="LYAF-aaaa" href="${URL.createObjectURL(f)}" data-name="${f.name}">
                 <img src="${URL.createObjectURL(f)}" class="$@da@# " height="auto" width="100">
               </a>
               <span class="image-info font-weight-bold">
                 <span class="LYAF-asssA">
                   <span id="thumbnail"></span>
-                  <span id="color"><img src="../img/color-black.jpg" height="25" width="25"></span>
                 </span>
                 <span id="name">${f.name}</span>
                 <span id="size">${size}</span>
@@ -310,7 +329,6 @@ $(document).ready(()=>{
                     <label class="form-check-label" data-id="${uuid}" for="set-thumbnail-${uuid}">Set as thumbnail <span id="number">0/2</span></label>
                   </div>
                   <hr>
-                  <a class="dropdown-item" href="javascript:void(0)">Set as color thumbnail</a>
                   <a class="dropdown-item crop-image" data-id="${uuid}" href="javascript:void(0)">Crop image</a>
                 </div>
               </div>
@@ -323,6 +341,7 @@ $(document).ready(()=>{
       `${$(".LYAF-preview-list .LYAF-image-preview").length} images`
     );
     $(".image-upload").val(null);
+    updateInput();
   });
 
   $(document).on("change",".set-thumbnail", function (){
@@ -330,41 +349,6 @@ $(document).ready(()=>{
     console.log(id)
     toggleThumbnail(id)
   })
-
-  var cropper = new Cropper($(`.LYAF-cropper-image #cropper-image`)[0],{
-      viewMode: 1,
-      initialAspectRatio: 1,
-      aspectRatio: 1,
-      autoCropArea: 1,
-      zoomable: false,
-      minCropBoxWidth: 100,
-      minCropBoxHeight: 100,
-      ready: function(){
-        console.log($(`.LYAF-cropper-image #cropper-image`)[0].cropper.getCroppedCanvas().toDataURL("image/png"))
-      }
-  })
-
-  $(document).on('click', ".LYAF-image-preview .crop-image", function(){
-    var id = this.dataset.id
-    var src = $(`.preview-${id} .LYAF-aaaa img`).attr("src")
-    cropper.replace(src)
-  })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   $(document).on("click", ".LYAF-preview-list .remove-image-btn", function () {
     $(this).parent().remove();
@@ -410,6 +394,48 @@ $(document).ready(()=>{
       currentParent.find("input").val(null);
     }
   );
+
+  $(".LYAF-sub-products-add .add-sub-product").click(()=>{
+    $(".add-sub-modal").modal("show")
+
+  })
+
+  $(".add-sub-modal .save").click(()=>{
+    var sizeId = $(".size-selecter").find(":selected").val();
+    var colorId = $(".color-selecter").find(":selected").val();
+    var size = sizeList.find(_=>_.sizeID == sizeId)
+    var color = colorList.find(_=>_.colorID == colorId)
+    var quantity = $(".add-sub-modal #quantity").val()
+    $(".LYAF-sub-products-list").append(`
+      <div class="sub-product">
+          <input type="hidden" id="color" value="${colorId}">
+          <input type="hidden" id="size" value="${sizeId}">
+          <div class="sub-p-infor">
+              <div class="asdasd">
+                  <div class="thumbnail-name">
+                      <strong>Thumbnail: </strong>
+                      <span id="value">ANS1001-color-caro-black.jpg</span>
+                      </div>
+                  <div class="quantity">
+                      <strong>Quantity: </strong>
+                      <span id="value">${quantity}</span>
+                  </div>
+              </div>
+              <div class="asdasd">
+                  <div class="color">
+                      <strong>Color: </strong>
+                      <span id="value">${color.name}</span>
+                  </div>
+                  <div class="size">
+                      <strong>Size: </strong>
+                      <span id="value">${size.name}</span>
+                  </div>
+              </div>
+          </div>
+      </div>`)
+      G_DATA.subList.push({ colorId, sizeId })
+      $(".add-sub-modal").modal("hide")
+  })
 })
 
 /**
@@ -450,9 +476,7 @@ $(document).ready(()=>{
  * @return JSON.
  */
  function extractData() {
-   var title = $(".LYAF-block-content .LYAF-product-name input").val()
-   var description = tinyMCE.get("desc").getContent()
-  return {title, description};
+   return G_DATA
 }
 
 /**
@@ -462,11 +486,11 @@ $(document).ready(()=>{
  * 
  * @return An File object.
  */
- const urlToObject = async(image)=> {
+ const urlToObject = async(image, name)=> {
   const response = await fetch(image);
   // here image is url/location of image
   const blob = await response.blob();
-  const file = new File([blob], 'image.jpg', {type: blob.type});
+  const file = new File([blob], name, {type: blob.type});
   return file
 }
 
@@ -481,6 +505,53 @@ function uuidv4() {
   );
 }
 
+function updateInput(){
+  // NAME
+  G_DATA.name = $(".LYAF-product-name input").val()
+  // DESCRIPTION
+  G_DATA.desc = tinyMCE.get("desc").getContent()
+  // CATEGORY
+  G_DATA.categoryId = $(".category-selecter").find(":selected").val();
+  // PRICE
+  G_DATA.price = $(".LYAF-product-price input").val()
+  // IMAGES
+  G_DATA.images = getImagesObject();
+  // SUBLIST
+}
+
+function setUpSubList(colorId){
+
+  var selectedSize = G_DATA.subList.map(_ => {if (_.colorId == colorId) return _.sizeId})
+
+  const select = document.querySelector(".size-selecter")
+  $(".size-selecter option").remove()
+  const destroyEvent = new Event('lc-select-destroy');
+  select.dispatchEvent(destroyEvent);
+  sizeList.forEach((_) =>{
+    if(!selectedSize.includes(_.sizeID))
+    $(".size-selecter").append(
+      `<option value="${_.sizeID}" data-name="${_.name}">${_.name} - ${_.desc}</option>`
+    )
+  });
+  new lc_select(".size-selecter", {
+    enable_search: true,
+  })
+}
+
+function a(){
+
+}
+
+function getImagesObject(){
+  var fileInput = []
+  $(".LYAF-image-preview .LYAF-aaaa").each(async (i, v)=>{
+    var url = $(v).attr("href");
+    var name = $(v).attr("data-name");
+    var file = await urlToObject(url, name)
+    fileInput.push(file);
+  })
+  return fileInput
+}
 
 function toggleThumbnail(id) {
   if($(`.preview-${id} #thumbnail`).hasClass("set")){

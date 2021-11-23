@@ -156,9 +156,8 @@
   margin: 10px; }
 
 .LYAF-dasboard-body .LYAF-dashboard-block .description {
-  margin: 20px;
   padding: 20px;
-  background-color: #f2f2f2;
+  background-color: #eafdfd;
   border: 1px dashed #b8b8b8;
   border-radius: 10px;
   color: #646464; }
@@ -247,9 +246,6 @@
   border-radius: 10px;
   background-color: #e0e0e0;
   transition: 0.3s;
-  cursor: pointer; }
-
-.LYAF-preview-wrapper .list-title .add-image * {
   cursor: pointer; }
 
 .LYAF-preview-wrapper .list-title .add-image:hover,
@@ -471,6 +467,44 @@
   display: block;
   margin-left: auto;
   margin-right: auto; }
+
+.LYAF-sub-products-add {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row; }
+  .LYAF-sub-products-add .title-info {
+    display: flex;
+    flex-direction: column; }
+    .LYAF-sub-products-add .title-info .info {
+      font-size: 13px;
+      color: #b8b8b8; }
+  .LYAF-sub-products-add .add-sub-product {
+    position: relative;
+    font-size: 11px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: fit-content;
+    margin-right: 10px;
+    border-radius: 10px;
+    background-color: #e0e0e0;
+    transition: 0.3s;
+    cursor: pointer;
+    width: fit-content; }
+
+.LYAF-sub-products-list .sub-product {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-bottom: 10px; }
+  .LYAF-sub-products-list .sub-product .sub-p-infor {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center; }
+    .LYAF-sub-products-list .sub-product .sub-p-infor .asdasd {
+      margin-left: 20px;
+      display: flex;
+      flex-direction: column; }
 
 table.dataTable thead th {
   border-bottom: none; }
