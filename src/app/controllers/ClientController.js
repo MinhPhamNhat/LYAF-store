@@ -1,5 +1,7 @@
 
-
+const Color = require('../models/Color')
+const Size = require('../models/Size')
+const Category = require('../models/Category')
 class ClientController{
 
     async client(req,res,next){

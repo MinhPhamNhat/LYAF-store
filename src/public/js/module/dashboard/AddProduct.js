@@ -2,185 +2,35 @@ var G_DATA = {
   name: "",
   price: 0,
   desc: "",
-  categoryId: "",
+  _id: "",
   images: [],
   subList: [],
 }
 
-const colorList = [
-  {
-    name: "Đỏ",
-    colorID: "R",
-    colorImage: "color-red.jpg",
-  },
-  {
-    name: "Đen",
-    colorID: "B",
-    colorImage: "color-black.jpg",
-  },
-  {
-    name: "Camo rêu",
-    colorID: "CR",
-    colorImage: "color-camo-green.jpg",
-  },
-  {
-    name: "Camo xám",
-    colorID: "CX",
-    colorImage: "color-camo-grey.jpg",
-  },
-  {
-    name: "Caro đen",
-    colorID: "CRB",
-    colorImage: "color-caro-black.jpg",
-  },
-  {
-    name: "Caro vàng",
-    colorID: "CRY",
-    colorImage: "color-caro-yellow.jpg",
-  },
-  {
-    name: "Camo xanh",
-    colorID: "CXA",
-    colorImage: "color-camo-blue.jpg",
-  },
-];
-
-const sizeList = [
-  {
-    name: "XXS",
-    sizeID: "XXS",
-    desc: "Rất rất nhỏ",
-  },
-  {
-    name: "XS",
-    sizeID: "XS",
-    desc: "Rất nhỏ",
-  },
-  {
-    name: "S",
-    sizeID: "S",
-    desc: "Nhỏ",
-  },
-  {
-    name: "M",
-    sizeID: "M",
-    desc: "Trung bình",
-  },
-  {
-    name: "L",
-    sizeID: "L",
-    desc: "Lớn",
-  },
-  {
-    name: "XL",
-    sizeID: "XL",
-    desc: "Rất lớn",
-  },
-  {
-    name: "XXL",
-    sizeID: "XXL",
-    desc: "Rất rất lớn",
-  },
-];
-
-const categoryList = [
-  {
-    name: "Áo",
-    categoryID: "A",
-    child: ["AT", "ASM", "AK", "AH", "AL", "AP"],
-  },
-  {
-    name: "Áo Thun",
-    categoryID: "AT",
-    parent: "A",
-  },
-  {
-    name: "Áo Sơ mi",
-    categoryID: "ASM",
-    parent: "A",
-  },
-  {
-    name: "Áo khoác",
-    categoryID: "AK",
-    parent: "A",
-  },
-  {
-    name: "Áo Hoodie",
-    categoryID: "AH",
-    parent: "A",
-  },
-  {
-    name: "Áo len",
-    categoryID: "AL",
-    parent: "A",
-  },
-  {
-    name: "Áo polo",
-    categoryID: "AP",
-    parent: "A",
-  },
-  {
-    name: "Quần",
-    categoryID: "Q",
-    child: ["QJ", "QT", "QS"],
-  },
-  {
-    name: "Quần jean",
-    categoryID: "QJ",
-    parent: "Q",
-  },
-  {
-    name: "Quần tây",
-    categoryID: "QT",
-    parent: "Q",
-  },
-  {
-    name: "Quần short",
-    categoryID: "QS",
-    parent: "Q",
-  },
-  {
-    name: "Giày, dép",
-    categoryID: "GD",
-    child: ["GS","GT","DK"],
-  },
-  {
-    name: "Giày sandal",
-    categoryID: "GS",
-    parent: "GD",
-  },
-  {
-    name: "Giày thể thao",
-    categoryID: "GT",
-    parent: "GD",
-  },
-  {
-    name: "Dép kẹp",
-    categoryID: "DK",
-    parent: "GD",
-  },
-];
+var colorList;
+var sizeList;
+var categoryList;
 
 $(document).ready(()=>{
     
   if ($(".color-selecter")) {
     colorList.forEach((_) =>
       $(".color-selecter").append(
-        `<option value="${_.colorID}" data-image="../img/${_.colorImage}" data-name="${_.name}">${_.name}</option>`
+        `<option value="${_._id}" data-image="../img/${_.colorImage}" data-name="${_.name}">${_.name}</option>`
       )
     );
   }
   // if ($(".size-selecter")) {
   //   sizeList.forEach((_) =>
   //     $(".size-selecter").append(
-  //       `<option value="${_.sizeID}" data-name="${_.name}">${_.name} - ${_.desc}</option>`
+  //       `<option value="${_._id}" data-name="${_.name}">${_.name} - ${_.desc}</option>`
   //     )
   //   );
   // }
   if ($(".category-selecter")){
     categoryList.forEach((_) =>
       $(".category-selecter").append(
-        `<option value="${_.categoryID}" data-name="${_.name}">${_.name}</option>`
+        `<option value="${_._id}" data-name="${_.name}">${_.name}</option>`
       )
     );
   }
@@ -401,15 +251,15 @@ $(document).ready(()=>{
   })
 
   $(".add-sub-modal .save").click(()=>{
-    var sizeId = $(".size-selecter").find(":selected").val();
-    var colorId = $(".color-selecter").find(":selected").val();
-    var size = sizeList.find(_=>_.sizeID == sizeId)
-    var color = colorList.find(_=>_.colorID == colorId)
+    var _id = $(".size-selecter").find(":selected").val();
+    var _id = $(".color-selecter").find(":selected").val();
+    var size = sizeList.find(_=>_._id == _id)
+    var color = colorList.find(_=>_._id == _id)
     var quantity = $(".add-sub-modal #quantity").val()
     $(".LYAF-sub-products-list").append(`
       <div class="sub-product">
-          <input type="hidden" id="color" value="${colorId}">
-          <input type="hidden" id="size" value="${sizeId}">
+          <input type="hidden" id="color" value="${_id}">
+          <input type="hidden" id="size" value="${_id}">
           <div class="sub-p-infor">
               <div class="asdasd">
                   <div class="thumbnail-name">
@@ -433,7 +283,7 @@ $(document).ready(()=>{
               </div>
           </div>
       </div>`)
-      G_DATA.subList.push({ colorId, sizeId })
+      G_DATA.subList.push({ _id, _id })
       $(".add-sub-modal").modal("hide")
   })
 })
@@ -511,7 +361,7 @@ function updateInput(){
   // DESCRIPTION
   G_DATA.desc = tinyMCE.get("desc").getContent()
   // CATEGORY
-  G_DATA.categoryId = $(".category-selecter").find(":selected").val();
+  G_DATA._id = $(".category-selecter").find(":selected").val();
   // PRICE
   G_DATA.price = $(".LYAF-product-price input").val()
   // IMAGES
@@ -519,18 +369,18 @@ function updateInput(){
   // SUBLIST
 }
 
-function setUpSubList(colorId){
+function setUpSubList(_id){
 
-  var selectedSize = G_DATA.subList.map(_ => {if (_.colorId == colorId) return _.sizeId})
+  var selectedSize = G_DATA.subList.map(_ => {if (_._id == _id) return _._id})
 
   const select = document.querySelector(".size-selecter")
   $(".size-selecter option").remove()
   const destroyEvent = new Event('lc-select-destroy');
   select.dispatchEvent(destroyEvent);
   sizeList.forEach((_) =>{
-    if(!selectedSize.includes(_.sizeID))
+    if(!selectedSize.includes(_._id))
     $(".size-selecter").append(
-      `<option value="${_.sizeID}" data-name="${_.name}">${_.name} - ${_.desc}</option>`
+      `<option value="${_._id}" data-name="${_.name}">${_.name} - ${_.desc}</option>`
     )
   });
   new lc_select(".size-selecter", {

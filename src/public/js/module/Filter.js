@@ -1,6 +1,5 @@
 var G_CURRENT_TAG
 export class Filter {
-    
     tag1 = {
         property: "price",
         name:"Price",
@@ -22,17 +21,17 @@ export class Filter {
         action: "category",
         value: [{
             name: "Đỏ",
-            colorID: "R",
+            _id: "R",
             colorImage: "color-red.jpg",
           },
           {
             name: "Đen",
-            colorID: "B",
+            _id: "B",
             colorImage: "color-black.jpg",
           },
           {
             name: "Camo rêu",
-            colorID: "CR",
+            _id: "CR",
             colorImage: "color-camo-green.jpg",
           }]
     }
@@ -87,21 +86,21 @@ export class Filter {
     if ($(`.${elementClassName} #filter-size-select`)) {
       sizeList.forEach((_) =>
         $(`.${elementClassName} #filter-size-select`).append(
-          `<option value="${_.sizeID} data-name="${_.name}">${_.name} - ${_.desc}</option>`
+          `<option value="${_._id} data-name="${_.name}">${_.name} - ${_.desc}</option>`
         )
       );
     }
     if ($(`.${elementClassName} #filter-category-select`)) {
       categoryList.forEach((_) =>
           $(`.${elementClassName} #filter-category-select`).append(
-            `<option value="${_.categoryID}" data-name="${_.name}">${_.parent?`<span class="ml-3">${_.name}</span>`:`<strong>${_.name}</strong>`}</option>`
+            `<option value="${_._id}" data-name="${_.name}">${_.parentId?`<span class="ml-3">${_.name}</span>`:`<strong>${_.name}</strong>`}</option>`
           )
       );
     }
     if ($(`.${elementClassName} #filter-color-select`)) {
       colorList.forEach((_) =>
         $(`.${elementClassName} #filter-color-select`).append(
-          `<option value="${_.colorID}" data-name="${_.name}" data-image="../img/${_.colorImage}">${_.name}</option>`
+          `<option value="${_._id}" data-name="${_.name}" data-image="../img/${_.colorImage}">${_.name}</option>`
         )
       );
     }
@@ -345,277 +344,3 @@ const filterType = {
         <select name="simple" id="filter-${_.property}-select" class="LYAF-selecter" data-filter="${_.property}" data-name="${_.title}" data-placeholder="Select your option ..." multiple>
         </select>  `
 }
-
-
-//   a= `
-//   <div class="LYAF-product-filter-wrapper">
-//     <div class="LYAF-product-filter">
-//         <div class="LYAF-product-filter-add">
-//             <div class="btn-group">
-//                 <div class="LYAF-product-filter-add-btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-//                     <span>Filter <i class="fas fa-filter"></i></span>
-//                 </div>
-//                 <div class="dropdown-menu parent-menu id-menu">
-//                     <div class="btn-group dropright" style="width: 100%;">
-//                         <button href="javascript:void(0)" data-filter="id" class="dropdown-item menu-toggle-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ID</button>
-//                         <div class="dropdown-menu child-menu filter-id" data-filter="id">
-//                             <div id="filter-title">
-//                                 <h5 class="text-uppercase font-weight-bold">ID</h5>
-//                             </div>
-//                             <div id="filter-tag-preview">
-//                                 <span>Tag: </span>
-//                                 <span id="content"></span> 
-//                             </div>
-//                             <hr>
-//                             <div id="filter-menu" data-filter="id">
-//                                 <div class="form-check mb-1">
-//                                     <input class="form-check-input filter-radio-toggle" type="radio" name="id" id="id-radio-contain" data-toggle='1'>
-//                                     <label class="form-check-label" for="id-radio-contain">contain</label>
-//                                 </div>
-//                                 <div class="form-group mb-1" id="1">
-//                                     <input readonly type="text" class="form-control form-control value-input" data-name="${_.title}" data-filter="${property}" id="id-input-contain" placeholder="Text here">
-//                                 </div>
-//                             </div>
-//                             <hr>
-//                             <div id="filter-menu-action-btn">
-//                                 <button type="button" class="btn btn-secondary" id="cancel-filter" data-menu="id">Cancel</button>
-//                                 <button type="button" class="btn btn-primary">Add</button>
-//                             </div>
-//                         </div>
-//                     </div>
-//                     <div class="btn-group dropright" style="width: 100%;">
-//                         <button href="javascript:void(0)" data-filter="name" class="dropdown-item menu-toggle-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Name</button>
-//                         <div class="dropdown-menu child-menu filter-name">
-//                             <div id="filter-title">
-//                                 <h5 class="text-uppercase font-weight-bold">Name</h5>
-//                             </div>
-//                             <div id="filter-tag-preview">
-//                                 <span>Tag: </span>
-//                                 <span id="content"></span> 
-//                             </div>
-//                             <hr>
-//                             <div id="filter-menu" data-filter="name">
-//                                 <div class="form-check mb-1">
-//                                     <input class="form-check-input filter-radio-toggle" type="radio" name="name" id="name-radio-contain" data-toggle='1'>
-//                                     <label class="form-check-label" for="name-radio-contain">contain</label>
-//                                 </div>
-//                                 <div class="form-group mb-1" id="1">
-//                                     <input readonly type="text" class="form-control form-control value-input" data-name="${_.title}" data-filter="${property}" id="name-input-contain" placeholder="Text here">
-//                                 </div>
-//                             </div>
-//                             <hr>
-//                             <div id="filter-menu-action-btn">
-//                                 <button type="button" class="btn btn-secondary" id="cancel-filter" data-menu="name">Cancel</button>
-//                                 <button type="button" class="btn btn-primary">Add</button>
-//                             </div>
-//                         </div>
-//                     </div>
-//                     <div class="btn-group dropright" style="width: 100%;">
-//                         <button href="javascript:void(0)" data-filter="price" class="dropdown-item menu-toggle-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Price</button>
-//                         <div class="dropdown-menu child-menu filter-price">
-//                             <div id="filter-title">
-//                                 <h5 class="text-uppercase font-weight-bold">Price</h5>
-//                             </div>
-//                             <div id="filter-tag-preview">
-//                                 <span>Tag: </span>
-//                                 <span id="content"></span> 
-//                             </div>
-//                             <hr>
-//                             <div id="filter-menu" data-filter="price">
-//                                 <!-- PRICE EQUAL TO -->
-//                                 <div class="form-check mb-1">
-//                                     <input class="form-check-input filter-radio-toggle" type="radio" name="price" id="price-radio-equal" data-toggle='1'>
-//                                     <label class="form-check-label" for="price-radio-equal">equal to</label>
-//                                 </div>
-//                                 <div class="form-group mb-1 input-value" id="1">
-//                                     <input readonly type="number" class="form-control form-control value-input" data-name="${_.title}" data-filter="${property}" id="price-input-equal" placeholder="Price here">
-//                                 </div>
-//                                 <!-- PRICE LESS THAN -->
-//                                 <div class="form-check mb-1">
-//                                     <input class="form-check-input filter-radio-toggle" type="radio" name="price" id="price-radio-less" data-toggle='2'>
-//                                     <label class="form-check-label" for="price-radio-less">less than</label>
-//                                 </div>
-//                                 <div class="form-group mb-1 input-value" id="2">
-//                                     <input readonly type="number" class="form-control form-control value-input" data-name="${_.title}" data-filter="${property}" id="price-input-less" placeholder="Price here">
-//                                 </div>
-//                                 <!-- PRICE GREATER THAN -->
-//                                 <div class="form-check mb-1">
-//                                     <input class="form-check-input filter-radio-toggle" type="radio" name="price" id="price-radio-greater" data-toggle='3'>
-//                                     <label class="form-check-label" for="price-radio-greater">greater than</label>
-//                                 </div>
-//                                 <div class="form-group mb-1 input-value"  id="3">
-//                                     <input readonly type="number" class="form-control form-control value-input" data-name="${_.title}" data-filter="${property}" id="price-input-greater" placeholder="Price here">
-//                                 </div>
-//                                 <!-- PRICE BETWEEN -->
-//                                 <div class="form-check mb-1">
-//                                     <input class="form-check-input filter-radio-toggle" type="radio" name="price" id="price-radio-between" data-toggle='4'>
-//                                     <label class="form-check-label" for="price-radio-between">between</label>
-//                                 </div>
-//                                 <div class="form-group row mb-1 input-value"  id="4">
-//                                     <label for="price-input-from" class="col-form-label col-sm-2">from</label>
-//                                     <input readonly type="number" class="form-control form-control-sm col-sm-4" id="price-input-from" placeholder="Price here">
-//                                     <label for="price-input-to" class="col-form-label col-sm-2">to</label>
-//                                     <input readonly type="number" class="form-control form-control-sm col-sm-4" id="price-input-to" placeholder="Price here">
-//                                 </div>
-//                             </div>
-//                             <hr>
-//                             <div id="filter-menu-action-btn">
-//                                 <button type="button" class="btn btn-secondary" id="cancel-filter" data-menu="price">Cancel</button>
-//                                 <button type="button" class="btn btn-primary">Add</button>
-//                             </div>
-//                         </div>
-//                     </div>
-//                     <div class="btn-group dropright" style="width: 100%;">
-//                         <button href="javascript:void(0)" data-filter="category" class="dropdown-item menu-toggle-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category</button>
-//                         <div class="dropdown-menu child-menu filter-category">
-//                             <div id="filter-title">
-//                                 <h5 class="text-uppercase font-weight-bold">Category</h5>
-//                             </div>
-//                             <div id="filter-tag-preview">
-//                                 <span>Tag: </span>
-//                                 <span id="content"></span> 
-//                             </div>
-//                             <hr>
-//                             <div id="filter-menu" data-filter="category">
-//                                 <select name="simple" id="filter-category-select" class="LYAF-selecter" data-placeholder="Select your product colors ..." multiple>
-//                                 </select>    
-//                             </div>
-//                             <hr>
-//                             <div id="filter-menu-action-btn">
-//                                 <button type="button" class="btn btn-secondary" id="cancel-filter" data-menu="category">Cancel</button>
-//                                 <button type="button" class="btn btn-primary">Add</button>
-//                             </div>
-//                         </div>
-//                     </div>
-//                     <div class="btn-group dropright" style="width: 100%;">
-//                         <button href="javascript:void(0)" data-filter="color" class="dropdown-item menu-toggle-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Color</button>
-//                         <div class="dropdown-menu child-menu filter-color">
-//                             <div id="filter-title">
-//                                 <h5 class="text-uppercase font-weight-bold">Color</h5>
-//                             </div>
-//                             <div id="filter-tag-preview">
-//                                 <span>Tag: </span>
-//                                 <span id="content"></span> 
-//                             </div>
-//                             <hr>
-//                             <div id="filter-menu" data-filter="color">
-//                                 <select name="simple" id="filter-color-select" class="LYAF-selecter" data-placeholder="Select your product colors ..." multiple>
-//                                 </select>    
-//                             </div>  
-//                             <hr>
-//                             <div id="filter-menu-action-btn">
-//                                 <button type="button" class="btn btn-secondary" id="cancel-filter" data-menu="color">Cancel</button>
-//                                 <button type="button" class="btn btn-primary">Add</button>
-//                             </div> 
-//                         </div>
-//                     </div>
-//                     <div class="btn-group dropright" style="width: 100%;">
-//                         <button href="javascript:void(0)" data-filter="quantity" class="dropdown-item menu-toggle-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Stock</button>
-//                         <div class="dropdown-menu child-menu filter-quantity">
-//                             <div id="filter-title">
-//                                 <h5 class="text-uppercase font-weight-bold">Stock</h5>
-//                             </div>
-//                             <div id="filter-tag-preview">
-//                                 <span>Tag: </span>
-//                                 <span id="content"></span> 
-//                             </div>
-//                             <hr>
-//                             <div id="filter-menu" data-filter="quantity">
-//                                 <!-- quantity EQUAL TO -->
-//                                 <div class="form-check mb-1">
-//                                     <input class="form-check-input filter-radio-toggle" type="radio" name="quantity" id="quantity-radio-equal" data-toggle='1'>
-//                                     <label class="form-check-label" for="quantity-radio-equal">equal to</label>
-//                                 </div>
-//                                 <div class="form-group mb-1 input-value"  id="1">
-//                                     <input readonly type="number" class="form-control form-control value-input" data-name="${_.title}" data-filter="${property}" id="quantity-input-equal" placeholder="Quantity here">
-//                                 </div>
-//                                 <!-- quantity LESS THAN -->
-//                                 <div class="form-check mb-1">
-//                                     <input class="form-check-input filter-radio-toggle" type="radio" name="quantity" id="quantity-radio-less" data-toggle='2'>
-//                                     <label class="form-check-label" for="quantity-radio-less">less than</label>
-//                                 </div>
-//                                 <div class="form-group mb-1 input-value"  id="2">
-//                                     <input readonly type="number" class="form-control form-control value-input" data-name="${_.title}" data-filter="${property}" id="quantity-input-less" placeholder="Quantity here">
-//                                 </div>
-//                                 <!-- quantity GREATER THAN -->
-//                                 <div class="form-check mb-1">
-//                                     <input class="form-check-input filter-radio-toggle" type="radio" name="quantity" id="quantity-radio-greater" data-toggle='3'>
-//                                     <label class="form-check-label" for="quantity-radio-greater">greater than</label>
-//                                 </div>
-//                                 <div class="form-group mb-1 input-value"  id="3">
-//                                     <input readonly type="number" class="form-control form-control value-input" data-name="${_.title}" data-filter="${property}" id="quantity-input-greater" placeholder="Quantity here">
-//                                 </div>
-//                                 <!-- quantity BETWEEN -->
-//                                 <div class="form-check mb-1">
-//                                     <input class="form-check-input filter-radio-toggle" type="radio" name="quantity" id="quantity-radio-between" data-toggle='4'>
-//                                     <label class="form-check-label" for="quantity-radio-between">between</label>
-//                                 </div>
-//                                 <div class="form-group row mb-1 input-value"  id="4">
-//                                     <label for="quantity-input-from" class="col-form-label col-sm-2">from</label>
-//                                     <input readonly type="number" class="form-control form-control-sm col-sm-4" id="quantity-input-from" placeholder="Quantity here">
-//                                     <label for="quantity-input-to" class="col-form-label col-sm-2">to</label>
-//                                     <input readonly type="number" class="form-control form-control-sm col-sm-4" id="quantity-input-to" placeholder="Quantity here">
-//                                 </div>
-//                             </div>
-//                             <hr>
-//                             <div id="filter-menu-action-btn">
-//                                 <button type="button" class="btn btn-secondary" id="cancel-filter" data-menu="quantity">Cancel</button>
-//                                 <button type="button" class="btn btn-primary">Add</button>
-//                             </div>
-//                         </div>
-//                     </div>
-//                     <div class="btn-group dropright" style="width: 100%;">
-//                         <button href="javascript:void(0)" data-filter="rate" class="dropdown-item menu-toggle-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rate</button>
-//                         <div class="dropdown-menu child-menu filter-rate">
-//                             <div id="filter-title">
-//                                 <h5 class="text-uppercase font-weight-bold">Rate</h5>
-//                             </div>
-//                             <div id="filter-tag-preview">
-//                                 <span>Tag: </span>
-//                                 <span id="content"></span> 
-//                             </div>
-//                             <hr>
-//                             <div id="filter-menu" data-filter="rate">
-                                
-//                             </div>
-//                             <hr>
-//                             <div id="filter-menu-action-btn">
-//                                 <button type="button" class="btn btn-secondary" id="cancel-filter" data-menu="rate">Cancel</button>
-//                                 <button type="button" class="btn btn-primary">Add</button>
-//                             </div>
-//                         </div>
-//                     </div>
-//                     <div class="btn-group dropright" style="width: 100%;">
-//                         <button href="javascript:void(0)" data-filter="size" class="dropdown-item menu-toggle-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Size</button>
-//                         <div class="dropdown-menu child-menu filter-size">
-//                             <div id="filter-title">
-//                                 <h5 class="text-uppercase font-weight-bold">Size</h5>
-//                             </div>
-//                             <div id="filter-tag-preview">
-//                                 <span>Tag: </span>
-//                                 <span id="content"></span> 
-//                             </div>
-//                             <hr>
-//                             <div id="filter-menu" data-filter="size">
-//                                 <select name="simple" id="filter-size-select" class="LYAF-selecter" data-placeholder="Select your product colors ..." multiple>
-//                                 </select>    
-//                             </div>
-//                             <hr>
-//                             <div id="filter-menu-action-btn">
-//                                 <button type="button" class="btn btn-secondary" id="cancel-filter" data-menu="">Cancel</button>
-//                                 <button type="button" class="btn btn-primary">Add</button>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//         <div class="LYAF-product-filter-search">
-//             <span>Apply filters <i class="fas fa-search"></i></span>
-//         </div>
-//         <span id="tag"><strong>ID</strong> has AS <i class="fas fa-times"></i></span>
-//         <span id="tag"><strong>Category</strong> has Áo <i class="fas fa-times"></i></span>
-//         <span id="tag"><strong>Color</strong> has Đỏ, Đen <i class="fas fa-times"></i></span>
-//     </div>
-// </div>
-//   `

@@ -16,37 +16,37 @@ var G_currentInput = {
   const colorList = [
     {
       name: "Đỏ",
-      colorID: "R",
+      _id: "R",
       colorImage: "color-red.jpg",
     },
     {
       name: "Đen",
-      colorID: "B",
+      _id: "B",
       colorImage: "color-black.jpg",
     },
     {
       name: "Camo rêu",
-      colorID: "CR",
+      _id: "CR",
       colorImage: "color-camo-green.jpg",
     },
     {
       name: "Camo xám",
-      colorID: "CX",
+      _id: "CX",
       colorImage: "color-camo-grey.jpg",
     },
     {
       name: "Caro đen",
-      colorID: "CRB",
+      _id: "CRB",
       colorImage: "color-caro-black.jpg",
     },
     {
       name: "Caro vàng",
-      colorID: "CRY",
+      _id: "CRY",
       colorImage: "color-caro-yellow.jpg",
     },
     {
       name: "Camo xanh",
-      colorID: "CXA",
+      _id: "CXA",
       colorImage: "color-camo-blue.jpg",
     },
   ];
@@ -54,37 +54,37 @@ var G_currentInput = {
   const sizeList = [
     {
       name: "XXS",
-      sizeID: "XXS",
+      _id: "XXS",
       desc: "Rất rất nhỏ",
     },
     {
       name: "XS",
-      sizeID: "XS",
+      _id: "XS",
       desc: "Rất nhỏ",
     },
     {
       name: "S",
-      sizeID: "S",
+      _id: "S",
       desc: "Nhỏ",
     },
     {
       name: "M",
-      sizeID: "M",
+      _id: "M",
       desc: "Trung bình",
     },
     {
       name: "L",
-      sizeID: "L",
+      _id: "L",
       desc: "Lớn",
     },
     {
       name: "XL",
-      sizeID: "XL",
+      _id: "XL",
       desc: "Rất lớn",
     },
     {
       name: "XXL",
-      sizeID: "XXL",
+      _id: "XXL",
       desc: "Rất rất lớn",
     },
   ];
@@ -92,77 +92,77 @@ var G_currentInput = {
   const categoryList = [
     {
       name: "Áo",
-      categoryID: "A",
+      _id: "A",
       child: ["AT", "ASM", "AK", "AH", "AL", "AP"],
     },
     {
       name: "Áo Thun",
-      categoryID: "AT",
+      _id: "AT",
       parent: "A",
     },
     {
       name: "Áo Sơ mi",
-      categoryID: "ASM",
+      _id: "ASM",
       parent: "A",
     },
     {
       name: "Áo khoác",
-      categoryID: "AK",
+      _id: "AK",
       parent: "A",
     },
     {
       name: "Áo Hoodie",
-      categoryID: "AH",
+      _id: "AH",
       parent: "A",
     },
     {
       name: "Áo len",
-      categoryID: "AL",
+      _id: "AL",
       parent: "A",
     },
     {
       name: "Áo polo",
-      categoryID: "AP",
+      _id: "AP",
       parent: "A",
     },
     {
       name: "Quần",
-      categoryID: "Q",
+      _id: "Q",
       child: ["QJ", "QT", "QS"],
     },
     {
       name: "Quần jean",
-      categoryID: "QJ",
+      _id: "QJ",
       parent: "Q",
     },
     {
       name: "Quần tây",
-      categoryID: "QT",
+      _id: "QT",
       parent: "Q",
     },
     {
       name: "Quần short",
-      categoryID: "QS",
+      _id: "QS",
       parent: "Q",
     },
     {
       name: "Giày, dép",
-      categoryID: "GD",
+      _id: "GD",
       child: ["GS","GT","DK"],
     },
     {
       name: "Giày sandal",
-      categoryID: "GS",
+      _id: "GS",
       parent: "GD",
     },
     {
       name: "Giày thể thao",
-      categoryID: "GT",
+      _id: "GT",
       parent: "GD",
     },
     {
       name: "Dép kẹp",
-      categoryID: "DK",
+      _id: "DK",
       parent: "GD",
     },
   ];
@@ -174,84 +174,84 @@ var G_currentInput = {
       thumbnail: "ATNS1002-1.jpg",
       category: {
         name: "Áo",
-        categoryID: "A",
+        _id: "A",
         child: {
           name: "Áo Sơ mi",
-          categoryID: "ASM",
+          _id: "ASM",
           parent: "A",
         },
       },
       size: [
         {
           name: "XXS",
-          sizeID: "XXS",
+          _id: "XXS",
           desc: "Rất rất nhỏ",
         },
         {
           name: "XS",
-          sizeID: "XS",
+          _id: "XS",
           desc: "Rất nhỏ",
         },
         {
           name: "S",
-          sizeID: "S",
+          _id: "S",
           desc: "Nhỏ",
         },
         {
           name: "M",
-          sizeID: "M",
+          _id: "M",
           desc: "Trung bình",
         },
         {
           name: "L",
-          sizeID: "L",
+          _id: "L",
           desc: "Lớn",
         },
         {
           name: "XL",
-          sizeID: "XL",
+          _id: "XL",
           desc: "Rất lớn",
         },
         {
           name: "XXL",
-          sizeID: "XXL",
+          _id: "XXL",
           desc: "Rất rất lớn",
         },
       ],
       color: [
         {
           name: "Đỏ",
-          colorID: "R",
+          _id: "R",
           colorImage: "color-red.jpg",
         },
         {
           name: "Đen",
-          colorID: "B",
+          _id: "B",
           colorImage: "color-black.jpg",
         },
         {
           name: "Camo rêu",
-          colorID: "CR",
+          _id: "CR",
           colorImage: "color-camo-green.jpg",
         },
         {
           name: "Camo xám",
-          colorID: "CX",
+          _id: "CX",
           colorImage: "color-camo-grey.jpg",
         },
         {
           name: "Caro đen",
-          colorID: "CRB",
+          _id: "CRB",
           colorImage: "color-caro-black.jpg",
         },
         {
           name: "Caro vàng",
-          colorID: "CRY",
+          _id: "CRY",
           colorImage: "color-caro-yellow.jpg",
         },
         {
           name: "Camo xanh",
-          colorID: "CXA",
+          _id: "CXA",
           colorImage: "color-camo-blue.jpg",
         },
       ],
@@ -265,59 +265,59 @@ var G_currentInput = {
       thumbnail: "ATNS1003-1.jpg",
       category: {
         name: "Áo",
-        categoryID: "A",
+        _id: "A",
         child: {
           name: "Áo Thun",
-          categoryID: "AT",
+          _id: "AT",
           parent: "A",
         },
       },
       size: [
         {
           name: "XS",
-          sizeID: "XS",
+          _id: "XS",
           desc: "Rất nhỏ",
         },
         {
           name: "S",
-          sizeID: "S",
+          _id: "S",
           desc: "Nhỏ",
         },
         {
           name: "M",
-          sizeID: "M",
+          _id: "M",
           desc: "Trung bình",
         },
         {
           name: "L",
-          sizeID: "L",
+          _id: "L",
           desc: "Lớn",
         },
       ],
       color: [
         {
           name: "Đen",
-          colorID: "B",
+          _id: "B",
           colorImage: "color-black.jpg",
         },
         {
           name: "Camo rêu",
-          colorID: "CR",
+          _id: "CR",
           colorImage: "color-camo-green.jpg",
         },
         {
           name: "Camo xám",
-          colorID: "CX",
+          _id: "CX",
           colorImage: "color-camo-grey.jpg",
         },
         {
           name: "Caro đen",
-          colorID: "CRB",
+          _id: "CRB",
           colorImage: "color-caro-black.jpg",
         },
         {
           name: "Camo xanh",
-          colorID: "CXA",
+          _id: "CXA",
           colorImage: "color-camo-blue.jpg",
         },
       ],
