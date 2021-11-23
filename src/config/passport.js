@@ -17,27 +17,37 @@ passport.deserializeUser(function(user
 //Local
 passport.use(new LocalStrategy(
     function (username,password,done) {
-        accModel.findOne({
-            username : username
-        }).exec()
-        .then((data) => {
-            if(bcrypt.compareSync(password, data.password)){
-                    userModel.findOne({username: username}).exec()
-                    .then((user) =>{
-                        return done(null, user);
-                    })
-            
+        if(username && password){
+            accModel.findOne({
+                username : username
+            }).exec()
+            .then((data) => {
+                if(data == null){
+                    req.flash('error','Tài khoản không hợp lệ !');
                 }
-                else{
-                    
-                    return done(null,false);
-                }   
+                if(bcrypt.compareSync(password, data.password)){
+                        userModel.findOne({username: username}).exec()
+                        .then((user) =>{
+                            return done(null, user);
+                        })
                 
+                    }
+                    else{
+                        req.flash('error','Mật khẩu không hợp lệ !');
+                        return done(null,false);
+                    }   
+                    
+                })
+               
+            .catch(function (err) {
+                return done(err);
             })
-           
-        .catch(function (err) {
-            return done(err);
-        })
+        }
+        else{
+            req.flash('error','Tài khoản hoăc mật khẩu đang trống');
+            return done(null,false);
+        }
+       
     })
 )
 //End Local
