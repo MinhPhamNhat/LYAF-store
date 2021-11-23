@@ -29,7 +29,8 @@ const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-const hdbHelper = require('./helper/handlebars/helper')
+const hdbHelper = require('./helper/handlebars/helper');
+const flash = require('connect-flash');
 const port = 2000;
 
 //Require handlebars:
@@ -64,6 +65,7 @@ app.use(session({secret: 'ratbaomatthe',
                           maxAge:1000*10,
                         }
                         }));
+app.use(flash());
 app.use(passport.initialize()); 
 app.use(passport.session());
 require('./config/passport');
