@@ -25,11 +25,15 @@ passport.use(new GoogleStrategy({
 
 //Local
 passport.use(new LocalStrategy({
-    usernameField: "username",
-    passwordField: "password",
+    // usernameField: "username",
+    // passwordField: "password",
     passReqToCallback: true
 },async (req, username, password, done) => {
-        if(username && password){
+    if(username == '' || password ==''){
+        req.flash('error','Tài khoản hoăc mật khẩu đang trống');
+        return done(null,false);
+    }
+    else{
             accModel.findOne({
                 username : username
             }).exec()
@@ -55,10 +59,7 @@ passport.use(new LocalStrategy({
                 return done(null, err);
             })
         }
-        else{
-            req.flash('error','Tài khoản hoăc mật khẩu đang trống');
-            return done(null,false);
-        }
+        
        
     })
 )
