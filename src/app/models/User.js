@@ -7,9 +7,9 @@ const mongooseDelete = require('mongoose-delete'); // Require mongoose-delete
 const User = new Schema({
     username: {type:String},
     name:{type:String},
-    role:{type:String},
-    birthday:{type:String},
-    phoneNumber: {type: mongoose.Schema.Types.Number},
+    role:{type:String},//admin|staff|user
+    birthday:{type:mongoose.Schema.Types.Date},
+    phoneNumber: {type: mongoose.Schema.Types.String},
     address: [{type: mongoose.Schema.ObjectId, ref: 'Address'}],
 },{
     versionKey: false,
