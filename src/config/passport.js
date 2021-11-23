@@ -24,6 +24,7 @@ passport.use(new LocalStrategy(
             .then((data) => {
                 if(data == null){
                     req.flash('error','Tài khoản không hợp lệ !');
+                    return(null,false);
                 }
                 if(bcrypt.compareSync(password, data.password)){
                         userModel.findOne({username: username}).exec()
