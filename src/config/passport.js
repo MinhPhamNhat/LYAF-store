@@ -16,7 +16,7 @@ passport.deserializeUser(function(user
 
 //Local
 passport.use(new LocalStrategy(
-    function (username,password,done) {
+    function (req,username,password,done) {
         if(username && password){
             accModel.findOne({
                 username : username
