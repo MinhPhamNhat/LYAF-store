@@ -21,8 +21,32 @@ passport.use(
       callbackURL: "http://localhost:2000/login/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log(profile._json);
-      done(null, profile._json);
+      accModel.findOne({username : profile._json})
+      .exec()
+      .then((data) => {
+          if(data == null){
+            const newacc = new accModel({username: profile._json.sub})
+            .save()
+            .then(()=>{
+              const newuser = new userModel({
+                username: profile._json.sub,
+                name:profile._json.name,
+                role:'user'
+              })
+              return done(null,profile); 
+            })
+            .catch((err)=>{
+              return done(null,err);
+            })
+          }
+          else{
+            return done(null,profile);
+          }
+      })
+      .catch((err)=>{
+          return done(null,err)
+      })                                        
+      
     }
   )
 );
