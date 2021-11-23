@@ -12,5 +12,6 @@ route.get('/logout', LoginController.logout);
 route.get('/test',LoginController.test);
 route.get('/check',LoginController.checkLogin);
 route.post('/', passport.authenticate('local', { successRedirect: '/',
-failureRedirect: '/login/check' }));
+failureRedirect: '/login/check' ,
+failureFlash : true }));
 module.exports = route;

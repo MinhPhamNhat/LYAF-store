@@ -3,6 +3,7 @@ const app = express();
 class LoginController{
 
     login(req,res,next){
+        
         res.render('login');
     }
     // register(req,res,next){
@@ -20,6 +21,7 @@ class LoginController{
         const error = req.flash('error');
         console.log(error);
     }
+
     test(req,res,next){
         console.log(req.error);
     }

@@ -15,8 +15,11 @@ passport.deserializeUser(function(user
 });
 
 //Local
-passport.use(new LocalStrategy(
-    function (username,password,done) {
+passport.use(new LocalStrategy({
+    usernameField: "username",
+    passwordField: "password",
+    passReqToCallback: true
+},async (req, username, password, done) => {
         if(username && password){
             accModel.findOne({
                 username : username
@@ -24,7 +27,7 @@ passport.use(new LocalStrategy(
             .then((data) => {
                 if(data == null){
                     req.flash('error','Tài khoản không hợp lệ !');
-                    return(null,false);
+                    return done(null, false);
                 }
                 else if(bcrypt.compareSync(password, data.password)){
                         userModel.findOne({username: username}).exec()
@@ -35,13 +38,12 @@ passport.use(new LocalStrategy(
                     }
                 else{
                     req.flash('error','Mật khẩu không hợp lệ !');
-                    return done(null,false);
+                    return done(null, false);
                     }   
                     
                 })
-               
             .catch(function (err) {
-                return done(err);
+                return done(null, err);
             })
         }
         else{
