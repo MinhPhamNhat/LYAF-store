@@ -47,6 +47,7 @@ class RegisterController{
                             const newuser = new userModel({
                                 username:rusername,
                                 name:rname,
+                                role:'user'
                             })
                             newuser.save()
                                     .then(()=>{

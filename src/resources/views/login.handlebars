@@ -2,6 +2,8 @@
     <div class="errorToast">
         <span>
             {{error}}
+        </span>
+        <span>   
             Vui lòng thử lại !
         </span>
     </div>
@@ -29,13 +31,13 @@
                 </div>
             </div>
             <button type="submit" class="form__login--submit">Đăng nhập</button>
-                <span>
-                    {{error}}
-                </span>
             <div class="register_ask_toast">
                 <span>Bạn chưa có tài khoản Lyaf?</span>
                 <span class="link_register_btn">Đăng ký ngay</span>
             </div>
+            {{#if error}}
+             <input type="hidden" id="error" value="true">
+             {{/if}}
         </form>
         <div class="social__link">
                 <i class="fab fa-facebook"></i>
