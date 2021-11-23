@@ -12,279 +12,282 @@ var sizeList;
 var categoryList;
 
 $(document).ready(() => {
+  getSetupList().then(data=>{
+    colorList = data.colors.data
+    sizeList = data.sizes.data
+    categoryList = data.categories.data
+    if ($(".color-selecter")) {
+      colorList.forEach((_) =>
+        $(".color-selecter").append(
+          `<option value="${_._id}" data-image="${_.thumbnail}" data-name="${_.name}">${_.name}</option>`
+        )
+      );
+    }
+    if ($(".category-selecter")) {
+      categoryList.forEach((_) =>
+        $(".category-selecter").append(
+          `<option value="${_._id}" data-name="${_.name}">${_.name}</option>`
+        )
+      );
+    }
   
-
-  if ($(".color-selecter")) {
-    colorList.forEach((_) =>
-      $(".color-selecter").append(
-        `<option value="${_._id}" data-image="../img/${_.colorImage}" data-name="${_.name}">${_.name}</option>`
-      )
-    );
-  }
-  if ($(".category-selecter")) {
-    categoryList.forEach((_) =>
-      $(".category-selecter").append(
-        `<option value="${_._id}" data-name="${_.name}">${_.name}</option>`
-      )
-    );
-  }
-
-  // LC_SELECT
-  if ($(".LYAF-selecter")[0])
-    new lc_select(".color-selecter, .category-selecter", {
-      enable_search: true,
-      min_for_search: 7,
-      autofocus_search: false,
-      wrap_width: "100%",
-      pre_placeh_opt: false,
-      max_opts: false,
-      on_change: function (val, ele) {
-        if ($(ele).hasClass("color-selecter")) {
-          setUpSubList(val[0]);
+    // LC_SELECT
+    if ($(".LYAF-selecter")[0])
+      new lc_select(".color-selecter, .category-selecter", {
+        enable_search: true,
+        min_for_search: 7,
+        autofocus_search: false,
+        wrap_width: "100%",
+        pre_placeh_opt: false,
+        max_opts: false,
+        on_change: function (val, ele) {
+          if ($(ele).hasClass("color-selecter")) {
+            setUpSubList(val[0]);
+          }
+        },
+        labels: [
+          "search options",
+          "add options",
+          "Select options ..",
+          ".. no matching options ..",
+        ],
+      });
+  
+    if ($(".LYAF-advanced-select")[0]) {
+      $(document).on("click", ".LYAF-advanced-option", function () {});
+    }
+  
+    $(".LYAF-product-name input").on("input", () => {
+      $(".product-name").html($(".LYAF-product-name input").val());
+    });
+  
+    if ($(".LYAF-preview-list")[0]) {
+      var drake = dragula([document.querySelector(".LYAF-preview-list")], {
+        revertOnSpill: false,
+        moves: function (el, container, handle) {
+          // return !(
+          //   $(handle).hasClass("remove-image-btn") ||
+          //   $(handle).hasClass("fa-trash") ||
+          //   $(handle).hasClass("$@da@#") ||
+          //   $(handle).hasClass("LYAF-image-preview-edit") ||
+          //   $(handle).hasClass("dropdown-toggle") ||
+          //   $(handle).hasClass("dropdown-menu") ||
+          //   $(handle).hasClass("dropdown-item") ||
+          //   $(handle).hasClass("form-check-label")||
+          //   $(handle).hasClass("fa-ellipsis-h")
+          // );
+          return $(handle).hasClass("$@da@#");
+        },
+      });
+  
+      drake.on("drop", function (el, target, source, sibling) {
+        $(".LYAF-preview-container .info").html(
+          `${$(".LYAF-preview-list .LYAF-image-preview").length} images`
+        );
+        $(".LYAF-remove-container .info").html(
+          `${$(".LYAF-remove-list .LYAF-image-preview").length} images`
+        );
+      });
+  
+      var scroll = autoScroll(
+        [
+          window,
+          document.querySelector(".LYAF-preview-list"),
+          // document.querySelector('.LYAF-remove-list'),
+        ],
+        {
+          margin: 100,
+          maxSpeed: 6,
+          scrollWhenOutside: true,
+          autoScroll: function () {
+            return this.down && drake.dragging;
+          },
         }
-      },
-      labels: [
-        "search options",
-        "add options",
-        "Select options ..",
-        ".. no matching options ..",
-      ],
+      );
+  
+      $(document).on(
+        "click",
+        ".LYAF-preview-list .LYAF-image-preview .LYAF-image-preview-edit .dropdown-menu",
+        (e) => {
+          e.stopPropagation();
+        }
+      );
+  
+      $(".LYAF-preview-list").each(function () {
+        $(this).magnificPopup({
+          delegate: ".LYAF-aaaa",
+          type: "image",
+          gallery: {
+            enabled: true,
+          },
+        });
+      });
+    }
+  
+    tinymce.init({
+      height: "300",
+      selector: "textarea",
+      plugins:
+        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+      toolbar_mode: "floating",
     });
-
-  if ($(".LYAF-advanced-select")[0]) {
-    $(document).on("click", ".LYAF-advanced-option", function () {});
-  }
-
-  $(".LYAF-product-name input").on("input", () => {
-    $(".product-name").html($(".LYAF-product-name input").val());
-  });
-
-  if ($(".LYAF-preview-list")[0]) {
-    var drake = dragula([document.querySelector(".LYAF-preview-list")], {
-      revertOnSpill: false,
-      moves: function (el, container, handle) {
-        // return !(
-        //   $(handle).hasClass("remove-image-btn") ||
-        //   $(handle).hasClass("fa-trash") ||
-        //   $(handle).hasClass("$@da@#") ||
-        //   $(handle).hasClass("LYAF-image-preview-edit") ||
-        //   $(handle).hasClass("dropdown-toggle") ||
-        //   $(handle).hasClass("dropdown-menu") ||
-        //   $(handle).hasClass("dropdown-item") ||
-        //   $(handle).hasClass("form-check-label")||
-        //   $(handle).hasClass("fa-ellipsis-h")
-        // );
-        return $(handle).hasClass("$@da@#");
-      },
+  
+    $(".LYAF-thumbnail .thumbnail-upload-holder").magnificPopup({
+      delegate: "a",
+      type: "image",
     });
-
-    drake.on("drop", function (el, target, source, sibling) {
+  
+    $(".LYAF-dasboard-body .LYAF-dashboard-block i").hover(
+      function () {
+        if (!$(this).parent().find(".LYAF-tooltip").is(":visible"))
+          $(this).parent().find(".LYAF-tooltip").fadeIn(200);
+      },
+      function () {
+        if ($(this).parent().find(".LYAF-tooltip").is(":visible"))
+          $(this).parent().find(".LYAF-tooltip").fadeOut(200);
+      }
+    );
+  
+    $(".image-upload").change(function () {
+      var files = $(".image-upload")[0].files;
+      for (var f of files) {
+        var uuid = uuidv4();
+        console.log(uuid);
+        if (f) {
+          var size = humanFileSize(f.size);
+          $(".LYAF-preview-list").prepend(`
+              <div class="LYAF-image-preview preview-${uuid}">
+                <a class="LYAF-aaaa" href="${URL.createObjectURL(
+                  f
+                )}" data-name="${f.name}">
+                  <img src="${URL.createObjectURL(
+                    f
+                  )}" class="$@da@# " height="auto" width="100">
+                </a>
+                <span class="image-info font-weight-bold">
+                  <span class="LYAF-asssA">
+                    <span id="thumbnail"></span>
+                  </span>
+                  <span id="name">${f.name}</span>
+                  <span id="size">${size}</span>
+                </span>
+                <div class="LYAF-image-preview-edit dropdown show">
+                  <a class="dropdown-toggle" href="javascript:void(0)" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-h"></i>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <div class="form-group form-check">
+                      <input type="checkbox" class="form-check-input set-thumbnail" data-id="${uuid}" id="set-thumbnail-${uuid}">
+                      <label class="form-check-label" data-id="${uuid}" for="set-thumbnail-${uuid}">Set as thumbnail <span id="number">0/2</span></label>
+                    </div>
+                    <hr>
+                    <a class="dropdown-item crop-image" data-id="${uuid}" href="javascript:void(0)">Crop image</a>
+                  </div>
+                </div>
+                <span class="remove-image-btn"><i class="fa fa-trash"></i></span>
+              </div>
+          `);
+        }
+      }
       $(".LYAF-preview-container .info").html(
         `${$(".LYAF-preview-list .LYAF-image-preview").length} images`
       );
+      $(".image-upload").val(null);
+      updateInput();
+    });
+  
+    $(document).on("change", ".set-thumbnail", function () {
+      var id = this.dataset.id;
+      console.log(id);
+      toggleThumbnail(id);
+    });
+  
+    $(document).on("click", ".LYAF-preview-list .remove-image-btn", function () {
+      $(this).parent().remove();
+      $(".LYAF-preview-container .info").html(
+        `${$(".LYAF-preview-list .LYAF-image-preview").length} images`
+      );
+    });
+  
+    $(".remove-image").click(() => {
+      $(".LYAF-remove-container .LYAF-image-preview").remove();
       $(".LYAF-remove-container .info").html(
         `${$(".LYAF-remove-list .LYAF-image-preview").length} images`
       );
     });
-
-    var scroll = autoScroll(
-      [
-        window,
-        document.querySelector(".LYAF-preview-list"),
-        // document.querySelector('.LYAF-remove-list'),
-      ],
-      {
-        margin: 100,
-        maxSpeed: 6,
-        scrollWhenOutside: true,
-        autoScroll: function () {
-          return this.down && drake.dragging;
-        },
-      }
-    );
-
-    $(document).on(
-      "click",
-      ".LYAF-preview-list .LYAF-image-preview .LYAF-image-preview-edit .dropdown-menu",
-      (e) => {
-        e.stopPropagation();
-      }
-    );
-
-    $(".LYAF-preview-list").each(function () {
-      $(this).magnificPopup({
-        delegate: ".LYAF-aaaa",
-        type: "image",
-        gallery: {
-          enabled: true,
-        },
-      });
+  
+    $(document).on("click", ".remove-image-btn", function () {
+      $(this).parent().find(".image-name");
     });
-  }
-
-  tinymce.init({
-    height: "300",
-    selector: "textarea",
-    plugins:
-      "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-    toolbar_mode: "floating",
-  });
-
-  $(".LYAF-thumbnail .thumbnail-upload-holder").magnificPopup({
-    delegate: "a",
-    type: "image",
-  });
-
-  $(".LYAF-dasboard-body .LYAF-dashboard-block i").hover(
-    function () {
-      if (!$(this).parent().find(".LYAF-tooltip").is(":visible"))
-        $(this).parent().find(".LYAF-tooltip").fadeIn(200);
-    },
-    function () {
-      if ($(this).parent().find(".LYAF-tooltip").is(":visible"))
-        $(this).parent().find(".LYAF-tooltip").fadeOut(200);
-    }
-  );
-
-  $(".image-upload").change(function () {
-    var files = $(".image-upload")[0].files;
-    for (var f of files) {
-      var uuid = uuidv4();
-      console.log(uuid);
-      if (f) {
-        var size = humanFileSize(f.size);
-        $(".LYAF-preview-list").prepend(`
-            <div class="LYAF-image-preview preview-${uuid}">
-              <a class="LYAF-aaaa" href="${URL.createObjectURL(
-                f
-              )}" data-name="${f.name}">
-                <img src="${URL.createObjectURL(
-                  f
-                )}" class="$@da@# " height="auto" width="100">
-              </a>
-              <span class="image-info font-weight-bold">
-                <span class="LYAF-asssA">
-                  <span id="thumbnail"></span>
-                </span>
-                <span id="name">${f.name}</span>
-                <span id="size">${size}</span>
-              </span>
-              <div class="LYAF-image-preview-edit dropdown show">
-                <a class="dropdown-toggle" href="javascript:void(0)" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-ellipsis-h"></i>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input set-thumbnail" data-id="${uuid}" id="set-thumbnail-${uuid}">
-                    <label class="form-check-label" data-id="${uuid}" for="set-thumbnail-${uuid}">Set as thumbnail <span id="number">0/2</span></label>
-                  </div>
-                  <hr>
-                  <a class="dropdown-item crop-image" data-id="${uuid}" href="javascript:void(0)">Crop image</a>
-                </div>
-              </div>
-              <span class="remove-image-btn"><i class="fa fa-trash"></i></span>
-            </div>
-        `);
-      }
-    }
-    $(".LYAF-preview-container .info").html(
-      `${$(".LYAF-preview-list .LYAF-image-preview").length} images`
-    );
-    $(".image-upload").val(null);
-    updateInput();
-  });
-
-  $(document).on("change", ".set-thumbnail", function () {
-    var id = this.dataset.id;
-    console.log(id);
-    toggleThumbnail(id);
-  });
-
-  $(document).on("click", ".LYAF-preview-list .remove-image-btn", function () {
-    $(this).parent().remove();
-    $(".LYAF-preview-container .info").html(
-      `${$(".LYAF-preview-list .LYAF-image-preview").length} images`
-    );
-  });
-
-  $(".remove-image").click(() => {
-    $(".LYAF-remove-container .LYAF-image-preview").remove();
-    $(".LYAF-remove-container .info").html(
-      `${$(".LYAF-remove-list .LYAF-image-preview").length} images`
-    );
-  });
-
-  $(document).on("click", ".remove-image-btn", function () {
-    $(this).parent().find(".image-name");
-  });
-
-  $(".thumbnail-upload-holder input").change(function () {
-    var currentParent = $(this).parent();
-    var file = currentParent.find("input")[0].files[0];
-    currentParent.find("p").hide();
-    currentParent.find("input").hide();
-    currentParent.find("#thumbnail-preview")[0].src = URL.createObjectURL(file);
-    currentParent.find("a").attr("href", URL.createObjectURL(file));
-    currentParent.find("#thumbnail-preview")[0].onload = function () {
-      URL.revokeObjectURL(currentParent.find("#thumbnail-preview")[0].src); // free memory
-    };
-    currentParent.find("#thumbnail-preview").show();
-    currentParent.find(".remove-thumbnail").show();
-  });
-
-  $(".LYAF-thumbnail .LYAF-thumbnail-input .remove-thumbnail").click(
-    function () {
+  
+    $(".thumbnail-upload-holder input").change(function () {
       var currentParent = $(this).parent();
-      currentParent.find("p").show();
-      currentParent.find("input").show();
-      currentParent.find("#thumbnail-preview").hide();
-      currentParent.find("a").attr("href", null);
-      currentParent.find(".remove-thumbnail").hide();
-      currentParent.find("#thumbnail-preview")[0].src = "";
-      currentParent.find("input").val(null);
-    }
-  );
-
-  $(".LYAF-sub-products-add .add-sub-product").click(() => {
-    $(".add-sub-modal").modal("show");
-  });
-
-  $(".add-sub-modal .save").click(() => {
-    var _id = $(".size-selecter").find(":selected").val();
-    var _id = $(".color-selecter").find(":selected").val();
-    var size = sizeList.find((_) => _._id == _id);
-    var color = colorList.find((_) => _._id == _id);
-    var quantity = $(".add-sub-modal #quantity").val();
-    $(".LYAF-sub-products-list").append(`
-      <div class="sub-product">
-          <input type="hidden" id="color" value="${_id}">
-          <input type="hidden" id="size" value="${_id}">
-          <div class="sub-p-infor">
-              <div class="asdasd">
-                  <div class="thumbnail-name">
-                      <strong>Thumbnail: </strong>
-                      <span id="value">ANS1001-color-caro-black.jpg</span>
-                      </div>
-                  <div class="quantity">
-                      <strong>Quantity: </strong>
-                      <span id="value">${quantity}</span>
-                  </div>
-              </div>
-              <div class="asdasd">
-                  <div class="color">
-                      <strong>Color: </strong>
-                      <span id="value">${color.name}</span>
-                  </div>
-                  <div class="size">
-                      <strong>Size: </strong>
-                      <span id="value">${size.name}</span>
-                  </div>
-              </div>
-          </div>
-      </div>`);
-    G_DATA.subList.push({ _id, _id });
-    $(".add-sub-modal").modal("hide");
-  });
+      var file = currentParent.find("input")[0].files[0];
+      currentParent.find("p").hide();
+      currentParent.find("input").hide();
+      currentParent.find("#thumbnail-preview")[0].src = URL.createObjectURL(file);
+      currentParent.find("a").attr("href", URL.createObjectURL(file));
+      currentParent.find("#thumbnail-preview")[0].onload = function () {
+        URL.revokeObjectURL(currentParent.find("#thumbnail-preview")[0].src); // free memory
+      };
+      currentParent.find("#thumbnail-preview").show();
+      currentParent.find(".remove-thumbnail").show();
+    });
+  
+    $(".LYAF-thumbnail .LYAF-thumbnail-input .remove-thumbnail").click(
+      function () {
+        var currentParent = $(this).parent();
+        currentParent.find("p").show();
+        currentParent.find("input").show();
+        currentParent.find("#thumbnail-preview").hide();
+        currentParent.find("a").attr("href", null);
+        currentParent.find(".remove-thumbnail").hide();
+        currentParent.find("#thumbnail-preview")[0].src = "";
+        currentParent.find("input").val(null);
+      }
+    );
+  
+    $(".LYAF-sub-products-add .add-sub-product").click(() => {
+      $(".add-sub-modal").modal("show");
+    });
+  
+    $(".add-sub-modal .save").click(() => {
+      var _id = $(".size-selecter").find(":selected").val();
+      var _id = $(".color-selecter").find(":selected").val();
+      var size = sizeList.find((_) => _._id == _id);
+      var color = colorList.find((_) => _._id == _id);
+      var quantity = $(".add-sub-modal #quantity").val();
+      $(".LYAF-sub-products-list").append(`
+        <div class="sub-product">
+            <input type="hidden" id="color" value="${_id}">
+            <input type="hidden" id="size" value="${_id}">
+            <div class="sub-p-infor">
+                <div class="asdasd">
+                    <div class="thumbnail-name">
+                        <strong>Thumbnail: </strong>
+                        <span id="value">ANS1001-color-caro-black.jpg</span>
+                        </div>
+                    <div class="quantity">
+                        <strong>Quantity: </strong>
+                        <span id="value">${quantity}</span>
+                    </div>
+                </div>
+                <div class="asdasd">
+                    <div class="color">
+                        <strong>Color: </strong>
+                        <span id="value">${color.name}</span>
+                    </div>
+                    <div class="size">
+                        <strong>Size: </strong>
+                        <span id="value">${size.name}</span>
+                    </div>
+                </div>
+            </div>
+        </div>`);
+      G_DATA.subList.push({ _id, _id });
+      $(".add-sub-modal").modal("hide");
+    });
+  })
 });
 
 /**
@@ -416,8 +419,8 @@ function toggleThumbnail(id) {
   }
 }
 
-async function getColor(){
-  let res = await fetch("/color", {
+async function getSetupList(){
+  let res = await fetch(window.location.origin+"/api/getSetupList", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -431,4 +434,5 @@ async function getColor(){
     }).then((data) => {
       return data;
     });
+    return res
 }

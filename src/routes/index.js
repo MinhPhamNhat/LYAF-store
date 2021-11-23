@@ -5,10 +5,12 @@ const client = require('./client');
 const loginRouter = require('./login');
 const registerRouter = require('./register');
 const corlorRouter = require('./color')
+const apiRouter = require('./api')
 
 const route = (app)=>{
     app.use('/',client);
     app.use('/manager',proManager);
+    app.use('/api',apiRouter);
     app.use('/color',corlorRouter);
     app.use('/checkpass',sideRoute);
     app.use('/side',sideRoute);
