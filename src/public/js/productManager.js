@@ -188,7 +188,3 @@ const tongleMenu = (element) => {
     }
   }
 };
-
-
-
-import "./module/dashboard/AddProduct.js"

@@ -62,9 +62,6 @@ class RegisterController{
                 
             })
             .catch()
-            
-        
-              
        }
     }
 }

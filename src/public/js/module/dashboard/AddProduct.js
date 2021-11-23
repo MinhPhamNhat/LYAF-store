@@ -5,14 +5,15 @@ var G_DATA = {
   _id: "",
   images: [],
   subList: [],
-}
+};
 
 var colorList;
 var sizeList;
 var categoryList;
 
-$(document).ready(()=>{
-    
+$(document).ready(() => {
+  
+
   if ($(".color-selecter")) {
     colorList.forEach((_) =>
       $(".color-selecter").append(
@@ -20,14 +21,7 @@ $(document).ready(()=>{
       )
     );
   }
-  // if ($(".size-selecter")) {
-  //   sizeList.forEach((_) =>
-  //     $(".size-selecter").append(
-  //       `<option value="${_._id}" data-name="${_.name}">${_.name} - ${_.desc}</option>`
-  //     )
-  //   );
-  // }
-  if ($(".category-selecter")){
+  if ($(".category-selecter")) {
     categoryList.forEach((_) =>
       $(".category-selecter").append(
         `<option value="${_._id}" data-name="${_.name}">${_.name}</option>`
@@ -44,9 +38,9 @@ $(document).ready(()=>{
       wrap_width: "100%",
       pre_placeh_opt: false,
       max_opts: false,
-      on_change: function(val, ele){
-        if ($(ele).hasClass("color-selecter")){
-          setUpSubList(val[0])
+      on_change: function (val, ele) {
+        if ($(ele).hasClass("color-selecter")) {
+          setUpSubList(val[0]);
         }
       },
       labels: [
@@ -57,10 +51,8 @@ $(document).ready(()=>{
       ],
     });
 
-
   if ($(".LYAF-advanced-select")[0]) {
-    $(document).on("click", ".LYAF-advanced-option", function () {
-    });
+    $(document).on("click", ".LYAF-advanced-option", function () {});
   }
 
   $(".LYAF-product-name input").on("input", () => {
@@ -76,13 +68,13 @@ $(document).ready(()=>{
         //   $(handle).hasClass("fa-trash") ||
         //   $(handle).hasClass("$@da@#") ||
         //   $(handle).hasClass("LYAF-image-preview-edit") ||
-        //   $(handle).hasClass("dropdown-toggle") || 
+        //   $(handle).hasClass("dropdown-toggle") ||
         //   $(handle).hasClass("dropdown-menu") ||
         //   $(handle).hasClass("dropdown-item") ||
         //   $(handle).hasClass("form-check-label")||
         //   $(handle).hasClass("fa-ellipsis-h")
         // );
-        return $(handle).hasClass("$@da@#")
+        return $(handle).hasClass("$@da@#");
       },
     });
 
@@ -94,7 +86,7 @@ $(document).ready(()=>{
         `${$(".LYAF-remove-list .LYAF-image-preview").length} images`
       );
     });
-    
+
     var scroll = autoScroll(
       [
         window,
@@ -111,9 +103,13 @@ $(document).ready(()=>{
       }
     );
 
-    $(document).on("click", ".LYAF-preview-list .LYAF-image-preview .LYAF-image-preview-edit .dropdown-menu", (e) => {
-      e.stopPropagation();
-    });
+    $(document).on(
+      "click",
+      ".LYAF-preview-list .LYAF-image-preview .LYAF-image-preview-edit .dropdown-menu",
+      (e) => {
+        e.stopPropagation();
+      }
+    );
 
     $(".LYAF-preview-list").each(function () {
       $(this).magnificPopup({
@@ -153,14 +149,18 @@ $(document).ready(()=>{
   $(".image-upload").change(function () {
     var files = $(".image-upload")[0].files;
     for (var f of files) {
-      var uuid = uuidv4()
-      console.log(uuid)
+      var uuid = uuidv4();
+      console.log(uuid);
       if (f) {
-        var size = humanFileSize(f.size)
+        var size = humanFileSize(f.size);
         $(".LYAF-preview-list").prepend(`
             <div class="LYAF-image-preview preview-${uuid}">
-              <a class="LYAF-aaaa" href="${URL.createObjectURL(f)}" data-name="${f.name}">
-                <img src="${URL.createObjectURL(f)}" class="$@da@# " height="auto" width="100">
+              <a class="LYAF-aaaa" href="${URL.createObjectURL(
+                f
+              )}" data-name="${f.name}">
+                <img src="${URL.createObjectURL(
+                  f
+                )}" class="$@da@# " height="auto" width="100">
               </a>
               <span class="image-info font-weight-bold">
                 <span class="LYAF-asssA">
@@ -184,7 +184,7 @@ $(document).ready(()=>{
               </div>
               <span class="remove-image-btn"><i class="fa fa-trash"></i></span>
             </div>
-        `)
+        `);
       }
     }
     $(".LYAF-preview-container .info").html(
@@ -194,11 +194,11 @@ $(document).ready(()=>{
     updateInput();
   });
 
-  $(document).on("change",".set-thumbnail", function (){
-    var id = this.dataset.id
-    console.log(id)
-    toggleThumbnail(id)
-  })
+  $(document).on("change", ".set-thumbnail", function () {
+    var id = this.dataset.id;
+    console.log(id);
+    toggleThumbnail(id);
+  });
 
   $(document).on("click", ".LYAF-preview-list .remove-image-btn", function () {
     $(this).parent().remove();
@@ -245,17 +245,16 @@ $(document).ready(()=>{
     }
   );
 
-  $(".LYAF-sub-products-add .add-sub-product").click(()=>{
-    $(".add-sub-modal").modal("show")
+  $(".LYAF-sub-products-add .add-sub-product").click(() => {
+    $(".add-sub-modal").modal("show");
+  });
 
-  })
-
-  $(".add-sub-modal .save").click(()=>{
+  $(".add-sub-modal .save").click(() => {
     var _id = $(".size-selecter").find(":selected").val();
     var _id = $(".color-selecter").find(":selected").val();
-    var size = sizeList.find(_=>_._id == _id)
-    var color = colorList.find(_=>_._id == _id)
-    var quantity = $(".add-sub-modal #quantity").val()
+    var size = sizeList.find((_) => _._id == _id);
+    var color = colorList.find((_) => _._id == _id);
+    var quantity = $(".add-sub-modal #quantity").val();
     $(".LYAF-sub-products-list").append(`
       <div class="sub-product">
           <input type="hidden" id="color" value="${_id}">
@@ -282,133 +281,154 @@ $(document).ready(()=>{
                   </div>
               </div>
           </div>
-      </div>`)
-      G_DATA.subList.push({ _id, _id })
-      $(".add-sub-modal").modal("hide")
-  })
-})
+      </div>`);
+    G_DATA.subList.push({ _id, _id });
+    $(".add-sub-modal").modal("hide");
+  });
+});
 
 /**
  * Format bytes as human-readable text.
- * 
+ *
  * @param bytes Number of bytes.
- * @param si True to use metric (SI) units, aka powers of 1000. False to use 
+ * @param si True to use metric (SI) units, aka powers of 1000. False to use
  *           binary (IEC), aka powers of 1024.
  * @param dp Number of decimal places to display.
- * 
+ *
  * @return Formatted string.
  */
- function humanFileSize(bytes, si=true, dp=1) {
+function humanFileSize(bytes, si = true, dp = 1) {
   const thresh = si ? 1000 : 1024;
 
   if (Math.abs(bytes) < thresh) {
-    return bytes + ' B';
+    return bytes + " B";
   }
 
-  const units = si 
-    ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'] 
-    : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+  const units = si
+    ? ["kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
+    : ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"];
   let u = -1;
-  const r = 10**dp;
+  const r = 10 ** dp;
 
   do {
     bytes /= thresh;
     ++u;
-  } while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
+  } while (
+    Math.round(Math.abs(bytes) * r) / r >= thresh &&
+    u < units.length - 1
+  );
 
-
-  return bytes.toFixed(dp) + ' ' + units[u];
+  return bytes.toFixed(dp) + " " + units[u];
 }
 
 /**
  * Extract input to json data.
- * 
+ *
  * @return JSON.
  */
- function extractData() {
-   return G_DATA
+function extractData() {
+  return G_DATA;
 }
 
 /**
  * Convert url to File.
- * 
+ *
  * @param an url.
- * 
+ *
  * @return An File object.
  */
- const urlToObject = async(image, name)=> {
+const urlToObject = async (image, name) => {
   const response = await fetch(image);
   // here image is url/location of image
   const blob = await response.blob();
-  const file = new File([blob], name, {type: blob.type});
-  return file
-}
+  const file = new File([blob], name, { type: blob.type });
+  return file;
+};
 
 /**
  * Generate uuid
- * 
+ *
  * @return an id.
  */
 function uuidv4() {
-  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+    (
+      c ^
+      (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+    ).toString(16)
   );
 }
 
-function updateInput(){
+function updateInput() {
   // NAME
-  G_DATA.name = $(".LYAF-product-name input").val()
+  G_DATA.name = $(".LYAF-product-name input").val();
   // DESCRIPTION
-  G_DATA.desc = tinyMCE.get("desc").getContent()
+  G_DATA.desc = tinyMCE.get("desc").getContent();
   // CATEGORY
   G_DATA._id = $(".category-selecter").find(":selected").val();
   // PRICE
-  G_DATA.price = $(".LYAF-product-price input").val()
+  G_DATA.price = $(".LYAF-product-price input").val();
   // IMAGES
   G_DATA.images = getImagesObject();
   // SUBLIST
 }
 
-function setUpSubList(_id){
+function setUpSubList(_id) {
+  var selectedSize = G_DATA.subList.map((_) => {
+    if (_._id == _id) return _._id;
+  });
 
-  var selectedSize = G_DATA.subList.map(_ => {if (_._id == _id) return _._id})
-
-  const select = document.querySelector(".size-selecter")
-  $(".size-selecter option").remove()
-  const destroyEvent = new Event('lc-select-destroy');
+  const select = document.querySelector(".size-selecter");
+  $(".size-selecter option").remove();
+  const destroyEvent = new Event("lc-select-destroy");
   select.dispatchEvent(destroyEvent);
-  sizeList.forEach((_) =>{
-    if(!selectedSize.includes(_._id))
-    $(".size-selecter").append(
-      `<option value="${_._id}" data-name="${_.name}">${_.name} - ${_.desc}</option>`
-    )
+  sizeList.forEach((_) => {
+    if (!selectedSize.includes(_._id))
+      $(".size-selecter").append(
+        `<option value="${_._id}" data-name="${_.name}">${_.name} - ${_.desc}</option>`
+      );
   });
   new lc_select(".size-selecter", {
     enable_search: true,
-  })
+  });
 }
 
-function a(){
+function a() {}
 
-}
-
-function getImagesObject(){
-  var fileInput = []
-  $(".LYAF-image-preview .LYAF-aaaa").each(async (i, v)=>{
+function getImagesObject() {
+  var fileInput = [];
+  $(".LYAF-image-preview .LYAF-aaaa").each(async (i, v) => {
     var url = $(v).attr("href");
     var name = $(v).attr("data-name");
-    var file = await urlToObject(url, name)
+    var file = await urlToObject(url, name);
     fileInput.push(file);
-  })
-  return fileInput
+  });
+  return fileInput;
 }
 
 function toggleThumbnail(id) {
-  if($(`.preview-${id} #thumbnail`).hasClass("set")){
-    $(`.preview-${id} #thumbnail`).removeClass("set")
+  if ($(`.preview-${id} #thumbnail`).hasClass("set")) {
+    $(`.preview-${id} #thumbnail`).removeClass("set");
     $(`.preview-${id} #thumbnail`).html("");
-  }else{
-    $(`.preview-${id} #thumbnail`).addClass('set')
-    $(`.preview-${id} #thumbnail`).append('<i class="fas fa-star"></i>')
+  } else {
+    $(`.preview-${id} #thumbnail`).addClass("set");
+    $(`.preview-${id} #thumbnail`).append('<i class="fas fa-star"></i>');
   }
+}
+
+async function getColor(){
+  let res = await fetch("/color", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+      if (response.status === 200) {
+        console.log(response);
+      } else {
+      }
+      return response.json();
+    }).then((data) => {
+      return data;
+    });
 }
