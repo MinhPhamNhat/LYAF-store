@@ -18,8 +18,9 @@ class LoginController{
         res.render('home');
     }
     checkLogin(req,res,next){
-        const error = req.flash('error');
-        console.log(error);
+        const error = req.flash('error')[0];
+        console.log(error)
+        res.render('login', {error});
     }
 
     test(req,res,next){

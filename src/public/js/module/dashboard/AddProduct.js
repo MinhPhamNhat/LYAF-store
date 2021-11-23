@@ -187,7 +187,7 @@ $(document).ready(()=>{
 
   // LC_SELECT
   if ($(".LYAF-selecter")[0])
-    new lc_select(".color-selecter", {
+    new lc_select(".color-selecter, .category-selecter", {
       enable_search: true,
       min_for_search: 7,
       autofocus_search: false,
