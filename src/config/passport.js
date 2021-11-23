@@ -1,6 +1,7 @@
 const accModel = require('../app/models/Account');
 const userModel = require('../app/models/User');
 const LocalStrategy = require('passport-local').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 
@@ -13,6 +14,14 @@ passport.deserializeUser(function(user
     , done) {
     done(null,user);
 });
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: "http://localhost:2000/login/google/callback",
+}, async(accessToken, refreshToken, profile, done) => {
+    console.log(profile._json)
+}))
 
 //Local
 passport.use(new LocalStrategy({

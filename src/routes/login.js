@@ -11,7 +11,7 @@ route.get('/success',LoginController. loginSuccess);
 route.get('/logout', LoginController.logout);
 route.get('/test',LoginController.test);
 route.get('/check',LoginController.checkLogin);
-route.post('/', passport.authenticate('local', { successRedirect: '/',
-failureRedirect: '/login/check' ,
-failureFlash : true }));
+route.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+route.get('/google/callback', passport.authenticate('google', {  successReturnToOrRedirect: '/',  failureRedirect: '/login', failureFlash : true }));
+route.post('/', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login/check', failureFlash : true }));
 module.exports = route;

@@ -27,6 +27,7 @@ class LoginController{
         console.log(req.error);
     }
 
+
         // passport.serializeUser((user,done) =>{
         // done(null,user.usr);
         // });
