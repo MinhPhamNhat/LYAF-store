@@ -16,7 +16,10 @@ class LoginController{
         req.logout();
         res.render('home');
     }
-
+    checkLogin(){
+        const error = req.flash('error');
+        console.log(error);
+    }
     test(req,res,next){
         console.log(req.error);
     }
