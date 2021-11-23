@@ -6,10 +6,7 @@ const Ward = require('../models/Ward')
 class ClientController{
 
     client(req,res,next){
-        District.find({provinceCode: "P-79"}).exec((err, data)=>{
-            // console.log(data)
-        })
-        res.render('home');
+        res.render('home', {user: req.user});
     }
 
     productDetail(req,res,next){

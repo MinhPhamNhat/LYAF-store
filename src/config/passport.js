@@ -21,8 +21,6 @@ passport.use(new LocalStrategy(
         }).exec()
         .then((data) => {
             if(bcrypt.compareSync(password, data.password)){
-                
-               
                     userModel.findOne({username: username}).exec()
                     .then((user) =>{
                         return done(null, user);

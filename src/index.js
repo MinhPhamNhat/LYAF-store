@@ -29,6 +29,7 @@ const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const hdbHelper = require('./helper/handlebars/helper')
 const port = 2000;
 
 //Require handlebars:
@@ -38,9 +39,7 @@ app.use(express.static(path.join(__dirname,'public')));
 
 ////set engine (handlebars):
 app.engine('handlebars',hdbars({
-  helpers:{
-    indexSum: (index,n) =>{ return index + n}
-  }
+  helpers: hdbHelper
 }));
 app.set('view engine','handlebars');
 app.set('views', path.join(__dirname, 'resources/views'));

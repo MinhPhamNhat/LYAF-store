@@ -33,7 +33,6 @@
 }
 .LYAF-navbar{
     padding: 15px;
- 
 }
 
 .LYAF-header-dropdown #dropdown-action{
@@ -102,6 +101,20 @@
 .LYAF-header-right .LYAF-header-search,.LYAF-header-cart,.LYAF-header-account{
     cursor: pointer;
     color: white;
+    position: relative;
+    .LYAF-header-popup{
+        position: absolute;
+        left: 0;
+        padding: 15px;
+        width: max-content;
+        z-index: 99 !important;
+        font-size: 16px;
+        background-color: white;
+        transform: translate(-100%);
+        color: black;
+        border: 1px solid #818181;
+        display: none;
+    }
 }
 
 .shake:hover {

@@ -81,7 +81,20 @@
 
 .LYAF-header-right .LYAF-header-search, .LYAF-header-cart, .LYAF-header-account {
   cursor: pointer;
-  color: white; }
+  color: white;
+  position: relative; }
+  .LYAF-header-right .LYAF-header-search .LYAF-header-popup, .LYAF-header-cart .LYAF-header-popup, .LYAF-header-account .LYAF-header-popup {
+    position: absolute;
+    left: 0;
+    padding: 15px;
+    width: max-content;
+    z-index: 99 !important;
+    font-size: 16px;
+    background-color: white;
+    transform: translate(-100%);
+    color: black;
+    border: 1px solid #818181;
+    display: none; }
 
 .shake:hover {
   /* Start the shake animation and make the animation last for 0.5 seconds */

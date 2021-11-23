@@ -60,6 +60,12 @@
                         </div>
                     </div>
                 </li>
+                
+                {{#manyEqTo val1="admin" val2="staff" key=user.role }}
+                    <li class="nav-item">
+                        <a class="nav-link font-weight-bold m-1 text-uppercase" href="#">Dashboard</a>
+                    </li>
+                {{/manyEqTo }}
             </ul>
         </div>
         <div class="LYAF-header-right">
@@ -69,8 +75,23 @@
             <div class="LYAF-header-cart shake">
                 <i class="fas fa-shopping-cart fs-3"><span class="LYAF-no-products">0</span></i>
             </div>
-            <div class="LYAF-header-account shake">
-                <i class="fas fa-user-circle fs-3"></i>
+            <div class="LYAF-header-account">
+                <i class="fas fa-user-circle fs-3 shake"></i>
+                <div class="LYAF-header-popup">
+                    {{#if user}}
+                        <div class="LYAF-header-account-infor">
+                            <a href="#">Chào, <i id="name">{{user.name}}</i></a>
+                            <hr>
+                            <span>Đăng xuất</span>
+                        </div>
+                    {{else}}
+                    <div class="LYAF-header-login-prompt">
+                        <a href="/login"> Đăng nhập</a>
+                        <hr>
+                        <a href="/register">Đăng ký</a>
+                    </div>
+                    {{/if}}
+                </div>
             </div>
         </div>
     </nav>

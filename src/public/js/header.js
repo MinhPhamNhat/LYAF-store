@@ -31,10 +31,17 @@ $(document).ready(()=>{
         $(".LYAF-header .blur-bg").fadeOut(300)
         $(".LYAF-header .LYAF-cart-box").css("right", "-500px")
     })
+
+    $(".LYAF-header-account").click(function(){
+        if (!$(".LYAF-header-account .LYAF-header-popup").is(':visible'))
+        $(".LYAF-header-account .LYAF-header-popup").fadeIn(100)
+        else if ($(".LYAF-header-account .LYAF-header-popup").is(':visible'))
+        $(".LYAF-header-account .LYAF-header-popup").fadeOut(100)
+    })
   })
 
   //fa-user-circle:
-  const fa_user_circle = document.querySelector('.fa-user-circle');
-  fa_user_circle.addEventListener('click',() => {
-      window.location.href = "/login";
-  });
+//   const fa_user_circle = document.querySelector('.fa-user-circle');
+//   fa_user_circle.addEventListener('click',() => {
+//       window.location.href = "/login";
+//   });
