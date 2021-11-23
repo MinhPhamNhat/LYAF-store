@@ -21,32 +21,36 @@ class RegisterController{
         else{
             accModel.findOne({username: rusername}).exec()
             .then((data)=>{
-                error = 'Tên đăng nhập đã được sử dụng !';
-                placeholder = rusername;
-                res.render('register',{error,placeholder});
-            })
-            .catch(()=>{
-                const bcryptpassword = bcrypt.hashSync(rpassword, 10);
-            const newacc = new accModel({
-                username:rusername,
-                password:bcryptpassword
-            })
-            newacc.save()
-                .then(() =>{
-                    const newuser = new userModel({
-                        username:rusername,
-                        name:rusername,
-                    })
-                    newuser.save()
-                            .then(()=>{
-                                res.render('login');
-                            })
-                            .catch()
+                if(data != null){
+                    error = 'Tên đăng nhập đã được sử dụng !';
+                    placeholder = rusername;
+                    res.render('register',{error,placeholder});
                 }
-                    
-                )
-                .catch(next)
+                else{
+                    const bcryptpassword = bcrypt.hashSync(rpassword, 10);
+                    const newacc = new accModel({
+                        username:rusername,
+                        password:bcryptpassword
+                    })
+                    newacc.save()
+                        .then(() =>{
+                            const newuser = new userModel({
+                                username:rusername,
+                                name:rusername,
+                            })
+                            newuser.save()
+                                    .then(()=>{
+                                        res.render('login');
+                                    })
+                                    .catch()
+                        }
+                            
+                        )
+                        .catch(next)
+                }
+                
             })
+            .catch()
             
         
               

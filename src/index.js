@@ -62,7 +62,7 @@ app.use(session({secret: 'ratbaomatthe',
                         resave: true,
                         saveUninitialized: true,
                         cookie:{
-                          maxAge:1000*60*60,
+                          maxAge:1000*10,
                         }
                         }));
 app.use(passport.initialize()); 
