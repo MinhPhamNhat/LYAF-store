@@ -9,9 +9,9 @@ const social__link = document.querySelector('.social__link');
 const register_ask_toast = document.querySelector('.register_ask_toast');
 //Edit Form:
 //form login:
-form__login.style.height =`calc(${window.getComputedStyle(form__login).getPropertyValue('width')} + 80px)`;
+form__login.style.height =`calc(${window.getComputedStyle(form__login).getPropertyValue('width')} + 160px)`;
 window.addEventListener('resize', (e) =>{
-    form__login.style.height = `calc(${window.getComputedStyle(form__login).getPropertyValue('width')} + 80px)`;
+    form__login.style.height = `calc(${window.getComputedStyle(form__login).getPropertyValue('width')} + 160px)`;
 });
 
 //Access:
