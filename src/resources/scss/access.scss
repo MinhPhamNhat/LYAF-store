@@ -233,7 +233,7 @@ form{
 //Error-toast
 .errorToast{
     position: absolute;
-    width: 400px;
+    width: 480px;
     height: 150px;
     color:white;
     margin-left: -200px;
@@ -244,12 +244,28 @@ form{
     justify-content: center;
     align-items: center;
     top: 90px;
-    right: -400px;
+    right: 0px;
+    opacity: 0;
     // visibility:hidden;
     // opacity:0;
-    transition: right 0.5s linear;
+    
 }
 
+@keyframes errorToast{
+    0%{
+        opacity: 0;
+        right: 0px;
+    }
+    50%{
+        opacity: 1;
+        right: 100px;
+    }
+    100%{
+        opacity: 0;
+        right: 0px;
+    }
+
+}
 
 .errorToast span{
     text-align: center;

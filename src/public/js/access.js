@@ -60,9 +60,9 @@ changeHeight_420(window.matchMedia("(max-width: 420px)"));
 //errorToast:
 const errorToast = document.querySelector('.errorToast');
 if(document.querySelector('#error') != null){
-    errorToast.style.right = "100px";
-    
+    errorToast.style.animation = " errorToast 5s";
     setTimeout(() => {  
-        errorToast.style.right = "-400px";
+        errorToast.style.right = "0px";
+        errorToast.style.opacity = "0";
     }, 3000);
 }

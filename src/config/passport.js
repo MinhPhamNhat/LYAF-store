@@ -37,7 +37,7 @@ passport.use(
     },
     async (req, username, password, done) => {
       if (username == "" || password == "") {
-        req.flash("error", "Tài khoản hoăc mật khẩu đang trống");
+        req.flash("error", "Tài khoản hoăc mật khẩu đang trống !");
         return done(null, false);
       } else {
         accModel
