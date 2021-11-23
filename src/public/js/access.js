@@ -25,7 +25,7 @@ if(link_register_btn != null){
 if(link_login_btn != null){
 
     link_login_btn.addEventListener('click',() =>{
-        window.location.href = "/access/login";
+        window.location.href = "/login";
     });
 }
 
