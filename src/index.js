@@ -30,7 +30,8 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const hdbHelper = require('./helper/handlebars/helper')
-const port = 2000;
+require('dotenv').config();
+const port = process.env.PORT;
 
 //Require handlebars:
 const hdbars = require('express-handlebars');
@@ -66,6 +67,8 @@ app.use(session({secret: 'ratbaomatthe',
                         }));
 app.use(passport.initialize()); 
 app.use(passport.session());
+
+
 require('./config/passport');
 //route:
 const route = require('./routes/index');
@@ -80,4 +83,4 @@ connect_db();
 
 
 //Listen port:
-app.listen(port, () => {console.log("http://localhost:"+2000)});
+app.listen(port, () => {console.log("http://localhost:"+port)});
