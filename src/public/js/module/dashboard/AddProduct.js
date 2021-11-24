@@ -252,21 +252,17 @@ $(document).ready(() => {
     });
   
     $(".add-sub-modal .save").click(() => {
-      var _id = $(".size-selecter").find(":selected").val();
-      var _id = $(".color-selecter").find(":selected").val();
-      var size = sizeList.find((_) => _._id == _id);
-      var color = colorList.find((_) => _._id == _id);
+      var sizeId = $(".size-selecter").find(":selected").val();
+      var colorId = $(".color-selecter").find(":selected").val();
+      var size = sizeList.find((_) => _._id == sizeId);
+      var color = colorList.find((_) => _._id == colorId);
       var quantity = $(".add-sub-modal #quantity").val();
       $(".LYAF-sub-products-list").append(`
         <div class="sub-product">
-            <input type="hidden" id="color" value="${_id}">
-            <input type="hidden" id="size" value="${_id}">
+            <input type="hidden" id="color" value="${sizeId}">
+            <input type="hidden" id="size" value="${colorId}">
             <div class="sub-p-infor">
                 <div class="asdasd">
-                    <div class="thumbnail-name">
-                        <strong>Thumbnail: </strong>
-                        <span id="value">ANS1001-color-caro-black.jpg</span>
-                        </div>
                     <div class="quantity">
                         <strong>Quantity: </strong>
                         <span id="value">${quantity}</span>
@@ -284,9 +280,13 @@ $(document).ready(() => {
                 </div>
             </div>
         </div>`);
-      G_DATA.subList.push({ _id, _id });
+      G_DATA.subList.push({ colorId, sizeId, quantity });
       $(".add-sub-modal").modal("hide");
     });
+
+    $(".LYAF-save-new").click(()=>{
+      console.log(extractData())
+    })
   })
 });
 

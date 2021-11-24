@@ -6,16 +6,16 @@ class ProductController{
         proModel.find({})
                 .then((data) =>{
                     data = data.map((data) => data.toObject());
-                    res.render('proManager',{data});
+                    res.render('proManager',{data, header: false});
                 })
                 .catch(next)
     }
 
     create(req,res,next){
-        res.render('proManager', {route: "add"});
+        res.render('proManager', {route: "add", header: false});
     }
     list(req, res, next){
-        res.render('proManager', {route: "list"});
+        res.render('proManager', {route: "list", header: false});
     }
     delete(req,res,next){
         const proId = req.params.id;

@@ -54,8 +54,11 @@
     <title>Document</title>
 </head>
 <body>
+    
         {{>loader_logo}}
-        {{>header}}
+        {{#notEquals val1=header val2=false}}
+            {{>header}}
+        {{/notEquals}}
         {{{body}}}
 </body>
 
