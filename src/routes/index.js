@@ -6,7 +6,7 @@ const loginRouter = require('./login');
 const registerRouter = require('./register');
 const corlorRouter = require('./color')
 const apiRouter = require('./api')
-
+const userInfoRouter = require('./userInfo');
 const route = (app)=>{
     app.use('/',client);
     app.use('/manager',proManager);
@@ -16,6 +16,7 @@ const route = (app)=>{
     app.use('/side',sideRoute);
     app.use('/login',loginRouter);
     app.use('/register',registerRouter);
+    app.use('/userInfo',userInfoRouter);
 }
 
 module.exports = route;
