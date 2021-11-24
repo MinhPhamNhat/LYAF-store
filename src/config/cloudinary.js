@@ -17,3 +17,8 @@ exports.updoads = (file, folder) => {
         })
     }) 
 }
+
+exports.images = (file, option) => {
+    var image = cloudinary.image(file, option)
+    return image;
+}

@@ -152,7 +152,6 @@ $(document).ready(() => {
       var files = $(".image-upload")[0].files;
       for (var f of files) {
         var uuid = uuidv4();
-        console.log(uuid);
         if (f) {
           var size = humanFileSize(f.size);
           $(".LYAF-preview-list").prepend(`
@@ -192,13 +191,12 @@ $(document).ready(() => {
       $(".LYAF-preview-container .info").html(
         `${$(".LYAF-preview-list .LYAF-image-preview").length} images`
       );
-      $(".image-upload").val(null);
+      $(".ima ge-upload").val(null);
       updateInput();
     });
   
     $(document).on("change", ".set-thumbnail", function () {
       var id = this.dataset.id;
-      console.log(id);
       toggleThumbnail(id);
     });
   
@@ -261,6 +259,7 @@ $(document).ready(() => {
         <div class="sub-product">
             <input type="hidden" id="color" value="${sizeId}">
             <input type="hidden" id="size" value="${colorId}">
+            <input type="hidden" id="quantity" value="${quantity}">
             <div class="sub-p-infor">
                 <div class="asdasd">
                     <div class="quantity">
@@ -284,8 +283,21 @@ $(document).ready(() => {
       $(".add-sub-modal").modal("hide");
     });
 
-    $(".LYAF-save-new").click(()=>{
-      console.log(extractData())
+    $(".LYAF-save-new").click(async ()=>{
+      var data = await extractData()
+      const formData = new FormData()
+      formData.append("name", data.name)
+      formData.append("desc", data.desc)
+      formData.append("categoryId", data.categoryId)
+      formData.append("price", data.price)
+      data.images.forEach(f => {
+        formData.append("images", f)
+      })
+      console.log(formData)
+      fetch(window.location.origin+'/api/product/add',{
+        method: "POST",
+        body: formData
+      })
     })
   })
 });
@@ -329,8 +341,8 @@ function humanFileSize(bytes, si = true, dp = 1) {
  *
  * @return JSON.
  */
-function extractData() {
-  updateInput()
+async function extractData() {
+  await updateInput()
   return G_DATA;
 }
 
@@ -363,7 +375,7 @@ function uuidv4() {
   );
 }
 
-function updateInput() {
+async function updateInput() {
   // NAME
   G_DATA.name = $(".LYAF-product-name input").val();
   // DESCRIPTION
@@ -373,7 +385,7 @@ function updateInput() {
   // PRICE
   G_DATA.price = $(".LYAF-product-price input").val();
   // IMAGES
-  G_DATA.images = getImagesObject();
+  G_DATA.images = await getImagesObject();
   // SUBLIST
 }
 
@@ -398,14 +410,13 @@ function setUpSubList(colorId) {
 
 function a() {}
 
-function getImagesObject() {
-  var fileInput = [];
-  $(".LYAF-image-preview .LYAF-aaaa").each(async (i, v) => {
+async function getImagesObject() {
+  var fileInput = await Promise.all($(".LYAF-image-preview .LYAF-aaaa").map(async (i, v) => {
     var url = $(v).attr("href");
     var name = $(v).attr("data-name");
     var file = await urlToObject(url, name);
-    fileInput.push(file);
-  });
+    return file
+  }));
   return fileInput;
 }
 
