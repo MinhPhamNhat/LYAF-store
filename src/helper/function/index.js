@@ -12,6 +12,8 @@ exports.getPayload = async (req) => {
   var isGood = true
   var images = await Promise.all(files.map(async (f)=>{
     var result = await cloudinary.uploads(f.path, "product")
+    if (fs.existsSync(path.join(__dirname, "../../uploads/"+f.filename)))
+    fs.unlinkSync(path.join(__dirname, "../../uploads/"+f.filename))
     if (result.code === 0){
       isGood = false
     }else{
@@ -19,10 +21,6 @@ exports.getPayload = async (req) => {
       return url
     }
   }))
-  files.forEach(function(f){
-    if (fs.existsSync(path.join(__dirname, "../../uploads/"+f.filename)))
-    fs.unlinkSync(path.join(__dirname, "../../uploads/"+f.filename))
-  })
   var subProduct = await Promise.all(req.body.subProduct.map(s => JSON.parse(s)))
   if (isGood){
     return {code: 1, data: {...req.body, subProduct, images}}

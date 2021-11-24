@@ -39,6 +39,9 @@ module.exports = {
 
             // CHECK SUB PRODUCTS
             check("subProduct").custom((value) => {
+                if (!Array.isArray(value)){
+                    value = [value]
+                }
                 var jsonVal = value.map(v=>JSON.parse(v))
                 for(val of jsonVal){
                     if (!(val.colorId && val.sizeId && val.quantity)){
@@ -47,7 +50,11 @@ module.exports = {
                 }
                 return true
               }).withMessage("Sản phẩm phụ không hợp lệ"),
+
             check("subProduct").custom((value) => {
+                if (!Array.isArray(value)){
+                    value = [value]
+                }
                 var jsonVal = value.map(v=>JSON.parse(v))
                 for(v1 of jsonVal){
                     var count = 0
@@ -62,6 +69,9 @@ module.exports = {
                 return true
             }).withMessage("Sản phẩm phụ trùng"),
             check("subProduct").custom(async (value) => {
+                if (!Array.isArray(value)){
+                    value = [value]
+                }
                 var jsonVal = value.map(v=>JSON.parse(v))
                 for(val of jsonVal){
                     var checkColor = await ColorDAO.findById(val.colorId)
