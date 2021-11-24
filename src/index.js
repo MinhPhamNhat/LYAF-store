@@ -31,8 +31,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const flash = require('connect-flash');
 const hdbHelper = require('./helper/handlebars/helper')
-require('dotenv').config();
-const port = process.env.PORT;
+
 
 //Require handlebars:
 const hdbars = require('express-handlebars');
@@ -59,7 +58,7 @@ app.use(methodOverride('_method'));
 //Set up Passport:
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({secret: 'ratbaomatthe',
+app.use(session({secret: 'yamete kudasai',
                         resave: true,
                         saveUninitialized: true,
                         cookie:{
@@ -71,7 +70,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+require('dotenv').config();
 require('./config/passport');
+const port = process.env.PORT;
 //route:
 const route = require('./routes/index');
 route(app);
@@ -79,9 +80,6 @@ route(app);
 //Connect MonngoDB:
 const connect_db = require('./config/db/index.js');
 connect_db();
-
-
-
 
 
 //Listen port:

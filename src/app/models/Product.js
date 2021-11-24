@@ -5,11 +5,16 @@ const mongooseDelete = require('mongoose-delete'); // Require mongoose-delete
 
 //Connect DB:
 const Product = new Schema({
-    name:{type:String},
-    price:{type:String},
-    origin:{type:String},
-    sale:{type:String},
-    url:{type:String},
+    _id: {type: mongoose.Schema.Types.String},
+    name:{type: mongoose.Schema.Types.String},
+    desc:{type: mongoose.Schema.Types.String},
+    categoryId:{type: mongoose.Schema.Types.String, ref:'Category'},
+    price:{type: mongoose.Schema.Types.Number},
+    thumbnails:[{type: mongoose.Schema.Types.Number}],
+    isSale:{type: mongoose.Schema.Types.Boolean},
+    isNew:{type: mongoose.Schema.Types.Boolean},
+    sale:{type: mongoose.Schema.Types.Number},
+    amountOfAccess:{type: mongoose.Schema.Types.Number},
 },{
     versionKey: false,
     timestamp:true

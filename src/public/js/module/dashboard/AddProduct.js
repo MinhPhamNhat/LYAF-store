@@ -2,7 +2,7 @@ var G_DATA = {
   name: "",
   price: 0,
   desc: "",
-  _id: "",
+  categoryId: "",
   images: [],
   subList: [],
 };
@@ -330,6 +330,7 @@ function humanFileSize(bytes, si = true, dp = 1) {
  * @return JSON.
  */
 function extractData() {
+  updateInput()
   return G_DATA;
 }
 
@@ -368,7 +369,7 @@ function updateInput() {
   // DESCRIPTION
   G_DATA.desc = tinyMCE.get("desc").getContent();
   // CATEGORY
-  G_DATA._id = $(".category-selecter").find(":selected").val();
+  G_DATA.categoryId = $(".category-selecter").find(":selected").val();
   // PRICE
   G_DATA.price = $(".LYAF-product-price input").val();
   // IMAGES
@@ -376,11 +377,10 @@ function updateInput() {
   // SUBLIST
 }
 
-function setUpSubList(_id) {
+function setUpSubList(colorId) {
   var selectedSize = G_DATA.subList.map((_) => {
-    if (_._id == _id) return _._id;
+    if (_.colorId == colorId) return _.sizeId;
   });
-
   const select = document.querySelector(".size-selecter");
   $(".size-selecter option").remove();
   const destroyEvent = new Event("lc-select-destroy");
