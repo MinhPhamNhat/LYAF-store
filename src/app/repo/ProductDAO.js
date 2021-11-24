@@ -74,7 +74,12 @@ module.exports = {
     },
 
     getProductsList: async (option, limit={}, sort={}) => {
-        return Product.find(option).populate('categoryId').limit(limit).sort(sort).exec()
+        return Product.find(option).populate({
+            path: 'categoryId',
+            populate: {
+                path: 'parentId'
+            }
+        }).limit(limit).sort(sort).exec()
         .then(data=>{
             return {
                 code: 1,
@@ -84,6 +89,33 @@ module.exports = {
             return {
                 code: -1,
                 message: err
+            } 
+        })
+    },
+
+    getProductById: async (id) => {
+        return Product.findById(id).populate({
+            path: 'categoryId',
+            populate: {
+                path: 'parentId'
+            }
+        }).exec()
+        .then(data=>{
+            if (data){
+                return {
+                    code: 1,
+                    data
+                }
+            }else{
+                return {
+                    code: 1,
+                    data
+                }
+            }
+        }).catch(err=>{
+            return {
+                code: 0,
+                message: "Not found"
             } 
         })
     }

@@ -2,10 +2,10 @@ const ProductDAO = require('../repo/ProductDAO')
 class ClientController{
 
     async client(req,res,next){
-        var result = await ProductDAO.getProductsList({isNew: true},2)
+        var result = await ProductDAO.getProductsList({isNew: true},10)
         switch(result.code){
             case 1:
-                res.status(200).render('home', {user: req.user, data: result.data});
+                res.status(200).render('home', {user: req.user, data: result.data.map((_)=>_.toObject())});
                 break;
             case -1:
                 res.status(500).render('404', {user: req.user});
@@ -13,8 +13,20 @@ class ClientController{
         }
     }
 
-    productDetail(req,res,next){
-        res.render('productDetail');
+    async productDetail(req,res,next){
+        var id = req.params.id
+        var result = await ProductDAO.getProductById(id)
+        switch(result.code){
+            case 1:
+                res.status(200).render('productDetail', {user: req.user, data: result.data.toObject()});
+                break;
+            case 0:
+                res.status(404).render('404', {user: req.user});
+                break;
+            case -1:
+                res.status(500).render('404', {user: req.user});
+                break;
+        }
     }
 
     productCollection(req,res,next){

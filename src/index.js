@@ -36,6 +36,7 @@ const hdbHelper = require('./helper/handlebars/helper')
 //Require handlebars:
 const hdbars = require('express-handlebars');
 const path = require('path');
+app.use('/css',express.static(__dirname +'/css'));
 app.use(express.static(path.join(__dirname,'public')));
 
 ////set engine (handlebars):

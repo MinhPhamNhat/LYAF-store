@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../css/client.css">
+<link rel="stylesheet" href="/css/client.css">
 <div class="LYAF-home-container">
     <div class="LYAF-home-banner">
         <div class="splide">
@@ -21,16 +21,23 @@
             <div id="block-products-title">
                 <span class="font-weight-bold text-uppercase">Sản phẩm mới</span>
             </div>
+
             <div id="block-products">
+                {{#each data}}
                 <div class="LYAF-product-component">
                     <div class="LYAF-product-thumbnails">
-                        <img src="../img/ATNS1002-1.jpg" alt="" id="main-thumbnail">
-                        <img src="../img/ATNS1002-2.jpg" alt="" id="second-thumbnail">
+                        {{#getThumbnails images=this.images}}
+                        {{/getThumbnails}}
                     </div>
                     <div class="LYAF-product-info">
-                        <div id="price"><span id="true-price">250.000 VND</span><span id="sale-price">350.000 VND</span></div>
-                        <div id="name">Áo Nỉ (Sweatshirt) BOUTON Stay Chill</div>
-                        <div id="category"><a href="#" id="parent">Áo</a>, <a href="#" id="child">Áo thun</a></div>
+                        <div id="price"><span id="true-price">{{this.price}}.000 VND</span><span class="d-none" id="sale-price">350.000 VND</span></div>
+                        <div id="name">{{this.name}}</div>
+                        <div id="category">
+                        {{#if this.categoryId.parentId}}
+                            <a href="#" id="parent">{{this.categoryId.parentId.name}}</a>, 
+                        {{/if}}
+                            <a href="#" id="child">{{this.categoryId.name}}</a>
+                        </div>
                         <div id="rating">
                             <div class="rating-stars">
                                 <span><i class="fas fa-star"></i></span>
@@ -45,8 +52,8 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="LYAF-product-component">
+                {{/each}}
+                {{!-- <div class="LYAF-product-component">
                     <div class="LYAF-product-thumbnails">
                         <img src="../img/ATNS1001-1.jpg" alt="" id="main-thumbnail">
                         <img src="../img/ATNS1001-2.jpg" alt="" id="second-thumbnail">
@@ -93,6 +100,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="LYAF-product-component">
                     <div class="LYAF-product-thumbnails">
                         <img src="../img/ATNS1002-1.jpg" alt="" id="main-thumbnail">
@@ -164,6 +172,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="LYAF-product-component">
                     <div class="LYAF-product-thumbnails">
                         <img src="../img/ATNS1002-1.jpg" alt="" id="main-thumbnail">
@@ -235,6 +244,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="LYAF-product-component">
                     <div class="LYAF-product-thumbnails">
                         <img src="../img/ATNS1002-1.jpg" alt="" id="main-thumbnail">
@@ -257,7 +267,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <div id="block-products-bottom">
                 <span id="more">Xem thêm</span>
@@ -765,4 +775,4 @@
     </div>
 </div>
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-<script src="../js/client.js"></script>
+<script src="/js/client.js"></script>

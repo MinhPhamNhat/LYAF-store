@@ -15,6 +15,7 @@ const Product = new Schema(
     isSale: { type: mongoose.Schema.Types.Boolean },
     isNew: { type: mongoose.Schema.Types.Boolean },
     sale: { type: mongoose.Schema.Types.Number },
+    rating: { type: mongoose.Schema.Types.Number },
     amountOfAccess: { type: mongoose.Schema.Types.Number },
   },
   {
