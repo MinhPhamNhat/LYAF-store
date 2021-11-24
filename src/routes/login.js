@@ -14,4 +14,7 @@ route.get('/check',LoginController.checkLogin);
 route.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 route.get('/google/callback', passport.authenticate('google', {  successReturnToOrRedirect: '/',  failureRedirect: '/login', failureFlash : true }));
 route.post('/', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login/check', failureFlash : true, badRequestMessage: 'Tài khoản hoăc mật khẩu đang trống !' }));
+route.get('/facebook', passport.authenticate('facebook',{scope: 'email' }));
+route.get('/facebook/callback',passport.authenticate('facebook', { successRedirect : '/', failureRedirect: '/login',failureFlash : true}));
+//
 module.exports = route;

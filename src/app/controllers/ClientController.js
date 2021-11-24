@@ -2,6 +2,7 @@
 class ClientController{
 
     async client(req,res,next){
+        console.log(req.user);
         res.render('home', {user: req.user});
     }
 

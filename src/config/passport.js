@@ -2,6 +2,7 @@ const accModel = require("../app/models/Account");
 const userModel = require("../app/models/User");
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const FacebookStrategy  = require('passport-facebook').Strategy;
 const passport = require("passport");
 const bcrypt = require("bcrypt");
 
@@ -12,7 +13,43 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (user, done) {
   done(null, user);
 });
+//FacebookStrategy
+passport.use(new FacebookStrategy({
+  clientID:"604154980823984",
+  clientSecret:"4c064c7003a4cd965a2fe510a77ada4a",
+  callbackURL: "http://localhost:2000/login/facebook/callback"
+},
+async(accessToken, refreshToken, profile, done) => {
 
+  var json = profile._json;
+  accModel.findOne({username: json.id})
+  .exec()
+    .then((data) =>{
+      if(data == null){
+        const newacc = new accModel({
+          username: json.id,
+        })
+        newacc.save()
+              .then(()=>{
+                const newuser = new userModel({
+                  username: json.id,
+                  name:json.name,
+                  role:"user"
+                })
+                return done(null,json);
+              })
+              .catch((err) =>{
+                return done(null,err);
+              })
+      }
+      else{
+        return done(null,json);
+      }
+    })
+}
+));
+//End Facebook
+//GoogleStrategy
 passport.use(
   new GoogleStrategy(
     {
@@ -50,8 +87,9 @@ passport.use(
     }
   )
 );
+//End Google
 
-//Local
+//LocalStrategy
 passport.use(
   new LocalStrategy(
     {
@@ -93,19 +131,3 @@ passport.use(
   )
 );
 //End Local
-
-//Facebook
-// const GoogleStrategy = require('passport-google-oauth20').Strategy;
-
-// passport.use(new GoogleStrategy({
-//     clientID: GOOGLE_CLIENT_ID,
-//     clientSecret: GOOGLE_CLIENT_SECRET,
-//     callbackURL: "http://www.example.com/auth/google/callback"
-//   },
-//   function(accessToken, refreshToken, profile, cb) {
-//     User.findOrCreate({ googleId: profile.id }, function (err, user) {
-//       return cb(err, user);
-//     });
-//   }
-// ));
-//End Facebook
