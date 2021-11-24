@@ -1,4 +1,7 @@
 const { check } = require("express-validator")
+const ColorDAO = require('../app/repo/ColorDAO')
+const SizeDAO = require('../app/repo/SizeDAO')
+const CategoryDAO = require('../app/repo/CategoryDAO')
 
 const alphaAndSpace = (string)=> {
     for (i = 0; i < string.length; i++ ) {
@@ -20,11 +23,14 @@ module.exports = {
             check("price").not().isEmpty().withMessage("Vui lòng nhập giá sản phẩm"),
             check("price").isNumeric().withMessage("Giá sản phẩm không được chứa ký tự đặc biệt"),
 
-            check("category").not().isEmpty().withMessage("Vui lòng chọn loại sản phẩm"),
+            check("categoryId").not().isEmpty().withMessage("Vui lòng chọn loại sản phẩm"),
+            check("categoryId").custom(async (value, {req}) => {
+                return (await CategoryDAO.findById(value))?true:false
+              }).withMessage("Loãi mã sản phẩm không đÚng"),
 
             check("desc").not().isEmpty().withMessage("Vui lòng nhập giới thiệu sản phẩm"),
 
-            check("files").custom( (value, {req}) => {
+            check("subProduct").custom( (value, {req}) => {
                 console.log(value)
                 return true
               }).withMessage("Tên sản phẩm không được chứa ký tự đặc biệt"),

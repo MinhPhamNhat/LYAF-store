@@ -8,6 +8,7 @@ const Category = new Schema({
     _id: {type: mongoose.Schema.Types.String},
     name: {type: mongoose.Schema.Types.String},
     parentId: {type: mongoose.Schema.Types.String, ref: 'Category'},
+    numberOfProd: {type: mongoose.Schema.Types.Number, default: 0},
 },{
     versionKey: false,
     timestamp:true

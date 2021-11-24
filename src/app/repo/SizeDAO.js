@@ -33,5 +33,9 @@ module.exports = {
                 message: err.errors
             }
         })
+    },
+
+    findById: async (id) => {
+        return Size.findById(id).exec();
     }
 }

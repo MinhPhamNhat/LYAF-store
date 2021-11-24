@@ -13,7 +13,8 @@ class APIController {
   }
 
   async addProduct(req, res, next) {
-    console.log(cloudinary.images('samples/sheep.jpg', {aspect_ratio: "1.1", background: "auto", crop: "pad"}))
+    // cloudinary.images('samples/sheep.jpg', {aspect_ratio: "1.1", background: "auto", crop: "pad"})
+    
     console.log(req.body)
   }
 }

@@ -4,7 +4,7 @@ var G_DATA = {
   desc: "",
   categoryId: "",
   images: [],
-  subList: [],
+  subProduct: [],
 };
 
 var colorList;
@@ -42,7 +42,7 @@ $(document).ready(() => {
         max_opts: false,
         on_change: function (val, ele) {
           if ($(ele).hasClass("color-selecter")) {
-            setUpSubList(val[0]);
+            setUpsubProduct(val[0]);
           }
         },
         labels: [
@@ -279,7 +279,7 @@ $(document).ready(() => {
                 </div>
             </div>
         </div>`);
-      G_DATA.subList.push({ colorId, sizeId, quantity });
+      G_DATA.subProduct.push({ colorId, sizeId, quantity });
       $(".add-sub-modal").modal("hide");
     });
 
@@ -386,11 +386,11 @@ async function updateInput() {
   G_DATA.price = $(".LYAF-product-price input").val();
   // IMAGES
   G_DATA.images = await getImagesObject();
-  // SUBLIST
+  // subProduct
 }
 
-function setUpSubList(colorId) {
-  var selectedSize = G_DATA.subList.map((_) => {
+function setUpsubProduct(colorId) {
+  var selectedSize = G_DATA.subProduct.map((_) => {
     if (_.colorId == colorId) return _.sizeId;
   });
   const select = document.querySelector(".size-selecter");

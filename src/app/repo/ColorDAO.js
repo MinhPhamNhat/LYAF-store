@@ -33,5 +33,9 @@ module.exports = {
                 message: err.errors
             }
         })
+    },
+
+    findById: async (id) => {
+        return Color.findById(id).exec();
     }
 }
