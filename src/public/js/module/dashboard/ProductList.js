@@ -440,7 +440,6 @@ $(document).ready(()=>{
         type: "category"
     }],
     submit: function() {
-      console.log(this.tags)
       $(".LYAF-product-list .LYAF-table-loading").show()
       setTimeout(() => {
         $(".LYAF-product-list .LYAF-table-loading").hide()

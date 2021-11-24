@@ -23,7 +23,6 @@ class LoginController{
     }
 
     test(req,res,next){
-        console.log(req.error);
     }
 
 

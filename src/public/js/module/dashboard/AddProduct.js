@@ -285,7 +285,6 @@ $(document).ready(() => {
 
     $(".LYAF-save-new").click(async ()=>{
       var data = await extractData()
-      console.log(data)
       const formData = new FormData()
       formData.append("name", data.name)
       formData.append("desc", data.desc)
@@ -303,7 +302,6 @@ $(document).ready(() => {
       })
       .then(data=>data.json())
       .then(data=>{
-        console.log(data)
         if (data.errors){
           var err = data.errors
           for (var prop in err) {

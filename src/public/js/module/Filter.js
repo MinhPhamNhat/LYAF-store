@@ -100,7 +100,7 @@ export class Filter {
     if ($(`.${elementClassName} #filter-color-select`)) {
       colorList.forEach((_) =>
         $(`.${elementClassName} #filter-color-select`).append(
-          `<option value="${_._id}" data-name="${_.name}" data-image="../img/${_.colorImage}">${_.name}</option>`
+          `<option value="${_._id}" data-name="${_.name}" data-image="/img/${_.colorImage}">${_.name}</option>`
         )
       );
     }

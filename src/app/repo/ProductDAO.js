@@ -32,7 +32,6 @@ async function generateId(categoryId, codeLength=5){
 module.exports = {
     createNew: async(payload, option={sale: null, isSale: false, isNew: false, amountOfAccess: 0})=>{
         const prodId = await generateId(payload.categoryId)
-        console.log(prodId)
         return await new Product({
             _id: prodId,
             name: payload.name,
@@ -44,6 +43,7 @@ module.exports = {
             isNew: option.isNew,
             sale: option.sale,
             amountOfAccess: option.amountOfAccess,
+            rating: 0
         }).save()
         .then(async (result)=>{
             // Increase number of product in category
@@ -100,22 +100,26 @@ module.exports = {
                 path: 'parentId'
             }
         }).exec()
-        .then(data=>{
+        .then(async (data)=>{
             if (data){
+                var subProduct = await SubProduct.find({productId: data._id}).lean()
+                .populate('colorId')
+                .populate('sizeId').exec()
+                var result = {...data.toJSON(), subProduct}
                 return {
                     code: 1,
-                    data
+                    data: result
                 }
             }else{
                 return {
-                    code: 1,
-                    data
+                    code: 0,
+                    message: "Notfound"
                 }
             }
         }).catch(err=>{
             return {
-                code: 0,
-                message: "Not found"
+                code: -1,
+                message: err
             } 
         })
     }

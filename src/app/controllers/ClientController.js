@@ -18,7 +18,7 @@ class ClientController{
         var result = await ProductDAO.getProductById(id)
         switch(result.code){
             case 1:
-                res.status(200).render('productDetail', {user: req.user, data: result.data.toObject()});
+                res.status(200).render('productDetail', {user: req.user, data: result.data});
                 break;
             case 0:
                 res.status(404).render('404', {user: req.user});
