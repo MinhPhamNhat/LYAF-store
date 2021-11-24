@@ -71,5 +71,20 @@ module.exports = {
                 message: err.errors
             }
         })
+    },
+
+    getProductsList: async (option, limit={}, sort={}) => {
+        return Product.find(option).populate('categoryId').limit(limit).sort(sort).exec()
+        .then(data=>{
+            return {
+                code: 1,
+                data
+            }
+        }).catch(err=>{
+            return {
+                code: -1,
+                message: err
+            } 
+        })
     }
 }
