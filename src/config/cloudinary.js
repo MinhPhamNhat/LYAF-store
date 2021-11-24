@@ -1,24 +1,23 @@
 const cloudinary = require('cloudinary').v2;
+var fs = require('fs');
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
-exports.updoads = (file, folder) => {
-    return new Promise(resolve => {
-        cloudinary.uploader.upload(file, {
-            resource_type: "image",
-            folder: folder
-        }).then((result) => {
-            console.log("success", JSON.stringify(result, null ,2))
-        }).catch((err)=> {
-            console.log("err", JSON.stringify(err, null ,2))
-        })
-    }) 
+exports.uploads = async (file, folder) => {
+    return await cloudinary.uploader.upload(file, {
+        resource_type: "image",
+        folder: folder
+    }).then((result) => {
+        return {code: 1, ...result}
+    }).catch((err)=> {
+        return {code: 0, ...err}
+    })
 }
 
-exports.images = (file, option) => {
-    var image = cloudinary.image(file, option)
+exports.url = (file, option) => {
+    var image = cloudinary.url(file, option)
     return image;
 }

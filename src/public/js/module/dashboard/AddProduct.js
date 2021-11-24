@@ -257,8 +257,8 @@ $(document).ready(() => {
       var quantity = $(".add-sub-modal #quantity").val();
       $(".LYAF-sub-products-list").append(`
         <div class="sub-product">
-            <input type="hidden" id="color" value="${sizeId}">
-            <input type="hidden" id="size" value="${colorId}">
+            <input type="hidden" id="color" value="${colorId}">
+            <input type="hidden" id="size" value="${sizeId}">
             <input type="hidden" id="quantity" value="${quantity}">
             <div class="sub-p-infor">
                 <div class="asdasd">
@@ -285,6 +285,7 @@ $(document).ready(() => {
 
     $(".LYAF-save-new").click(async ()=>{
       var data = await extractData()
+      console.log(data)
       const formData = new FormData()
       formData.append("name", data.name)
       formData.append("desc", data.desc)
@@ -293,10 +294,24 @@ $(document).ready(() => {
       data.images.forEach(f => {
         formData.append("images", f)
       })
-      console.log(formData)
+      data.subProduct.forEach(s => {
+        formData.append("subProduct", JSON.stringify(s))
+      })
       fetch(window.location.origin+'/api/product/add',{
         method: "POST",
-        body: formData
+        body: formData,
+      })
+      .then(data=>data.json())
+      .then(data=>{
+        console.log(data)
+        if (data.errors){
+          var err = data.errors
+          for (var prop in err) {
+            showToast(err[prop].param, err[prop].msg, "error")
+            break;
+        }
+          
+        }
       })
     })
   })
@@ -387,6 +402,7 @@ async function updateInput() {
   // IMAGES
   G_DATA.images = await getImagesObject();
   // subProduct
+  G_DATA.subProduct = getSubProduct();
 }
 
 function setUpsubProduct(colorId) {
@@ -408,7 +424,16 @@ function setUpsubProduct(colorId) {
   });
 }
 
-function a() {}
+function getSubProduct() {
+  var subProduct = []
+  $(".LYAF-sub-products-list .sub-product").each((i,v)=>{
+    var colorId = $(v).find('#color').val()
+    var sizeId = $(v).find('#size').val()
+    var quantity = $(v).find('#quantity').val()
+    subProduct.push({colorId, sizeId, quantity})
+  })
+  return subProduct
+}
 
 async function getImagesObject() {
   var fileInput = await Promise.all($(".LYAF-image-preview .LYAF-aaaa").map(async (i, v) => {
@@ -446,4 +471,40 @@ async function getSetupList(){
       return data;
     });
     return res
+}
+
+
+
+var showToast = (title, mess, type = "success", x = 20, y = 20) => {
+  var toastNum = $(".toast").length
+  var typeVal = {
+      "warning": `<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>`,
+      "error": `<i class="fa fa-exclamation" aria-hidden="true"></i>`,
+      "noti": `<i class="fa fa-bell" aria-hidden="true"></i>`,
+      "success": `<i class="fa fa-check" aria-hidden="true"></i>`
+  }
+  var color = {
+      "warning": `rgb(254, 255, 193)`,
+      "error": `rgb(255, 193, 193)`,
+      "success": `rgb(200, 255, 193)`
+  }
+  var tag =
+      `<div class="toastt toastt-${toastNum + 1}"  id="myToast" style="background-color: ${color[type]}; position: fixed; bottom: ${y}px; right: ${x}px; z-index: 100 !important">
+              <div class="toast-header">
+                  <div style="margin-right: 20px">${typeVal[type]}</div><strong class="mr-auto">${title}</strong>
+
+              </div>
+              <div class="toast-body" style="margin: 10px;">
+                  <div>${mess}</div>
+              </div>
+          </div>`
+
+  $("body").append(tag)
+  $(`.toastt-${toastNum + 1}`).show(3000);
+  setTimeout(() => {
+      $(`.toastt-${toastNum + 1}`).hide(300)
+      setTimeout(()=>{
+          $(`.toastt-${toastNum + 1}`).remove()
+      }, 300)
+  }, 4000)
 }

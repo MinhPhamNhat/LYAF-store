@@ -36,6 +36,6 @@ module.exports = {
     },
 
     findById: async (id) => {
-        return Category.findById(id).exec();
+        return await Category.findById(id).exec();
     }
 }

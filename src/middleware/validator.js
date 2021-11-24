@@ -15,25 +15,62 @@ const alphaAndSpace = (string)=> {
 module.exports = {
     productValidator: () => {
         return [
+            // CHECK NAME
             check("name").not().isEmpty().withMessage("Vui lòng nhập tên sản phẩm"),
-            check("name").custom( (value, {req}) => {
+            check("name").custom( (value) => {
                 return alphaAndSpace(value)
               }).withMessage("Tên sản phẩm không được chứa ký tự đặc biệt"),
 
+            // CHECK PRICE
             check("price").not().isEmpty().withMessage("Vui lòng nhập giá sản phẩm"),
             check("price").isNumeric().withMessage("Giá sản phẩm không được chứa ký tự đặc biệt"),
 
+            // CHECK CATEGORY ID
             check("categoryId").not().isEmpty().withMessage("Vui lòng chọn loại sản phẩm"),
-            check("categoryId").custom(async (value, {req}) => {
-                return (await CategoryDAO.findById(value))?true:false
-              }).withMessage("Loãi mã sản phẩm không đÚng"),
+            check("categoryId").custom(async (value) => {
+                var category = await CategoryDAO.findById(value)
+                if (!category) {
+                    return Promise.reject();
+                }
+              }).withMessage("Loại mã sản phẩm không đúng"),
 
+            // CHECK DESCRIPTION
             check("desc").not().isEmpty().withMessage("Vui lòng nhập giới thiệu sản phẩm"),
 
-            check("subProduct").custom( (value, {req}) => {
-                console.log(value)
+            // CHECK SUB PRODUCTS
+            check("subProduct").custom((value) => {
+                var jsonVal = value.map(v=>JSON.parse(v))
+                for(val of jsonVal){
+                    if (!(val.colorId && val.sizeId && val.quantity)){
+                        return false
+                    }
+                }
                 return true
-              }).withMessage("Tên sản phẩm không được chứa ký tự đặc biệt"),
+              }).withMessage("Sản phẩm phụ không hợp lệ"),
+            check("subProduct").custom((value) => {
+                var jsonVal = value.map(v=>JSON.parse(v))
+                for(v1 of jsonVal){
+                    var count = 0
+                    for (v2 of jsonVal){
+                        if (v1.colorId == v2.colorId && v1.sizeId == v2.sizeId){
+                            count+=1
+                            if (count >= 2)
+                            return false
+                        }
+                    }
+                }
+                return true
+            }).withMessage("Sản phẩm phụ trùng"),
+            check("subProduct").custom(async (value) => {
+                var jsonVal = value.map(v=>JSON.parse(v))
+                for(val of jsonVal){
+                    var checkColor = await ColorDAO.findById(val.colorId)
+                    var checkSize = await SizeDAO.findById(val.sizeId)
+                    if (!checkColor||!checkSize){
+                        return Promise.reject()
+                    }
+                }
+            }).withMessage("Màu sắc hoặc size không tồn tại"),
         ]
     },
     

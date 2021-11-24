@@ -1,9 +1,9 @@
+const ProductDAO = require("../repo/ProductDAO");
 const ColorDAO = require("../repo/ColorDAO");
 const SizeDAO = require("../repo/SizeDAO");
 const CategoryDAO = require("../repo/CategoryDAO");
-const ProductDAO = require("../repo/ProductDAO");
-const { validationResult } = require("express-validator")
-const cloudinary = require('../../config/cloudinary')
+const { validationResult } = require("express-validator");
+const { getPayload } = require("../../helper/function");
 class APIController {
   async getSetupList(req, res, next) {
     var colors = await ColorDAO.getList();
@@ -13,9 +13,33 @@ class APIController {
   }
 
   async addProduct(req, res, next) {
-    // cloudinary.images('samples/sheep.jpg', {aspect_ratio: "1.1", background: "auto", crop: "pad"})
-    
-    console.log(req.body)
+    const validate = validationResult(req);
+    if (validate.errors.length) {
+      let errors = validate.mapped();
+      res.status(400).json({ errors });
+    } else {
+      var payload = await getPayload(req);
+      if (payload.code!==1) {
+        res.status(payload.code==0?400:500).json({
+          errors: {
+            images: {
+              msg: payload.message,
+              param: "images",
+            },
+          },
+        });
+      } else{
+        var product = await ProductDAO.createNew(payload.data);
+        switch (product.code) {
+          case 1:
+            res.status(200).json({ code: 200, productId: product._id });
+            break;
+          case -1:
+            res.status(500).json({ code: 500, message: product.message });
+            break;
+        }
+      }
+    }
   }
 }
 

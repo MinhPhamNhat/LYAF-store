@@ -20,25 +20,26 @@ const SubProduct = require('../models/SubProduct')
 const Category = require('../models/Category')
 
 async function generateId(categoryId, codeLength=5){
-    const numberOfProd = await Category.findById(categoryId).select('numberOfProd').exec()
-    var id = '' + (numberOfProd||0 + 1)
+    const category = await Category.findById(categoryId).select('numberOfProd').exec()
+    var id = '' + ((category.numberOfProd||0) + 1)
     while(id.length < codeLength){
         id = '0' + id
     }
-    id = categoryId+id
+    id = category._id+id
     return id
 }
 
 module.exports = {
-    createNew: async(payload, {option})=>{
-        const prodId = await generateId(payload.generateId)
+    createNew: async(payload, option={sale: null, isSale: false, isNew: false, amountOfAccess: 0})=>{
+        const prodId = await generateId(payload.categoryId)
+        console.log(prodId)
         return await new Product({
             _id: prodId,
             name: payload.name,
             desc: payload.desc,
             categoryId: payload.categoryId,
             price: payload.price,
-            thumbnails: payload.images,
+            images: payload.images,
             isSale: option.isSale,
             isNew: option.isNew,
             sale: option.sale,
