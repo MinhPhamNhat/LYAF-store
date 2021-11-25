@@ -36,14 +36,22 @@ async(accessToken, refreshToken, profile, done) => {
                   name:json.name,
                   role:"user"
                 })
-                return done(null,json);
+                newuser.save();
+                return done(null,newuser);
               })
               .catch((err) =>{
                 return done(null,err);
               })
       }
       else{
-        return done(null,json);
+        userModel.findOne({username: data.username})
+        .exec()
+        .then((data) =>{
+          return done(null,data);
+        })
+       .catch((err)=>{
+         return done(null,err);
+       })
       }
     })
 }
@@ -69,15 +77,24 @@ passport.use(
                 username: profile._json.sub,
                 name:profile._json.name,
                 role:'user'
-              }).save()
-              return done(null, profile._json); 
+              })
+              newuser.save()
+              return done(null, newuser); 
             })
             .catch((err)=>{
               return done(null,err);
             })
           }
           else{
-            return done(null, profile._json);
+            userModel.findOne({username: data.username})
+            .exec()
+            .then((data) =>{
+              return done(null, data);
+            })
+            .catch((err) =>{
+              return done(null,err);
+            })
+         
           }
       })
       .catch((err)=>{

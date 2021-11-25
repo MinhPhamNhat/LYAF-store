@@ -61,11 +61,13 @@
                     </div>
                 </li>
                 
-                {{#manyEqTo val1="admin" val2="staff" key=user.role }}
+                {{!-- {{#manyEqTo val1="admin" val2="staff" key=user.role }} --}}
+                {{#if boss}}
                     <li class="nav-item">
                         <a class="nav-link font-weight-bold m-1 text-uppercase" href="/manager">Dashboard</a>
                     </li>
-                {{/manyEqTo }}
+                {{/if}}    
+                {{!-- {{/manyEqTo }} --}}
             </ul>
         </div>
         <div class="LYAF-header-right">
