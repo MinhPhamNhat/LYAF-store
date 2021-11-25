@@ -51,6 +51,8 @@
     font-size: 20px; }
   .profile_body .profile_info {
     width: 50%;
+    height: 100%;
+    padding-bottom: 20px;
     background-color: antiquewhite;
     margin-top: 100px;
     border-radius: 5px; }
@@ -67,12 +69,14 @@
     width: 100%;
     background-color: antiquewhite;
     font-size: 20px;
-    font-weight: 700; }
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
   .profile_body .profile_info-detail .form-group {
-    width: 100%;
-    margin-left: 20px; }
-  .profile_body .profile_info-detail .form-group input {
-    width: 80%; }
+    margin-left: 20px;
+    align-self: flex-start;
+    width: 92%; }
   .profile_body .genderBox {
     display: flex;
     justify-content: space-evenly;
@@ -125,3 +129,49 @@
     color: white; }
   .profile_body #return-proStatus {
     margin-left: 5px; }
+  .profile_body .changePass {
+    width: 40%;
+    height: 100%;
+    margin-top: 100px;
+    background-color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 5px; }
+  .profile_body .changePass-detail {
+    width: 90%;
+    margin-top: 50px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 30px; }
+  .profile_body .changePass-detail .form-group {
+    align-self: flex-start;
+    width: 100%; }
+  .profile_body .changePassSubmit {
+    width: 100%;
+    height: 40px;
+    background-color: orange;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    color: white; }
+  .profile_body .changePassSubmit:hover {
+    outline: none;
+    border: none;
+    background-color: #da690d; }
+  .profile_body .profileSubmit {
+    width: 90%;
+    height: 40px;
+    background-color: orange;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    color: white; }
+  .profile_body .profileSubmit:hover {
+    outline: none;
+    border: none;
+    background-color: #da690d; }

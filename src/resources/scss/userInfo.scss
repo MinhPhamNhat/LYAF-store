@@ -64,6 +64,8 @@
     //end profile_menu
     .profile_info{
         width: 50%;
+        height: 100%;
+        padding-bottom: 20px;
         background-color:antiquewhite;
         margin-top: 100px;
         border-radius: 5px ;
@@ -84,16 +86,17 @@
         background-color: antiquewhite;
         font-size: 20px;
         font-weight: 700;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .profile_info-detail .form-group{
-        width: 100%;
         margin-left: 20px;
+        align-self: flex-start;
+        width: 92%;
     }
 
-    .profile_info-detail .form-group input{
-        width: 80%;
-    }
 
     .genderBox{
         display: flex;
@@ -165,5 +168,59 @@
     }
     #return-proStatus{
         margin-left: 5px;
+    }
+
+    .changePass{
+        width: 40%;
+        height: 100%;
+        margin-top: 100px;
+        background-color: white;
+       font-size: 20px;
+       font-weight: bold;
+       border-radius: 5px;
+    }
+    .changePass-detail{
+        width: 90%;
+        margin-top: 50px;
+        margin-left: 20px;
+         display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 30px;
+    }
+    .changePass-detail .form-group{
+        align-self: flex-start;
+        width: 100%;
+    }
+    .changePassSubmit{
+        width: 100%;
+        height: 40px;
+        background-color: orange;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        font-size: 20px;
+        color: white;
+    }
+    .changePassSubmit:hover{
+        outline: none;
+        border: none;
+        background-color: #da690d;
+    }
+    .profileSubmit{
+        width: 90%;
+        height: 40px;
+        background-color: orange;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        font-size: 20px;
+        color: white;
+    }
+    .profileSubmit:hover{
+        outline: none;
+        border: none;
+        background-color: #da690d;
     }
 }
