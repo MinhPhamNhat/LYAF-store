@@ -44,7 +44,7 @@
             <div class="title">Màu sắc</div>
             <div class="warpper">
                 {{#getColor subProduct = data.subProduct}}
-                    <div id="item" data-id="{{this._id}}"><img id="image" src="{{this.thumbnail}}"><span>{{this.name}}</span></div>
+                    <div id="item" data-id="{{this._id}}" data-productid="{{../data._id}}"><img id="image" src="{{this.thumbnail}}"><span>{{this.name}}</span></div>
                 {{/getColor}}
                 {{!-- <div id="item" class="selected"><img id="image" src="/img/color-black.jpg"><span>Đen</span></div>
                 <div id="item"><img id="image" src="/img/color-red.jpg"><span>Đỏ</span></div>
@@ -56,7 +56,7 @@
             <div class="title">Size</div>
             <div class="warpper">
             {{#getSize subProduct = data.subProduct}}
-                <div id="item" data-id="{{this._id}}"><span>{{this.name}}</span></div>
+                <div id="item" data-id="{{this._id}}" data-productid="{{data._id}}" ><span>{{this.name}}</span></div>
             {{/getSize}}
                 {{!-- <div id="item" class="selected"><span>XL</span></div>
                 <div id="item"><span class="sold-out"><img src="/img/sold-out.jpg"></span><span>XXL</span></div>
@@ -73,7 +73,7 @@
             </div>
         </div>
         <div id="stock">
-            <span>Còn lại <span id="number">12</span> sản phẩm</span>
+            {{!-- <span>Còn lại <span id="number">12</span> sản phẩm</span> --}}
         </div>
         <hr>
         <div class="LYAF-order-section">

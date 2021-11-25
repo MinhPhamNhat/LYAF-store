@@ -93,7 +93,7 @@ module.exports = {
         })
     },
 
-    getProductById: async (id) => {
+    findById: async (id) => {
         return Product.findById(id).populate({
             path: 'categoryId',
             populate: {
@@ -122,5 +122,31 @@ module.exports = {
                 message: err
             } 
         })
+    },
+
+    getSubProduct: async (option) => {
+        return SubProduct.find(option).populate('colorId').populate('sizeId').exec() 
+        .then(data=>{
+            if (data.length){
+                return {
+                    code: 1,
+                    data
+                }
+            }else{
+                return {
+                    code: 0,
+                    message: "Color not found with this product"
+                }
+            }
+        }).catch(err=>{
+            return {
+                code: -1,
+                message: err
+            }
+        })
+    },
+
+    getSubProductById: async (id) => {
+        return SubProduct.findById(id).populate('colorId').populate('sizeId').exex()   
     }
 }

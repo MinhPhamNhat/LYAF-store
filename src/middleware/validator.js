@@ -2,6 +2,7 @@ const { check } = require("express-validator")
 const ColorDAO = require('../app/repo/ColorDAO')
 const SizeDAO = require('../app/repo/SizeDAO')
 const CategoryDAO = require('../app/repo/CategoryDAO')
+const ProductDAO = require('../app/repo/ProductDAO')
 
 const alphaAndSpace = (string)=> {
     for (i = 0; i < string.length; i++ ) {
@@ -12,6 +13,7 @@ const alphaAndSpace = (string)=> {
     }
     return true
   };
+
 module.exports = {
     productValidator: () => {
         return [
@@ -80,8 +82,7 @@ module.exports = {
             }).withMessage("Màu sắc hoặc size không tồn tại"),
         ]
     },
-    
-    insertDepartmentValidator: () => {
+    registryValidator: () => {
         return [
             check("name").not().isEmpty().withMessage("Vui lòng nhập tên phòng/khoa"),
             check("name").custom( (value, {req}) => {
@@ -110,6 +111,27 @@ module.exports = {
             check("id").not().isEmpty().withMessage("Không được để trống mã phòng"),
             check("id").isAscii().withMessage("Mã phòng không được chưa dấu"),
             check("id").not().matches("[^A-Za-z0-9]").withMessage("Mã phòng không chứa ký tự đặc biệt"),
+        ] 
+    },
+    subProductValidator: () => {
+        return [
+            check("productId").not().isEmpty().withMessage("Mã sản phẩm không được để trống"),
+            check("productId").custom(async (value) => {
+                var product = await ProductDAO.findById(value)
+                if (!product) {
+                    return Promise.reject();
+                }
+              }).withMessage("Loại mã sản phẩm không đúng"),
+            
+            check("colorId").not().isEmpty().withMessage("Mã màu không được để trống"),
+            check("colorId").custom(async (value) => {
+                var color = await ColorDAO.findById(value)
+                if (!color) {
+                    return Promise.reject();
+                }
+              }).withMessage("Mã màu không tồn tại"),
+            
+
     ] },
     
     insertNotification: () => {

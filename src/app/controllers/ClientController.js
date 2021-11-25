@@ -15,7 +15,7 @@ class ClientController{
 
     async productDetail(req,res,next){
         var id = req.params.id
-        var result = await ProductDAO.getProductById(id)
+        var result = await ProductDAO.findById(id)
         switch(result.code){
             case 1:
                 res.status(200).render('productDetail', {user: req.user, data: result.data});
