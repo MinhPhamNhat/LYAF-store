@@ -64,7 +64,7 @@ app.use(session({secret: 'yamete kudasai',
                         resave: true,
                         saveUninitialized: true,
                         cookie:{
-                          maxAge:1000*10,
+                          maxAge:60000*10,
                         }
                         }));
 app.use(flash());
