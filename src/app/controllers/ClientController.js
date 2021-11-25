@@ -5,7 +5,11 @@ class ClientController{
         var result = await ProductDAO.getProductsList({isNew: true},10)
         switch(result.code){
             case 1:
-                res.status(200).render('home', {user: req.user, data: result.data.map((_)=>_.toObject())});
+                var boss = 0;
+                if(req.user.boss !=undefined){
+                    boss = req.user.boss;
+                }
+                res.status(200).render('home', {user: req.user, data: result.data.map((_)=>_.toObject()),boss});
                 break;
             case -1:
                 res.status(500).render('404', {user: req.user});
