@@ -7,6 +7,7 @@ const registerRouter = require('./register');
 const corlorRouter = require('./color')
 const apiRouter = require('./api')
 const userInfoRouter = require('./userInfo');
+const logoutRouter = require('./logout')
 const route = (app)=>{
     app.use('/',client);
     app.use('/manager',proManager);
@@ -15,6 +16,7 @@ const route = (app)=>{
     app.use('/checkpass',sideRoute);
     app.use('/side',sideRoute);
     app.use('/login',loginRouter);
+    app.use('/logout', logoutRouter);
     app.use('/register',registerRouter);
     app.use('/userInfo',userInfoRouter);
 }
