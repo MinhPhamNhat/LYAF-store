@@ -2,8 +2,75 @@
     .right-side{
         background-color: #FAFAFA;
         border-left: 2px solid #e6e6e6;
+        border-right: 2px solid #e6e6e6;
         width: 100%;
-        height: 100px;;
+        height: 100%;
+        padding-bottom: 10px;;
+        .LYAF-list-product{
+            width: 100%;
+            td{
+                vertical-align: middle;
+            }
+            #quantity{
+                text-align: center; 
+            }
+            .product-property{
+                display:flex;
+                flex-direction: row;
+                height: fit-content;
+                align-items: center;
+                img{
+                    border-radius: 10px;
+                }
+                #thumbnail{
+                    margin-right: 10px;
+                }
+                #property{
+                    font-size: 13px;;
+                }
+                #infor{
+                    display:flex;
+                    flex-direction: column;
+                }
+            }
+        }
+
+        .temp-price, 
+        .sale-price,
+        .delivery-price,
+        .totle-price{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .totle-price{
+            font-size: 18px;
+        }
+        // .LYAF-list-product{
+        //     .LYAF-product{
+        //         display:flex;
+        //         flex-direction: row;
+        //         height: fit-content;
+        //         align-items: center;
+        //         img{
+        //             border-radius: 10px;
+        //         }
+        //         #thumbnail{
+        //             margin-right: 10px;
+        //         }
+        //         #property{
+        //             font-size: 13px;;
+        //         }
+        //         #infor{
+        //             display:flex;
+        //             flex-direction: column;
+        //         }
+
+        //         #price{
+        //             margin-left: auto
+        //         }
+        //     }
+        // }
     }
 
     .left-side{

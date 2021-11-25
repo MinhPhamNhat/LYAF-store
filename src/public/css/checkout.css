@@ -1,8 +1,39 @@
 .LYAF-checkout-container .right-side {
   background-color: #FAFAFA;
   border-left: 2px solid #e6e6e6;
+  border-right: 2px solid #e6e6e6;
   width: 100%;
-  height: 100px; }
+  height: 100%;
+  padding-bottom: 10px; }
+  .LYAF-checkout-container .right-side .LYAF-list-product {
+    width: 100%; }
+    .LYAF-checkout-container .right-side .LYAF-list-product td {
+      vertical-align: middle; }
+    .LYAF-checkout-container .right-side .LYAF-list-product #quantity {
+      text-align: center; }
+    .LYAF-checkout-container .right-side .LYAF-list-product .product-property {
+      display: flex;
+      flex-direction: row;
+      height: fit-content;
+      align-items: center; }
+      .LYAF-checkout-container .right-side .LYAF-list-product .product-property img {
+        border-radius: 10px; }
+      .LYAF-checkout-container .right-side .LYAF-list-product .product-property #thumbnail {
+        margin-right: 10px; }
+      .LYAF-checkout-container .right-side .LYAF-list-product .product-property #property {
+        font-size: 13px; }
+      .LYAF-checkout-container .right-side .LYAF-list-product .product-property #infor {
+        display: flex;
+        flex-direction: column; }
+  .LYAF-checkout-container .right-side .temp-price,
+  .LYAF-checkout-container .right-side .sale-price,
+  .LYAF-checkout-container .right-side .delivery-price,
+  .LYAF-checkout-container .right-side .totle-price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; }
+  .LYAF-checkout-container .right-side .totle-price {
+    font-size: 18px; }
 
 .LYAF-checkout-container .left-side .delivery-form {
   display: block;
