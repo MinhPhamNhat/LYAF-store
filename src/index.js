@@ -31,7 +31,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const flash = require('connect-flash');
 const hdbHelper = require('./helper/handlebars/helper')
-
+const cookieParser = require('cookie-parser')
 
 //Require handlebars:
 const hdbars = require('express-handlebars');
@@ -58,15 +58,15 @@ app.use(express.json({limit: '50mb'}));
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
 //Set up Passport:
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({secret: 'yamete kudasai',
-                        resave: true,
-                        saveUninitialized: true,
-                        cookie:{
-                          maxAge:60000*10,
-                        }
-                        }));
+app.use(session({ secret: 'yamete kudasai',
+                  resave: true,
+                  saveUninitialized: true,
+                  cookie:{
+                    maxAge:60000*10,
+                  }}));
 app.use(flash());
 app.use(passport.initialize()); 
 app.use(passport.session());

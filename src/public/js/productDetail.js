@@ -1,4 +1,3 @@
-
 $(document).ready(()=>{
     $('.xzoom, .xzoom-gallery').xzoom({
         position: 'lens', 
@@ -57,40 +56,33 @@ $(document).ready(()=>{
             showToast("Size", "Vui lòng chọn màu sắc trước", "warning")
         }
     })
+
+    $(".LYAF-order-section #add-cart button").click(function(){
+        const selectedSize = $(".LYAF-infor-detail #size #item.selected")
+        const selectedColor = $(".LYAF-infor-detail #color #item.selected")
+        if (selectedSize.length && selectedColor.length){
+            const productId = this.dataset.productid
+            const sizeId = selectedSize[0].dataset.id
+            const colorId =  selectedColor[0].dataset.id
+            const quantity = $(".LYAF-infor-detail #quantity input").val()
+            console.log({productId, colorId, sizeId, quantity})
+            fetch(window.location.origin+'/api/addCart?'+ new URLSearchParams({productId, colorId, sizeId, quantity}),{
+                method: "GET",
+            })
+            .then(data=>data.json())
+            .then(data=>{
+                if (data.code===200){
+                    makeCart()
+                    $(".LYAF-header .blur-bg").fadeIn(300)
+                    $(".LYAF-header .LYAF-cart-box").css("right", "0")
+                }
+            })
+        }else{
+            showToast("Not select", "Vui lòng chọn thuộc tính sản phẩm", "warning")
+        }
+    })
+
+    $()
 })
 
-
-var showToast = (title, mess, type = "success", x = 20, y = 20) => {
-    var toastNum = $(".toast").length
-    var typeVal = {
-        "warning": `<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>`,
-        "error": `<i class="fa fa-exclamation" aria-hidden="true"></i>`,
-        "noti": `<i class="fa fa-bell" aria-hidden="true"></i>`,
-        "success": `<i class="fa fa-check" aria-hidden="true"></i>`
-    }
-    var color = {
-        "warning": `rgb(254, 255, 193)`,
-        "error": `rgb(255, 193, 193)`,
-        "success": `rgb(200, 255, 193)`
-    }
-    var tag =
-        `<div class="toastt toastt-${toastNum + 1}"  id="myToast" style="background-color: ${color[type]}; position: fixed; bottom: ${y}px; right: ${x}px; z-index: 100 !important">
-                <div class="toast-header">
-                    <div style="margin-right: 20px">${typeVal[type]}</div><strong class="mr-auto">${title}</strong>
-  
-                </div>
-                <div class="toast-body" style="margin: 10px;">
-                    <div>${mess}</div>
-                </div>
-            </div>`
-  
-    $("body").append(tag)
-    $(`.toastt-${toastNum + 1}`).show(3000);
-    setTimeout(() => {
-        $(`.toastt-${toastNum + 1}`).hide(300)
-        setTimeout(()=>{
-            $(`.toastt-${toastNum + 1}`).remove()
-        }, 300)
-    }, 4000)
-  }
   

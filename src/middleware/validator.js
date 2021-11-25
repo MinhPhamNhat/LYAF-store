@@ -133,6 +133,39 @@ module.exports = {
             
 
     ] },
+    cartValidator: () => {
+        return [
+            check("productId").not().isEmpty().withMessage("Mã sản phẩm không được để trống"),
+            check("productId").custom(async (value) => {
+                var product = await ProductDAO.findById(value)
+                if (!product) {
+                    return Promise.reject();
+                }
+              }).withMessage("Loại mã sản phẩm không đúng"),
+            
+            check("colorId").not().isEmpty().withMessage("Mã màu không được để trống"),
+            check("colorId").custom(async (value) => {
+                var color = await ColorDAO.findById(value)
+                if (!color) {
+                    return Promise.reject();
+                }
+              }).withMessage("Mã màu không tồn tại"),
+            
+            check("sizeId").not().isEmpty().withMessage("Mã size không được để trống"),
+            check("sizeId").custom(async (value) => {
+                var size = await SizeDAO.findById(value)
+                if (!size) {
+                    return Promise.reject();
+                }
+            }).withMessage("Mã size không tồn tại"),
+            
+            check("quantity").not().isEmpty().withMessage("Vui lòng nhập số lượng sản phẩm"),
+            check("quantity").isNumeric().withMessage("Só lượng sản phẩm phải là số"),
+            check("quantity").custom( (value) => {
+                return Number.parseInt(value) > 0
+            }).withMessage("Số lượng phải lớn hơn 0"),
+
+    ] },
     
     insertNotification: () => {
         return [

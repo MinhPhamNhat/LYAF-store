@@ -147,6 +147,6 @@ module.exports = {
     },
 
     getSubProductById: async (id) => {
-        return SubProduct.findById(id).populate('colorId').populate('sizeId').exex()   
+        return SubProduct.findById(id).populate('productId').populate('colorId').populate('sizeId').exec()   
     }
 }
