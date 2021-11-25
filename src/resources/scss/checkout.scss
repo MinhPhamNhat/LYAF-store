@@ -1,0 +1,106 @@
+.LYAF-checkout-container{
+    .right-side{
+        background-color: #FAFAFA;
+        border-left: 2px solid #e6e6e6;
+        width: 100%;
+        height: 100px;;
+    }
+
+    .left-side{
+        .payment-selection{
+            .payment-option{
+                width: 100%;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+
+                .payment-infor{
+                    padding: 10px;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                
+                    position: relative;
+                    margin-top: 12px;
+                    cursor: pointer;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+        
+                    
+                    /* Hide the browser's default radio button */
+                    input {
+                        position: absolute;
+                        opacity: 0;
+                        cursor: pointer;
+                    }
+                    
+                    /* Create a custom radio button */
+                    .checkmark {
+                        position: absolute;
+                        height: 25px;
+                        width: 25px;
+                        margin-left: 10px;
+                        background-color: rgb(199, 199, 199);
+                        border-radius: 50%;
+                        margin-right: 10px;
+                    }
+                    
+                    .infor{
+                        font-size: 16px;
+                        margin-left: 10px;
+                    }
+                    
+                    /* Create the indicator (the dot/circle - hidden when not checked) */
+                    .checkmark:after {
+                        content: "";
+                        position: absolute;
+                        display: none;
+                    }
+                    
+                    /* Show the indicator (dot/circle) when checked */
+                    input:checked ~ .checkmark:after {
+                        display: block;
+                    }
+                    
+                    /* Style the indicator (dot/circle) */
+                    .checkmark:after {
+                        top: 9px;
+                        left: 9px;
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 50%;
+                        background: white;
+                    }
+                    img{
+                        margin-left: 50px;
+                    }
+                    .payment-desc{
+                        padding: 20px;
+                        width: 100%;
+                        background-color: #ccc;
+                    }
+                }
+
+                .payment-desc{
+                    display: none;
+                    border-top: 1px solid #ccc;
+                    border-radius: 0  0 10px 10px;
+                    padding: 20px;
+                    text-align: center;
+                    width: 100%;
+                    background-color: rgb(228, 228, 228);
+                }
+            }
+            .payment-option:hover input ~ .checkmark {
+                background-color: #ccc;
+            }
+            
+            /* When the radio button is checked, add a blue background */
+            .payment-option input:checked ~ .checkmark {
+                background-color: #2196F3;
+            }
+
+        }
+    }
+}
