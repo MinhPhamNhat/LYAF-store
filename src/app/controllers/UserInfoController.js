@@ -12,6 +12,9 @@ class userInfoController{
     proStatusDetail(req,res,next){
         res.render('proStatusDetail');
     }
+    changePass(req,res,next){
+        res.render('changePass');
+    }
 }
 
 module.exports = new userInfoController;
