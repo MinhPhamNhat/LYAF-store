@@ -8,11 +8,13 @@ const corlorRouter = require('./color')
 const apiRouter = require('./api')
 const userInfoRouter = require('./userInfo');
 const logoutRouter = require('./logout')
+const checkoutRounter = require('./checkout')
 const route = (app)=>{
     app.use('/',client);
     app.use('/manager',proManager);
     app.use('/api',apiRouter);
     app.use('/color',corlorRouter);
+    app.use('/checkout', checkoutRounter);
     app.use('/checkpass',sideRoute);
     app.use('/side',sideRoute);
     app.use('/login',loginRouter);

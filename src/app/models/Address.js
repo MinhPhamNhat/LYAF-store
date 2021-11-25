@@ -5,8 +5,9 @@ const mongooseDelete = require('mongoose-delete'); // Require mongoose-delete
 
 //Connect DB:
 const Address = new Schema({
-    province: {type: mongoose.Schema.Types.ObjectId, ref: 'Province'},
-    distric: {type: mongoose.Schema.Types.ObjectId, ref: 'District'},
+    province: {type: mongoose.Schema.Types.String, ref: 'Province'},
+    distric: {type: mongoose.Schema.Types.String, ref: 'District'},
+    ward: {type: mongoose.Schema.Types.String, ref: 'Ward'},
     addressNumber: {type: mongoose.Schema.Types.String}
 },{
     versionKey: false,
