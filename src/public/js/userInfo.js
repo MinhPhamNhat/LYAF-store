@@ -3,7 +3,6 @@ const proStatus = document.querySelector('#proStatus');
 const changePass = document.querySelector('#changePass');
 const Logout = document.querySelector('#Logout');
 const proStatusDetail = document.querySelectorAll('.proStatus-detail');
-const changePass = document.querySelector('#changePass');
 ////
 userInfo.addEventListener('click',()=>{
     window.location.href = '/userInfo';
@@ -12,7 +11,7 @@ proStatus.addEventListener('click',()=>{
     window.location.href = '/userInfo/proStatus';
 })
 changePass.addEventListener('click',()=>{
-    window.location.href = '/changePass';
+    window.location.href = '/userInfo/changePass';
 })
 Logout.addEventListener('click',()=>{
     window.location.href = '/logout';

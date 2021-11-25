@@ -89,47 +89,39 @@
   .profile_body .genderBox span {
     font-weight: 100;
     margin-top: -10px; }
-
-.userStatus {
-  margin-top: 100px;
-  width: 60%;
-  height: 100%;
-  padding-bottom: 30px;
-  background-color: antiquewhite;
-  display: flex;
-  flex-direction: column;
-  border-radius: 5px;
-  align-items: center; }
-
-.userStatus-name {
-  width: 100%;
-  height: 70px;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  margin-bottom: 20px;
-  margin-top: 20px; }
-
-.userStatus-name span {
-  font-size: 30px;
-  font-weight: bold;
-  border-bottom: 4px solid black;
-  margin-left: 20px; }
-
-.table-borderless {
-  width: 90%;
-  margin-left: 20px; }
-
-.proStatus-detail {
-  cursor: pointer; }
-
-.proStatus-detail:hover {
-  background-color: rgba(112, 107, 98, 0.5); }
-
-.focus-item {
-  background-color: orange;
-  font-weight: bold;
-  color: white; }
-
-#return-proStatus {
-  margin-left: 5px; }
+  .profile_body .userStatus {
+    margin-top: 100px;
+    width: 60%;
+    height: 100%;
+    padding-bottom: 30px;
+    background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    align-items: center; }
+  .profile_body .userStatus-name {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px; }
+  .profile_body .userStatus-name span {
+    font-size: 30px;
+    font-weight: bold;
+    border-bottom: 4px solid black;
+    margin-left: 20px; }
+  .profile_body .table-borderless {
+    width: 90%;
+    margin-left: 20px; }
+  .profile_body .proStatus-detail {
+    cursor: pointer; }
+  .profile_body .proStatus-detail:hover {
+    background-color: rgba(112, 107, 98, 0.5); }
+  .profile_body .focus-item {
+    background-color: orange;
+    font-weight: bold;
+    color: white; }
+  .profile_body #return-proStatus {
+    margin-left: 5px; }
