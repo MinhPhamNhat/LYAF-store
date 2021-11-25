@@ -45,7 +45,21 @@ $(document).ready(()=>{
         console.log(id)
         fetch(window.location.origin+'/api/removeCart?id='+id)
         .then(data=>{
+            if (data.status == 200)
             makeCart()
+            else
+            showToast("Cart", "Lấy giỏ hàng thất bại", "error")
+        })
+    })
+
+    $(".LYAF-cart-pay-btn").click(()=>{
+        fetch(window.location.origin+'/api/checkOut')
+        .then(data=>{
+            if (data.status === 200){
+                console.log(1)
+            }else{
+                $(".prompt-login-modal").modal("show")
+            }
         })
     })
   })
