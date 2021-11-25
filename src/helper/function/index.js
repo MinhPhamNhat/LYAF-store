@@ -75,3 +75,8 @@ exports.parseCart = async (cart) => {
   return []
   
 }
+
+exports.removeCart = (cart, id) => {
+  console.log(cart, id)
+  return cart.filter(_=>_.subProdId!==id)
+}

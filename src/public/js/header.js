@@ -39,6 +39,15 @@ $(document).ready(()=>{
         else if ($(".LYAF-header-account .LYAF-header-popup").is(':visible'))
         $(".LYAF-header-account .LYAF-header-popup").fadeOut(100)
     })
+
+    $(document).on('click', '.LYAF-cart-product-remove', function(){
+        const id = this.dataset.id;
+        console.log(id)
+        fetch(window.location.origin+'/api/removeCart?id='+id)
+        .then(data=>{
+            makeCart()
+        })
+    })
   })
 
 
@@ -60,7 +69,7 @@ $(document).ready(()=>{
                             <span class="LYAF-cart-quant">${c.quantity}</span>
                             <p class="LYAF-cart-price text-uppercase">${(c.price*1000*c.quantity).toLocaleString('it-IT')}<u>đ</u></p>
                         </div>
-                        <div class="LYAF-cart-product-remove">
+                        <div class="LYAF-cart-product-remove" data-id="${c.subProdId}">
                             <i class="fas fa-trash-alt"></i>
                         </div>
                     </div>

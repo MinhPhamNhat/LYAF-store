@@ -3,7 +3,7 @@ const ColorDAO = require("../repo/ColorDAO");
 const SizeDAO = require("../repo/SizeDAO");
 const CategoryDAO = require("../repo/CategoryDAO");
 const { validationResult } = require("express-validator");
-const { getPayload, addCart, parseCart } = require("../../helper/function");
+const { getPayload, addCart, parseCart, removeCart } = require("../../helper/function");
 class APIController {
   async getSetupList(req, res, next) {
     var colors = await ColorDAO.getList();
@@ -54,6 +54,15 @@ class APIController {
           break;
       }
     }
+  }
+
+  async removeCart(req, res, next){
+    const id = req.query.id
+    var cart = req.cookies.cart
+    cart = removeCart(cart, id)
+    res.cookie('cart', cart)
+    res.status(200).json({code: 200})
+
   }
 
   async addProduct(req, res, next) {

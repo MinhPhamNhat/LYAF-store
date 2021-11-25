@@ -8,6 +8,7 @@ const APIController = require('../app/controllers/APIController');
 
 route.get('/getSetupList',APIController.getSetupList);
 route.get('/addCart', validator.cartValidator(), APIController.addCart)
+route.get('/removeCart', APIController.removeCart)
 route.get('/getCart', APIController.getCart)
 route.get('/checkout', authen.apiAuthenLogin)
 route.get('/product/getSub', validator.subProductValidator(), APIController.getSub);
