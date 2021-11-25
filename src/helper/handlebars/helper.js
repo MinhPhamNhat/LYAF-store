@@ -6,7 +6,7 @@ module.exports = {
         return (options.hash.val1 === options.hash.key ||  options.hash.val2 === options.hash.key) ? options.fn(this) : options.inverse(this)
     },
     getThumbnails: (option) => {
-        return `<img src="${option.hash.images[0]}" alt="" id="main-thumbnail"><img src="${option.hash.images[1]}" alt="" id="second-thumbnail">`
+        return `<a href="/product/detail/${option.hash.id}"><img src="${option.hash.images[0]}" id="main-thumbnail"></a><a href="/product/detail/${option.hash.id}"><img src="${option.hash.images[1]}" id="second-thumbnail"></a>`
     },
     getData: (option)=>{
         return option.hash.data[option.hash.indx]

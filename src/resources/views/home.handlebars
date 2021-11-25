@@ -26,12 +26,12 @@
                 {{#each data}}
                 <div class="LYAF-product-component">
                     <div class="LYAF-product-thumbnails">
-                        {{#getThumbnails images=this.images}}
+                        {{#getThumbnails images=this.images id=this._id}}
                         {{/getThumbnails}}
                     </div>
                     <div class="LYAF-product-info">
                         <div id="price"><span id="true-price">{{#priceFormat price=this.price}} {{/priceFormat}}<span id="currency">đ</span></span><span class="d-none" id="sale-price">350.000 VND</span></div>
-                        <div id="name">{{this.name}}</div>
+                        <div id="name"><a href="/product/detail/{{this._id}}">{{this.name}}</a></div>
                         <div id="category">
                         {{#if this.categoryId.parentId}}
                             <a href="#" id="parent">{{this.categoryId.parentId.name}}</a>, 

@@ -29,7 +29,7 @@ class APIController {
           },
         });
       } else{
-        var product = await ProductDAO.createNew(payload.data);
+        var product = await ProductDAO.createNew(payload.data, {isNew: true});
         switch (product.code) {
           case 1:
             res.status(200).json({ code: 200, productId: product._id });

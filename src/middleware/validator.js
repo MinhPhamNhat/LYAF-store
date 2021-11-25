@@ -17,9 +17,6 @@ module.exports = {
         return [
             // CHECK NAME
             check("name").not().isEmpty().withMessage("Vui lòng nhập tên sản phẩm"),
-            check("name").custom( (value) => {
-                return alphaAndSpace(value)
-              }).withMessage("Tên sản phẩm không được chứa ký tự đặc biệt"),
 
             // CHECK PRICE
             check("price").not().isEmpty().withMessage("Vui lòng nhập giá sản phẩm"),

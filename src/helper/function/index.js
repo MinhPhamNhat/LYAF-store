@@ -17,7 +17,7 @@ exports.getPayload = async (req) => {
     if (result.code === 0){
       isGood = false
     }else{
-      var url = cloudinary.url(result.public_id+'.jpg', {aspect_ratio: "1.1", background: "auto", crop: "pad"})
+      var url = cloudinary.url(result.public_id+'.jpg', {aspect_ratio: "1", background: "auto", crop: "pad"})
       return url
     }
   }))
