@@ -12,25 +12,18 @@ class userInfoController{
             res.render('404');
         })
     }
-    userInfoUpdate(req,res,next){
-        userModel.updateOne({_iq: req.user._id},{
+    async userInfoUpdate(req,res,next){
+        await userModel.findByIdAndUpdate(req.user._id,{
             name: req.body.profilename,
             phoneNumber: req.body.profilephone,
             email:req.body.profilemail,
-        })
+        }).exec()
         .then((data)=>{
-            userModel.findById(req.user._id).lean().exec()
-            .then(data => {
-                 req.login(data, function(err) {
-                if (err) { return next(err); }
-                return res.redirect('/userInfo');
-              });
-            })
-            .catch(() =>{
+            if (data){
+                res.redirect('/userInfo');
+            }else{
                 res.render('404');
-            });
-           
-           
+            }
         })
     }
     proStatus(req,res,next){
