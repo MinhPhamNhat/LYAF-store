@@ -12,7 +12,24 @@ module.exports = {
         }else
         next()
     },
-
+    checkChangePass:(req,res,next)=>{
+        req.params.error = 0;
+        if(req.query.error !=null){
+            if(req.query.error == '1'){
+                console.log('1');
+                req.params.error = 'Mật khẩu cũ đã sai !';
+                next();
+            }
+            else{
+                console.log('2');
+                req.params.error = 'Xác nhận mật khẩu mới thất bại !';
+                next();
+            }
+        }
+        else{
+            next();
+        }
+    },
     apiAuthenLogin: (req, res, next)=>{
         if (req.user){
             res.status(200).json({code: 200, message:"Ok"})
