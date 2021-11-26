@@ -10,12 +10,16 @@ const changePassSubmit = document.querySelector('.changePassSubmit');
 const oldpass = document.querySelector('#oldpass');
 const newpass = document.querySelector('#newpass');
 const newpasscheck = document.querySelector('#newpasscheck');
+const addressList = document.querySelector('#addressList');
 ////userInfo
 userInfo.addEventListener('click',()=>{
     window.location.href = '/userInfo';
 })
 proStatus.addEventListener('click',()=>{
     window.location.href = '/userInfo/proStatus';
+})
+addressList.addEventListener('click',() =>{
+    window.location.href='/userInfo/addressList';
 })
 changePass.addEventListener('click',()=>{
     window.location.href = '/userInfo/changePass';

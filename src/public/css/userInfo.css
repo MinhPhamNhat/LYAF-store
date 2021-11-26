@@ -219,3 +219,21 @@
     width: 30%;
     height: 20%;
     background-color: #da690d; }
+  .profile_body .forList {
+    border: 2px solid #da690d; }
+  .profile_body .countName {
+    background-color: #da690d;
+    color: white; }
+  .profile_body .Address-optionList {
+    width: 136px;
+    height: 45px;
+    background-color: #da690d;
+    border-radius: 5px;
+    margin-left: 118px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    margin: 10px 0px 10px 0px; }
+  .profile_body .Address-optionList i {
+    width: 10%; }

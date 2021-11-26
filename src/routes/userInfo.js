@@ -18,4 +18,5 @@ route.get('/proStatus',UserInfoController.proStatus);
 route.get('/proStatus/proStatusDetail/:id',UserInfoController.proStatusDetail);
 route.get('/changePass',UserInfoController.changePass);
 route.post('/changePass/done',UserInfoController.changePassDone);
+route.get('/addressList',UserInfoController.addressList);
 module.exports = route;
