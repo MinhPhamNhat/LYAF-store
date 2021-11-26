@@ -10,6 +10,21 @@ const proStatusDetail = document.querySelectorAll('.proStatus-detail');
 userInfo.addEventListener('click',()=>{
     window.location.href = '/userInfo';
 })
+proStatus.addEventListener('click',()=>{
+    window.location.href = '/userInfo/proStatus';
+})
+changePass.addEventListener('click',()=>{
+    window.location.href = '/userInfo/changePass';
+})
+Logout.addEventListener('click',()=>{
+    window.location.href = '/logout';
+})
+for(let i of proStatusDetail){
+    i.addEventListener('click',(e)=>{
+        window.location.href = '/userInfo/proStatus/proStatusDetail';
+    })
+    
+}
 profileSubmit.style.display = "none";
 for(let i of userInfoInput){
     $(i).keyup(function() {
@@ -27,18 +42,4 @@ for(let i of userInfoInput){
 
 ///
 
-proStatus.addEventListener('click',()=>{
-    window.location.href = '/userInfo/proStatus';
-})
-changePass.addEventListener('click',()=>{
-    window.location.href = '/userInfo/changePass';
-})
-Logout.addEventListener('click',()=>{
-    window.location.href = '/logout';
-})
-for(let i of proStatusDetail){
-    i.addEventListener('click',(e)=>{
-        window.location.href = '/userInfo/proStatus/proStatusDetail';
-    })
-    
-}
+
