@@ -18,7 +18,7 @@ class userInfoController{
             name: req.body.profilename,
             phoneNumber: req.body.profilephone,
             email:req.body.profilemail,
-        }).exec()
+        })
         .then((data)=>{
             res.redirect('/userInfo');
         })
