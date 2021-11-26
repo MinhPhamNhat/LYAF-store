@@ -77,6 +77,10 @@
     }
 
     .left-side{
+        .checkout-form{
+            display: block;
+            width: 100%;;
+        }
         .profile-helper{
             display: flex;
             flex-direction: row;

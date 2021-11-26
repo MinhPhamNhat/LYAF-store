@@ -38,6 +38,10 @@
   .LYAF-checkout-container .right-side .totle-price {
     font-size: 18px; }
 
+.LYAF-checkout-container .left-side .checkout-form {
+  display: block;
+  width: 100%; }
+
 .LYAF-checkout-container .left-side .profile-helper {
   display: flex;
   flex-direction: row;

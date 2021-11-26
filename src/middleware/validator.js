@@ -169,13 +169,19 @@ module.exports = {
     
     checkOutValidator: () => {
         return [
-            check("name").not().isEmpty().withMessage("Vui lòng nhập tựa đề thông báo"),
+            check("name").not().isEmpty().withMessage("Vui lòng nhập tên người nhận"),
 
-            check("phone").not().isEmpty().withMessage("Vui lòng nhập tựa đề nhỏ"),
+            check("phone").not().isEmpty().withMessage("Vui lòng nhập số điện thoại"),
 
-            check("address").not().isEmpty().withMessage("Vui lòng chọn Phòng/Khoa"),
+            check("address").not().isEmpty().withMessage("Vui lòng nhập địa chỉ"),
+
+            check("province").not().isEmpty().withMessage("Vui lòng chọn Tỉnh / Thành"),
             
-            check("province").not().isEmpty().withMessage("Vui lòng nhập nội dung thông báo")
+            check("district").not().isEmpty().withMessage("Vui lòng chọn Quận / Huyện"),
+
+            check("ward").not().isEmpty().withMessage("Vui lòng chọn Phường / Xã"),
+
+            check("payment").not().isEmpty().withMessage("Vui lòng phương thức thanh toán"),
     ]},
     
     updateProfile: () => {

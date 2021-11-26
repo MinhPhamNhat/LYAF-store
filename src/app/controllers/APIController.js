@@ -2,6 +2,8 @@ const ProductDAO = require("../repo/ProductDAO");
 const ColorDAO = require("../repo/ColorDAO");
 const SizeDAO = require("../repo/SizeDAO");
 const CategoryDAO = require("../repo/CategoryDAO");
+const AddressDAO = require("../repo/AddressDAO");
+const BillDAO = require("../repo/BillDAO");
 const { validationResult } = require("express-validator");
 const { getPayload, addCart, parseCart, removeCart } = require("../../helper/function");
 class APIController {
@@ -13,7 +15,29 @@ class APIController {
   }
 
   async checkOut(req, res, next) {
-    
+    const validate = validationResult(req);
+    if (validate.errors.length) {
+      let errors = validate.mapped();
+      res.status(400).json({ errors });
+    }else{
+        const payload = req.body;
+        const user = req.user;
+        const cart = req.cookies.cart
+        const result = await BillDAO.createBill(payload, user, cart)
+        console.log(result)
+        switch (result.code) {
+          case 1:
+            res.cookie('cart', [])
+            res.status(200).json({ code: 200, data: result.data });
+            break;
+          case 0:
+            res.status(404).json({ code: 404, message: result.message });
+            break;
+          case -1:
+            res.status(500).json({ code: 500, message: result.message });
+            break;
+        }
+    }
   }
 
   async getCart(req, res, next) {
@@ -128,6 +152,31 @@ class APIController {
 
   async getAdress(req, res, next) {
     
+  }
+
+  async province(req, res, next){
+    const provinces = await AddressDAO.getProvince()
+    res.status(200).json({provinces})
+  }
+
+  async district(req, res, next) {
+    const id = req.params.id;
+    if (id){
+      const districts = await AddressDAO.getDistrictByProvince(id)
+      res.status(200).json({districts})
+    }else{
+      res.status(400).json({ code: 400, message: "Vui lòng nhập mã Tỉnh/ Thành" });
+    }
+  }
+
+  async ward(req, res, next) {
+    const id = req.params.id;
+    if (id){
+      const wards = await AddressDAO.getWardByDistrict(id)
+      res.status(200).json({wards})
+    }else{
+      res.status(400).json({ code: 400, message: "Vui lòng nhập mã Tỉnh/ Thành" });
+    }
   }
 }
 

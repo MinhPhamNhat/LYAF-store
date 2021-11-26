@@ -2,13 +2,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const mongooseDelete = require('mongoose-delete'); // Require mongoose-delete
-
+const { randomString } = require('../../helper/function')
 //Connect DB:
 const Bill = new Schema({
-    _id: {type: mongoose.Schema.Types.String},
+    _id: {type: mongoose.Schema.Types.String, default: randomString},
     user: {type: mongoose.Schema.Types.String, ref: 'User'},
     shipProfile: {
-        address: {type: mongoose.Schema.Types.String, ref: 'Address'},
+        province: {type: mongoose.Schema.Types.String, ref: 'Province'},
+        distric: {type: mongoose.Schema.Types.String, ref: 'District'},
+        ward: {type: mongoose.Schema.Types.String, ref: 'Ward'},
+        address: {type: mongoose.Schema.Types.String},
         name: {type: mongoose.Schema.Types.String},
         phone: {type: mongoose.Schema.Types.String}
     },

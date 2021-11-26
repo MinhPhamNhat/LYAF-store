@@ -13,84 +13,75 @@
         <div class="col-xs-1-12 col-md-6 left-side">
             <h3 class="font-weight-bold text-uppercase">Thanh toán</h3>
             <hr>
-            <div class="profile-helper">
-                <h5>Thông tin giao hàng</h5>
-                <button type="button" class="btn btn-primary pick-a-profile">Chọn hồ sơ</button>
-            </div>
-            
-            <form class="delivery-form">
-                <div class="form-group">
-                    <label for="name">Họ và tên</label>
-                    <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Nguyễn Văn A">
-                    {{!-- <small id="nameHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+            <form class="checkout-form">
+                <div class="profile-helper">
+                    <h5>Thông tin giao hàng</h5>
+                    <button type="button" class="btn btn-primary pick-a-profile">Chọn hồ sơ</button>
                 </div>
-                <div class="form-group">
-                    <label for="phone">Số điện thoại</label>
-                    <input type="text" class="form-control" id="phone" placeholder="090xxxxx">
+                <div class="delivery-form">
+                    <div class="form-group">
+                        <label for="name">Họ và tên</label>
+                        <input type="text" class="form-control" id="name" aria-describedby="nameHelp" name="name" placeholder="Nguyễn Văn A">
+                        {{!-- <small id="nameHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Số điện thoại</label>
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="090xxxxx">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Địa chỉ</label>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="Số nhà / Đường / Khu phố">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="province">Tỉnh / Thành</label>
+                            <select class="custom-select mr-sm-2" name="province" id="province">
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="district">Quận / Huyện</label>
+                            <select class="custom-select mr-sm-2" name="district" id="district">
+                                <option selected>Choose...</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="ward">Phường / Xã</label>
+                            <select class="custom-select mr-sm-2" name="ward" id="ward">
+                                <option selected>Choose...</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="address">Địa chỉ</label>
-                    <input type="text" class="form-control" id="address" placeholder="Số nhà / Đường / Khu phố">
+                <h5>Phương thức thanh toán</h5>
+                <div class="payment-selection">
+                    <label class="payment-option" for="COD-option">
+                        <div class="payment-infor">
+                            <input type="radio" class="radio-selection" id="COD-option" value="COD" name="payment" required>
+                            <span class="checkmark"></span>
+                            <img src="/img/COD-payment.jpg" height="50" width="50">
+                            <span class="infor">Thanh toán khi giao hàng (COD) </span>
+                        </div>
+                        <div class="payment-desc">
+                            Bạn sẽ nhận được cuộc gọi khi hàng giao tới
+                        </div>
+                    </label>
+                    <label class="payment-option" for="MOMO-option">
+                        <div class="payment-infor">
+                            <input type="radio" class="radio-selection" id="MOMO-option" value="MOMO" name="payment" required>
+                            <span class="checkmark"></span>
+                            <img src="/img/MOMO-payment.jpg" height="50" width="50">
+                            <span class="infor">Thanh toán bằng MOMO (Momo) </span>
+                        </div>
+                        <div class="payment-desc">
+                            
+                        </div>
+                    </label>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="province">Tỉnh / Thành</label>
-                        <select class="custom-select mr-sm-2" id="province">
-                            <option selected>Choose...</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="district">Quận / Huyện</label>
-                        <select class="custom-select mr-sm-2" id="district">
-                            <option selected>Choose...</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="ward">Phường / Xã</label>
-                        <select class="custom-select mr-sm-2" id="ward">
-                            <option selected>Choose...</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
+                <div class="bottom-button">
+                    <button class="btn btn-light font-weight-bold text-uppercase">GIỎ HÀNG</button>
+                    <button class="btn btn-info font-weight-bold text-uppercase go-checkout">THANH TOÁN ĐƠN HÀNG</button>
                 </div>
             </form>
-            <h5>Phương thức thanh toán</h5>
-            <div class="payment-selection">
-                <label class="payment-option" for="COD-option">
-                    <div class="payment-infor">
-                        <input type="radio" class="radio-selection" id="COD-option" name="radio-stacked" required>
-                        <span class="checkmark"></span>
-                        <img src="/img/COD-payment.jpg" height="50" width="50">
-                        <span class="infor">Thanh toán khi giao hàng (COD) </span>
-                    </div>
-                    <div class="payment-desc">
-                        Bạn sẽ nhận được cuộc gọi khi hàng giao tới
-                    </div>
-                </label>
-                <label class="payment-option" for="MOMO-option">
-                    <div class="payment-infor">
-                        <input type="radio" class="radio-selection" id="MOMO-option" name="radio-stacked" required>
-                        <span class="checkmark"></span>
-                        <img src="/img/MOMO-payment.jpg" height="50" width="50">
-                        <span class="infor">Thanh toán bằng MOMO (Momo) </span>
-                    </div>
-                    <div class="payment-desc">
-                        
-                    </div>
-                </label>
-            </div>
-            <div class="bottom-button">
-                <button class="btn btn-light font-weight-bold text-uppercase">GIỎ HÀNG</button>
-                <button class="btn btn-info font-weight-bold text-uppercase">THANH TOÁN ĐƠN HÀNG</button>
-            </div>
         </div>
         <div class="col-xs-1-12 col-md-6 right-side">  
             <table class="table LYAF-list-product">
