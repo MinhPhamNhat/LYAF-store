@@ -1,5 +1,6 @@
 userModel = require('../models/User');
-const BillDAO = require('../repo/BillDAO')
+const BillDAO = require('../repo/BillDAO');
+const bcrypt = require("bcrypt");
 const { parseCart } = require("../../helper/function");
 class userInfoController{
 
@@ -52,21 +53,12 @@ class userInfoController{
                 break;
           }
     }
-    changePass(req,res,next){
-        if(req.params.error != null){
-            if(req.params.error == 1){
-                res.render('changePass',{error:'Mật khẩu cũ đã sai !'});
-            }
-            else if(req.params.error == 2){
-                res.render('changePass',{error:'Xác nhận mật khẩu thất bại !'});
-            }
-        }
-        else{
-            res.render('changePass');
-        }
+    async changePass(req,res,next){
+    
+            res.render('changePass',{error: req.params.error});
         
     }
-    changePassDone(req,res,next){
+    async changePassDone(req,res,next){
         var oldpass = req.body.oldpass;
         const newpass = req.body.newpass;
         const newpasscheck = req.body.newpasscheck;
@@ -84,13 +76,12 @@ class userInfoController{
                         })
                     }
                     else{
-                        req.params.error = 1;
-                        res.redirect('/userInfo/changePass');
+                        res.redirect('/userInfo/changePass?error=2');
                     }
                 }
                 else{
-                    req.params.error = 1;
-                    res.redirect('/userInfo/changePass');
+                   
+                    res.redirect('/userInfo/changePass?error=1');
                 }
               
             })
