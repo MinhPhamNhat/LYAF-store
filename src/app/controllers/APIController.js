@@ -12,7 +12,9 @@ class APIController {
     res.status(200).json({ colors, sizes, categories });
   }
 
-  async checkOut(req, res, next) {}
+  async checkOut(req, res, next) {
+    
+  }
 
   async getCart(req, res, next) {
     var cart = req.cookies.cart
@@ -122,6 +124,10 @@ class APIController {
           break;
       }
     }
+  }
+
+  async getAdress(req, res, next) {
+    
   }
 }
 

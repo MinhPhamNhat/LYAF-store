@@ -32,7 +32,7 @@ async(accessToken, refreshToken, profile, done) => {
         newacc.save()
               .then(()=>{
                 const newuser = new userModel({
-                  username: json.id,
+                  _id: json.id,
                   name:json.name,
                   role:"user"
                 })
@@ -44,7 +44,7 @@ async(accessToken, refreshToken, profile, done) => {
               })
       }
       else{
-        userModel.findOne({username: data.username})
+        userModel.findOne({_id: data.username})
         .exec()
         .then((data) =>{
           return done(null,data);
@@ -74,7 +74,7 @@ passport.use(
             .save()
             .then(()=>{
               const newuser = new userModel({
-                username: profile._json.sub,
+                _id: profile._json.sub,
                 name:profile._json.name,
                 role:'user'
               })
@@ -86,7 +86,7 @@ passport.use(
             })
           }
           else{
-            userModel.findOne({username: data.username})
+            userModel.findOne({_id: data.username})
             .exec()
             .then((data) =>{
               return done(null, data);
@@ -130,7 +130,7 @@ passport.use(
               return done(null, false);
             } else if (bcrypt.compareSync(password, data.password)) {
               userModel
-                .findOne({ username: username })
+                .findOne({ _id: username })
                 .exec()
                 .then((user) => {
                   return done(null, user);

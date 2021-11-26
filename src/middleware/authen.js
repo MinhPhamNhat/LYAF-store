@@ -27,5 +27,13 @@ module.exports = {
         }else{
             res.status(404).render('404')
         }
+    },
+    authenLogin3: (req, res, next) => {
+        if (req.user){
+            res.status(200)
+            next()
+        }else{
+            res.status(401).json({code: 401, message:"Bạn chưa đăng nhập. Vui lòng đăng nhập để sử dụng chức năng này"})
+        }
     }
 }

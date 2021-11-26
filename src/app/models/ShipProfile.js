@@ -5,7 +5,7 @@ const mongooseDelete = require('mongoose-delete'); // Require mongoose-delete
 
 //Connect DB:
 const ShipProfile = new Schema({
-    username: {type: mongoose.Schema.Types.String},
+    user: {type: mongoose.Schema.Types.String, ref: 'User'},
     address: {type: mongoose.Schema.Types.String, ref: 'Address'},
     name: {type: mongoose.Schema.Types.String},
     phone: {type: mongoose.Schema.Types.String}

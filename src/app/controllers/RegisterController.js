@@ -45,7 +45,7 @@ class RegisterController{
                     newacc.save()
                         .then(() =>{
                             const newuser = new userModel({
-                                username:rusername,
+                                _id:rusername,
                                 name:rname,
                                 role:'user'
                             })

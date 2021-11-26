@@ -167,16 +167,16 @@ module.exports = {
 
     ] },
     
-    insertNotification: () => {
+    checkOutValidator: () => {
         return [
-            check("title").not().isEmpty().withMessage("Vui lòng nhập tựa đề thông báo"),
+            check("name").not().isEmpty().withMessage("Vui lòng nhập tựa đề thông báo"),
 
-            check("subTitle").not().isEmpty().withMessage("Vui lòng nhập tựa đề nhỏ"),
+            check("phone").not().isEmpty().withMessage("Vui lòng nhập tựa đề nhỏ"),
 
-            check("categoryId").not().isEmpty().withMessage("Vui lòng chọn Phòng/Khoa"),
+            check("address").not().isEmpty().withMessage("Vui lòng chọn Phòng/Khoa"),
             
-            check("content").not().isEmpty().withMessage("Vui lòng nhập nội dung thông báo")
-    ] },
+            check("province").not().isEmpty().withMessage("Vui lòng nhập nội dung thông báo")
+    ]},
     
     updateProfile: () => {
         return [
