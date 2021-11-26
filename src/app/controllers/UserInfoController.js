@@ -4,7 +4,6 @@ class userInfoController{
     start(req,res,next){
         userModel.findById(req.user._id).lean().exec()
         .then(user=> {
-            console.log(user)
             if (user)
             res.render('userInformation',{user});
             else
@@ -20,7 +19,18 @@ class userInfoController{
             email:req.body.profilemail,
         })
         .then((data)=>{
-            res.redirect('/userInfo');
+            userModel.findById(req.user._id).lean().exec()
+            .then(data => {
+                 req.login(data, function(err) {
+                if (err) { return next(err); }
+                return res.redirect('/userInfo');
+              });
+            })
+            .catch(() =>{
+                res.render('404');
+            });
+           
+           
         })
     }
     proStatus(req,res,next){
