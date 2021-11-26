@@ -15,6 +15,7 @@ const Bill = new Schema({
         name: {type: mongoose.Schema.Types.String},
         phone: {type: mongoose.Schema.Types.String}
     },
+    totalPrice: {type: mongoose.Schema.Types.Number},
     state: {type: mongoose.Schema.Types.Number, enum: [0, 1, 2, 3, 4]}, // 0: Huỷ đơn hàng ,1: Đang chờ xử lý, 2: Đã xác nhận đơn hàng, 3: Đang vận chuyển, 4: Đã giao hàng
     paymentType: {type: mongoose.Schema.Types.Number, enum: [0, 1]}, // 0: COD, 1: MOMO
     alreadyPay: {type: mongoose.Schema.Types.Boolean},

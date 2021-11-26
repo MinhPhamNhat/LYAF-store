@@ -25,7 +25,7 @@ module.exports = {
             res.status(200)
             next()
         }else{
-            res.status(404).render('404')
+            res.status(404).redirect('/')
         }
     },
     authenLogin3: (req, res, next) => {

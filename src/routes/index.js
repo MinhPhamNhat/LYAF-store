@@ -9,6 +9,8 @@ const apiRouter = require('./api')
 const userInfoRouter = require('./userInfo');
 const logoutRouter = require('./logout')
 const checkoutRounter = require('./checkout')
+const authen = require('../middleware/authen')
+
 const route = (app)=>{
     app.use('/',client);
     app.use('/manager',proManager);
@@ -20,7 +22,7 @@ const route = (app)=>{
     app.use('/login',loginRouter);
     app.use('/logout', logoutRouter);
     app.use('/register',registerRouter);
-    app.use('/userInfo',userInfoRouter);
+    app.use('/userInfo', authen.authenLogin2, userInfoRouter);
 }
 
 module.exports = route;

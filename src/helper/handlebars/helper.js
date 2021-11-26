@@ -61,5 +61,25 @@ module.exports = {
         var price = option.hash.price - option.hash.sale * option.hash.price
         price = (price*1000).toLocaleString('it-IT');
         return price
+    },
+
+    billStatus: (option)=>{
+        switch(option.hash.state){// 0: Huỷ đơn hàng ,1: Đang chờ xử lý, 2: Đã xác nhận đơn hàng, 3: Đang vận chuyển, 4: Đã giao hàng
+            case 0:
+                return "Đã huỷ đơn hàng"
+            case 1:
+                return "Đang chờ xử lý"
+            case 2:
+                return "Đã xác nhận đơn"
+            case 3:
+                return "Đang vận chuyển"
+            case 4:
+                return "Đã giao hàng"
+        }
+    },
+
+    dateFormat: (option) => {
+        return option.hash.date.toLocaleString()
     }
+
 }

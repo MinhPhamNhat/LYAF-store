@@ -19,6 +19,7 @@ const Province = require('../models/Province');
 const District = require('../models/District');
 const Ward = require('../models/Ward');
 const Bill = require('../models/Bill');
+const SubProduct = require('../models/SubProduct');
 const BillDetail = require('../models/BillDetail');
 module.exports = {
     createBill: async (payload, user, cart)=>{
@@ -36,14 +37,22 @@ module.exports = {
             paymentType: payload.payment==="MOMO"?1:0, // 0: COD, 1: MOMO
             alreadyPay: false
         }).save()
-        .then(data=>{
-            cart.forEach(async c=>{
+        .then(async (data)=>{
+            console.log(cart)
+            var price = await Promise.all(cart.map(async c=>{
+                var subProd = await SubProduct.findById(c.subProdId).populate("productId").exec()
+                var price =  (subProd.productId.price - subProd.productId.price * (subProd.productId.sale||0))*c.quantity;
                 await BillDetail({
                     bill: data._id,
                     subProdId: c.subProdId,
                     quantity: c.quantity,
                 }).save()
-            })
+                return price
+            }))
+            
+            var totalPrice = price.reduce((x,y) => x+y, 0);
+            data.totalPrice = totalPrice;
+            data.save()
             return {
                 code: 1,
                 data: data._id
@@ -55,5 +64,10 @@ module.exports = {
                 message: err
             }
         })
+    },
+
+    findBillById: async(userId) => {
+        const bills =  Bill.find({ user: userId }).lean().exec()
+        return bills
     }
 }

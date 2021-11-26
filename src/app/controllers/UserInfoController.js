@@ -1,7 +1,9 @@
 userModel = require('../models/User');
+const BillDAO = require('../repo/BillDAO')
 class userInfoController{
 
     start(req,res,next){
+        console.log(req.user)
         userModel.findById(req.user._id).lean().exec()
         .then(user=> {
             if (user)
@@ -26,17 +28,21 @@ class userInfoController{
             }
         })
     }
-    proStatus(req,res,next){
-        res.render('proStatus');
+    async proStatus(req,res,next){
+        const userId = req.user._id
+        console.log(userId)
+        const bills = await BillDAO.findBillById(userId)
+        console.log(bills)
+        res.render('proStatus', {user: req.user, bills});
     }
     changePass(req,res,next){
-        res.render('changePass');
+        res.render('changePass', {user: req.user});
     }
     proStatusDetail(req,res,next){
-        res.render('proStatusDetail');
+        res.render('proStatusDetail', {user: req.user});
     }
     changePass(req,res,next){
-        res.render('changePass');
+        res.render('changePass', {user: req.user });
     }
 }
 

@@ -21,29 +21,25 @@
                 <th scope="col">Mã đơn hàng</th>
                 <th scope="col">Ngày đặt</th>
                 <th scope="col">Tổng tiền</th>
-                <th scope="col">Trạng thái</th>
-                <th scope="col">Vận chuyển</th>
+                <th scope="col">Thanh toán</th>
+                <th scope="col">Tình trạng</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="proStatus-detail">
-                <td>DH02045</td>
-                <td>12/2/2022</td>
-                <td>520.000đ</td>
-                <td>Chưa thanh toán</td>
-                <td>Đang vận chuyển</td>
-                </tr>
-                <tr class="proStatus-detail">
-                <td>DH01077</td>
-                <td>11/3/2022</td>
-                <td>230.000đ</td>
-                <td>Chưa thanh toán</td>
-                <td>Chưa vận chuyển</td>
-                </tr>
+                {{#each bills}}
+                    <tr class="proStatus-detail">
+                    <td>{{this._id}}</td>
+                    <td>{{#dateFormat date=this.date}}{{/dateFormat}}</td>
+                    <td>{{#priceFormat price=this.totalPrice}}{{/priceFormat}}<u>đ</u></td>
+                    <td>{{#if this.alreadyPay}}Đã thanh toán{{else}}Chưa thanh toán{{/if}}</td>
+                    <td>{{#billStatus state=this.state}}{{/billStatus}}</td>
+                    </tr>
+                {{/each}}
             </tbody>
         </table>
     </div>
 </div>
 
 
+<script src="/js/bill.js"></script>
 <script src="/js/userInfo.js"></script>
