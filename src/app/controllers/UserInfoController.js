@@ -99,6 +99,10 @@ class userInfoController{
             res.send('opp !');
         }
     }
+
+    async addressList(req,res,next){
+        res.render('AddressList');
+    }
 }
 
 module.exports = new userInfoController;
