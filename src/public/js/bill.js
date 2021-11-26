@@ -1,5 +1,9 @@
 $(document).ready(()=>{
     $(".proStatus-detail").click(function (){
-        console.log(this)
+        const billId = this.dataset.id;
+        
+        if (billId){
+            window.location.href = window.location.origin + '/proStatusDetail/' + billId
+        }
     })
 })

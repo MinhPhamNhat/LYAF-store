@@ -30,15 +30,17 @@ class userInfoController{
     }
     async proStatus(req,res,next){
         const userId = req.user._id
-        console.log(userId)
         const bills = await BillDAO.findBillById(userId)
-        console.log(bills)
         res.render('proStatus', {user: req.user, bills});
     }
     changePass(req,res,next){
         res.render('changePass', {user: req.user});
     }
     proStatusDetail(req,res,next){
+        const billId = req.params.id
+        const userId = req.user._id
+        const result = await BillDAO.getBillDetail(userId, billId)
+        
         res.render('proStatusDetail', {user: req.user});
     }
     changePass(req,res,next){

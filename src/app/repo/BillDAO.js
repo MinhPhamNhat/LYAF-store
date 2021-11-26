@@ -69,5 +69,30 @@ module.exports = {
     findBillById: async(userId) => {
         const bills =  Bill.find({ user: userId }).lean().exec()
         return bills
+    },
+
+    getBillDetail: async (userId, billId)=>{
+        return await Bill.findOne({ user: userId, _id: billId}).lean().exec()
+        .then(async (bill) => {
+            if (bill){
+                const billDetail = await BillDetail.find({ bill: billId }).lean().populate('subProdId').exec()
+                bill = {...bill, billDetail}
+                return {
+                    code: 1,
+                    data: bill
+                }
+            }else{
+                return {
+                    code: 0,
+                    message: "Bill không tồn tại"
+                }
+            }
+        }).catch(err=>{
+            return {
+                code: -1,
+                message: err
+            }
+        })
+        
     }
 }

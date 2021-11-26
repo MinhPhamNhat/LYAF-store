@@ -27,12 +27,12 @@
             </thead>
             <tbody>
                 {{#each bills}}
-                    <tr class="proStatus-detail">
-                    <td>{{this._id}}</td>
-                    <td>{{#dateFormat date=this.date}}{{/dateFormat}}</td>
-                    <td>{{#priceFormat price=this.totalPrice}}{{/priceFormat}}<u>đ</u></td>
-                    <td>{{#if this.alreadyPay}}Đã thanh toán{{else}}Chưa thanh toán{{/if}}</td>
-                    <td>{{#billStatus state=this.state}}{{/billStatus}}</td>
+                    <tr class="proStatus-detail" data-id="{{this._id}}">
+                        <td>{{this._id}}</td>
+                        <td>{{#dateFormat date=this.date}}{{/dateFormat}}</td>
+                        <td>{{#priceFormat price=this.totalPrice}}{{/priceFormat}}<u>đ</u></td>
+                        <td>{{#if this.alreadyPay}}Đã thanh toán{{else}}Chưa thanh toán{{/if}}</td>
+                        <td>{{#billStatus state=this.state}}{{/billStatus}}</td>
                     </tr>
                 {{/each}}
             </tbody>
