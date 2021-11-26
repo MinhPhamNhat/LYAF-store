@@ -14,9 +14,9 @@
     <div class="changePass">
         <div class="profile_info-name">
             <span>Đổi mật khẩu</span>
-            <span id="changeError">{{error}}</span>
+           <span id="changeError"></span>  {{!-- Đặt lỗi ở đây --}}
         </div>
-        <form class="changePass-detail" action="/userInfo/changePass/done" method="post">
+        <div class="changePass-detail">
             <div class="form-group">
                 <label for="old-pass">Mật khẩu cũ:</label>
                 <input type="text" class="form-control" id="oldpass" name="oldpass">
@@ -31,7 +31,11 @@
             </div>
 
             <button type="submit" class="changePassSubmit">Cập nhật ngay !</button>
-        </form>
+        </div>
     </div>
 </div>
 <script src="/js/userInfo.js"></script>
+<script>
+    
+    
+</script>

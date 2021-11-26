@@ -1,4 +1,5 @@
 userModel = require('../models/User');
+accModel = require('../models/Account');
 const BillDAO = require('../repo/BillDAO');
 const bcrypt = require("bcrypt");
 const { parseCart } = require("../../helper/function");
@@ -77,16 +78,19 @@ class userInfoController{
                             password: bcryptpassword,
                         }).exec()
                         .then(()=>{
-                            res.redirect('/');
+                            res.status(200).json();
                         })
                     }
                     else{
-                        res.redirect('/userInfo/changePass?error=2');
+                         //Xác thưc mật khẩu mới thất bại !
+                         const passerror = {error: 'Xác nhận mật khẩu mới thất bại !'};
+                         res.status(300).json(passerror);
                     }
                 }
                 else{
                    
-                    res.redirect('/userInfo/changePass?error=1');
+                    const passerror = {error: 'Mật khẩu cũ đã sai !'};
+                    res.status(300).json(passerror);
                 }
               
             })
