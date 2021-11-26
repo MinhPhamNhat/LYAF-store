@@ -74,7 +74,7 @@ module.exports = {
     },
 
     getBillDetail: async (userId, billId)=>{
-        return await Bill.findOne({ user: userId, _id: billId}).sort({date: -1}).populate('user').populate('shipProfile.province').populate('shipProfile.distric').populate('shipProfile.ward').lean().exec()
+        return await Bill.findOne({ user: userId, _id: billId}).sort({date: 'descending'}).populate('user').populate('shipProfile.province').populate('shipProfile.distric').populate('shipProfile.ward').lean().exec()
         .then(async (bill) => {
             if (bill){
                 const billDetail = await BillDetail.find({ bill: billId }).lean().exec()

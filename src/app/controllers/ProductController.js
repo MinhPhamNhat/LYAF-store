@@ -14,15 +14,13 @@ class ProductController{
     create(req,res,next){
         res.render('proManager', {route: "add", header: false});
     }
+    
     list(req, res, next){
         res.render('proManager', {route: "list", header: false});
     }
-    delete(req,res,next){
-        const proId = req.params.id;
-        proModel.delete({id: proId})
-                .then(()=>{res.redirect('/')})
-                .catch('Delete Fail !');
-
+    
+    bill(req, res, next){
+        res.render('proManager', {route: "bill", header: false});
     }
 }
 // AB dsaasd

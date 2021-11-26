@@ -6,6 +6,9 @@
   width: 90%; }
   .LYAF-collection-wrapper .LYAF-collection-filter {
     width: 20%; }
+    .LYAF-collection-wrapper .LYAF-collection-filter .price-selecter {
+      width: 80%;
+      margin-top: 50px; }
   .LYAF-collection-wrapper .LYAF-collection-products-wrapper {
     width: 80%;
     display: flex;

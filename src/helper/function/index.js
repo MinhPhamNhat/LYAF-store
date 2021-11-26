@@ -94,3 +94,15 @@ exports.randomString = () => {
 
   return result
 }
+
+exports.parseSearch = (payload) => {
+  const isNew = payload.isNew==='true'?true:undefined
+  const isSale = payload.isSale==='true'?true:undefined
+  const keyword = payload.keyword||undefined
+  const priceFrom = payload.priceFrom?Number.parseInt(payload.priceFrom):undefined
+  const priceTo = payload.priceTo?Number.parseInt(payload.priceTo):undefined
+  const rating = payload.rating?Number.parseInt(payload.rating):undefined
+  var search = {isNew, isSale, keyword, priceFrom, priceTo, rating}
+  Object.keys(search).forEach(key => search[key] === undefined && delete search[key])
+  return search
+}

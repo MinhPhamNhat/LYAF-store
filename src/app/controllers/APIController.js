@@ -5,7 +5,7 @@ const CategoryDAO = require("../repo/CategoryDAO");
 const AddressDAO = require("../repo/AddressDAO");
 const BillDAO = require("../repo/BillDAO");
 const { validationResult } = require("express-validator");
-const { getPayload, addCart, parseCart, removeCart } = require("../../helper/function");
+const { getPayload, addCart, parseCart, removeCart, parseSearch } = require("../../helper/function");
 class APIController {
   async getSetupList(req, res, next) {
     var colors = await ColorDAO.getList();
@@ -39,7 +39,9 @@ class APIController {
         }
     }
   }
-
+  async search(req, res, next) {
+    console.log(parseSearch(req.query))
+  }
   async getCart(req, res, next) {
     var cart = req.cookies.cart
     var parsedCart = await parseCart(cart)

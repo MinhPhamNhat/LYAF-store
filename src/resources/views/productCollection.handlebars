@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/css/productCollection.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.css" integrity="sha512-MKxcSu/LDtbIYHBNAWUQwfB3iVoG9xeMCm32QV5hZ/9lFaQZJVaXfz9aFa0IZExWzCpm7OWvp9zq9gVip/nLMg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div id="breadcrumb">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -13,30 +14,32 @@
         <section>
             <!-- Section: Filters -->
             <section id="filters" data-auto-filter="true">
-                <h5>Filters</h5>
+                <h4>Filters</h4>
+                <hr>
+                <!-- Section: Condition -->
+                <section class="mb-4" data-filter="search">
+                    <h6 class="font-weight-bold mb-3">Search Name</h6>
+
+                    <div class="form-check mb-3">
+                        <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Keyword...">
+                    </div>
+                </section>
 
                 <!-- Section: Condition -->
                 <section class="mb-4" data-filter="condition">
                     <h6 class="font-weight-bold mb-3">Condition</h6>
 
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="new" id="condition-checkbox">
+                        <input class="form-check-input" type="checkbox" value="new" name="condition" id="condition-checkbox">
                         <label class="form-check-label text-uppercase small text-muted" for="condition-checkbox">
                         Sản phẩm mới
                         </label>
                     </div>
 
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="used" id="condition-checkbox2">
+                    <div class="form-check mb-  ">
+                        <input class="form-check-input" type="checkbox" value="sale" name="condition" id="condition-checkbox2">
                         <label class="form-check-label text-uppercase small text-muted" for="condition-checkbox2">
                         Khuyến mãi
-                        </label>
-                    </div>
-
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="collectible" id="condition-checkbox3">
-                        <label class="form-check-label text-uppercase small text-muted" for="condition-checkbox3">
-                        Bán chạy
                         </label>
                     </div>
                 </section>
@@ -46,11 +49,11 @@
                 <section class="mb-4">
                 <h6 class="font-weight-bold mb-3">Avg. Customer Review</h6>
                     <div class="" id="rating">
-                        <i class="fa-star fa-sm text-primary far" title="" data-toggle="tooltip" data-original-title="1"></i>
-                        <i class="fa-star fa-sm text-primary far" title="" data-toggle="tooltip" data-original-title="2"></i>
-                        <i class="fa-star fa-sm text-primary far" title="" data-toggle="tooltip" data-original-title="3"></i>
-                        <i class="fa-star fa-sm text-primary far" title="" data-toggle="tooltip" data-original-title="4"></i>
-                        <i class="fa-star fa-sm text-primary far" title="" data-toggle="tooltip" data-original-title="5"></i>
+                        <span class="star-1" data-id="1"><i class="fa-star fa-sm text-primary far" title="" data-toggle="tooltip" data-original-title="1"></i></span>
+                        <span class="star-2" data-id="2"><i class="fa-star fa-sm text-primary far" title="" data-toggle="tooltip" data-original-title="2"></i></span>
+                        <span class="star-3" data-id="3"><i class="fa-star fa-sm text-primary far" title="" data-toggle="tooltip" data-original-title="3"></i></span>
+                        <span class="star-4" data-id="4"><i class="fa-star fa-sm text-primary far" title="" data-toggle="tooltip" data-original-title="4"></i></span>
+                        <span class="star-5" data-id="5"><i class="fa-star fa-sm text-primary far" title="" data-toggle="tooltip" data-original-title="5"></i></span>
                     </div>
                 </section>
                 <!-- Section: Avg. Customer Review -->
@@ -59,115 +62,15 @@
                 <section class="mb-4">
                 <h6 class="font-weight-bold mb-3">Price</h6>
 
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="price-radio">
-                    <label class="form-check-label text-uppercase small text-muted" for="price-radio">
-                    Under $25
-                    </label>
-                </div>
+                <div class="price-selecter">
 
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="price-radio2">
-                    <label class="form-check-label text-uppercase small text-muted" for="price-radio2">
-                    $25 to $50
-                    </label>
-                </div>
-
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="price-radio3">
-                    <label class="form-check-label text-uppercase small text-muted" for="price-radio3">
-                    $50 to $100
-                    </label>
-                </div>
-
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="price-radio4">
-                    <label class="form-check-label text-uppercase small text-muted" for="price-radio4">
-                    $100 to $200
-                    </label>
-                </div>
-
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="price-radio5">
-                    <label class="form-check-label text-uppercase small text-muted" for="price-radio5">
-                    $200 &amp; above
-                    </label>
                 </div>
                 </section>
-                <!-- Section: Price -->
-
-                <!-- Section: Size -->
-                <section class="mb-4" data-filter="size">
-                <h6 class="font-weight-bold mb-3">Size</h6>
-
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" value="34" id="price-checkbox">
-                    <label class="form-check-label text-uppercase small text-muted" for="price-checkbox">
-                    34
-                    </label>
-                </div>
-
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" value="36" id="price-checkbox2">
-                    <label class="form-check-label text-uppercase small text-muted" for="price-checkbox2">
-                    36
-                    </label>
-                </div>
-
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" value="38" id="price-checkbox3">
-                    <label class="form-check-label text-uppercase small text-muted" for="price-checkbox3">
-                    38
-                    </label>
-                </div>
-
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" value="40" id="price-checkbox4">
-                    <label class="form-check-label text-uppercase small text-muted" for="price-checkbox4">
-                    40
-                    </label>
-                </div>
-                </section>
-                <!-- Section: Size -->
-
-                <!-- Section: Color -->
-                <section class="mb-4" data-filter="color">
-                <h6 class="font-weight-bold mb-3">Color</h6>
-
-                <div class="form-check form-check-inline m-0 p-0 pr-3">
-                    <input class="btn-check" type="radio" name="colorRadio" id="colorRadio1" value="white">
-                    <label class="btn bg-light btn-rounded p-3" for="colorRadio1"></label>
-                </div>
-
-                <div class="form-check form-check-inline m-0 p-0 pr-3">
-                    <input class="btn-check" type="radio" name="colorRadio" id="colorRadio2" value="grey">
-                    <label class="btn btn-rounded p-3" for="colorRadio2" style="background-color: #bdbdbd"></label>
-                </div>
-
-                <div class="form-check form-check-inline m-0 p-0 pr-3">
-                    <input class="btn-check" type="radio" name="colorRadio" id="colorRadio3" value="black">
-                    <label class="btn bg-dark text-white btn-rounded p-3" for="colorRadio3"></label>
-                </div>
-
-                <div class="form-check form-check-inline m-0 p-0 pr-3">
-                    <input class="btn-check" type="radio" name="colorRadio" id="colorRadio5" value="blue">
-                    <label class="btn bg-primary btn-rounded p-3" for="colorRadio5"></label>
-                </div>
-
-                <div class="form-check form-check-inline mt-3 mr-0 p-0 pr-3">
-                    <input class="btn-check" type="radio" name="colorRadio" id="colorRadio9" value="red">
-                    <label class="btn bg-danger btn-rounded p-3" for="colorRadio9"></label>
-                </div>
-
-                <div class="form-check form-check-inline mt-3 mr-0 p-0 pr-3">
-                    <input class="btn-check" type="radio" name="colorRadio" id="colorRadio10" value="orange">
-                    <label class="btn bg-warning btn-rounded p-3" for="colorRadio10"></label>
-                </div>
-                </section>
-                <!-- Section: Color -->
             </section>
             <!-- Section: Filters -->
         </section>
+                <hr>
+        <button type="button" class="btn btn-primary collection-search">Search</button>
     </div>
     <div class="LYAF-collection-products-wrapper">
         <div class="LYAF-collection-product-sort">
@@ -450,3 +353,6 @@
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js" integrity="sha512-igVQ7hyQVijOUlfg3OmcTZLwYJIBXU63xL9RC12xBHNpmGJAktDnzl9Iw0J4yrSaQtDxTTVlwhY730vphoVqJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.js" integrity="sha512-ZKqmaRVpwWCw7S7mEjC89jDdWRD/oMS0mlfH96mO0u3wrPYoN+lXmqvyptH4P9mY6zkoPTSy5U2SwKVXRY5tYQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/js/collection.js"></script>
