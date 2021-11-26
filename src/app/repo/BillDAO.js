@@ -41,7 +41,9 @@ module.exports = {
             console.log(cart)
             var price = await Promise.all(cart.map(async c=>{
                 var subProd = await SubProduct.findById(c.subProdId).populate("productId").exec()
-                var price =  (subProd.productId.price - subProd.productId.price * (subProd.productId.sale||0))*c.quantity;
+                var price =   (subProd.productId.price-(subProd.productId.price * subProd.productId.sale||0))*c.quantity;
+                
+                
                 await BillDetail({
                     bill: data._id,
                     subProdId: c.subProdId,
@@ -72,7 +74,7 @@ module.exports = {
     },
 
     getBillDetail: async (userId, billId)=>{
-        return await Bill.findOne({ user: userId, _id: billId}).populate('shipProfile.province').populate('shipProfile.distric').populate('shipProfile.ward').lean().exec()
+        return await Bill.findOne({ user: userId, _id: billId}).sort({date: -1}).populate('user').populate('shipProfile.province').populate('shipProfile.distric').populate('shipProfile.ward').lean().exec()
         .then(async (bill) => {
             if (bill){
                 const billDetail = await BillDetail.find({ bill: billId }).lean().exec()

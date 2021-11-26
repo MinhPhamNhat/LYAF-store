@@ -42,8 +42,13 @@ class userInfoController{
         switch (result.code) {
             case 1:
                 result.data.billDetail = await parseCart(result.data.billDetail)
-                console.log(result.data)
-                res.render('proStatusDetail', {user: req.user, data: result.data});
+                const parsedCart = result.data.billDetail
+                const truePrice = parsedCart.reduce((x,y) => x + y.price*y.quantity, 0);
+                const salePrice = truePrice - parsedCart.reduce((x,y) => x + y.salePrice*y.quantity, 0);
+                const tempPrice = truePrice - salePrice
+                const deliveryPrice = (tempPrice - salePrice) > 500 ? 0 : 50; 
+                const totalPrice = tempPrice - salePrice + deliveryPrice
+                res.render('proStatusDetail', {user: req.user, data: result.data, salePrice, deliveryPrice, tempPrice, totalPrice});
                 break;
             case 0:
                 res.render('404');

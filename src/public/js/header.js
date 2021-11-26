@@ -53,6 +53,7 @@ $(document).ready(()=>{
     })
 
     $(".LYAF-cart-pay-btn").click(()=>{
+        // localhost:2000/api/checkOut
         fetch(window.location.origin+'/api/checkOut')
         .then(data=>{
             if (data.status === 200){
