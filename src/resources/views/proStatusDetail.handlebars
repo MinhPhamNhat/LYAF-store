@@ -13,7 +13,7 @@
     </div>
     <div class="userStatus">
         <div class="userStatus-name">
-            <span>Mã đơn hàng: DH02045</span>
+            <span>Mã đơn hàng: {{data._id}}</span>
         </div>
         <table class="table table-borderless">
             <thead>
@@ -26,20 +26,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                <td>Quần jeans Slim</td>
-                <td>JEANSSLIM</td>
-                <td>160.000đ</td>
-                <td>2</td>
-                <td>320.000đ</td>
-                </tr>
-                <tr>
-                <td>Áo Hoodie xám tay dài</td>
-                <td>HOODIEGRAY</td>
-                <td>200.000đ</td>
-                <td>1</td>
-                <td>200.000đ</td>
-                </tr>
+                {{#each data.billDetail}}
+                    <tr>
+                    <td id="name"><span>{{this.name}}</span><span id="size-color">{{this.color.name}} | {{this.size.name}}</span></td>
+                    <td>{{this.subProdId}}</td>
+                    <td>
+                        {{#if this.isSale}}
+                            <span>{{#saleFormat price=this.price sale=this.sale}}{{/saleFormat}}<u>đ</u></span>
+                            <span id="sale-price">{{#priceFormat price=this.price}}{{/priceFormat}}<u>đ</u></span>
+                        {{else}}
+                            <span>{{#priceFormat price=this.price}}{{/priceFormat}}<u>đ</u></span>
+                        {{/if}}
+                    </td>
+                    <td>{{this.quantity}}</td>
+                    <td>{{#priceFormat price=this.totalPrice}}{{/priceFormat}}<u>đ</u></td>
+                    </tr>
+                {{/each}}
             </tbody>
         </table>
     </div>

@@ -1,5 +1,6 @@
 userModel = require('../models/User');
 const BillDAO = require('../repo/BillDAO')
+const { parseCart } = require("../../helper/function");
 class userInfoController{
 
     start(req,res,next){
@@ -33,12 +34,23 @@ class userInfoController{
         const bills = await BillDAO.findBillById(userId)
         res.render('proStatus', {user: req.user, bills});
     }
-    proStatusDetail(req,res,next){
+    async proStatusDetail(req,res,next){
         const billId = req.params.id
         const userId = req.user._id
         const result = await BillDAO.getBillDetail(userId, billId)
-        
-        res.render('proStatusDetail', {user: req.user});
+        switch (result.code) {
+            case 1:
+                result.data.billDetail = await parseCart(result.data.billDetail)
+                console.log(result.data)
+                res.render('proStatusDetail', {user: req.user, data: result.data});
+                break;
+            case 0:
+                res.render('404');
+                break;
+            case -1:
+                res.render('404');
+                break;
+          }
     }
     changePass(req,res,next){
         if(req.params.error != null){

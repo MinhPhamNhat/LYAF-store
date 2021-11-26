@@ -4,6 +4,18 @@
     height: 100%;
     justify-content: center;
 
+    #sale-price{
+        font-size: 13px;
+        text-decoration: line-through red
+    }
+    #name{
+        display: flex;
+        flex-direction: column;
+        #size-color{
+            font-size: 12px;
+            
+        }
+    }
         //profile_menu
     .profile_menu{
         width: 30%;

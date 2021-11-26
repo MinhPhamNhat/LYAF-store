@@ -72,10 +72,10 @@ module.exports = {
     },
 
     getBillDetail: async (userId, billId)=>{
-        return await Bill.findOne({ user: userId, _id: billId}).lean().exec()
+        return await Bill.findOne({ user: userId, _id: billId}).populate('shipProfile.province').populate('shipProfile.distric').populate('shipProfile.ward').lean().exec()
         .then(async (bill) => {
             if (bill){
-                const billDetail = await BillDetail.find({ bill: billId }).lean().populate('subProdId').exec()
+                const billDetail = await BillDetail.find({ bill: billId }).lean().exec()
                 bill = {...bill, billDetail}
                 return {
                     code: 1,
