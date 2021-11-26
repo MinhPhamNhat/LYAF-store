@@ -56,7 +56,7 @@ $(document).ready(()=>{
         fetch(window.location.origin+'/api/checkOut')
         .then(data=>{
             if (data.status === 200){
-                console.log(1)
+                window.location.href = '/checkout'
             }else{
                 $(".prompt-login-modal").modal("show")
             }
@@ -81,7 +81,8 @@ $(document).ready(()=>{
                         <p class="LYAF-cart-option text-uppercase">${c.subProdId}|${c.color.name}|${c.size.name}</p>
                         <div class="LYAF-cart-quant-price">
                             <span class="LYAF-cart-quant">${c.quantity}</span>
-                            <p class="LYAF-cart-price text-uppercase">${(c.price*1000*c.quantity).toLocaleString('it-IT')}<u>đ</u></p>
+                            <p class="LYAF-cart-price text-uppercase">${(c.salePrice*1000*c.quantity).toLocaleString('it-IT')}<u>đ</u></p>
+                            ${(c.isSale)?`<p class="LYAF-cart-price text-uppercase true-price">${(c.price*1000*c.quantity).toLocaleString('it-IT')}<u>đ</u></p>`:''}
                         </div>
                         <div class="LYAF-cart-product-remove" data-id="${c.subProdId}">
                             <i class="fas fa-trash-alt"></i>
@@ -89,7 +90,7 @@ $(document).ready(()=>{
                     </div>
                 </div>
             `)
-            sum += c.price*1000*c.quantity
+            sum += c.salePrice*1000*c.quantity
         })
         $(".LYAF-header-cart .LYAF-no-products").html(cart.length)
         $(".LYAF-cart-sum-list .LYAF-cart-sum-price").html(`${sum.toLocaleString('it-IT')}<u>đ</u>`)

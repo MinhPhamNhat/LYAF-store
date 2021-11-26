@@ -74,10 +74,10 @@
 .LYAF-header-right .LYAF-header-cart .LYAF-no-products {
   position: absolute;
   left: 10px;
-  top:8px;
+  top: 4px;
   color: #0c0707;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size: 11px; }
+  font-size: 15px; }
 
 .LYAF-header-right .LYAF-header-search, .LYAF-header-cart, .LYAF-header-account {
   cursor: pointer;
@@ -280,6 +280,10 @@
   justify-content: center;
   align-items: center;
   width: 70%; }
+
+.LYAF-header .LYAF-cart-box .LYAF-cart-list .LYAF-cart-product .true-price {
+  font-size: 11px;
+  text-decoration: line-through red; }
 
 .LYAF-header .LYAF-cart-box .LYAF-cart-list .LYAF-cart-product img {
   height: 70px;

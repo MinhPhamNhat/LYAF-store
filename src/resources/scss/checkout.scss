@@ -34,7 +34,10 @@
                 }
             }
         }
-
+        #sale-price{
+            font-size: 13px;
+            text-decoration: line-through red
+        }
         .temp-price, 
         .sale-price,
         .delivery-price,
@@ -74,6 +77,11 @@
     }
 
     .left-side{
+        .profile-helper{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
         .delivery-form{
             display: block;
             height: fit-content;
@@ -172,6 +180,47 @@
                 background-color: #2196F3;
             }
 
+        }
+
+        .bottom-button{
+            margin-top: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            button{
+                padding-top: 20px;
+                padding-bottom: 20px;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+    }
+}
+
+.select-profile-modal{
+    .modal-body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .address-profile{
+        margin-bottom: 20px;
+        width: 100%;
+        cursor: pointer;
+        border: 1px solid black;
+        td{
+            padding: 10px;
+        }
+        #header{
+            color: white;
+            height: 30px;
+            background-color: black;
+        }
+    }
+    .address-profile:hover{
+        border: 2px solid rgb(0, 51, 109);
+        #header{
+            background-color: rgb(0, 51, 109);
         }
     }
 }

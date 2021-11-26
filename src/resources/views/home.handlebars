@@ -30,7 +30,14 @@
                         {{/getThumbnails}}
                     </div>
                     <div class="LYAF-product-info">
-                        <div id="price"><span id="true-price">{{#priceFormat price=this.price}} {{/priceFormat}}<span id="currency">đ</span></span><span class="d-none" id="sale-price">350.000 VND</span></div>
+                        <div id="price">
+                            {{#if this.isSale}}
+                                <span id="true-price">{{#saleFormat price=this.price sale=this.sale}} {{/saleFormat}}<span id="currency">đ</span></span>
+                                <span id="sale-price">{{#priceFormat price=this.price}} {{/priceFormat}}<span id="currency">đ</span></span>
+                            {{else}}
+                                <span id="true-price">{{#priceFormat price=this.price}} {{/priceFormat}}<span id="currency">đ</span></span>
+                            {{/if}}
+                        </div>
                         <div id="name"><a href="/product/detail/{{this._id}}">{{this.name}}</a></div>
                         <div id="category">
                         {{#if this.categoryId.parentId}}

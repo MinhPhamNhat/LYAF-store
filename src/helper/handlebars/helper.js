@@ -55,5 +55,11 @@ module.exports = {
         var price = option.hash.price*1000
         price = price.toLocaleString('it-IT');
         return price
+    },
+    
+    saleFormat: (option)=>{
+        var price = option.hash.price - option.hash.sale * option.hash.price
+        price = (price*1000).toLocaleString('it-IT');
+        return price
     }
 }

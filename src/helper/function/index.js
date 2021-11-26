@@ -59,9 +59,11 @@ exports.parseCart = async (cart) => {
           thumbnail: subProduct.productId.images[0],
           name: subProduct.productId.name,
           price: subProduct.productId.price,
+          totalPrice: (subProduct.productId.price-(subProduct.productId.price * subProduct.productId.sale||0))*c.quantity,
           color: subProduct.colorId,
           size: subProduct.sizeId,
           isSale: subProduct.productId.isSale,
+          salePrice: subProduct.productId.price-(subProduct.productId.price * subProduct.productId.sale||0),
           sale: subProduct.productId.sale,
           quantity: c.quantity
         }

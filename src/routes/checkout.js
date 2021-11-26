@@ -6,6 +6,6 @@ const authen = require('../middleware/authen')
 
 const CheckoutController = require('../app/controllers/CheckoutController');
 
-route.get('/', CheckoutController.index);
+route.get('/', authen.authenLogin2, CheckoutController.index);
 
 module.exports = route;

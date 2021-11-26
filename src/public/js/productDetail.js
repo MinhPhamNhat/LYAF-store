@@ -60,11 +60,11 @@ $(document).ready(()=>{
     $(".LYAF-order-section #add-cart button").click(function(){
         const selectedSize = $(".LYAF-infor-detail #size #item.selected")
         const selectedColor = $(".LYAF-infor-detail #color #item.selected")
-        if (selectedSize.length && selectedColor.length){
+        const quantity = $(".LYAF-infor-detail #quantity input").val()
+        if (selectedSize.length && selectedColor.length && quantity>0){
             const productId = this.dataset.productid
             const sizeId = selectedSize[0].dataset.id
             const colorId =  selectedColor[0].dataset.id
-            const quantity = $(".LYAF-infor-detail #quantity input").val()
             console.log({productId, colorId, sizeId, quantity})
             fetch(window.location.origin+'/api/addCart?'+ new URLSearchParams({productId, colorId, sizeId, quantity}),{
                 method: "GET",
@@ -78,7 +78,7 @@ $(document).ready(()=>{
                 }
             })
         }else{
-            showToast("Not select", "Vui lòng chọn thuộc tính sản phẩm", "warning")
+            showToast("Not select", "Vui lòng đầy đủ tính sản phẩm", "warning")
         }
     })
 

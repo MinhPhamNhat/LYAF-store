@@ -80,8 +80,12 @@
             <div id="price">
                 <div class="warpper">
                     <div id="value">
-                        <span id="true">{{#priceFormat price=data.price}} {{/priceFormat}}<span id="currency">đ</span></span>
-                        <span id="sale" class="d-none">300.000<span id="currency">đ</span></span>
+                        {{#if data.isSale}}
+                            <span id="true">{{#saleFormat price=data.price sale=data.sale}} {{/saleFormat}}<span id="currency">đ</span></span>
+                            <span id="sale">{{#priceFormat price=data.price}} {{/priceFormat}}<span id="currency">đ</span></span>
+                        {{else}}
+                            <span id="true">{{#priceFormat price=data.price}} {{/priceFormat}}<span id="currency">đ</span></span>
+                        {{/if}}
                     </div>
                     <span id="slash">/</span>
                     <span id="unit">Cái</span>

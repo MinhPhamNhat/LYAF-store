@@ -25,6 +25,9 @@
       .LYAF-checkout-container .right-side .LYAF-list-product .product-property #infor {
         display: flex;
         flex-direction: column; }
+  .LYAF-checkout-container .right-side #sale-price {
+    font-size: 13px;
+    text-decoration: line-through red; }
   .LYAF-checkout-container .right-side .temp-price,
   .LYAF-checkout-container .right-side .sale-price,
   .LYAF-checkout-container .right-side .delivery-price,
@@ -34,6 +37,11 @@
     justify-content: space-between; }
   .LYAF-checkout-container .right-side .totle-price {
     font-size: 18px; }
+
+.LYAF-checkout-container .left-side .profile-helper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; }
 
 .LYAF-checkout-container .left-side .delivery-form {
   display: block;
@@ -108,3 +116,36 @@
     background-color: #ccc; }
   .LYAF-checkout-container .left-side .payment-selection .payment-option input:checked ~ .checkmark {
     background-color: #2196F3; }
+
+.LYAF-checkout-container .left-side .bottom-button {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; }
+  .LYAF-checkout-container .left-side .bottom-button button {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px; }
+
+.select-profile-modal .modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.select-profile-modal .address-profile {
+  margin-bottom: 20px;
+  width: 100%;
+  cursor: pointer;
+  border: 1px solid black; }
+  .select-profile-modal .address-profile td {
+    padding: 10px; }
+  .select-profile-modal .address-profile #header {
+    color: white;
+    height: 30px;
+    background-color: black; }
+
+.select-profile-modal .address-profile:hover {
+  border: 2px solid #00336d; }
+  .select-profile-modal .address-profile:hover #header {
+    background-color: #00336d; }
