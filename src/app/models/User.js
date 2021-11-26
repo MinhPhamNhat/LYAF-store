@@ -10,6 +10,7 @@ const User = new Schema({
     role:{type:String},//admin|staff|user
     birthday:{type:mongoose.Schema.Types.Date},
     phoneNumber: {type: mongoose.Schema.Types.String},
+    email:{type:String},
     address: [{type: mongoose.Schema.ObjectId, ref: 'Address'}]
 },{
     versionKey: false,

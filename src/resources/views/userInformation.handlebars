@@ -15,36 +15,21 @@
         <div class="profile_info-name">
             <span>Thông tin về tôi</span>
         </div>
-        <form class="profile_info-detail">
+        <form class="profile_info-detail" action="/userInfo/userInfoUpdate" method="post">
             <div class="form-group">
                 <label for="profilename">Họ và tên</label>
-                <input type="profilename" class="form-control" id="profilename">
+                <input type="profilename" class="form-control profileInput" id="profilename" name="profilename" value="{{user.name}}">
             </div>
             <div class="form-group">
                 <label for="profilemail">Email</label>
-                <input type="profilemail" class="form-control" id="profilemail">
+                <input type="profilemail" class="form-control profileInput" id="profilemail" name="profilemail" value="{{user.email}}">
             </div>
             <div class="form-group">
                 <label for="profilphone">Số điện thoại</label>
-                <input type="profilephone" class="form-control" id="profilephone">
+                <input type="profilephone" class="form-control profileInput" id="profilephone" name="profilephone" value="{{user.phoneNumber}}">
             </div>
-            {{!-- <div class="form-check">
-                <label for="gender">Giới tính</label>
-             </div>
-             <div class="form-check genderBox">
-                 <div id="gender_male">
-                    <input class="form-check-input position-static" type="radio" name="gender" id="male" value="Nam">
-                    <span>Nam</span>
-                 </div>
-             
-                <div id="gender_female">
-                    <input class="form-check-input position-static" type="radio" name="gender" id="female" value="Nữ">
-                    <span>Nữ</span>
-                </div>
-                
-            </div> --}}
-
-            <button type="submit" class="profileSubmit">Submit</button>
+            <button type="submit" class="profileSubmit" id="profileSubmit"><span>Cập nhật ngay !</span></button>
+            <div class="profileUpdateNotice"><span>Bạn muốn cập nhật ?</span>̣</div>
         </form>
     </div>
 </div>
