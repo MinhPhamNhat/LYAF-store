@@ -16,5 +16,5 @@ route.post('/userInfoUpdate',UserInfoController.userInfoUpdate);
 route.get('/proStatus',UserInfoController.proStatus);
 route.get('/proStatus/proStatusDetail/:id',UserInfoController.proStatusDetail);
 route.get('/changePass',UserInfoController.changePass);
-
+route.post('/changePass/done',UserInfoController.changePassDone);
 module.exports = route;

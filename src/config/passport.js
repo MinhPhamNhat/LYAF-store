@@ -129,6 +129,7 @@ passport.use(
               req.flash("error", "Tài khoản không hợp lệ !");
               return done(null, false);
             } else if (bcrypt.compareSync(password, data.password)) {
+              console.log('data.password',data.password);
               userModel
                 .findOne({ _id: username })
                 .exec()

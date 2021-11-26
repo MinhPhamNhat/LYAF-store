@@ -33,9 +33,6 @@ class userInfoController{
         const bills = await BillDAO.findBillById(userId)
         res.render('proStatus', {user: req.user, bills});
     }
-    changePass(req,res,next){
-        res.render('changePass', {user: req.user});
-    }
     proStatusDetail(req,res,next){
         const billId = req.params.id
         const userId = req.user._id
@@ -44,7 +41,51 @@ class userInfoController{
         res.render('proStatusDetail', {user: req.user});
     }
     changePass(req,res,next){
-        res.render('changePass', {user: req.user });
+        if(req.params.error != null){
+            if(req.params.error == 1){
+                res.render('changePass',{error:'Mật khẩu cũ đã sai !'});
+            }
+            else if(req.params.error == 2){
+                res.render('changePass',{error:'Xác nhận mật khẩu thất bại !'});
+            }
+        }
+        else{
+            res.render('changePass');
+        }
+        
+    }
+    changePassDone(req,res,next){
+        var oldpass = req.body.oldpass;
+        const newpass = req.body.newpass;
+        const newpasscheck = req.body.newpasscheck;
+        if(oldpass && newpass && newpasscheck){
+            accModel.findOne({username : req.user._id}).exec()
+            .then((data) =>{
+                if(bcrypt.compareSync(oldpass, data.password)){
+                    if(newpass == newpasscheck){
+                        const bcryptpassword = bcrypt.hashSync(newpass, 10);
+                        accModel.findByIdAndUpdate(data._id,{
+                            password: bcryptpassword,
+                        }).exec()
+                        .then(()=>{
+                            res.redirect('/');
+                        })
+                    }
+                    else{
+                        req.params.error = 1;
+                        res.redirect('/userInfo/changePass');
+                    }
+                }
+                else{
+                    req.params.error = 1;
+                    res.redirect('/userInfo/changePass');
+                }
+              
+            })
+        }
+        else{
+            res.send('opp !');
+        }
     }
 }
 
