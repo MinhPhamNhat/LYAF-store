@@ -1,43 +1,43 @@
 var G_CURRENT_TAG
 export class Filter {
-    tag1 = {
-        property: "price",
-        name:"Price",
-        action: "equal",
-        value: 100,
-    }
-    tag2 = {
-        property: "price",
-        name:"Price",
-        action: "between",
-        value: {
-            from: 0,
-            to: 100
-        }
-    }
-    tag3 = {
-        property: "color",
-        name:"Color",
-        action: "category",
-        value: [{
-            name: "Đỏ",
-            _id: "R",
-            colorImage: "color-red.jpg",
-          },
-          {
-            name: "Đen",
-            _id: "B",
-            colorImage: "color-black.jpg",
-          },
-          {
-            name: "Camo rêu",
-            _id: "CR",
-            colorImage: "color-camo-green.jpg",
-          }]
-    }
+    // tag1 = {
+    //     property: "price",
+    //     name:"Price",
+    //     action: "equal",
+    //     value: 100,
+    // }
+    // tag2 = {
+    //     property: "price",
+    //     name:"Price",
+    //     action: "between",
+    //     value: {
+    //         from: 0,
+    //         to: 100
+    //     }
+    // }
+    // tag3 = {
+    //     property: "color",
+    //     name:"Color",
+    //     action: "category",
+    //     value: [{
+    //         name: "Đỏ",
+    //         _id: "R",
+    //         colorImage: "color-red.jpg",
+    //       },
+    //       {
+    //         name: "Đen",
+    //         _id: "B",
+    //         colorImage: "color-black.jpg",
+    //       },
+    //       {
+    //         name: "Camo rêu",
+    //         _id: "CR",
+    //         colorImage: "color-camo-green.jpg",
+    //       }]
+    // }
 
     tags = [
-        this.tag1,this.tag2,this.tag3
+        // this.tag1,this.tag2,this.tag3
     ]
     constructor(elementClassName, {data, submit, sizeList, colorList, categoryList}){
         this.elementClassName = elementClassName
@@ -100,7 +100,7 @@ export class Filter {
     if ($(`.${elementClassName} #filter-color-select`)) {
       colorList.forEach((_) =>
         $(`.${elementClassName} #filter-color-select`).append(
-          `<option value="${_._id}" data-name="${_.name}" data-image="/img/${_.colorImage}">${_.name}</option>`
+          `<option value="${_._id}" data-name="${_.name}" data-image="/img/${_.thumbnail}">${_.name}</option>`
         )
       );
     }

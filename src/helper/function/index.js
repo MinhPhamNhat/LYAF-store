@@ -21,7 +21,7 @@ exports.getPayload = async (req) => {
       return url
     }
   }))
-  var subProduct = await Promise.all(req.body.subProduct.map(s => JSON.parse(s)))
+  var subProduct = Array.isArray(req.body.subProduct)?(await Promise.all(req.body.subProduct.map(s => JSON.parse(s)))):[JSON.parse(req.body.subProduct)]
   if (isGood){
     return {code: 1, data: {...req.body, subProduct, images}}
   }else{

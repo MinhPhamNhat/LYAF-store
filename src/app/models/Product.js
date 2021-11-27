@@ -17,7 +17,7 @@ const Product = new Schema(
     sale: { type: mongoose.Schema.Types.Number },
     rating: { type: mongoose.Schema.Types.Number },
     amountOfAccess: { type: mongoose.Schema.Types.Number },
-    date: {type: mongoose.Schema.Types.Date, default: Date.now()}
+    date: {type: Date, default: Date.now()}
   },
   {
     versionKey: false,

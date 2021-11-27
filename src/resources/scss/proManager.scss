@@ -594,17 +594,25 @@
     }
 }
 .LYAF-sub-products-list{
+    height: 400px;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
     .sub-product{
         display: flex;
         flex-direction: row;
         margin-top: 10px;
         margin-bottom: 10px;
+        td{
+            padding: 10px;
+        }
         .sub-p-thumbnail{
         }
         .sub-p-infor{
             display: flex;
             flex-wrap: wrap;
             align-items: center;
+            gap: 20px;
             .asdasd{
                 margin-left: 20px;;
                 display: flex;
@@ -721,12 +729,13 @@ table.dataTable thead th {
 .LYAF-product-list #LYAF-list #list-product-info{
     display: flex;
     flex-direction: column;
-    margin-left: 10px;;
+    margin-left: 10px;
+    align-items: flex-start;
 }
 
-.LYAF-product-list #LYAF-list #list-product-size{
+.LYAF-product-list #LYAF-list #list-new{
     font-size: 11px;
-    color: #979797;
+    color: red;
 }
 
 .LYAF-product-list #LYAF-list #list-product-thumbail{

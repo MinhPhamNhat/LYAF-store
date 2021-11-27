@@ -45,13 +45,51 @@ class APIController {
     res.status(200).json(data)
   }
 
-  async confirmBill(req, res, next) {
+  async billState(req, res, next) {
     const id = req.body.id
-    if (id){
-      const result = await BillDAO.confirmBill(id)
+    const value = Number.parseInt(req.body.value)
+    console.log(id, value)
+    if (id && (value >= 0 && value <=3)){
+      const result = await BillDAO.updateState(id, value)
       switch (result.code) {
         case 1:
-          res.status(200).json({ code: 200 });
+          res.status(200).json({ code: 200, message: result.message });
+          break;
+        case 0:
+          res.status(404).json({ code: 404, message: result.message });
+          break;
+        case -1:
+          res.status(500).json({ code: 500, message: result.message });
+          break;
+      }
+    }else{
+      res.status(400).json({code: 400, message: "Đơn hàng không hợp lệ"}) 
+    }
+  }
+
+  async getProducts(req, res, next) {
+    const result = await ProductDAO.getProductsList({}, {}, {}, {date: -1})
+    switch (result.code) {
+      case 1:
+        res.status(200).json({ code: 200, data: result.data });
+        break;
+      case 0:
+        res.status(404).json({ code: 404, message: result.message });
+        break;
+      case -1:
+        res.status(500).json({ code: 500, message: result.message });
+        break;
+    }
+  }
+
+  async billPayment(req, res, next){
+    const id = req.body.id
+    const value = Number.parseInt(req.body.value)
+    if (id && (value === 0 || value === 1)){
+      const result = await BillDAO.updatePayment(id, value)
+      switch (result.code) {
+        case 1:
+          res.status(200).json({ code: 200, message: result.message });
           break;
         case 0:
           res.status(404).json({ code: 404, message: result.message });
@@ -74,7 +112,6 @@ class APIController {
     const option = parseSearch(req.query)
     const page = req.query.page
     const result = await ProductDAO.getProductsList(option, 20, 20*(page-1))
-    console.log(result)
     switch (result.code) {
       case 1:
         res.status(200).json({ code: 200, data: result.data });

@@ -2,7 +2,7 @@ const ProductDAO = require('../repo/ProductDAO')
 class ClientController{
 
     async client(req,res,next){
-        var result = await ProductDAO.getProductsList({isNew: true},10)
+        var result = await ProductDAO.getProductsList({isNew: true},10, {}, {date: -1})
         switch(result.code){
             case 1:
                 res.status(200).render('home', {user: req.user, data: result.data.map((_)=>_.toObject()), boss: req.params.boss});

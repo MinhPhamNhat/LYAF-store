@@ -1,19 +1,37 @@
 $(document).ready(()=>{
-    $("#confirm-bill").click(function(){
+    $(".confirm-state").click(function(){
         const id = this.dataset.id
-        console.log(id)
-        fetch(window.location.origin + '/api/manager/confirmBill',{
+        const value = $("#inputState").val()
+        fetch(window.location.origin + '/api/manager/billState',{
             method: "POST",
             headers:{
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({id})
+            body: JSON.stringify({id, value})
         }).then(data=> data.json())
         .then(data=>{
             if (data.code===200){
-                window.location.reload()
+                showToast("Cập nhật tình trạng", data.message)
             }else{
-                showToast("Xác nhận đơn hàng", data.message, "error")
+                showToast("Cập nhật tình trạng", data.message, "error")
+            }
+        })
+    })
+    $(".confirm-payment").click(function(){
+        const id = this.dataset.id
+        const value = $("#payState").val()
+        fetch(window.location.origin + '/api/manager/billPayment',{
+            method: "POST",
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id, value})
+        }).then(data=> data.json())
+        .then(data=>{
+            if (data.code===200){
+                showToast("Cập nhật thanh toán", data.message)
+            }else{
+                showToast("Cập nhật thanh toán", data.message, "error")
             }
         })
     })

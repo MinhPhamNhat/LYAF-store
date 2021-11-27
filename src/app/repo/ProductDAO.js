@@ -48,8 +48,8 @@ module.exports = {
         .then(async (result)=>{
             // Increase number of product in category
             var category = await Category.findById(payload.categoryId).exec()
-            category.numberOfProd = category.numberOfProd||0 + 1
-            category.save()
+            console.log(category.numberOfProd, (category.numberOfProd||0)+ 1)
+            await Category.findByIdAndUpdate(category._id, {numberOfProd: (category.numberOfProd||0)+ 1}).exec()
 
             // Create new SubProduct
             payload.subProduct.forEach(async (p, i) => {
@@ -68,7 +68,7 @@ module.exports = {
         }).catch((err)=>{
             return {
                 code: -1,
-                message: err.errors
+                message: err
             }
         })
     },

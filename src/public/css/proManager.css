@@ -492,19 +492,27 @@
     cursor: pointer;
     width: fit-content; }
 
-.LYAF-sub-products-list .sub-product {
-  display: flex;
-  flex-direction: row;
-  margin-top: 10px;
-  margin-bottom: 10px; }
-  .LYAF-sub-products-list .sub-product .sub-p-infor {
+.LYAF-sub-products-list {
+  height: 400px;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden; }
+  .LYAF-sub-products-list .sub-product {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center; }
-    .LYAF-sub-products-list .sub-product .sub-p-infor .asdasd {
-      margin-left: 20px;
+    flex-direction: row;
+    margin-top: 10px;
+    margin-bottom: 10px; }
+    .LYAF-sub-products-list .sub-product td {
+      padding: 10px; }
+    .LYAF-sub-products-list .sub-product .sub-p-infor {
       display: flex;
-      flex-direction: column; }
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px; }
+      .LYAF-sub-products-list .sub-product .sub-p-infor .asdasd {
+        margin-left: 20px;
+        display: flex;
+        flex-direction: column; }
 
 .LYAF-save-new {
   padding: 10px;
@@ -598,11 +606,12 @@ table.dataTable thead th {
 .LYAF-product-list #LYAF-list #list-product-info {
   display: flex;
   flex-direction: column;
-  margin-left: 10px; }
+  margin-left: 10px;
+  align-items: flex-start; }
 
-.LYAF-product-list #LYAF-list #list-product-size {
+.LYAF-product-list #LYAF-list #list-new {
   font-size: 11px;
-  color: #979797; }
+  color: red; }
 
 .LYAF-product-list #LYAF-list #list-product-thumbail {
   border-radius: 10px;

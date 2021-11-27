@@ -74,7 +74,7 @@ module.exports = {
     },
 
     getBillDetail: async (option)=>{
-        return await Bill.findOne(option).sort({date: 'descending'}).populate('user').populate('shipProfile.province').populate('shipProfile.distric').populate('shipProfile.ward').lean().exec()
+        return await Bill.findOne(option).populate('user').populate('shipProfile.province').populate('shipProfile.distric').populate('shipProfile.ward').lean().exec()
         .then(async (bill) => {
             if (bill){
                 const billDetail = await BillDetail.find({ bill: bill._id }).lean().exec()
@@ -99,16 +99,17 @@ module.exports = {
     },
 
     getBills: async(option, userId, limit={}, skip={}, sort={})=>{
-        return Bill.find(option).limit(limit).skip(skip).sort(sort).lean().exec()
+        return Bill.find(option).sort({ date: -1 }).skip(skip).limit(limit).lean().exec()
     },
 
-    confirmBill: async (billId)=>{
+    updateState: async (billId, value)=>{
         return Bill.findOneAndUpdate({_id: billId}, {
-            state: 2
+            state: value
         }).then(data=>{
             if (data){
                 return {
                     code: 1,
+                    message: "Đã cập nhật tình trạng đơn"
                 }
             }else{
                 return {
@@ -122,5 +123,28 @@ module.exports = {
                 message: err
             }
         })
-    }
+    },
+
+    updatePayment: async (billId, value)=>{
+        return Bill.findOneAndUpdate({_id: billId}, {
+            alreadyPay: value==0?false:true
+        }).then(data=>{
+            if (data){
+                return {
+                    code: 1,
+                    message: "Đã cập nhật thanh toán thành " + value==0?"chưa":"đã" + " thanh toán"
+                }
+            }else{
+                return {
+                    code: 0,
+                    message: "Bill không tồn tại"
+                }
+            }
+        }).catch(err=>{
+            return {
+                code: -1,
+                message: err
+            }
+        })
+    },
 }

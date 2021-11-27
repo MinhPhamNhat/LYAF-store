@@ -1,9 +1,9 @@
 const proModel = require('../models/Product');
 const sizeModel = require('../models/Size');
-
+const ProductDAO = require('../repo/ProductDAO')
 const BillDAO = require('../repo/BillDAO')
 const {parseCart} = require('../../helper/function')
-class ProductController{
+class ManagementController{
 
     proManager(req,res,next){
         proModel.find({})
@@ -43,7 +43,7 @@ class ProductController{
             }
         )
     }    
-    async detail(req, res, next) {
+    async billDetail(req, res, next) {
         const billId = req.params.id
         const result = await BillDAO.getBillDetail({_id: billId})
         switch (result.code) {
@@ -66,6 +66,28 @@ class ProductController{
                 break;
           }
     }
+
+    async productDetail(req, res, next) {
+        const id = req.params.id
+        if (id){
+            const result = await ProductDAO.findById(id)
+            switch (result.code) {
+                case 1:
+                    console.log(result.data)
+                    res.render('ManagerProductDetail', {data: result.data});
+                    break;
+                case 0:
+                    res.render('404');
+                    break;
+                case -1:
+                    console.log(result)
+                    res.render('404');
+                    break;
+              }
+        }else{
+
+        }
+    }
 }
 // AB dsaasd
-module.exports = new ProductController;
+module.exports = new ManagementController;

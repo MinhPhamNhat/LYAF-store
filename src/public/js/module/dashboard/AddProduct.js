@@ -261,21 +261,17 @@ $(document).ready(() => {
             <input type="hidden" id="size" value="${sizeId}">
             <input type="hidden" id="quantity" value="${quantity}">
             <div class="sub-p-infor">
-                <div class="asdasd">
-                    <div class="quantity">
-                        <strong>Quantity: </strong>
-                        <span id="value">${quantity}</span>
-                    </div>
+                <div class="color">
+                    <strong>Color: </strong>
+                    <span id="value">${color.name}</span>
                 </div>
-                <div class="asdasd">
-                    <div class="color">
-                        <strong>Color: </strong>
-                        <span id="value">${color.name}</span>
-                    </div>
-                    <div class="size">
-                        <strong>Size: </strong>
-                        <span id="value">${size.name}</span>
-                    </div>
+                <div class="size">
+                    <strong>Size: </strong>
+                    <span id="value">${size.name}</span>
+                </div>
+                <div class="quantity">
+                    <strong>Quantity: </strong>
+                    <span id="value">${quantity}</span>
                 </div>
             </div>
         </div>`);
@@ -302,13 +298,14 @@ $(document).ready(() => {
       })
       .then(data=>data.json())
       .then(data=>{
+        console.log(data)
         if (data.errors){
           var err = data.errors
           for (var prop in err) {
             showToast(err[prop].param, err[prop].msg, "error")
             break;
-        }
-          
+          } 
+        }else{
         }
       })
     })
