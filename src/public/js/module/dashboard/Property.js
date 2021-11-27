@@ -166,4 +166,34 @@ updateSize.addEventListener('click',function(){
   
 });
 
+deleteSize.addEventListener('click',function(){
+  if(addSizeID.value ==  '' || addSizeName.value == '' || addSizeDesc.value == ''){
+    showToast('Cảnh báo !','Có input đang trống','warning');
+  }
+  else{
+    const data = JSON.stringify({
+      addSizeID : addSizeID.value,
+      addSizeName : addSizeName.value,
+      addSizeDesc : addSizeDesc.value,
+    });
+    fetch(window.location.origin+'/manager/deletesize',{method:'post',body:data,headers: {
+        'Content-Type': 'application/json'
+    },})
+        .then((data) => {
+            if(data.status == 200){
+              showToast('Xóa Size','Xóa Thành Công !');
+              return data.json();
+                
+            }
+            else if(data.status == 400){
+              showToast('Size vốn không tồn tại','Xóa Thất Bại !','error');
+            }
+            else{
+              showToast('Xóa Size','Xóa thất bại !','error');
+            }
+          })
+  }
+  
+});
+
 /////

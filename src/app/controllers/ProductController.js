@@ -87,8 +87,19 @@ class ProductController{
             res.status(500).json();
         })
     }   
-    deletesize(){
-
+    deletesize(req,res,next){
+        sizeModel.findByIdAndDelete(req.body.addSizeID).exec()
+        .then((data)=>{
+            if(data !=null){
+                res.status(200).json(data);
+            }
+            else{
+                res.status(400).json();
+            }
+        })
+        .catch(()=>{
+            res.status(500).json();
+        })
     }
     async detail(req, res, next) {
         const billId = req.params.id

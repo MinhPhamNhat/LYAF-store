@@ -12,7 +12,7 @@ route.get('/list',proManager.list);
 route.get('/bill/detail/:id',proManager.detail);
 route.get('/bill',proManager.bill);
 route.get('/property',proManager.property);
-route.post('/sizeManager',proManager.sizeManager);
+route.get('/sizeManager',proManager.sizeManager);
 route.post('/addsize',proManager.addsize);
 route.post('/deletesize',proManager.deletesize);
 route.post('/updatesize',proManager.updatesize);
