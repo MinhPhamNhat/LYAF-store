@@ -131,6 +131,9 @@
                         <input type="text" class="add-size-input" id="add-size-input-name" name="add-size-input-name" placeholder="Enter Size Name" value="">
                         <input type="text" class="add-size-input" id="add-size-input-description" name="add-size-input-description" placeholder="Enter Size Description" value="">
                         <button type="submit" id="add-size-btn">Add Size</button>
+                        <button type="submit" id="delete-size-btn">Delete</button>
+                        <button type="submit" id="update-size-btn">Update</button>
+                        <button type="submit" id="cancel-size-btn">Cancel</button>
                     </div>
                 </div>
                 <div class="property-list">
@@ -139,24 +142,6 @@
                             <span>Size List</span>
                         </div>
                         <div class="table-size">
-                        {{!-- <table class="table table-scroll">
-                            <thead>
-                                <tr></tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Description</th>
-                                </tr>
-                            </thead>
-                            <tbody style="overflow:auto;">
-                                {{#each sizeList}}
-                                    <tr>
-                                        <td>{{this._id}}</td>
-                                        <td>{{this.name}}</td>
-                                        <td>{{this.desc}}</td>
-                                    </tr>
-                                {{/each}}
-                            </tbody>
-                            </table> --}}
                             <table class="table-scroll small-first-col">
                                 <thead>
                                     <tr>
@@ -167,7 +152,7 @@
                                 </thead>
                                 <tbody class="body-half-screen">
                                     {{#each sizeList}}
-                                        <tr id="{{this._id}}">
+                                        <tr id="{{this._id}}" data-id="{{this._id}}" data-desc="{{this.desc}}">
                                             <td>{{this._id}}</td>
                                             <td>{{this.name}}</td>
                                             <td>{{this.desc}}</td>

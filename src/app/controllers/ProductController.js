@@ -30,19 +30,66 @@ class ProductController{
         sizeModel.find({})
         .then((sizeList)=>{
             sizeList = sizeList.map((sizeList) => sizeList.toObject());
-            console.log(sizeList);
             res.render('property', {sizeList});
         })
        
     }
     sizeManager(req,res,next){
-        sizeModel.findById(req.body._id).lean().exec()
+        sizeModel.findById(req.body.sizeId).lean().exec()
         .then(
             (data)=>{
                 res.status(200).json(data);
             }
         )
-    }    
+    }
+    addsize(req,res,next){
+        sizeModel.findById(req.body.addSizeID).lean().exec()
+        .then((data)=>{
+            console.log(data);
+            if(data == null){
+                const newsize = new sizeModel({
+                    _id:req.body.addSizeID,
+                    name:req.body.addSizeName,
+                    desc:req.body.addSizeDesc,
+                });
+                newsize.save()
+                .then(()=>{
+                    res.status(200).json();
+                })
+                .catch(()=>{
+                    res.status(300).json();
+                })
+            }
+            else{
+                res.status(400).json();
+            }
+        })
+        .catch(()=>{
+            res.status(500).json()
+        })
+    } 
+    updatesize(req,res,next){
+
+        sizeModel.findByIdAndUpdate(req.body.addSizeID,{
+            _id:req.body.addSizeID,
+            name:req.body.addSizeName,
+            desc:req.body.addSizeDesc,
+        }).exec()
+        .then((data)=>{
+            if(data != null){
+                res.status(200).json(data);
+            }
+            else{
+                res.status(400).json();
+            }
+        })
+        .catch(()=>{
+            res.status(500).json();
+        })
+    }   
+    deletesize(){
+
+    }
     async detail(req, res, next) {
         const billId = req.params.id
         const result = await BillDAO.getBillDetail({_id: billId})

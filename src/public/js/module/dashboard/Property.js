@@ -58,33 +58,112 @@
 
 ///////Event Size:
 const sizeRow = document.querySelectorAll('.body-half-screen tr');
+const updateSize = document.querySelector('#update-size-btn');
+const deleteSize = document.querySelector('#delete-size-btn');
+const addSize = document.querySelector('#add-size-btn');
+const cancelSize = document.querySelector('#cancel-size-btn');
+const propertytitle = document.querySelector('.propery-title');
+const addSizeID = document.querySelector('#add-size-input-id');
+const addSizeName = document.querySelector('#add-size-input-name');
+const addSizeDesc = document.querySelector('#add-size-input-description');
 for(let i of sizeRow){
-  i.addEventListener('click',()=>{
-    console.log(i.cells[0].innerHTML,i.cells[1].innerHTML,i.cells[2].innerHTML);
+  i.addEventListener('click',function(){
+    const data = JSON.stringify({
+      sizeId : this.dataset.id,
+      sizeName: this.dataset.id,
+      sizeDesc: this.dataset.desc,
+  });
+  fetch(window.location.origin+'/manager/sizeManager',{method:'post',body:data,headers: {
+      'Content-Type': 'application/json'
+  },})
+      .then((data) => {
+          if(data.status == 200){
+              return data.json();
+              
+          }
+      })
+      .then(data=>{
+         
+          updateSize.style.display = "block";
+          deleteSize.style.display = "block";
+          cancelSize.style.display = "block";
+          propertytitle.style.display = "none";
+          addSize.style.display = "none";
+          addSizeID.value = data._id;
+          addSizeName.value = data.name;
+          addSizeDesc.value = data.desc;
+        
+      })
     
   });
+    
+
+}
+cancelSize.addEventListener('click',function(){
+  updateSize.style.display = "none";
+  deleteSize.style.display = "none";
+  cancelSize.style.display = "none";
+  propertytitle.style.display = "block";
+  addSize.style.display = "block";
+})
+addSize.addEventListener('click',function(){
+
+  if(addSizeID.value ==  '' || addSizeName.value == '' || addSizeDesc.value == ''){
+    showToast('Cảnh báo !','Có input đang trống','warning');
+  }
+  else{
     const data = JSON.stringify({
-        sizeId = i.cell[0].innerHTML,
-        sizeName: i.cells[1].innerHTML,
-        sizeDesc: i.cells[2].innerHTML,
+      addSizeID : addSizeID.value,
+      addSizeName : addSizeName.value,
+      addSizeDesc : addSizeDesc.value,
     });
-    fetch(window.location.origin+'/manager/sizeManager',{method:'post',body:data,headers: {
+    fetch(window.location.origin+'/manager/addsize',{method:'post',body:data,headers: {
         'Content-Type': 'application/json'
     },})
         .then((data) => {
             if(data.status == 200){
-                return data.json();
+              showToast('Thêm Size','Thêm Thành Công !');
+                
             }
-        })
-        .then(data=>{
-            const addSizeID = document.querySelector('#add-size-input-id');
-            const addSizeName = document.querySelector('#add-size-input-name');
-            const addSizeDesc = document.querySelector('#add-size-input-description');
-            addSizeID.value = data._id;
-            addSizeName.value = data.name;
-            addSizeDesc.value = data.desc;
-        })
+            else if(data.status == 300){
+              showToast('Thêm Size','Thêm Thất Bại !');
+            }
+            else{
+              showToast('Thêm Size','Size đã tồn tại','error');
+            }
+          })
+  }
 
-}
+});
+
+updateSize.addEventListener('click',function(){
+  if(addSizeID.value ==  '' || addSizeName.value == '' || addSizeDesc.value == ''){
+    showToast('Cảnh báo !','Có input đang trống','warning');
+  }
+  else{
+    const data = JSON.stringify({
+      addSizeID : addSizeID.value,
+      addSizeName : addSizeName.value,
+      addSizeDesc : addSizeDesc.value,
+    });
+    fetch(window.location.origin+'/manager/updatesize',{method:'post',body:data,headers: {
+        'Content-Type': 'application/json'
+    },})
+        .then((data) => {
+            if(data.status == 200){
+              showToast('Cập nhật Size Size','Cập Nhật Thành Công !');
+              return data.json();
+                
+            }
+            else if(data.status == 400){
+              showToast('Size không tồn tại','Cập Nhật Thất Bại !','error');
+            }
+            else{
+              showToast('Cập nhật Size','Cập Nhật thất bại !','error');
+            }
+          })
+  }
+  
+});
 
 /////
