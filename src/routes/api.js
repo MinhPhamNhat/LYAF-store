@@ -14,6 +14,9 @@ route.get('/checkout', authen.apiAuthenLogin)
 route.post('/checkout', authen.authenLogin3, validator.checkOutValidator(), APIController.checkOut)
 route.get('/product/search', APIController.search);
 route.get('/product/getSub', validator.subProductValidator(), APIController.getSub);
+route.get('/product/getMinMax', APIController.getMinMaxPrice);
+route.get('/manager/getBills', APIController.getBills);
+route.post('/manager/confirmBill', APIController.confirmBill);
 route.post('/product/add', upload.array('images', 10), validator.productValidator(), APIController.addProduct);
 route.get('/province', APIController.province)
 route.get('/district/:id', APIController.district)

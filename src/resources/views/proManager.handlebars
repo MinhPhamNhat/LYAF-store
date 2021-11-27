@@ -127,6 +127,9 @@
     {{#equals val1=route val2="bill"}}
     {{>dashboard/bill}}
     {{/equals}}
+    {{#equals val1=route val2="billDetail"}}
+    {{> dashboard/billDetail this }}
+    {{/equals}}
     </div>
     {{!-- End Dashboard body --}}
 </div>

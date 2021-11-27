@@ -73,13 +73,13 @@ module.exports = {
         })
     },
 
-    getProductsList: async (option, limit={}, sort={}) => {
+    getProductsList: async (option, limit={}, skip={}, sort={}) => {
         return Product.find(option).populate({
             path: 'categoryId',
             populate: {
                 path: 'parentId'
             }
-        }).limit(limit).sort(sort).exec()
+        }).limit(limit).sort(sort).skip(skip).exec()
         .then(data=>{
             return {
                 code: 1,
@@ -91,6 +91,16 @@ module.exports = {
                 message: err
             } 
         })
+    },
+
+    getMinMaxPriceRange: async () => {
+        return await Product.aggregate([{
+            $group: {
+                _id: null,
+                maxPrice: { $max: '$price' },
+                minPrice: { $min: '$price' },
+            }
+        }]).exec();
     },
 
     findById: async (id) => {
