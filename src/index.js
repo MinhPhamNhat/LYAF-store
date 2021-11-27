@@ -44,7 +44,7 @@ app.engine('handlebars',hdbars({
   helpers: hdbHelper
 }));
 app.set('view engine','handlebars');
-app.set('views', path.join(__dirname, 'resources/views'));
+app.set('views',path.join(__dirname, 'resources/views'));
 
 
 //use express middleware:

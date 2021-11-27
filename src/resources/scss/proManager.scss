@@ -885,3 +885,123 @@ table.dataTable thead th {
     width: 80%;
     height: auto;
 }
+
+// bill list
+
+.bills-content-container{
+    margin-top: 80px;
+    #bill-list{
+        td, th{
+            padding: 20px
+        }
+        tr:first-child{
+            border: 1px solid #1B1B28;
+        }
+        th{
+            background-color: #e0e0e0;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 2px solid #979797;
+        }
+        
+        td{
+            background-color: white;
+            border-bottom: 1px solid #afafaf;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        tr:hover{
+            td{
+                background-color: #ebebeb;
+            }
+        }
+    }
+    #bill-list_wrapper{
+        background-color: white;
+    }
+    
+}
+
+.ma-bill-detail{
+    .final-button{
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        gap: 10px;
+    }
+    #sale-price{
+        font-size: 13px;
+        text-decoration: line-through red
+    }
+    #name {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        img{
+            margin-right: 10px;
+            border-radius: 10px;
+        }
+        a{
+            display: flex;
+            flex-direction: column;
+            color: black;
+            #size-color{
+                font-size: 12px;
+                color: rgb(85, 85, 85);
+            }
+        }
+    }
+    .action-bill-detail{
+        padding-top: 30px;
+        #title{
+            font-size: 30px;
+            font-weight: bold;
+
+        }
+    }
+    .userStatus{
+        width: 60%;
+        height: 100%;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        border-radius: 5px;
+        .address-profile{
+            width: 100%;
+            td{
+                padding: 10px !important;
+            }
+        }
+
+        .price-infor{
+            .temp-price, .sale-price, .delivery-price, .total-price{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .total-price{
+                font-size: 18px;
+            }
+        }
+    }
+    .userStatus-name{
+        width: 100%;
+        height: 70px;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+    }
+    .userStatus-name span{
+        font-size: 30px;
+        font-weight: bold;
+        border-bottom: 4px solid black;
+    }
+    .table-borderless{
+        width: 90%;
+        td{
+            vertical-align: middle;
+        }
+    }
+
+}

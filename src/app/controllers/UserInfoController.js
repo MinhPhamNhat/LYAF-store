@@ -39,7 +39,7 @@ class userInfoController{
     async proStatusDetail(req,res,next){
         const billId = req.params.id
         const userId = req.user._id
-        const result = await BillDAO.getBillDetail(userId, billId)
+        const result = await BillDAO.getBillDetail({ user: userId, _id: billId})
         switch (result.code) {
             case 1:
                 result.data.billDetail = await parseCart(result.data.billDetail)

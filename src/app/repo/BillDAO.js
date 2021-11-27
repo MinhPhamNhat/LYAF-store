@@ -73,11 +73,11 @@ module.exports = {
         return bills
     },
 
-    getBillDetail: async (userId, billId)=>{
-        return await Bill.findOne({ user: userId, _id: billId}).sort({date: 'descending'}).populate('user').populate('shipProfile.province').populate('shipProfile.distric').populate('shipProfile.ward').lean().exec()
+    getBillDetail: async (option)=>{
+        return await Bill.findOne(option).sort({date: 'descending'}).populate('user').populate('shipProfile.province').populate('shipProfile.distric').populate('shipProfile.ward').lean().exec()
         .then(async (bill) => {
             if (bill){
-                const billDetail = await BillDetail.find({ bill: billId }).lean().exec()
+                const billDetail = await BillDetail.find({ bill: bill._id }).lean().exec()
                 bill = {...bill, billDetail}
                 return {
                     code: 1,
@@ -96,5 +96,31 @@ module.exports = {
             }
         })
         
+    },
+
+    getBills: async(option, userId, limit={}, skip={}, sort={})=>{
+        return Bill.find(option).limit(limit).skip(skip).sort(sort).lean().exec()
+    },
+
+    confirmBill: async (billId)=>{
+        return Bill.findOneAndUpdate({_id: billId}, {
+            state: 2
+        }).then(data=>{
+            if (data){
+                return {
+                    code: 1,
+                }
+            }else{
+                return {
+                    code: 0,
+                    message: "Bill không tồn tại"
+                }
+            }
+        }).catch(err=>{
+            return {
+                code: -1,
+                message: err
+            }
+        })
     }
 }

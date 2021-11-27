@@ -39,8 +39,53 @@ class APIController {
         }
     }
   }
+
+  async getBills(req, res, next) {
+    const data = await BillDAO.getBills()
+    res.status(200).json(data)
+  }
+
+  async confirmBill(req, res, next) {
+    const id = req.body.id
+    if (id){
+      const result = await BillDAO.confirmBill(id)
+      switch (result.code) {
+        case 1:
+          res.status(200).json({ code: 200 });
+          break;
+        case 0:
+          res.status(404).json({ code: 404, message: result.message });
+          break;
+        case -1:
+          res.status(500).json({ code: 500, message: result.message });
+          break;
+      }
+    }else{
+      res.status(400).json({code: 400, message: "Đơn hàng không hợp lệ"}) 
+    }
+  }
+
+  async getMinMaxPrice(req, res, next){
+    const priceRange = await ProductDAO.getMinMaxPriceRange()
+    res.status(200).json(priceRange) 
+  }
+
   async search(req, res, next) {
-    console.log(parseSearch(req.query))
+    const option = parseSearch(req.query)
+    const page = req.query.page
+    const result = await ProductDAO.getProductsList(option, 20, 20*(page-1))
+    console.log(result)
+    switch (result.code) {
+      case 1:
+        res.status(200).json({ code: 200, data: result.data });
+        break;
+      case 0:
+        res.status(404).json({ code: 404, message: result.message });
+        break;
+      case -1:
+        res.status(500).json({ code: 500, message: result.message });
+        break;
+    }
   }
   async getCart(req, res, next) {
     var cart = req.cookies.cart
