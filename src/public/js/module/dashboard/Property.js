@@ -57,7 +57,7 @@
    }
 
 ///////Event Size:
-const sizeRow = document.querySelectorAll('.body-half-screen tr');
+const sizeRow = document.querySelectorAll('.body-half-screen-size tr');
 const updateSize = document.querySelector('#update-size-btn');
 const deleteSize = document.querySelector('#delete-size-btn');
 const addSize = document.querySelector('#add-size-btn');
@@ -151,7 +151,7 @@ updateSize.addEventListener('click',function(){
     },})
         .then((data) => {
             if(data.status == 200){
-              showToast('Cập nhật Size Size','Cập Nhật Thành Công !');
+              showToast('Cập nhật Size','Cập Nhật Thành Công !');
               return data.json();
                 
             }
@@ -197,3 +197,143 @@ deleteSize.addEventListener('click',function(){
 });
 
 /////
+////Event Category:
+const sizeRowCat = document.querySelectorAll('#catTable tr');
+const updateCat = document.querySelector('#update-category-btn');
+const deleteCat = document.querySelector('#delete-category-btn');
+const addCat = document.querySelector('#add-category-btn');
+const cancelCat = document.querySelector('#cancel-category-btn');
+const propertytitleCat = document.querySelector('.propery-title-category');
+const addCatID = document.querySelector('#add-category-input-id');
+const addCatName = document.querySelector('#add-category-input-name');
+const addCatParent = document.querySelector('#add-category-input-parent');
+for(let i of sizeRowCat){
+  i.addEventListener('click',function(){
+    const data = JSON.stringify({
+      CatId : this.dataset.id,
+      CatName: this.dataset.name,
+      CatParent: this.dataset.parentId,
+  });
+  fetch(window.location.origin+'/manager/categoryManager',{method:'post',body:data,headers: {
+      'Content-Type': 'application/json'
+  },})
+      .then((data) => {
+          if(data.status == 200){
+              return data.json();
+              
+          }
+      })
+      .then(data=>{
+         
+          updateCat.style.display = "block";
+          deleteCat.style.display = "block";
+          cancelCat.style.display = "block";
+          propertytitleCat.style.display = "none";
+          addCat.style.display = "none";
+          addCatID.value = data._id;
+          addCatName.value = data.name;
+          addCatParent.value = data.parentId;
+        
+      })
+    
+  });
+    
+
+}
+cancelCat.addEventListener('click',function(){
+  updateCat.style.display = "none";
+  deleteCat.style.display = "none";
+  cancelCat.style.display = "none";
+  propertytitleCat.style.display = "block";
+  addCat.style.display = "block";
+})
+addCat.addEventListener('click',function(){
+
+  if(addCatID.value ==  '' || addCatName.value == ''){
+    showToast('Cảnh báo !','Có input đang trống','warning');
+  }
+  else{
+    const data = JSON.stringify({
+      addCatID : addCatID.value,
+      addCatName : addCatName.value,
+      addCatParent : addCatParent.value,
+    });
+    fetch(window.location.origin+'/manager/addcategory',{method:'post',body:data,headers: {
+        'Content-Type': 'application/json'
+    },})
+        .then((data) => {
+            if(data.status == 200){
+              showToast('Thêm Category','Thêm Thành Công !');
+                
+            }
+            else if(data.status == 300){
+              showToast('Thêm Category','Thêm Thất Bại !');
+            }
+            else{
+              showToast('Thêm Category','Category đã tồn tại','error');
+            }
+          })
+  }
+
+});
+
+updateCat.addEventListener('click',function(){
+  if(addCatID.value ==  '' || addCatName.value == ''){
+    showToast('Cảnh báo !','Có input đang trống','warning');
+  }
+  else{
+    const data = JSON.stringify({
+      addCatID : addCatID.value,
+      addCatName : addCatName.value,
+      addCatParent : addCatParent.value,
+    });
+    fetch(window.location.origin+'/manager/updatecategory',{method:'post',body:data,headers: {
+        'Content-Type': 'application/json'
+    },})
+        .then((data) => {
+            if(data.status == 200){
+              showToast('Cập nhật Category','Cập Nhật Thành Công !');
+              return data.json();
+                
+            }
+            else if(data.status == 400){
+              showToast('Category không tồn tại','Cập Nhật Thất Bại !','error');
+            }
+            else{
+              showToast('Cập nhật Category','Cập Nhật thất bại !','error');
+            }
+          })
+  }
+  
+});
+
+deleteCat.addEventListener('click',function(){
+  if(addCatID.value ==  '' || addCatName.value == ''){
+    showToast('Cảnh báo !','Có input đang trống','warning');
+  }
+  else{
+  
+    const data = JSON.stringify({
+      addCatID : addCatID.value,
+      addCatName : addCatName.value,
+      addCatParent : addCatParent.value,
+    });
+    fetch(window.location.origin+'/manager/deletecategory',{method:'post',body:data,headers: {
+        'Content-Type': 'application/json'
+    },})
+        .then((data) => {
+            if(data.status == 200){
+              showToast('Xóa Size','Xóa Thành Công !');
+              return data.json();
+                
+            }
+            else if(data.status == 400){
+              showToast('Size vốn không tồn tại','Xóa Thất Bại !','error');
+            }
+            else if(data.status == 500){
+              showToast('Xóa Size','Xóa thất bại !','error');
+            }
+          })
+  }
+  
+});
