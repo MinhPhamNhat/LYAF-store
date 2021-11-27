@@ -1,6 +1,7 @@
 const proModel = require('../models/Product');
 const sizeModel = require('../models/Size');
 const ProductDAO = require('../repo/ProductDAO')
+const catModel = require('../models/Category');
 const BillDAO = require('../repo/BillDAO')
 const {parseCart} = require('../../helper/function')
 class ManagementController{
@@ -30,13 +31,18 @@ class ManagementController{
         sizeModel.find({})
         .then((sizeList)=>{
             sizeList = sizeList.map((sizeList) => sizeList.toObject());
-            console.log(sizeList);
-            res.render('property', {sizeList});
+            catModel.find({})
+            .then((catList)=>{
+                catList = catList.map((catList) => catList.toObject());
+                res.render('property', {catList,sizeList});
+            })
         })
+
+        
        
     }
     sizeManager(req,res,next){
-        sizeModel.findById(req.body._id).lean().exec()
+        sizeModel.findById(req.body.sizeId).lean().exec()
         .then(
             (data)=>{
                 res.status(200).json(data);
@@ -44,6 +50,67 @@ class ManagementController{
         )
     }    
     async billDetail(req, res, next) {
+    }
+    addsize(req,res,next){
+        sizeModel.findById(req.body.addSizeID).lean().exec()
+        .then((data)=>{
+            console.log(data);
+            if(data == null){
+                const newsize = new sizeModel({
+                    _id:req.body.addSizeID,
+                    name:req.body.addSizeName,
+                    desc:req.body.addSizeDesc,
+                });
+                newsize.save()
+                .then(()=>{
+                    res.status(200).json();
+                })
+                .catch(()=>{
+                    res.status(300).json();
+                })
+            }
+            else{
+                res.status(400).json();
+            }
+        })
+        .catch(()=>{
+            res.status(500).json()
+        })
+    } 
+    updatesize(req,res,next){
+
+        sizeModel.findByIdAndUpdate(req.body.addSizeID,{
+            _id:req.body.addSizeID,
+            name:req.body.addSizeName,
+            desc:req.body.addSizeDesc,
+        }).exec()
+        .then((data)=>{
+            if(data != null){
+                res.status(200).json(data);
+            }
+            else{
+                res.status(400).json();
+            }
+        })
+        .catch(()=>{
+            res.status(500).json();
+        })
+    }   
+    deletesize(req,res,next){
+        sizeModel.findByIdAndDelete(req.body.addSizeID).exec()
+        .then((data)=>{
+            if(data !=null){
+                res.status(200).json(data);
+            }
+            else{
+                res.status(400).json();
+            }
+        })
+        .catch(()=>{
+            res.status(500).json();
+        })
+    }
+    async detail(req, res, next) {
         const billId = req.params.id
         const result = await BillDAO.getBillDetail({_id: billId})
         switch (result.code) {
@@ -88,6 +155,97 @@ class ManagementController{
 
         }
     }
+    categoryManager(req,res,next){
+        catModel.findById(req.body.CatId).lean().exec()
+        .then(
+            (data)=>{
+                res.status(200).json(data);
+            }
+        )
+    }
+    addcategory(req,res,next){
+        catModel.findById(req.body.addCatID).lean().exec()
+        .then((data)=>{
+            console.log(data);
+            if(data == null){
+                    const newcat = new catModel({
+                        _id:req.body.addCatID,
+                        name:req.body.addCatName,
+                        parentId:req.body.addCatParent,
+                    });
+                    newcat.save()
+                    .then(()=>{
+                        res.status(200).json();
+                    })
+                    .catch(()=>{
+                        res.status(300).json();
+                    })
+               
+            }
+            else{
+                res.status(400).json();
+            }
+        })
+        .catch(()=>{
+            res.status(500).json()
+        })
+    }
+    deletecategory(req,res,next){
+        catModel.findByIdAndDelete(req.body.addCatID).exec()
+        .then((data)=>{
+            if(data !=null){
+                res.status(200).json(data);
+            }
+            else{
+                res.status(400).json();
+            }
+        })
+        .catch((err)=>{
+            res.status(500).json();
+           
+        })
+        
+    }
+    updatecategory(req,res,next){
+        if(req.body.addCatParent !=''){
+            catModel.findByIdAndUpdate(req.body.addCatID,{
+                _id:req.body.addCatID,
+                name:req.body.addCatName,
+                parentId:req.body.addCatParent,
+            }).exec()
+            .then((data)=>{
+                if(data != null){
+                    res.status(200).json(data);
+                }
+                else{
+                    res.status(400).json();
+                }
+            })
+            .catch(()=>{
+                res.status(500).json();
+            })
+        }
+        else{
+            catModel.findByIdAndUpdate(req.body.addCatID,{
+                _id:req.body.addCatID,
+                name:req.body.addCatName,
+                parentId:req.body.addCatParent,
+            }).exec()
+            .then((data)=>{
+                if(data != null){
+                    res.status(200).json(data);
+                }
+                else{
+                    res.status(400).json();
+                }
+            })
+            .catch(()=>{
+                res.status(500).json();
+            })
+        }
+        
+    }
 }
+
 // AB dsaasd
 module.exports = new ManagementController;

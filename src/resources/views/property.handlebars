@@ -130,7 +130,10 @@
                         <input type="text" class="add-size-input" id="add-size-input-id" name="add-size-input-id" placeholder="Enter Size ID" value="">
                         <input type="text" class="add-size-input" id="add-size-input-name" name="add-size-input-name" placeholder="Enter Size Name" value="">
                         <input type="text" class="add-size-input" id="add-size-input-description" name="add-size-input-description" placeholder="Enter Size Description" value="">
-                        <button type="submit" id="add-size-btn">Add Size</button>
+                        <button type="submit" id="add-size-btn" class="mainbtn">Add Size</button>
+                        <button type="submit" id="delete-size-btn" class="subbtn">Delete</button>
+                        <button type="submit" id="update-size-btn" class="subbtn">Update</button>
+                        <button type="submit" id="cancel-size-btn" class="subbtn">Cancel</button>
                     </div>
                 </div>
                 <div class="property-list">
@@ -139,24 +142,6 @@
                             <span>Size List</span>
                         </div>
                         <div class="table-size">
-                        {{!-- <table class="table table-scroll">
-                            <thead>
-                                <tr></tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Description</th>
-                                </tr>
-                            </thead>
-                            <tbody style="overflow:auto;">
-                                {{#each sizeList}}
-                                    <tr>
-                                        <td>{{this._id}}</td>
-                                        <td>{{this.name}}</td>
-                                        <td>{{this.desc}}</td>
-                                    </tr>
-                                {{/each}}
-                            </tbody>
-                            </table> --}}
                             <table class="table-scroll small-first-col">
                                 <thead>
                                     <tr>
@@ -165,9 +150,9 @@
                                     <th>Description</th>
                                     </tr>
                                 </thead>
-                                <tbody class="body-half-screen">
+                                <tbody class="body-half-screen-size">
                                     {{#each sizeList}}
-                                        <tr id="{{this._id}}">
+                                        <tr id="{{this._id}}" data-id="{{this._id}}" data-desc="{{this.desc}}">
                                             <td>{{this._id}}</td>
                                             <td>{{this.name}}</td>
                                             <td>{{this.desc}}</td>
@@ -175,7 +160,7 @@
                                     {{/each}}
                                 </tbody>
                                 </table>
-                    </div>
+                        </div>
                     </div>
                 
                     
@@ -188,7 +173,7 @@
                         ADD COLOR
                     </div>
                     <div class="property-detail-color">
-                        <input type="text" class="add-color-item" id="add-colorcode-input" name="add-colorcode-input" placeholder="Enter Color Code">
+                        <input type="text" class="add-color-item" id="add-colorcode-input" name="add-colorcode-input" placeholder="Enter Color ID">
                         <input type="text" class="add-color-item" id="add-colorname-input" name="add-colorcode-input" placeholder="Enter Color Name">
                         <div class="add-color-item" id="add-color-img">
                             <div class="drag-area">
@@ -205,7 +190,7 @@
                 <div class="property-list">
                     <div class="property-list-color">
                         <div class="list-color-title">
-                        <span>Size List</span>
+                        <span>Color List</span>
                         </div>
                     </div>
                     
@@ -213,17 +198,43 @@
             </div>
             <div class="property-area">
                 <div class="add-category">
-                    <div class="propery-title">
+                    <div class="propery-title-category">
                         ADD CATEGORY
                     </div>
-                    <div class="property-detail">
-                        
+                    <div class="property-detail-category">
+                        <input type="text" class="add-size-input" id="add-category-input-id" name="add-category-input-id" placeholder="Enter Category ID" value="">
+                        <input type="text" class="add-size-input" id="add-category-input-name" name="add-category-input-name" placeholder="Enter Category Name" value="">
+                        <input type="text" class="add-size-input" id="add-category-input-parent" name="add-category-input-parent" placeholder="Enter Category Description" value="">
+                        <button type="submit" id="add-category-btn">Add Size</button>
+                        <button type="submit" id="delete-category-btn" >Delete</button>
+                        <button type="submit" id="update-category-btn" >Update</button>
+                        <button type="submit" id="cancel-category-btn" >Cancel</button>
                     </div>
                 </div>
                 <div class="property-list">
                     <div class="property-list-category">
                         <div class="list-category-title">
-                        <span>Size List</span>
+                            <span>Category List</span>
+                        </div>
+                          <div class="table-size">
+                            <table class="table-scroll small-first-col">
+                                <thead>
+                                    <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>ParentID</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="body-half-screen-cat" id="catTable">
+                                    {{#each catList}}
+                                        <tr id="{{this._id}}" data-id="{{this._id}}" data-name="{{this.name}}" data-parentId="{{this.parentId}}">
+                                            <td>{{this._id}}</td>
+                                            <td>{{this.name}}</td>
+                                            <td>{{this.parentId}}</td>
+                                        </tr>
+                                    {{/each}}
+                                </tbody>
+                                </table>
                     </div>
                     </div>
                     
