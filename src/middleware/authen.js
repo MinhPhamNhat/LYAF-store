@@ -12,25 +12,6 @@ module.exports = {
         }else
         next()
     },
-    checkChangePass:(req,res,next)=>{
-        req.params.error = 0;
-        if(req.params.passerror !=null){
-            // if(req.params.error == '1'){
-            //     console.log('1');
-            //     req.params.error = 'Mật khẩu cũ đã sai !';
-            //     next();
-            // }
-            // else{
-            //     console.log('2');
-            //     req.params.error = 'Xác nhận mật khẩu mới thất bại !';
-            //     next();
-            // }
-            console.log(req.params.passerror);
-        }
-        else{
-            next();
-        }
-    },
     apiAuthenLogin: (req, res, next)=>{
         if (req.user){
             res.status(200).json({code: 200, message:"Ok"})
