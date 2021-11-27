@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" href="/css/proManager.css">
 <div class="LYAF-dashboard-main">
     {{!-- Dashboard navbar --}}
@@ -118,18 +117,119 @@
     {{!-- End Dashboard navbar --}}
     {{!-- Dashboard body --}}
     <div class="LYAF-dasboard-body">
-    {{#equals val1=route val2="add"}}
-    {{>dashboard/add}}
-    {{/equals}}
-    {{#equals val1=route val2="list"}}
-    {{>dashboard/list}}
-    {{/equals}}
-    {{#equals val1=route val2="bill"}}
-    {{>dashboard/bill}}
-    {{/equals}}
-    {{#equals val1=route val2="property"}}
-    {{>dashboard/property}}
-    {{/equals}}
+        <div class="LYAF-dashboard-header">
+            <span class="text-uppercase font-weight-bold">PROPERTY</span>
+        </div>
+        <div class="property-body">
+            <div class="property-area">
+                <div class="add-size">
+                    <div class="propery-title">
+                        ADD SIZE
+                    </div>
+                    <div class="property-detail-size">
+                        <input type="text" class="add-size-input" id="add-size-input-id" name="add-size-input-id" placeholder="Enter Size ID" value="">
+                        <input type="text" class="add-size-input" id="add-size-input-name" name="add-size-input-name" placeholder="Enter Size Name" value="">
+                        <input type="text" class="add-size-input" id="add-size-input-description" name="add-size-input-description" placeholder="Enter Size Description" value="">
+                        <button type="submit" id="add-size-btn">Add Size</button>
+                    </div>
+                </div>
+                <div class="property-list">
+                    <div class="property-list-size">
+                        <div class="list-size-title">
+                            <span>Size List</span>
+                        </div>
+                        <div class="table-size">
+                        {{!-- <table class="table table-scroll">
+                            <thead>
+                                <tr></tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody style="overflow:auto;">
+                                {{#each sizeList}}
+                                    <tr>
+                                        <td>{{this._id}}</td>
+                                        <td>{{this.name}}</td>
+                                        <td>{{this.desc}}</td>
+                                    </tr>
+                                {{/each}}
+                            </tbody>
+                            </table> --}}
+                            <table class="table-scroll small-first-col">
+                                <thead>
+                                    <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="body-half-screen">
+                                    {{#each sizeList}}
+                                        <tr id="{{this._id}}">
+                                            <td>{{this._id}}</td>
+                                            <td>{{this.name}}</td>
+                                            <td>{{this.desc}}</td>
+                                        </tr>
+                                    {{/each}}
+                                </tbody>
+                                </table>
+                    </div>
+                    </div>
+                
+                    
+                </div>
+            </div>
+            <div class="property-area">
+                
+                <div class="add-color">
+                    <div class="propery-title">
+                        ADD COLOR
+                    </div>
+                    <div class="property-detail-color">
+                        <input type="text" class="add-color-item" id="add-colorcode-input" name="add-colorcode-input" placeholder="Enter Color Code">
+                        <input type="text" class="add-color-item" id="add-colorname-input" name="add-colorcode-input" placeholder="Enter Color Name">
+                        <div class="add-color-item" id="add-color-img">
+                            <div class="drag-area">
+                            <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                            <header>Drag & Drop A Image Here</header>
+                            <span>OR</span>
+                            <button>Upload Image</button>
+                            <input type="file" hidden>
+                        </div>
+                        </div>
+                        <button type="submit" class="add-color-item" id="add-color-btn">Add Color</button>
+                    </div>
+                </div>
+                <div class="property-list">
+                    <div class="property-list-color">
+                        <div class="list-color-title">
+                        <span>Size List</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="property-area">
+                <div class="add-category">
+                    <div class="propery-title">
+                        ADD CATEGORY
+                    </div>
+                    <div class="property-detail">
+                        
+                    </div>
+                </div>
+                <div class="property-list">
+                    <div class="property-list-category">
+                        <div class="list-category-title">
+                        <span>Size List</span>
+                    </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
     </div>
     {{!-- End Dashboard body --}}
 </div>
@@ -138,3 +238,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js" integrity="sha512-NgXVRE+Mxxf647SqmbB9wPS5SEpWiLFp5G7ItUNFi+GVUyQeP+7w4vnKtc2O/Dm74TpTFKXNjakd40pfSKNulg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.css" integrity="sha512-gGkweS4I+MDqo1tLZtHl3Nu3PGY7TU8ldedRnu60fY6etWjQ/twRHRG2J92oDj7GDU2XvX8k6G5mbp0yCoyXCA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://unpkg.com/dom-autoscroller@2.2.3/dist/dom-autoscroller.js"></script>
+<script type="module" src="/js/module/dashboard/ProductList.js"></script>
+<script type="module" src="/js/module/dashboard/Property.js"></script>

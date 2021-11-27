@@ -10,4 +10,6 @@ route.get('/',proManager.proManager);
 route.get('/add',proManager.create);
 route.get('/list',proManager.list);
 route.get('/bill',proManager.bill);
+route.get('/property',proManager.property);
+route.post('/sizeManager',proManager.sizeManager);
 module.exports = route;
