@@ -337,7 +337,7 @@ addCat.addEventListener('click',function(){
           .then(data =>{
             var catrow = '';
             for(let i of data){
-              var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-name="'+i.name+(i.parentId?("data-parentid='"+i.parentId._id+"'"):"")+'>'+
+              var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-name="'+i.name+'"'+(i.parentId?("data-parentid='"+i.parentId._id+"'"):"")+'>'+
                       '<td>'+i._id+'</td>'+
                       '<td>'+i._id+'</td>'+
                       '<td>'+(i.parentId?(i.parentId.name):"")+'</td>'+
@@ -383,17 +383,21 @@ updateCat.addEventListener('click',function(){
             }
           })
           .then((data)=>{
-              var catrow = '';
-              for(let i of data){
-                var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-name="'+i.name+'"data-parentId="'+i.parentId.name+'>'+
-                        '<td>'+i._id+'</td>'+
-                        '<td>'+i._id+'</td>'+
-                        '<td>'+i.parentId.name+'</td>'+
-                    '</tr>'
-                catrow+=row;
-              } 
-              CatTable.innerHTML = catrow;
-              clickRowCat();
+            var catrow = '';
+            for(let i of data){
+              var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-name="'+i.name+'"'+(i.parentId?("data-parentid='"+i.parentId._id+"'"):"")+'>'+
+                      '<td>'+i._id+'</td>'+
+                      '<td>'+i._id+'</td>'+
+                      '<td>'+(i.parentId?(i.parentId.name):"")+'</td>'+
+                  '</tr>';
+                console.log(row);  
+              catrow+=row;
+            } 
+            console.log('catRow:',catrow);
+            
+            CatTable.innerHTML = catrow;
+            console.log('catTbale',CatTable);
+            clickRowCat();
               showToast('Cập nhật Category','Cập nhật Thành Công');
           })
   }
@@ -428,17 +432,21 @@ deleteCat.addEventListener('click',function(){
             }
           })
           .then(data=>{
-              var catrow = '';
-              for(let i of data){
-                var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-name="'+i.name+'"data-parentId="'+i.parentId.name+'>'+
-                        '<td>'+i._id+'</td>'+
-                        '<td>'+i._id+'</td>'+
-                        '<td>'+i.parentId.name+'</td>'+
-                    '</tr>'
-                catrow+=row;
-              } 
-              CatTable.innerHTML = catrow;
-              clickRowCat();
+            var catrow = '';
+            for(let i of data){
+              var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-name="'+i.name+'"'+(i.parentId?("data-parentid='"+i.parentId._id+"'"):"")+'>'+
+                      '<td>'+i._id+'</td>'+
+                      '<td>'+i._id+'</td>'+
+                      '<td>'+(i.parentId?(i.parentId.name):"")+'</td>'+
+                  '</tr>';
+                console.log(row);  
+              catrow+=row;
+            } 
+            console.log('catRow:',catrow);
+            
+            CatTable.innerHTML = catrow;
+            console.log('catTbale',CatTable);
+            clickRowCat();
               showToast('Xóa Category','Xóa Thành Công');
           })
   }
