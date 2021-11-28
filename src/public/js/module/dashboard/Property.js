@@ -351,11 +351,11 @@ const addcolorbtn = document.querySelector('#add-color-btn');
 for(let i of sizeRowColor){
   i.addEventListener('click',function(){
     const data = JSON.stringify({
-      CatId : this.dataset.id,
-      CatName: this.dataset.name,
-      CatParent: this.dataset.parentId,
-  });
-  fetch(window.location.origin+'/manager/categoryManager',{method:'post',body:data,headers: {
+      addColorID: this.dataset.id,
+      addColorName: this.dataset.name,
+      addColorThumb: this.dataset.thumb
+    });
+  fetch(window.location.origin+'/manager/colorManager',{method:'post',body:data,headers: {
       'Content-Type': 'application/json'
   },})
       .then((data) => {
@@ -371,8 +371,10 @@ for(let i of sizeRowColor){
           cancelColor.style.display = "block";
           propertytitleColor.style.display = "none";
           addColor.style.display = "none";
+          console.log(data);
           addColorID.value = data._id;
           addColorName.value = data.name;
+
         
       })
     
@@ -381,22 +383,19 @@ for(let i of sizeRowColor){
 
 }
 addcolorbtn.addEventListener('click',function(){
-  console.log(file);
   var formData = new FormData();
   formData.append('colorImage',file);
   if(addColorID.value ==  '' || addColorName.value == ''){
       showToast('Cảnh báo !','Có input đang trống','warning');
     }
   else{
-    console.log('id',addColorID.value);
-    console.log('name',addColorName.value);
     formData.append('colorId',addColorID.value);
     formData.append('colorName',addColorName.value);
       fetch(window.location.origin+'/manager/addcolor',{method:'post',body:formData})
           .then((data) => {
               if(data.status == 200){
                 showToast('Thêm Color','Thêm Thành Công !');
-                  
+                  console.log('Thành công');
               }
               else if(data.status == 400){
                 showToast('Color đã tồn tại','Thêm Thất Bại !','error');

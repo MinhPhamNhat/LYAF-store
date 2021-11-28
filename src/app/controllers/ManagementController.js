@@ -253,7 +253,13 @@ class ManagementController{
         
     }
     colorManager(req,res,next){
-        
+        colorModel.findById(req.body.addColorID).lean().exec()
+        .then(
+            (data)=>{
+                console.log('dataserver:',data);
+                res.status(200).json(data);
+            }
+        )
     }
     async addcolor(req,res,next){
         var file = req.file;
@@ -267,7 +273,7 @@ class ManagementController{
                 const newcolor = new colorModel({
                     _id:req.body.colorId,
                     name: req.body.colorName,
-                    thumbnail:req.file.url,
+                    thumbnail:upload.url,
                 })
                 newcolor.save()
                 .then((data)=>{
