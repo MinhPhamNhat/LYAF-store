@@ -181,7 +181,7 @@
                             <header>Drag & Drop A Image Here</header>
                             <span>OR</span>
                             <button>Upload Image</button>
-                            <input type="file" hidden>
+                            <input id="inputfile" type="file" hidden>
                         </div>
                         </div>
                         <button type="submit" id="add-color-btn">Add Color</button>
@@ -229,7 +229,9 @@
                     <div class="property-detail-category">
                         <input type="text" class="add-size-input" id="add-category-input-id" name="add-category-input-id" placeholder="Enter Category ID" value="">
                         <input type="text" class="add-size-input" id="add-category-input-name" name="add-category-input-name" placeholder="Enter Category Name" value="">
-                        <input type="text" class="add-size-input" id="add-category-input-parent" name="add-category-input-parent" placeholder="Enter Category Description" value="">
+                        <select name="add-category-input-parent"  class="add-size-input" id="add-category-input-parent">
+
+                        </select>
                         <button type="submit" id="add-category-btn">Add Size</button>
                         <button type="submit" id="delete-category-btn" >Delete</button>
                         <button type="submit" id="update-category-btn" >Update</button>

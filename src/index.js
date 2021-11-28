@@ -41,7 +41,9 @@ app.use(express.static(path.join(__dirname,'public')));
 
 ////set engine (handlebars):
 app.engine('handlebars',hdbars({
-  helpers: hdbHelper
+  helpers: {
+    hdbHelper,
+  }
 }));
 app.set('view engine','handlebars');
 app.set('views',path.join(__dirname, 'resources/views'));

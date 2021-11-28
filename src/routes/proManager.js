@@ -18,6 +18,7 @@ route.post('/addsize',proManager.addsize);
 route.post('/deletesize',proManager.deletesize);
 route.post('/updatesize',proManager.updatesize);
 route.post('/categoryManager',proManager.categoryManager);
+route.post('/categoryParent',proManager.categoryParent);
 route.post('/addcategory',proManager.addcategory);
 route.post('/deletecategory',proManager.deletecategory);
 route.post('/updatecategory',proManager.updatecategory);

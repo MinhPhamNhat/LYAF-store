@@ -174,6 +174,14 @@ class ManagementController{
 
         }
     }
+    categoryParent(req,res,next){
+        catModel.find({}).populate('parentId')
+        .then(data=>{
+            data = data.map((data)=>data.toObject());
+            console.log('parentData:',data);
+            return res.status(200).json(data);
+        })
+    }
     categoryManager(req,res,next){
         catModel.findById(req.body.CatId).lean().exec()
         .then(

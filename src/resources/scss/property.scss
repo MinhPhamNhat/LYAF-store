@@ -212,9 +212,10 @@
     justify-content: center;
     flex-direction: column;
   }
-  .drag-area.active{
-    border: 2px solid #fff;
-  }
+.drag-area:hover{
+  border: 2px solid red;
+  cursor: pointer;
+}
   .drag-area .icon{
     font-size: 50px;
     color: rgb(12, 11, 11);
