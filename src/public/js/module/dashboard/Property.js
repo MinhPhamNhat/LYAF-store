@@ -65,6 +65,7 @@
   };
 
 ///////Event Size:
+const sizeTable = document.querySelector('.body-half-screen-size');
 const sizeRow = document.querySelectorAll('.body-half-screen-size tr');
 const updateSize = document.querySelector('#update-size-btn');
 const deleteSize = document.querySelector('#delete-size-btn');
@@ -74,39 +75,44 @@ const propertytitle = document.querySelector('.propery-title');
 const addSizeID = document.querySelector('#add-size-input-id');
 const addSizeName = document.querySelector('#add-size-input-name');
 const addSizeDesc = document.querySelector('#add-size-input-description');
-for(let i of sizeRow){
-  i.addEventListener('click',function(){
-    const data = JSON.stringify({
-      sizeId : this.dataset.id,
-      sizeName: this.dataset.id,
-      sizeDesc: this.dataset.desc,
-  });
-  fetch(window.location.origin+'/manager/sizeManager',{method:'post',body:data,headers: {
-      'Content-Type': 'application/json'
-  },})
-      .then((data) => {
-          if(data.status == 200){
-              return data.json();
-              
-          }
-      })
-      .then(data=>{
-         
-          updateSize.style.display = "block";
-          deleteSize.style.display = "block";
-          cancelSize.style.display = "block";
-          propertytitle.style.display = "none";
-          addSize.style.display = "none";
-          addSizeID.value = data._id;
-          addSizeName.value = data.name;
-          addSizeDesc.value = data.desc;
-        
-      })
-    
-  });
-    
-
+const clickRowSize = function(){
+  for(let i of document.querySelectorAll('.body-half-screen-size tr')){
+    i.addEventListener('click',function(){
+      const data = JSON.stringify({
+        sizeId : this.dataset.id,
+        sizeName: this.dataset.id,
+        sizeDesc: this.dataset.desc,
+    });
+    fetch(window.location.origin+'/manager/sizeManager',{method:'post',body:data,headers: {
+        'Content-Type': 'application/json'
+    },})
+        .then((data) => {
+            if(data.status == 200){
+                return data.json();
+                
+            }
+        })
+        .then(data=>{
+           
+            updateSize.style.display = "block";
+            deleteSize.style.display = "block";
+            cancelSize.style.display = "block";
+            propertytitle.style.display = "none";
+            addSize.style.display = "none";
+            addSizeID.value = data._id;
+            addSizeID.setAttribute('disabled','disabled');
+            addSizeName.value = data.name;
+            addSizeDesc.value = data.desc;
+          
+        })
+      
+    });
+      
+  
+  }
 }
+clickRowSize();
+
 cancelSize.addEventListener('click',function(){
   updateSize.style.display = "none";
   deleteSize.style.display = "none";
@@ -130,15 +136,30 @@ addSize.addEventListener('click',function(){
     },})
         .then((data) => {
             if(data.status == 200){
-              showToast('Thêm Size','Thêm Thành Công !');
+              return data.json();
+             
                 
             }
             else if(data.status == 300){
-              showToast('Thêm Size','Thêm Thất Bại !');
+              showToast('Thêm Size','Thêm Thất Bại !','error');
             }
             else{
               showToast('Thêm Size','Size đã tồn tại','error');
             }
+          })
+          .then(data=>{
+            var sizerow = '';
+            for(let i of data){
+              var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-desc="'+i.desc+'">'+
+                      '<td>'+i._id+'</td>'+
+                      '<td>'+i._id+'</td>'+
+                      '<td>'+i.desc+'</td>'+
+                  '</tr>'
+              sizerow+=row;
+            } 
+            sizeTable.innerHTML = sizerow;
+            clickRowSize();
+            showToast('Thêm Size','Thêm Thành Công');
           })
   }
 
@@ -159,7 +180,6 @@ updateSize.addEventListener('click',function(){
     },})
         .then((data) => {
             if(data.status == 200){
-              showToast('Cập nhật Size','Cập Nhật Thành Công !');
               return data.json();
                 
             }
@@ -169,6 +189,20 @@ updateSize.addEventListener('click',function(){
             else{
               showToast('Cập nhật Size','Cập Nhật thất bại !','error');
             }
+          })
+          .then(data=>{
+            var sizerow = '';
+            for(let i of data){
+              var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-desc="'+i.desc+'">'+
+                      '<td>'+i._id+'</td>'+
+                      '<td>'+i._id+'</td>'+
+                      '<td>'+i.desc+'</td>'+
+                  '</tr>'
+              sizerow+=row;
+            } 
+            sizeTable.innerHTML = sizerow;
+            clickRowSize();
+            showToast('Cập nhật Size','Cập nhật thành công');
           })
   }
   
@@ -189,7 +223,6 @@ deleteSize.addEventListener('click',function(){
     },})
         .then((data) => {
             if(data.status == 200){
-              showToast('Xóa Size','Xóa Thành Công !');
               return data.json();
                 
             }
@@ -200,12 +233,27 @@ deleteSize.addEventListener('click',function(){
               showToast('Xóa Size','Xóa thất bại !','error');
             }
           })
+          .then(data=>{
+            var sizerow = '';
+            for(let i of data){
+              var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-desc="'+i.desc+'">'+
+                      '<td>'+i._id+'</td>'+
+                      '<td>'+i._id+'</td>'+
+                      '<td>'+i.desc+'</td>'+
+                  '</tr>'
+              sizerow+=row;
+            } 
+            sizeTable.innerHTML = sizerow;
+            clickRowSize();
+            showToast('Xóa Size','Xóa Thành Công');
+          })
   }
   
 });
 
 /////
 ////Event Category:
+const CatTable = document.querySelector('.body-half-screen-cat');
 const sizeRowCat = document.querySelectorAll('#catTable tr');
 const updateCat = document.querySelector('#update-category-btn');
 const deleteCat = document.querySelector('#delete-category-btn');
@@ -215,39 +263,44 @@ const propertytitleCat = document.querySelector('.propery-title-category');
 const addCatID = document.querySelector('#add-category-input-id');
 const addCatName = document.querySelector('#add-category-input-name');
 const addCatParent = document.querySelector('#add-category-input-parent');
-for(let i of sizeRowCat){
-  i.addEventListener('click',function(){
-    const data = JSON.stringify({
-      CatId : this.dataset.id,
-      CatName: this.dataset.name,
-      CatParent: this.dataset.parentId,
-  });
-  fetch(window.location.origin+'/manager/categoryManager',{method:'post',body:data,headers: {
-      'Content-Type': 'application/json'
-  },})
-      .then((data) => {
-          if(data.status == 200){
-              return data.json();
-              
-          }
-      })
-      .then(data=>{
-         
-          updateCat.style.display = "block";
-          deleteCat.style.display = "block";
-          cancelCat.style.display = "block";
-          propertytitleCat.style.display = "none";
-          addCat.style.display = "none";
-          addCatID.value = data._id;
-          addCatName.value = data.name;
-          addCatParent.value = data.parentId;
-        
-      })
-    
-  });
-    
-
+const clickRowCat = function(){
+  for(let i of document.querySelectorAll('#catTable tr')){
+    i.addEventListener('click',function(){
+      const data = JSON.stringify({
+        CatId : this.dataset.id,
+        CatName: this.dataset.name,
+        CatParent: this.dataset.parentId,
+    });
+    fetch(window.location.origin+'/manager/categoryManager',{method:'post',body:data,headers: {
+        'Content-Type': 'application/json'
+    },})
+        .then((data) => {
+            if(data.status == 200){
+                return data.json();
+                
+            }
+        })
+        .then(data=>{
+           
+            updateCat.style.display = "block";
+            deleteCat.style.display = "block";
+            cancelCat.style.display = "block";
+            propertytitleCat.style.display = "none";
+            addCat.style.display = "none";
+            addCatID.value = data._id;
+            addCatName.value = data.name;
+            addCatParent.value = data.parentId;
+          
+        })
+      
+    });
+      
+  
+  }
 }
+
+clickRowCat();
+
 cancelCat.addEventListener('click',function(){
   updateCat.style.display = "none";
   deleteCat.style.display = "none";
@@ -271,7 +324,7 @@ addCat.addEventListener('click',function(){
     },})
         .then((data) => {
             if(data.status == 200){
-              showToast('Thêm Category','Thêm Thành Công !');
+              return data.json();
                 
             }
             else if(data.status == 300){
@@ -280,6 +333,24 @@ addCat.addEventListener('click',function(){
             else{
               showToast('Thêm Category','Category đã tồn tại','error');
             }
+          })
+          .then(data =>{
+            var catrow = '';
+            for(let i of data){
+              var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-name="'+i.name+(i.parentId?("data-parentid='"+i.parentId._id+"'"):"")+'>'+
+                      '<td>'+i._id+'</td>'+
+                      '<td>'+i._id+'</td>'+
+                      '<td>'+(i.parentId?(i.parentId.name):"")+'</td>'+
+                  '</tr>';
+                console.log(row);  
+              catrow+=row;
+            } 
+            console.log('catRow:',catrow);
+            
+            CatTable.innerHTML = catrow;
+            console.log('catTbale',CatTable);
+            clickRowCat();
+            showToast('Thêm Category','Thêm Thành Công');
           })
   }
 
@@ -300,7 +371,7 @@ updateCat.addEventListener('click',function(){
     },})
         .then((data) => {
             if(data.status == 200){
-              showToast('Cập nhật Category','Cập Nhật Thành Công !');
+              
               return data.json();
                 
             }
@@ -311,7 +382,22 @@ updateCat.addEventListener('click',function(){
               showToast('Cập nhật Category','Cập Nhật thất bại !','error');
             }
           })
+          .then((data)=>{
+              var catrow = '';
+              for(let i of data){
+                var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-name="'+i.name+'"data-parentId="'+i.parentId.name+'>'+
+                        '<td>'+i._id+'</td>'+
+                        '<td>'+i._id+'</td>'+
+                        '<td>'+i.parentId.name+'</td>'+
+                    '</tr>'
+                catrow+=row;
+              } 
+              CatTable.innerHTML = catrow;
+              clickRowCat();
+              showToast('Cập nhật Category','Cập nhật Thành Công');
+          })
   }
+
   
 });
 
@@ -331,7 +417,6 @@ deleteCat.addEventListener('click',function(){
     },})
         .then((data) => {
             if(data.status == 200){
-              showToast('Xóa Size','Xóa Thành Công !');
               return data.json();
                 
             }
@@ -341,6 +426,20 @@ deleteCat.addEventListener('click',function(){
             else if(data.status == 500){
               showToast('Xóa Size','Xóa thất bại !','error');
             }
+          })
+          .then(data=>{
+              var catrow = '';
+              for(let i of data){
+                var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-name="'+i.name+'"data-parentId="'+i.parentId.name+'>'+
+                        '<td>'+i._id+'</td>'+
+                        '<td>'+i._id+'</td>'+
+                        '<td>'+i.parentId.name+'</td>'+
+                    '</tr>'
+                catrow+=row;
+              } 
+              CatTable.innerHTML = catrow;
+              clickRowCat();
+              showToast('Xóa Category','Xóa Thành Công');
           })
   }
   
@@ -425,3 +524,57 @@ cancelColor.addEventListener('click',function(){
   propertytitleColor.style.display = "block";
   addcolorbtn.style.display = "block";
 })
+
+deleteColor.addEventListener('click',function(){
+  if(addColorID.value ==  '' || addColorName.value == ''){
+    showToast('Cảnh báo !','Có input đang trống','warning');
+  }
+  else{
+    const formData = new FormData();
+    formData.append('colorImage',file);
+    formData.append('colorId',addColorID.value);
+    formData.append('colorName',addColorName.value);
+    fetch(window.location.origin+'/manager/deletecolor',{method:'post',body:formData})
+        .then((data) => {
+            if(data.status == 200){
+              showToast('Xóa Size','Xóa Thành Công !');
+              return data.json();
+                
+            }
+            else if(data.status == 400){
+              showToast('Size vốn không tồn tại','Xóa Thất Bại !','error');
+            }
+            else if(data.status == 500){
+              showToast('Xóa Size','Xóa thất bại !','error');
+            }
+          })
+  }
+  
+});
+
+updateColor.addEventListener('click',function(){
+  if(addColorID.value ==  '' || addColorName.value == ''){
+    showToast('Cảnh báo !','Có input đang trống','warning');
+  }
+  else{
+    const formData = new FormData();
+    formData.append('colorImage',file);
+    formData.append('colorId',addColorID.value);
+    formData.append('colorName',addColorName.value);
+    fetch(window.location.origin+'/manager/updatecolor',{method:'post',body:formData})
+        .then((data) => {
+            if(data.status == 200){
+              showToast('Cập nhật Color','Cập nhật Thành Công !');
+              return data.json();
+                
+            }
+            else if(data.status == 400){
+              showToast('Color không tồn tại','Cập nhật Thất Bại !','error');
+            }
+            else if(data.status == 500){
+              showToast('Cập nhật Color','Cập nhật thất bại !','error');
+            }
+          })
+  }
+  
+});

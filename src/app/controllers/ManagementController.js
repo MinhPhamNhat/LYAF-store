@@ -61,7 +61,6 @@ class ManagementController{
     addsize(req,res,next){
         sizeModel.findById(req.body.addSizeID).lean().exec()
         .then((data)=>{
-            console.log(data);
             if(data == null){
                 const newsize = new sizeModel({
                     _id:req.body.addSizeID,
@@ -70,7 +69,12 @@ class ManagementController{
                 });
                 newsize.save()
                 .then(()=>{
-                    res.status(200).json();
+                    sizeModel.find({})
+                    .then((data)=>{
+                        data = data.map(data=>data.toObject());
+                        res.status(200).json(data);
+                    })
+                   
                 })
                 .catch(()=>{
                     res.status(300).json();
@@ -93,7 +97,11 @@ class ManagementController{
         }).exec()
         .then((data)=>{
             if(data != null){
-                res.status(200).json(data);
+                sizeModel.find({})
+                .then((data)=>{
+                    data = data.map(data=>data.toObject());
+                    res.status(200).json(data);
+                })
             }
             else{
                 res.status(400).json();
@@ -107,7 +115,11 @@ class ManagementController{
         sizeModel.findByIdAndDelete(req.body.addSizeID).exec()
         .then((data)=>{
             if(data !=null){
-                res.status(200).json(data);
+                sizeModel.find({})
+                .then((data)=>{
+                    data = data.map(data=>data.toObject());
+                    res.status(200).json(data);
+                })
             }
             else{
                 res.status(400).json();
@@ -173,7 +185,7 @@ class ManagementController{
     addcategory(req,res,next){
         catModel.findById(req.body.addCatID).lean().exec()
         .then((data)=>{
-            console.log(data);
+            console.log('Catdata:',data);
             if(data == null){
                     const newcat = new catModel({
                         _id:req.body.addCatID,
@@ -182,7 +194,11 @@ class ManagementController{
                     });
                     newcat.save()
                     .then(()=>{
-                        res.status(200).json();
+                        catModel.find({}).populate('parentId')
+                        .then((data)=>{
+                            data = data.map(data=>data.toObject());
+                            res.status(200).json(data);
+                        })
                     })
                     .catch(()=>{
                         res.status(300).json();
@@ -201,7 +217,11 @@ class ManagementController{
         catModel.findByIdAndDelete(req.body.addCatID).exec()
         .then((data)=>{
             if(data !=null){
-                res.status(200).json(data);
+                catModel.find({}).populate('parentId')
+                        .then((data)=>{
+                            data = data.map(data=>data.toObject());
+                            res.status(200).json(data);
+                        })
             }
             else{
                 res.status(400).json();
@@ -222,7 +242,11 @@ class ManagementController{
             }).exec()
             .then((data)=>{
                 if(data != null){
-                    res.status(200).json(data);
+                    catModel.find({}).populate('parentId')
+                        .then((data)=>{
+                            data = data.map(data=>data.toObject());
+                            res.status(200).json(data);
+                        })
                 }
                 else{
                     res.status(400).json();
@@ -295,10 +319,38 @@ class ManagementController{
         })
     }
     deletecolor(req,res,next){
-
+        colorModel.findByIdAndDelete(req.body.colorId).exec()
+        .then((data)=>{
+            if(data !=null){
+                res.status(200).json();
+            }
+            else{
+                res.status(400).json();
+            }
+        })
+        .catch(()=>{
+            res.status(500).json();
+        });
     }
-    updatecolor(req,res,next){
-
+    async updatecolor(req,res,next){
+        var upload = await cloudinary.uploads(req.file.path,'color');
+        colorModel.findByIdAndUpdate(req.body.colorId,{
+            _id:req.body.colorId,
+            name:req.body.colorName,
+            thumbnail:upload.url,
+        })
+        .exec()
+        .then((data) =>{
+            if(data !=null){
+                res.status(200).json();
+            }
+            else{
+                res.status(400).json();
+            }
+        })
+        .catch(() =>{
+            res.status(500).json();
+        })
     }
 }
 

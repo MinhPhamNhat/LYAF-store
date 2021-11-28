@@ -23,6 +23,6 @@ route.post('/deletecategory',proManager.deletecategory);
 route.post('/updatecategory',proManager.updatecategory);
 route.post('/colorManager',proManager.colorManager);
 route.post('/addcolor',multer.single('colorImage'),proManager.addcolor);
-route.post('/deletecolor',proManager.deletecolor);
-route.post('/updatecolor',proManager.updatecolor);
+route.post('/deletecolor',multer.single('colorImage'),proManager.deletecolor);
+route.post('/updatecolor',multer.single('colorImage'),proManager.updatecolor);
 module.exports = route;

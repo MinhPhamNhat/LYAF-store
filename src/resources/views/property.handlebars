@@ -169,7 +169,7 @@
             <div class="property-area">
                 
                 <div class="add-color">
-                    <div class="propery-title">
+                    <div class="propery-title-color">
                         ADD COLOR
                     </div>
                     <div class="property-detail-color">
@@ -192,7 +192,7 @@
                 </div>
                 <div class="property-list">
                     <div class="property-list-color">
-                        <div class="propery-title-color">
+                        <div class="list-color-title">
                         <span>Color List</span>
                         </div>
                         <div class="table-color">
@@ -252,7 +252,7 @@
                                 </thead>
                                 <tbody class="body-half-screen-cat" id="catTable">
                                     {{#each catList}}
-                                        <tr id="{{this._id}}" data-id="{{this._id}}" data-name="{{this.name}}" data-parentId="{{this.parentId}}">
+                                        <tr id="{{this._id}}" data-id="{{this._id}}" data-name="{{this.name}}" data-parentId="{{this.parentId.name}}">
                                             <td>{{this._id}}</td>
                                             <td>{{this.name}}</td>
                                             <td>{{this.parentId.name}}</td>
