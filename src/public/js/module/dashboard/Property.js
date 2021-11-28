@@ -56,6 +56,14 @@
      }
    }
 
+   const urlToObject = async (url, name) => {
+    const response = await fetch(url);
+    // here image is url/location of image
+    const blob = await response.blob();
+    const file = new File([blob], name, { type: blob.type });
+    return file;
+  };
+
 ///////Event Size:
 const sizeRow = document.querySelectorAll('.body-half-screen-size tr');
 const updateSize = document.querySelector('#update-size-btn');
@@ -364,7 +372,7 @@ for(let i of sizeRowColor){
               
           }
       })
-      .then(data=>{
+      .then(async data=>{
          
           updateColor.style.display = "block";
           deleteColor.style.display = "block";
@@ -374,7 +382,8 @@ for(let i of sizeRowColor){
           console.log(data);
           addColorID.value = data._id;
           addColorName.value = data.name;
-
+          file = await urlToObject(data.thumbnail,'colorThumb');
+          showFile();
         
       })
     
