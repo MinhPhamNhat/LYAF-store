@@ -337,3 +337,83 @@ deleteCat.addEventListener('click',function(){
   }
   
 });
+
+/////Color:
+const sizeRowColor = document.querySelectorAll('#colorTable tr');
+const updateColor = document.querySelector('#update-color-btn');
+const deleteColor = document.querySelector('#delete-color-btn');
+const addColor = document.querySelector('#add-color-btn');
+const cancelColor = document.querySelector('#cancel-color-btn');
+const propertytitleColor = document.querySelector('.propery-title-color');
+const addColorID = document.querySelector('#add-colorid-input');
+const addColorName = document.querySelector('#add-colorname-input');
+const addcolorbtn = document.querySelector('#add-color-btn');
+for(let i of sizeRowColor){
+  i.addEventListener('click',function(){
+    const data = JSON.stringify({
+      CatId : this.dataset.id,
+      CatName: this.dataset.name,
+      CatParent: this.dataset.parentId,
+  });
+  fetch(window.location.origin+'/manager/categoryManager',{method:'post',body:data,headers: {
+      'Content-Type': 'application/json'
+  },})
+      .then((data) => {
+          if(data.status == 200){
+              return data.json();
+              
+          }
+      })
+      .then(data=>{
+         
+          updateColor.style.display = "block";
+          deleteColor.style.display = "block";
+          cancelColor.style.display = "block";
+          propertytitleColor.style.display = "none";
+          addColor.style.display = "none";
+          addColorID.value = data._id;
+          addColorName.value = data.name;
+        
+      })
+    
+  });
+    
+
+}
+addcolorbtn.addEventListener('click',function(){
+  console.log(file);
+  var formData = new FormData();
+  formData.append('colorImage',file);
+  if(addColorID.value ==  '' || addColorName.value == ''){
+      showToast('Cảnh báo !','Có input đang trống','warning');
+    }
+  else{
+    console.log('id',addColorID.value);
+    console.log('name',addColorName.value);
+    formData.append('colorId',addColorID.value);
+    formData.append('colorName',addColorName.value);
+      fetch(window.location.origin+'/manager/addcolor',{method:'post',body:formData})
+          .then((data) => {
+              if(data.status == 200){
+                showToast('Thêm Color','Thêm Thành Công !');
+                  
+              }
+              else if(data.status == 400){
+                showToast('Color đã tồn tại','Thêm Thất Bại !','error');
+              }
+              else if(data.status == 500){
+                showToast('Thêm Color','Thêm thất bại !','error');
+              }
+            })
+    }
+    
+
+
+})
+cancelColor.addEventListener('click',function(){
+  updateColor.style.display = "none";
+  deleteColor.style.display = "none";
+  cancelColor.style.display = "none";
+  propertytitleColor.style.display = "block";
+  addcolorbtn.style.display = "block";
+})

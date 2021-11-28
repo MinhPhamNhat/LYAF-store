@@ -173,7 +173,7 @@
                         ADD COLOR
                     </div>
                     <div class="property-detail-color">
-                        <input type="text" class="add-color-item" id="add-colorcode-input" name="add-colorcode-input" placeholder="Enter Color ID">
+                        <input type="text" class="add-color-item" id="add-colorid-input" name="add-colorcode-input" placeholder="Enter Color ID">
                         <input type="text" class="add-color-item" id="add-colorname-input" name="add-colorcode-input" placeholder="Enter Color Name">
                         <div class="add-color-item" id="add-color-img">
                             <div class="drag-area">
@@ -184,7 +184,10 @@
                             <input type="file" hidden>
                         </div>
                         </div>
-                        <button type="submit" class="add-color-item" id="add-color-btn">Add Color</button>
+                        <button type="submit" id="add-color-btn">Add Color</button>
+                        <button type="submit" id="delete-color-btn" class="subbtn">Delete</button>
+                        <button type="submit" id="update-color-btn" class="subbtn">Update</button>
+                        <button type="submit" id="cancel-color-btn" class="subbtn">Cancel</button>
                     </div>
                 </div>
                 <div class="property-list">
@@ -192,6 +195,28 @@
                         <div class="list-color-title">
                         <span>Color List</span>
                         </div>
+                        <div class="table-color">
+                            <table class="table-scroll small-first-col">
+                                <thead>
+                                    <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Image</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="body-half-screen-color" id="colorTable">
+                                    {{#each colorList}}
+                                        <tr id="{{this._id}}" data-id="{{this._id}}" data-name="{{this.name}}" data-thumb="{{this.thumbnail}}">
+                                            <td>{{this._id}}</td>
+                                            <td>{{this.name}}</td>
+                                            <td>
+                                                <img src="{{this.thumbnail}}" alt="" id="thumbnail-color">
+                                            </td>
+                                        </tr>
+                                    {{/each}}
+                                </tbody>
+                                </table>
+                    </div>
                     </div>
                     
                 </div>
@@ -230,7 +255,7 @@
                                         <tr id="{{this._id}}" data-id="{{this._id}}" data-name="{{this.name}}" data-parentId="{{this.parentId}}">
                                             <td>{{this._id}}</td>
                                             <td>{{this.name}}</td>
-                                            <td>{{this.parentId}}</td>
+                                            <td>{{this.parentId.name}}</td>
                                         </tr>
                                     {{/each}}
                                 </tbody>

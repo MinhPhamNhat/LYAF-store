@@ -2,7 +2,9 @@ const proModel = require('../models/Product');
 const sizeModel = require('../models/Size');
 const ProductDAO = require('../repo/ProductDAO')
 const catModel = require('../models/Category');
-const BillDAO = require('../repo/BillDAO')
+const colorModel = require('../models/Color');
+const BillDAO = require('../repo/BillDAO');
+const cloudinary = require('../../config/cloudinary');
 const {parseCart} = require('../../helper/function')
 class ManagementController{
 
@@ -31,10 +33,15 @@ class ManagementController{
         sizeModel.find({})
         .then((sizeList)=>{
             sizeList = sizeList.map((sizeList) => sizeList.toObject());
-            catModel.find({})
+            catModel.find({}).populate('parentId')
             .then((catList)=>{
                 catList = catList.map((catList) => catList.toObject());
-                res.render('property', {catList,sizeList});
+                colorModel.find({})
+                    .then((colorList)=>{
+                        colorList = colorList.map((colorList) => colorList.toObject());
+                        res.render('property', {sizeList,colorList,catList});
+                    })
+              
             })
         })
 
@@ -244,6 +251,48 @@ class ManagementController{
             })
         }
         
+    }
+    colorManager(req,res,next){
+        
+    }
+    async addcolor(req,res,next){
+        var file = req.file;
+        var upload = await cloudinary.uploads(file.path,'color');
+        colorModel.findById(req.body.colorId).exec()
+        .then((data)=>{
+            if(data != null){
+                res.status(400).json();
+            }
+            else{
+                const newcolor = new colorModel({
+                    _id:req.body.colorId,
+                    name: req.body.colorName,
+                    thumbnail:req.file.url,
+                })
+                newcolor.save()
+                .then((data)=>{
+                    if(data !=null){
+                        res.status(200).json();
+                    }
+                    else{
+                        rss.status(400).json();
+                    }
+                   
+                })
+                .catch(()=>{
+                    res.status(500).json();
+                })
+            }
+        })
+        .catch(()=>{
+            res.status(500).json();
+        })
+    }
+    deletecolor(req,res,next){
+
+    }
+    updatecolor(req,res,next){
+
     }
 }
 

@@ -1,7 +1,7 @@
 //Require Route:
 const express = require('express');
 const route = express.Router();
-
+const multer = require('../middleware/multer');
 //Require controller:
 const proManager = require('../app/controllers/ManagementController');
 
@@ -21,4 +21,8 @@ route.post('/categoryManager',proManager.categoryManager);
 route.post('/addcategory',proManager.addcategory);
 route.post('/deletecategory',proManager.deletecategory);
 route.post('/updatecategory',proManager.updatecategory);
+route.post('/colorManager',proManager.colorManager);
+route.post('/addcolor',multer.single('colorImage'),proManager.addcolor);
+route.post('/deletecolor',proManager.deletecolor);
+route.post('/updatecolor',proManager.updatecolor);
 module.exports = route;
