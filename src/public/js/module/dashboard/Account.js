@@ -139,3 +139,17 @@ document.querySelector('#accDetailUpdate').addEventListener('click',function(){
         })
 
 });
+
+////Event Modal:
+document.querySelector('accDetailAdd').addEventListener('click',function(){
+  $(".property-confirm-modal .modal-title").html('Xoá màu sắc')
+  $(".property-confirm-modal .modal-body").html(`Bạn có muốn xoá màu săc <b>OKOK</b>`)
+  $(".property-confirm-modal .confirm").attr("data-property", "color")
+  $(".property-confirm-modal .confirm").attr("data-id", 'OK LUÔN')
+  $(".property-confirm-modal").modal("show")
+})
+
+$('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})
+
