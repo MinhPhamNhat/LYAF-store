@@ -402,14 +402,70 @@ class ManagementController{
             })
        
     }
+    accDetail(req,res,next){
+        const id = req.params.id;
+        userModel.findById(id).lean().exec()
+        .then(data=>{
+            res.render('accDetail',{data});
+        })
+       
+    }
     addacc(req,res,next){
 
     }
     deleteacc(req,res,next){
-
+        console.log('user id',req.body.accDetailID);
+        userModel.findByIdAndDelete(req.body.accDetailID).exec()
+        .then(data=>{
+            if(data != null){
+                accModel.findOneAndDelete({name :req.body.accDetailID}).exec()
+                .then(acc=>{
+                    if(acc != null){
+                        console.log('200 acc');
+                        res.status(200).json();
+                    }
+                    else{
+                        console.log('400 acc');
+                        res.status(400).json();
+                    }
+                 
+                })
+                .catch(()=>{
+                    console.log('500 acc');
+                    res.status(500).json();
+                })
+                
+            }
+            else{
+                console.log('400 data');
+                res.status(400).json();
+            }
+        })
+        .catch(()=>{
+            console.log('500 data');
+            res.status(500).json();
+        })
     }
     updateacc(req,res,next){
+        userModel.findByIdAndUpdate(req.body.accDetailID,{
+            _id: req.body.accDetailID,
+            name:req.body.accDetailName,
+            role:req.body.accDetailRole,
+            email:req.body.accDetailEmail,
+            phoneNumber:req.body.accDetailPhone,
 
+        }).exec()
+        .then(data=>{
+            if(data != null){
+                res.status(200).json();
+            }
+            else{
+                res.status(400).json();
+            }
+        })
+        .catch(()=>{
+            res.status(500).json();
+        })
     }
 }
 

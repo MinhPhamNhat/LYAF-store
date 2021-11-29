@@ -28,6 +28,7 @@ route.post('/deletecolor',multer.single('colorImage'),proManager.deletecolor);
 route.post('/updatecolor',multer.single('colorImage'),proManager.updatecolor);
 route.get('/account',proManager.account);
 route.get('/accountManager',proManager.accManager);
+route.get('/accountDetail/:id',proManager.accDetail);
 route.post('/addaccount',proManager.addacc);
 route.post('/deleteaccount',proManager.deleteacc);
 route.post('/updateaccount',proManager.updateacc);
