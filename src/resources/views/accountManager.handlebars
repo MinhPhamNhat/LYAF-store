@@ -122,8 +122,22 @@
             <span class="text-uppercase font-weight-bold">ACCOUNT LIST</span>
         </div>
            <div class="LYAF-dashboard-content">
+               <div class="accManagerOption">
+
                 <button type="submit" class="btn btn-secondary" id="accDetailAdd" data-toggle="modal" data-target="#accAdd">Thêm Tài khoản</button>
-                
+                <div class="filterarea">
+
+                    <select class="form-control" id="filterlist">
+                            <option value="admin">Admin</option>
+                            <option value="NVVC">Nhân viên vận chuyển</option>
+                            <option value="NVĐH">Nhân viên đơn hàng</option>
+                            <option value="NVSP">Nhân viên sản phẩm</option>
+                            <option value="user">Người dùng</option>
+                            <option value="all">Tất cả</option>
+                    </select>
+                    <button class="btn btn-secondary" id="filterBtn">Lọc theo chức vụ</button>
+                </div>
+               </div>
                <div class="accTable-body">
                    
                 <table id="accTable" class="table-striped dt-responsive nowrap"  style="width:100%">
@@ -135,21 +149,52 @@
     {{!-- End Dashboard body --}}
     
     <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="accAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLabel">THÊM TÀI KHOẢN</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
-            ...
+            <div id="accAddForm">
+                <div class="form-group">
+                    <label for="username">Họ và tên:</label>
+                    <input type="text" class="form-control" id="accadd-name" value="">
+                </div>
+                <div class="form-group">
+                    <label for="role">Chức vụ:</label>
+                        <select class="form-control" id="accadd-role">
+                            <option value="admin">Admin</option>
+                            <option value="NVVC">Nhân viên vận chuyển</option>
+                            <option value="NVĐH">Nhân viên đơn hàng</option>
+                            <option value="NVSP">Nhân viên sản phẩm</option>
+                            <option value="user">Người dùng</option>
+                        </select>
+                </div>
+            
+              
+                <div class="form-group">
+                    <label for="name">Tài khoản:</label>
+                    <input type="text" class="form-control" id="accadd-username"value="">
+                </div>
+                <div class="form-group">
+                    <label for="name">Mật khẩu:</label>
+                    <input type="text" class="form-control" id="accadd-pass"value="">
+                </div>
+                <div class="form-group">
+                    <label for="name">Xác nhận mật khẩu:</label>
+                    <input type="text" class="form-control" id="accadd-passcheck"value="">
+                </div>
+
+   
+            </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            <button type="button" class="btn btn-success" id="accAddBtn">Thêm</button>
         </div>
         </div>
     </div>
