@@ -402,6 +402,7 @@ class ManagementController{
         const id = req.params.id;
         userModel.findById(id).lean().exec()
         .then(data=>{
+          
             res.render('accDetail',{data});
         })
        
