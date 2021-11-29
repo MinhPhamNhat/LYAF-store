@@ -12,7 +12,7 @@
    document.querySelector(" .drag-area input").addEventListener("change", function(){
      //getting user select file and [0] this means if user select multiple files then we'll select only the first one
      file = this.files[0];
-    //  document.querySelector(".drag-area").classList.add("active");
+     document.querySelector(".drag-area").classList.add("active");
      showFile(); //calling function
    });
    
@@ -20,13 +20,13 @@
    //If user Drag File Over DropArea
    document.querySelector(".drag-area").addEventListener("dragover", (event)=>{
      event.preventDefault(); //preventing from default behaviour
-    //  document.querySelector(".drag-area").classList.add("active");
+     document.querySelector(".drag-area").classList.add("active");
      document.querySelector(".drag-area header").textContent = "Release to Upload File";
    });
    
    //If user leave dragged File from DropArea
    document.querySelector(".drag-area").addEventListener("dragleave", ()=>{
-    // document.querySelector(".drag-area").classList.remove("active");
+    document.querySelector(".drag-area").classList.remove("active");
     document.querySelector(".drag-area header").textContent = "Drag & Drop to Upload File";
    });
    
@@ -41,20 +41,13 @@
 
 document.querySelector('.drag-area').addEventListener('click',function(){
   if(document.querySelector('.drag-area img') !=null){
+    document.querySelector(".drag-area").classList.remove("active");
       document.querySelector('.drag-area').innerHTML = '<div class="icon"><i class="fas fa-cloud-upload-alt"></i></div><header>Drag & Drop A Image Here</header><span>OR</span><button>Upload Image</button><input id="inputfile" type="file" hidden>';
       
   }
   else{
-    document.querySelector(" .drag-area button").onclick = ()=>{
       document.querySelector(" .drag-area input").click(); //if user click on the button then the input also clicked
-     }
-     
-     document.querySelector(" .drag-area input").addEventListener("change", function(){
-       //getting user select file and [0] this means if user select multiple files then we'll select only the first one
-       file = this.files[0];
-      //  document.querySelector(".drag-area").classList.add("active");
-       showFile(); //calling function
-     });
+  
   }
   
 })
