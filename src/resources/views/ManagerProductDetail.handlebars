@@ -403,7 +403,7 @@
     {{!-- End Dashboard body --}}
 
     <!-- Modal -->
-    <div class="modal fade price-edit-modal" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal fade sale-edit-modal" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -416,15 +416,52 @@
                     <div class="mb-3">
                         <span id="title"></span>
                     </div>
+                    {{#if data.isSale}}
                     <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text font-weight-bold">Giảm giá sản phẩm</span>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="sale-update" id="sale-update-1" checked value="true">
+                            <label class="form-check-label" for="sale-update-1">True</label>
                         </div>
-                        <input type="number" class="form-control value-update" placeholder="Price" aria-label="Price" value="{{data.sale}}">
-                        <div class="description">
-                            Vui lòng nhập số phần trăm. <i><u>Ví dụ: </u></i> <b>20%</b> sẽ nhập là <b>20</b>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="sale-update" id="sale-update-2" value="false">
+                            <label class="form-check-label" for="sale-update-2">False</label>
                         </div>
                     </div>
+                    <div class="sale-input">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold">Giảm giá sản phẩm</span>
+                            </div>
+                            <input type="number" class="form-control value-update" placeholder="Sale" aria-label="Sale" value="{{data.sale}}">
+                            <div class="description">
+                                Vui lòng nhập số phần trăm. <i><u>Ví dụ: </u></i> <b>20%</b> sẽ nhập là <b>20</b>
+                            </div>
+                        </div>
+                    </div>
+                    {{else}}
+                        <div class="input-group mb-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="sale-update" id="sale-update-1" value="true">
+                                <label class="form-check-label" for="sale-update-1">True</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="sale-update" id="sale-update-2" checked value="false">
+                                <label class="form-check-label" for="sale-update-2">False</label>
+                            </div>
+                        </div>
+                        
+                        <div class="sale-input d-none">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text font-weight-bold">Giảm giá sản phẩm</span>
+                                </div>
+                                <input type="number" class="form-control value-update" placeholder="Sale" aria-label="Sale" value="{{data.sale}}">
+                                <div class="description">
+                                    Vui lòng nhập phần thậP phân. <i><u>Ví dụ: </u></i> <b>20%</b> sẽ nhập là <b>0.2</b>
+                                </div>
+                            </div>
+                        </div>
+                    {{/if}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

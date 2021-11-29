@@ -170,6 +170,16 @@ $(document).ready(()=>{
         showToast("Cập nhật giá", "Vui lòng giá hợp lệ", "warning")
     }
   })
+
+  $(".sale-edit-modal input[name='sale-update']").change(function(){
+      const value = $(this).val()
+
+      if (value === "true"){
+        $(".sale-edit-modal .sale-input").removeClass("d-none")
+      }else{
+        $(".sale-edit-modal .sale-input").addClass("d-none")
+      }
+  })
 })
 
 const getSize = async (url)=> {

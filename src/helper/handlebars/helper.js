@@ -84,8 +84,10 @@ module.exports = {
         return option.hash.date.toLocaleString('vi-VN')
     },
 
-    saleFormat: (data)=> {
-        return data*100;
+    saleFormat: (option)=> {
+        var price = option.hash.price - option.hash.sale * option.hash.price
+        price = (price*1000).toLocaleString('it-IT');
+        return price
     },
 
     imageName:  (option)=>{

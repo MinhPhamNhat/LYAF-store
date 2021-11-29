@@ -339,7 +339,7 @@ var G_currentInput = {
                         </div>`;
     var id = obj._id;
     var categories = (obj.categoryId.parentId?(obj.categoryId.parentId.name + ', '):'') + obj.categoryId.name
-    var price = ((obj.price-(obj.price * obj.sale||0))*1000).toLocaleString('it-IT') + "<u>đ</u>";
+    var price = (obj.price*1000).toLocaleString('it-IT') + "<u>đ</u>";
     var date = new Date(obj.date).toLocaleString('vi-VN')
     var rateStar = [];
     for (var i = 0; i < 5; i++) {
