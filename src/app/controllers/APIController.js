@@ -336,6 +336,10 @@ class APIController {
       }
     }
   }
+ 
+  async updateSub(req, res, next) {
+    
+  }
 
   async getImages(req, res, next) {
     const id = req.query.id

@@ -27,6 +27,7 @@ route.post('/product/updatePrice', APIController.updatePrice);
 route.post('/product/updateNew', APIController.updateNew);
 route.post('/product/updateDesc', APIController.updateDesc);
 route.post('/product/updateImages', upload.array('images', 10), APIController.updateImages);
+route.post('/product/updateSub', APIController.updateSub);
 route.get('/product/getImages', APIController.getImages);
 route.get('/province', APIController.province)
 route.get('/district/:id', APIController.district)

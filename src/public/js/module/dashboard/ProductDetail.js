@@ -1,3 +1,7 @@
+
+var subProduct = []
+var colorList
+var sizeList
 $(document).ready(()=>{
     
     $(".LYAF-preview-list").each(function () {
@@ -31,7 +35,7 @@ $(document).ready(()=>{
         const id = this.dataset.id
         const quantity = Number.parseInt($(".edit-modal .value-update").val())
         const formData = new FormData()
-        if (id && quantity > 0){
+        if (id && !Number.isNaN(quantity) && quantity > 0){
           showLoading()
             fetch(window.location.origin + '/api/product/updateQuantity', {
                 method: "POST",
@@ -112,7 +116,7 @@ $(document).ready(()=>{
     const id = this.dataset.id
     const price = Number.parseInt($(".price-edit-modal .value-update").val())
 
-    if (id && price > 0){
+    if (id && !Number.isNaN(price) && price > 0){
       showLoading()
         fetch(window.location.origin + '/api/product/updatePrice', {
             method: "POST",
@@ -155,8 +159,8 @@ $(document).ready(()=>{
     var sale = null
     if (isSale === 'true'){
         sale = Number.parseFloat($(".sale-edit-modal .value-update").val())
-        console.log(sale)
-        if (sale < 0 || sale > 1){
+        
+        if (sale < 0 || sale > 1 || Number.isNaN(sale)){
           showToast("Cập nhật sale", "Sale không hợp lệ", "warning")
           return
         }
@@ -443,7 +447,7 @@ $(document).ready(()=>{
                   var name = url.substring(n + 1);
                   var file = await urlToObject(url, name)
                   var size = humanFileSize(file.size);
-                  $(".image-update-input").prepend(`
+                  $(".image-update-input").append(`
                     <div class="LYAF-image-preview">
                       <a class="LYAF-aaaa" href="${url}">
                       <img src="${url}" class="$@da@# " height="auto" width="100">
@@ -479,20 +483,21 @@ $(document).ready(()=>{
     }
   })
   
-  $(".desc-edit-btn").click(function(){
+  $(".sub-edit-btn").click(function(){
     const id = this.dataset.id
-    $(".desc-edit-modal .modal-title").html('Cập nhật mô tả sản phẩm')
-    $(".desc-edit-modal #title").html(`Bạn muốn cập nhật mô tả sản phẩm <b>${id}</b>`)
-    $(".desc-edit-modal .confirm-update").attr("data-id", id)
-    $(".desc-edit-modal").modal("show")
+    $(".sub-edit-modal .modal-title").html('Cập nhật sản phẩm phụ')
+    $(".sub-edit-modal #title").html(`Bạn muốn cập nhật sản phẩm phụ`)
+    $(".sub-edit-modal .confirm-update").attr("data-id", id)
+    $(".sub-edit-modal").modal("show")
   })
 
-  $(".desc-edit-modal .confirm-update").click(function(){
+  $(".sub-edit-modal .confirm-update").click(function(){
     const id = this.dataset.id
-    const desc = tinymce.get("desc-update").getContent()
-    if (id && desc){
+    const subList = getSubProduct()
+    console.log(subList)
+    if (id && subList.length){
       showLoading()
-        fetch(window.location.origin + '/api/product/updateDesc', {
+        fetch(window.location.origin + '/api/product/updateSub', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -518,9 +523,167 @@ $(document).ready(()=>{
         showToast("Cập nhật mô tả", "Vui lòng mô tả hợp lệ", "warning")
     }
   })
+    
+  $(".sub-edit-modal .LYAF-sub-products-add .add-sub-product").click(() => {
+    subProduct = getSubProduct();
+    $(".add-sub-modal").modal("show");
+  });
+  getSetupList().then(data=>{
+    colorList = data.colors.data
+    sizeList = data.sizes.data
+    if ($(".color-selecter")) {
+      colorList.forEach((_) =>
+        $(".color-selecter").append(
+          `<option value="${_._id}" data-image="${_.thumbnail}" data-name="${_.name}">${_.name}</option>`
+        )
+      );
+    }
+    if ( $(".size-selecter")){
+      sizeList.forEach((_)=>{
+        $(".size-selecter").append(
+          `<option value="${_._id}" data-name="${_.name}">${_.name} - ${_.desc}</option>`
+        );
+      })
+    }
+  
+    // LC_SELECT
+    if ($(".LYAF-selecter")[0])
+      new lc_select(".color-selecter, .size-selecter", {
+        enable_search: true,
+        min_for_search: 7,
+        autofocus_search: false,
+        wrap_width: "100%",
+        pre_placeh_opt: false,
+        max_opts: false,
+        on_change: function (val, ele) {
+          if ($(ele).hasClass("color-selecter")) {
+            setUpsubProduct(val[0]);
+          }
+        },
+        labels: [
+          "search options",
+          "add options",
+          "Select options ..",
+          ".. no matching options ..",
+        ],
+      });
+  })
+  $(".add-sub-modal .save").click(() => {
+    var sizeId = $(".size-selecter").find(":selected").val();
+    var colorId = $(".color-selecter").find(":selected").val();
+    var size = sizeList.find((_) => _._id == sizeId);
+    var color = colorList.find((_) => _._id == colorId);
+    var quantity = Number.parseInt($(".add-sub-modal #quantity").val());
+    if (size && color && quantity > 0){
+      if (checkDuplicate(size._id, color._id)){
+        showToast("Thêm sản phẩm phụ", "Đã có sản phẩm phụ này", "warning")
+      }else{
+        $(".sub-edit-modal .LYAF-sub-products-list").append(`
+        <div class="sub-product">
+            <input type="hidden" id="color" value="${colorId}">
+            <input type="hidden" id="size" value="${sizeId}">
+            <input type="hidden" id="quantity" value="${quantity}">
+            <div class="sub-p-infor">
+              <div class="color">
+                  <strong>Color: </strong>
+                  <span id="value">${color.name}</span>
+              </div>
+              <div class="size">
+                  <strong>Size: </strong>
+                  <span id="value">${size.name}</span>
+              </div>
+              <div class="quantity">
+                  <strong>Quantity: </strong>
+                  <span id="value">${quantity}</span>
+              </div>
+          </div>
+          <span class="remove-sub-btn"><i class="fa fa-trash"></i></span>
+        </div>`);
+        subProduct.push({ colorId, sizeId, quantity });
+        $(".add-sub-modal").modal("hide");
+        $(".sub-edit-modal .LYAF-sub-products-add .info").html(subProduct.length + ' products')
+      }
+    }else{
+      showToast("Thêm sản phẩm phụ", "Vui lòng chọn đầy đủ thuộc tính", "warning")
+    }
+  });
+
+  $(document).on('click', '.sub-product .remove-sub-btn', function(){
+    const color = $(this).parent().find("#color").val()
+    const size = $(this).parent().find("#size").val()
+    const value = subProduct.find(v=> v.colorId === color && v.sizeId === size)
+    const index = subProduct.indexOf(value);
+    if (index > -1) {
+      subProduct.splice(index, 1);
+      $(this).parent().remove()
+      $(".LYAF-sub-products-add .info").html(subProduct.length + ' products')
+    }else{
+      showToast("Xoá sản phẩm phụ", "Không thể xoá", "warning")
+    }
+  })
 
 })
 
+
+function checkDuplicate(size, color){
+  var check = false
+  subProduct.forEach(_=>{
+    if (_.sizeId === size && _.colorId === color){
+      check = true
+    }
+  })
+  return check
+}
+
+function setUpsubProduct(colorId) {
+  var selectedSize = subProduct.map((_) => {
+    if (_.colorId == colorId) return _.sizeId;
+  });
+  const select = document.querySelector(".size-selecter");
+  $(".size-selecter option").remove();
+  const destroyEvent = new Event("lc-select-destroy");
+  select.dispatchEvent(destroyEvent);
+  sizeList.forEach((_) => {
+    if (!selectedSize.includes(_._id))
+      $(".size-selecter").append(
+        `<option value="${_._id}" data-name="${_.name}">${_.name} - ${_.desc}</option>`
+      );
+  });
+  new lc_select(".size-selecter", {
+    enable_search: true,
+  });
+}
+
+async function getSetupList(){
+  showLoading()
+  let res = await fetch(window.location.origin+"/api/getSetupList", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+      if (response.status === 200) {
+        console.log(response);
+      } else {
+      }
+      return response.json();
+    }).then((data) => {
+      return data;
+    });
+    hideLoading()
+    return res
+}
+
+function getSubProduct() {
+  var subProduct = []
+  $(".sub-edit-modal .LYAF-sub-products-list .sub-product").each((i,v)=>{
+    var colorId = $(v).find('#color').val()
+    var sizeId = $(v).find('#size').val()
+    var quantity = $(v).find('#quantity').val()
+    subProduct.push({colorId, sizeId, quantity})
+  })
+  return subProduct
+}
 
 async function getImagesObject() {
   var fileInput = await Promise.all($(".images-edit-modal .LYAF-image-preview .LYAF-aaaa").map(async (i, v) => {

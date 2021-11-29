@@ -279,8 +279,13 @@
                             <div class="sub-p-infor">
                                 <table>
                                     <tr>
+                                        <td><div class="id">
+                                            <strong>Mã: </strong>
+                                            <span id="id">{{this._id}}</span>
+                                            </div>
+                                        </td>
                                         <td><div class="color">
-                                            <strong>Color: </strong>
+                                            <strong>Màu: </strong>
                                             <span id="value">{{this.colorId.name}}</span>
                                             </div>
                                         </td>
@@ -291,7 +296,7 @@
                                         </td>
                                         <td>
                                             <div class="quantity">
-                                                <strong>Quantity: </strong>
+                                                <strong>Số lượng: </strong>
                                                 <span id="value">{{this.quantity}}</span>
                                                 <span class="edit-btn" id="edit-btn"  data-id="{{this._id}}" data-value="{{this.quantity}}" data-size="{{this.sizeId.name}}" data-color="{{this.colorId.name}}"><i class="fas fa-edit"></i></span>
                                             </div>
@@ -603,7 +608,40 @@
                         </button>
                 </div>
                 <div class="modal-body">
-                    
+                    <div class="LYAF-sub-products-add">
+                        <div class="title-info">
+                            <span class="font-weight-bold title" style="letter-spacing: 0.04em">Sub product list</span>
+                            <span class="font-weight-bold info" style="letter-spacing: 0.04em">0 products</span>
+                        </div>
+                        <div class="add-sub-product font-weight-bold" style="letter-spacing: 0.04em">
+                            <i class="fas fa-plus"></i> 
+                            <span>More</span>
+                        </div>
+                    </div>
+                    <div class="LYAF-sub-products-list">
+                        {{#each data.subProduct}}
+                        <div class="sub-product sub-{{this._id}}">
+                            <input type="hidden" id="color" value="{{this.colorId}}">
+                            <input type="hidden" id="size" value="{{this.sizeId}}">
+                            <input type="hidden" id="quantity" value="{{this.quantity}}">
+                            <div class="sub-p-infor">
+                                <div class="color">
+                                    <strong>Color: </strong>
+                                    <span id="value">{{this.colorId.name}}</span>
+                                </div>
+                                <div class="size">
+                                    <strong>Size: </strong>
+                                    <span id="value">{{this.sizeId.name}}</span>
+                                </div>
+                                <div class="quantity">
+                                    <strong>Quantity: </strong>
+                                    <span id="value">{{this.quantity}}</span>
+                                </div>
+                            </div>
+                            <span class="remove-sub-btn"><i class="fa fa-trash"></i></span>
+                        </div>
+                        {{/each}}
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -613,6 +651,41 @@
         </div>
     </div>
     {{!-- End Dashboard body --}}
+
+    <div class="modal add-sub-modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm sản phẩm con</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="basic-url" class="font-weight-bold">Color</label>
+                <div class="input-group mb-3">
+                    <select name="simple" class="LYAF-selecter color-selecter" data-placeholder="Select your product color ...">
+                    </select>
+                </div>
+
+                <label for="basic-url" class="font-weight-bold">Size</label>
+                <div class="input-group mb-3">
+                    <select name="simple" class="LYAF-selecter size-selecter" data-placeholder="Select your product size ...">
+                    </select>
+                </div>
+
+                <label for="basic-url" class="font-weight-bold">Quantity</label>
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control" id="quantity" placeholder="Quantity">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary save">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script  type="module" src="/js/productManager.js"></script>
 <script src="https://cdn.tiny.cloud/1/ycp1l3m6y4usaxn582ylh8wk67s6ze43ttkwlrbrd180idz6/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
