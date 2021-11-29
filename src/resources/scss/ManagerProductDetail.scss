@@ -1,7 +1,12 @@
-.detail-product-infor{
-    margin-top: 60px;
-    padding: 10px;
-    #name{
-        font-weight: 600;
+.LYAF-dasboard-body{
+    .LYAF-sub-products-list{
+        .quantity{
+            .edit-btn{
+                color: rgb(0, 110, 255);
+            }
+            .edit-btn:hover{
+                color: rgb(0, 77, 179);
+            }
+        }
     }
 }

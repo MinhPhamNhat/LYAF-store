@@ -462,18 +462,10 @@ $(document).ready(()=>{
           title: "Categories",
           data: "categories",
         },
-        // {
-        //   title: "Color",
-        //   data: "color",
-        // },
         {
           title: "Price",
           data: "price",
         },
-        // {
-        //   title: "Stock",
-        //   data: "quantity",
-        // },
         {
           title: "Rate",
           data: "rate",

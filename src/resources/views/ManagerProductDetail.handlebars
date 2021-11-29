@@ -128,30 +128,87 @@
         <div class="LYAF-dashboard-block col">
             <div class="LYAF-block-title">
                 <span class="font-weight-bold" style="letter-spacing: 0.04em">Product property</span>
-                <i class="fas fa-info-circle required-info">
-                </i>
-                    <span class="LYAF-tooltip font-weight-bold" style="letter-spacing: 0.04em">This information is required</span>
-                <hr>
             </div>
             <div class="LYAF-block-content">
                 <div class="LYAF-product-name">
                     <span class=" font-weight-bold">Product name :</span>
                     <input type="text" placeholder="Type your product name here" value="{{data.name}}" readonly disabled>
                 </div>
+                <div class="LYAF-product-name">
+                    <span class=" font-weight-bold">Date create :</span>
+                    <input type="text" placeholder="Type your product name here" value="{{#dateFormat date=data.date}}{{/dateFormat}}" readonly disabled>
+                </div>
                 <div class="row">
-                    <div class="LYAF-product-category col">
+                    <div class="LYAF-product-name col">
                         <label for="basic-url" class="font-weight-bold">Category</label>
                         <div class="input-group mb-3">
-                            {{#if data.categoryId.parentId}}<i>{{data.categoryId.parentId.name}} </i>  -{{/if}} <i> {{data.categoryId.name}}</i> 
+                            <input type="text" placeholder="Type your product name here" value="{{#if data.categoryId.parentId}}{{data.categoryId.parentId.name}}, {{/if}} {{data.categoryId.name}}" readonly disabled></i> 
                         </div>
                     </div>
                     <div class="LYAF-product-price col">
                         <label for="basic-url" class="font-weight-bold">Product price</label>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text font-weight-bold">VND</span>
+                                <span class="input-group-text font-weight-bold">VNĐ</span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Price" aria-label="Price" value="{{#priceFormat price=data.price}}{{/priceFormat}}">
+                            <input type="text" class="form-control" placeholder="Price" aria-label="Price"   readonly disabled value="{{#priceFormat price=data.price}}{{/priceFormat}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="LYAF-product-category col">
+                        <label for="basic-url" class="font-weight-bold">Đang giảm giá</label>
+                        <div class="input-group mb-3">
+                            {{#if data.isSale}}
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="isSale" id="inlineRadio1" checked value="option1">
+                                    <label class="form-check-label" for="inlineRadio1">
+                                         <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text font-weight-bold">%</span>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Price" readonly disabled aria-label="Price" value="{{#saleFormat data.sale}}{{/saleFormat}}">
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="isSale" id="inlineRadio2" readonly disabled  value="option2">
+                                    <label class="form-check-label" for="inlineRadio2">False</label>
+                                </div>
+                            {{else}}
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="isSale" id="inlineRadio1" readonly disabled  value="option1">
+                                    <label class="form-check-label" for="inlineRadio1">True</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="isSale" id="inlineRadio2" checked value="option2">
+                                    <label class="form-check-label" for="inlineRadio2">False</label>
+                                </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="LYAF-product-price col">
+                        <label for="basic-url" class="font-weight-bold">Sản phẩm mới</label>
+                        <div class="input-group mb-3">
+                            {{#if data.isNew}}
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="isNew" id="inlineRadio1" checked value="option1">
+                                    <label class="form-check-label" for="inlineRadio1">True</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="isNew" id="inlineRadio2"  readonly disabled   value="option2">
+                                    <label class="form-check-label" for="inlineRadio2">False</label>
+                                </div>
+                            {{else}}
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="isNew" id="inlineRadio1" readonly disabled  value="option1">
+                                    <label class="form-check-label" for="inlineRadio1">True</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="isNew" id="inlineRadio2" checked value="option2">
+                                    <label class="form-check-label" for="inlineRadio2">False</label>
+                                </div>
+                            {{/if}}
                         </div>
                     </div>
                 </div>
@@ -161,10 +218,6 @@
         <div class="LYAF-dashboard-block col">
             <div class="LYAF-block-title">
                 <span class="font-weight-bold" style="letter-spacing: 0.04em">Product description</span>
-                <i class="fas fa-info-circle required-info">
-                </i>
-                    <span class="LYAF-tooltip font-weight-bold" style="letter-spacing: 0.04em">This information is required</span>
-                <hr>
             </div>
             <div class="LYAF-block-content">
                 <div class="LYAF-product-description">
@@ -181,10 +234,6 @@
         <div class="LYAF-dashboard-block col">
             <div class="LYAF-block-title">
                 <span class="font-weight-bold" style="letter-spacing: 0.04em">Images supplement</span>
-                <i class="fas fa-info-circle required-info">
-                </i>
-                    <span class="LYAF-tooltip font-weight-bold" style="letter-spacing: 0.04em">This information is required</span>
-                <hr>
             </div>
             <div class="LYAF-block-content">
                 <div class="LYAF-product-image ">
@@ -198,16 +247,13 @@
                             </div>
                             <div class="LYAF-preview-list">
                                 {{#each data.images}}
-                                <div class="LYAF-image-preview">
-                                    <a class="LYAF-aaaa" href="{{this}}">
-                                    <img src="{{this}}" class="$@da@# " height="auto" width="100">
-                                    </a>
-                                    <span class="image-info font-weight-bold">
-                                    <span class="LYAF-asssA">
-                                        <span id="thumbnail"></span>
-                                    </span>
-                                    </span>
-                                </div>
+                                    <div class="LYAF-image-preview">
+                                        <a class="LYAF-aaaa" href="{{this}}">
+                                        <img src="{{this}}" class="$@da@# " height="auto" width="100">
+                                        </a>
+                                        {{#imageName url=this}}
+                                        {{/imageName}}
+                                    </div>
                                 {{/each}}
                             </div>
                         </div>
@@ -219,16 +265,12 @@
         <div class="LYAF-dashboard-block col">
             <div class="LYAF-block-title">
                 <span class="font-weight-bold" style="letter-spacing: 0.04em">Sub Products</span>
-                <i class="fas fa-info-circle required-info">
-                </i>
-                    <span class="LYAF-tooltip font-weight-bold" style="letter-spacing: 0.04em">This information is required</span>
-                <hr>
             </div>
             <div class="LYAF-block-content">
                 <div class="LYAF-sub-products-add">
                     <div class="title-info">
                         <span class="font-weight-bold title" style="letter-spacing: 0.04em">Sub product list</span>
-                        <span class="font-weight-bold info" style="letter-spacing: 0.04em">0 products</span>
+                        <span class="font-weight-bold info" style="letter-spacing: 0.04em">{{data.subProduct.length}} products</span>
                     </div>
                 </div>
                 <div class="LYAF-sub-products-list">
@@ -238,17 +280,22 @@
                                 <table>
                                     <tr>
                                         <td><div class="color">
-                                    <strong>Color: </strong>
-                                    <span id="value">{{this.colorId.name}}</span>
-                                </div></td>
+                                            <strong>Color: </strong>
+                                            <span id="value">{{this.colorId.name}}</span>
+                                            </div>
+                                        </td>
                                         <td><div class="size">
-                                    <strong>Size: </strong>
-                                    <span id="value">{{this.sizeId.name}}</span>
-                                </div></td>
-                                        <td><div class="quantity">
-                                    <strong>Quantity: </strong>
-                                    <span id="value">{{this.quantity}}</span>
-                                </div></td>
+                                                <strong>Size: </strong>
+                                                <span id="value">{{this.sizeId.name}}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="quantity">
+                                                <strong>Quantity: </strong>
+                                                <span id="value">{{this.quantity}}</span>
+                                                <span class="edit-btn" data-id="{{this._id}}"><i class="fas fa-edit"></i></span>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
@@ -259,8 +306,32 @@
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-success LYAF-save-new">Save</button>
 </div>
+    </div>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelId">
+      Launch
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade edit-modal" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    Body
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
     </div>
     {{!-- End Dashboard body --}}
 </div>
@@ -269,3 +340,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js" integrity="sha512-NgXVRE+Mxxf647SqmbB9wPS5SEpWiLFp5G7ItUNFi+GVUyQeP+7w4vnKtc2O/Dm74TpTFKXNjakd40pfSKNulg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.css" integrity="sha512-gGkweS4I+MDqo1tLZtHl3Nu3PGY7TU8ldedRnu60fY6etWjQ/twRHRG2J92oDj7GDU2XvX8k6G5mbp0yCoyXCA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://unpkg.com/dom-autoscroller@2.2.3/dist/dom-autoscroller.js"></script>
+<script type="module" src="/js/module/dashboard/ProductDetail.js"></script>

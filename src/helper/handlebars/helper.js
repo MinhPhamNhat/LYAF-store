@@ -1,4 +1,4 @@
-
+const cloudinary = require('../../config/cloudinary')
 module.exports = {
     equals: (options) =>{ 
         return options.hash.val1 === options.hash.val2 ? options.fn(this) : options.inverse(this) 
@@ -81,7 +81,26 @@ module.exports = {
     },
 
     dateFormat: (option) => {
-        return option.hash.date.toLocaleString()
+        return option.hash.date.toLocaleString('vi-VN')
+    },
+
+    saleFormat: (data)=> {
+        return data*100;
+    },
+
+    imageName:  (option)=>{
+        const url = option.hash.url
+        var n = url.lastIndexOf('/');
+        var result = url.substring(n + 1);
+        return `
+            <span class="image-info font-weight-bold">
+            <span class="LYAF-asssA">
+                <span id="thumbnail"></span>
+            </span>
+            <span id="name">${result}</span>
+            <span id="size" data-url="${url}"></span>
+        </span>
+        `
     }
 
 }
