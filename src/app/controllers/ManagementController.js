@@ -5,7 +5,9 @@ const catModel = require('../models/Category');
 const colorModel = require('../models/Color');
 const BillDAO = require('../repo/BillDAO');
 const cloudinary = require('../../config/cloudinary');
-const {parseCart} = require('../../helper/function')
+const {parseCart} = require('../../helper/function');
+const accModel = require('../models/Account');
+const userModel = require('../models/User');
 class ManagementController{
 
     proManager(req,res,next){
@@ -387,7 +389,30 @@ class ManagementController{
             res.status(500).json();
         })
     }
+    account(req,res,next){
+       res.render('accountManager');
+    }
+    accManager(req,res,next){
+       
+          
+            userModel.find({})
+            .then(user=>{
+                user = user.map(user=>user.toObject())
+                res.status(200).json({user});
+            })
+       
+    }
+    addacc(req,res,next){
+
+    }
+    deleteacc(req,res,next){
+
+    }
+    updateacc(req,res,next){
+
+    }
 }
+
 
 // AB dsaasd
 module.exports = new ManagementController;
