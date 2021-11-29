@@ -22,7 +22,12 @@ route.post('/manager/billPayment', APIController.billPayment);
 route.post('/product/add', upload.array('images', 10), validator.productValidator(), APIController.addProduct);
 route.post('/product/updateQuantity', APIController.updateQuantity);
 route.post('/product/updateName', APIController.updateName);
+route.post('/product/updateSale', APIController.updateSale);
 route.post('/product/updatePrice', APIController.updatePrice);
+route.post('/product/updateNew', APIController.updateNew);
+route.post('/product/updateDesc', APIController.updateDesc);
+route.post('/product/updateImages', upload.array('images', 10), APIController.updateImages);
+route.get('/product/getImages', APIController.getImages);
 route.get('/province', APIController.province)
 route.get('/district/:id', APIController.district)
 route.get('/ward/:id', APIController.ward)

@@ -132,3 +132,11 @@ const showToast = (title, mess, type = "success", x = 20, y = 20) => {
         }, 300)
     }, 4000)
   }
+
+  const showLoading = () => {
+    $(".LYAF-loading").fadeIn(300)
+  }
+
+  const hideLoading = () => {
+    $(".LYAF-loading").fadeOut(300)
+  }

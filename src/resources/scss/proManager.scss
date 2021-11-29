@@ -603,6 +603,20 @@
         flex-direction: row;
         margin-top: 10px;
         margin-bottom: 10px;
+        justify-content: space-between;
+        .remove-sub-btn{
+            padding: 10px;
+            padding-left: 15px;
+            padding-right: 15px;
+            border-radius: 10px;
+            display: block;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        
+        .remove-sub-btn:hover{
+            background-color: #b8b8b8;
+        }
         td{
             padding: 10px;
         }

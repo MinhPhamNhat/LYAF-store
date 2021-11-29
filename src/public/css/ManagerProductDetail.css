@@ -11,6 +11,42 @@
 .LYAF-dasboard-body #edit-btn:hover {
   color: #004db3; }
 
+.LYAF-dasboard-body #desc {
+  padding: 10px;
+  border: 2px dashed #b8b8b8;
+  outline-width: 2px;
+  outline-color: #b8b8b8;
+  margin-bottom: 10px; }
+
+.images-edit-modal .LYAF-preview-wrapper {
+  width: 100%; }
+  .images-edit-modal .LYAF-preview-wrapper .list-title .add-image {
+    position: relative;
+    font-size: 11px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: fit-content;
+    margin-right: 10px;
+    border-radius: 10px;
+    background-color: #e0e0e0;
+    transition: 0.3s;
+    cursor: pointer; }
+  .images-edit-modal .LYAF-preview-wrapper .image-upload {
+    z-index: 3;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: pointer; }
+  .images-edit-modal .LYAF-preview-wrapper .image-info {
+    width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+
 .description {
   margin-top: 20px;
   padding: 20px;

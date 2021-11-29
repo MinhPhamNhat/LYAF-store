@@ -30,10 +30,17 @@ $(document).ready(() => {
         )
       );
     }
+    if ( $(".size-selecter")){
+      sizeList.forEach((_)=>{
+        $(".size-selecter").append(
+          `<option value="${_._id}" data-name="${_.name}">${_.name} - ${_.desc}</option>`
+        );
+      })
+    }
   
     // LC_SELECT
     if ($(".LYAF-selecter")[0])
-      new lc_select(".color-selecter, .category-selecter", {
+      new lc_select(".color-selecter, .category-selecter, .size-selecter", {
         enable_search: true,
         min_for_search: 7,
         autofocus_search: false,
@@ -65,17 +72,6 @@ $(document).ready(() => {
       var drake = dragula([document.querySelector(".LYAF-preview-list")], {
         revertOnSpill: false,
         moves: function (el, container, handle) {
-          // return !(
-          //   $(handle).hasClass("remove-image-btn") ||
-          //   $(handle).hasClass("fa-trash") ||
-          //   $(handle).hasClass("$@da@#") ||
-          //   $(handle).hasClass("LYAF-image-preview-edit") ||
-          //   $(handle).hasClass("dropdown-toggle") ||
-          //   $(handle).hasClass("dropdown-menu") ||
-          //   $(handle).hasClass("dropdown-item") ||
-          //   $(handle).hasClass("form-check-label")||
-          //   $(handle).hasClass("fa-ellipsis-h")
-          // );
           return $(handle).hasClass("$@da@#");
         },
       });
@@ -191,7 +187,7 @@ $(document).ready(() => {
       $(".LYAF-preview-container .info").html(
         `${$(".LYAF-preview-list .LYAF-image-preview").length} images`
       );
-      $(".ima ge-upload").val(null);
+      $(".image-upload").val(null);
       updateInput();
     });
   
@@ -254,13 +250,17 @@ $(document).ready(() => {
       var colorId = $(".color-selecter").find(":selected").val();
       var size = sizeList.find((_) => _._id == sizeId);
       var color = colorList.find((_) => _._id == colorId);
-      var quantity = $(".add-sub-modal #quantity").val();
-      $(".LYAF-sub-products-list").append(`
-        <div class="sub-product">
-            <input type="hidden" id="color" value="${colorId}">
-            <input type="hidden" id="size" value="${sizeId}">
-            <input type="hidden" id="quantity" value="${quantity}">
-            <div class="sub-p-infor">
+      var quantity = Number.parseInt($(".add-sub-modal #quantity").val());
+      if (size && color && quantity > 0){
+        if (checkDuplicate(size._id, color._id)){
+          showToast("Thêm sản phẩm phụ", "Đã có sản phẩm phụ này", "warning")
+        }else{
+          $(".LYAF-sub-products-list").append(`
+          <div class="sub-product">
+              <input type="hidden" id="color" value="${colorId}">
+              <input type="hidden" id="size" value="${sizeId}">
+              <input type="hidden" id="quantity" value="${quantity}">
+              <div class="sub-p-infor">
                 <div class="color">
                     <strong>Color: </strong>
                     <span id="value">${color.name}</span>
@@ -274,10 +274,30 @@ $(document).ready(() => {
                     <span id="value">${quantity}</span>
                 </div>
             </div>
-        </div>`);
-      G_DATA.subProduct.push({ colorId, sizeId, quantity });
-      $(".add-sub-modal").modal("hide");
+            <span class="remove-sub-btn"><i class="fa fa-trash"></i></span>
+          </div>`);
+          G_DATA.subProduct.push({ colorId, sizeId, quantity });
+          $(".add-sub-modal").modal("hide");
+          $(".LYAF-sub-products-add .info").html(G_DATA.subProduct.length + ' products')
+        }
+      }else{
+        showToast("Thêm sản phẩm phụ", "Vui lòng chọn đầy đủ thuộc tính", "warning")
+      }
     });
+
+    $(document).on('click', '.sub-product .remove-sub-btn', function(){
+      const color = $(this).parent().find("#color").val()
+      const size = $(this).parent().find("#size").val()
+      const value = G_DATA.subProduct.find(v=> v.colorId === color && v.sizeId === size)
+      const index = G_DATA.subProduct.indexOf(value);
+      if (index > -1) {
+        G_DATA.subProduct.splice(index, 1);
+        $(this).parent().remove()
+        $(".LYAF-sub-products-add .info").html(G_DATA.subProduct.length + ' products')
+      }else{
+        showToast("Xoá sản phẩm phụ", "Không thể xoá", "warning")
+      }
+    })
 
     $(".LYAF-save-new").click(async ()=>{
       var data = await extractData()
@@ -292,25 +312,43 @@ $(document).ready(() => {
       data.subProduct.forEach(s => {
         formData.append("subProduct", JSON.stringify(s))
       })
+      showLoading()
       fetch(window.location.origin+'/api/product/add',{
         method: "POST",
         body: formData,
       })
       .then(data=>data.json())
       .then(data=>{
-        console.log(data)
         if (data.errors){
           var err = data.errors
           for (var prop in err) {
-            showToast(err[prop].param, err[prop].msg, "error")
+            showToast(err[prop].param, err[prop].msg, "warning")
             break;
           } 
         }else{
+          if (data.code === 200){
+            hideLoading()
+            showToast("Thêm sản phẩm", "Thêm thành công")
+            setTimeout(() => {window.location.href = '/manager/product/detail/'+ data.productId},500)
+          }else{
+            showToast("Thêm sản phẩm", data.message, "error")
+          }
         }
+        hideLoading()
       })
     })
   })
 });
+
+function checkDuplicate(size, color){
+  var check = false
+  G_DATA.subProduct.forEach(_=>{
+    if (_.sizeId === size && _.colorId === color){
+      check = true
+    }
+  })
+  return check
+}
 
 /**
  * Format bytes as human-readable text.
@@ -451,6 +489,7 @@ function toggleThumbnail(id) {
 }
 
 async function getSetupList(){
+  showLoading()
   let res = await fetch(window.location.origin+"/api/getSetupList", {
       method: "GET",
       headers: {
@@ -465,41 +504,6 @@ async function getSetupList(){
     }).then((data) => {
       return data;
     });
+    hideLoading()
     return res
 }
-
-
-
-// var showToast = (title, mess, type = "success", x = 20, y = 20) => {
-//   var toastNum = $(".toast").length
-//   var typeVal = {
-//       "warning": `<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>`,
-//       "error": `<i class="fa fa-exclamation" aria-hidden="true"></i>`,
-//       "noti": `<i class="fa fa-bell" aria-hidden="true"></i>`,
-//       "success": `<i class="fa fa-check" aria-hidden="true"></i>`
-//   }
-//   var color = {
-//       "warning": `rgb(254, 255, 193)`,
-//       "error": `rgb(255, 193, 193)`,
-//       "success": `rgb(200, 255, 193)`
-//   }
-//   var tag =
-//       `<div class="toastt toastt-${toastNum + 1}"  id="myToast" style="background-color: ${color[type]}; position: fixed; bottom: ${y}px; right: ${x}px; z-index: 100 !important">
-//               <div class="toast-header">
-//                   <div style="margin-right: 20px">${typeVal[type]}</div><strong class="mr-auto">${title}</strong>
-
-//               </div>
-//               <div class="toast-body" style="margin: 10px;">
-//                   <div>${mess}</div>
-//               </div>
-//           </div>`
-
-//   $("body").append(tag)
-//   $(`.toastt-${toastNum + 1}`).show(3000);
-//   setTimeout(() => {
-//       $(`.toastt-${toastNum + 1}`).hide(300)
-//       setTimeout(()=>{
-//           $(`.toastt-${toastNum + 1}`).remove()
-//       }, 300)
-//   }, 4000)
-// }

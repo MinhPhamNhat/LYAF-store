@@ -20,6 +20,31 @@ i {
 #breadcrumb {
   font-weight: 600; }
 
+.LYAF-loading {
+  display: none;
+  background-color: #00000023;
+  z-index: 99999 !important;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  position: fixed;
+  top: 50%;
+  /* position the top  edge of the element at the middle of the parent */
+  left: 50%;
+  /* position the left edge of the element at the middle of the parent */
+  transform: translate(-50%, -50%); }
+  .LYAF-loading img {
+    position: fixed;
+    top: 50%;
+    /* position the top  edge of the element at the middle of the parent */
+    left: 50%;
+    /* position the left edge of the element at the middle of the parent */
+    transform: translate(-50%, -50%);
+    z-index: 100000 !important; }
+  .LYAF-loading #LYAF-LOGO {
+    width: 75px;
+    height: 75px; }
+
 .newPro__logo {
   height: 100px;
   margin-top: 80px;

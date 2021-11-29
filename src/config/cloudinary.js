@@ -22,3 +22,8 @@ exports.url = (file, option) => {
     var image = cloudinary.url(file, option)
     return image;
 }
+
+exports.remove = async (filename) => {
+    cloudinary.uploader.destroy(filename, function(error,result) {
+    });
+}

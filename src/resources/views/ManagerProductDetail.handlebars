@@ -158,7 +158,7 @@
                 <div class="row">
                     <div class="LYAF-product-category col">
                         <label for="basic-url" class="font-weight-bold">Đang giảm giá : <span class="sale-edit-btn" id="edit-btn" data-id="{{data._id}}"><i class="fas fa-edit"></i></span></label>
-                        <div class="input-group mb-3">
+                        <div class="input-group mb-3 sale-input-group">
                             {{#if data.isSale}}
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="isSale" id="inlineRadio1" checked value="option1">
@@ -167,7 +167,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text font-weight-bold">%</span>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Price" readonly disabled aria-label="Price" value="{{#saleFormat data.sale}}{{/saleFormat}}">
+                                            <input type="text" class="form-control" placeholder="Price" readonly disabled aria-label="Price" value="{{#salePercentFormat data.sale}}{{/salePercentFormat}}">
                                         </div>
                                     </label>
                                 </div>
@@ -189,7 +189,7 @@
                     </div>
                     <div class="LYAF-product-price col">
                         <label for="basic-url" class="font-weight-bold">Sản phẩm mới : <span class="new-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></label>
-                        <div class="input-group mb-3">
+                        <div class="input-group mb-3 new-input-group">
                             {{#if data.isNew}}
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="isNew" id="inlineRadio1" checked value="option1">
@@ -222,9 +222,9 @@
             <div class="LYAF-block-content">
                 <div class="LYAF-product-description">
                     <span class=" font-weight-bold">Product description : <span class="desc-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></span>
-                    <p id="desc">
+                    <div id="desc">
                         {{{data.desc}}}
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -245,7 +245,7 @@
                                     <span class="font-weight-bold info" style="letter-spacing: 0.04em">{{data.images.length}} images</span>
                                 </div>
                             </div>
-                            <div class="LYAF-preview-list">
+                            <div class="LYAF-preview-list image-update-input">
                                 {{#each data.images}}
                                     <div class="LYAF-image-preview">
                                         <a class="LYAF-aaaa" href="{{this}}">
@@ -269,7 +269,7 @@
             <div class="LYAF-block-content">
                 <div class="LYAF-sub-products-add">
                     <div class="title-info">
-                        <span class="font-weight-bold title" style="letter-spacing: 0.04em">Sub product list : <span class="new-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></span>
+                        <span class="font-weight-bold title" style="letter-spacing: 0.04em">Sub product list : <span class="sub-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></span>
                         <span class="font-weight-bold info" style="letter-spacing: 0.04em">{{data.subProduct.length}} products</span>
                     </div>
                 </div>
@@ -462,6 +462,148 @@
                             </div>
                         </div>
                     {{/if}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success confirm-update">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{!-- End Dashboard body --}}
+
+    <!-- Modal -->
+    <div class="modal fade new-edit-modal" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <span id="title"></span>
+                    </div>
+                    {{#if data.isNew}}
+                    <div class="input-group mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="new-update" id="new-update-1" checked value="true">
+                            <label class="form-check-label" for="new-update-1">True</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="new-update" id="new-update-2" value="false">
+                            <label class="form-check-label" for="new-update-2">False</label>
+                        </div>
+                    </div>
+                    {{else}}
+                        <div class="input-group mb-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="new-update" id="new-update-1" value="true">
+                                <label class="form-check-label" for="new-update-1">True</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="new-update" id="new-update-2" checked value="false">
+                                <label class="form-check-label" for="new-update-2">False</label>
+                            </div>
+                        </div>
+                    {{/if}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success confirm-update">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{!-- End Dashboard body --}}
+
+    <!-- Modal -->
+    <div class="modal fade desc-edit-modal" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="desc-update">{{{data.desc}}}</textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success confirm-update">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{!-- End Dashboard body --}}
+
+    <!-- Modal -->
+    <div class="modal fade images-edit-modal" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <div class="LYAF-preview-wrapper">
+                        <div class="LYAF-preview-container">
+                            <div class="list-title">
+                                <div class="title-info">
+                                    <span class="font-weight-bold title" style="letter-spacing: 0.04em">Product images : </span>
+                                    <span class="font-weight-bold info" style="letter-spacing: 0.04em">{{data.images.length}} images</span>
+                                </div>
+                                <div class="add-image font-weight-bold" style="letter-spacing: 0.04em">
+                                    <i class="fas fa-plus"></i> 
+                                    <span>More</span>
+                                    <input type="file" id="files" name="files" title="" class="image-upload" accept="image/*" multiple>
+                                </div>
+                            </div>
+                            <div class="LYAF-preview-list">
+                                {{#each data.images}}
+                                    <div class="LYAF-image-preview">
+                                        <a class="LYAF-aaaa" href="{{this}}">
+                                        <img src="{{this}}" class="$@da@# " height="auto" width="100">
+                                        </a>
+                                        {{#imageName url=this}}
+                                        {{/imageName}}
+                                        <span class="remove-image-btn"><i class="fa fa-trash"></i></span>
+                                    </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description">
+                        Nắm ảnh và kéo để cập nhật thứ tự
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success confirm-update">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{!-- End Dashboard body --}}
+
+    <!-- Modal -->
+    <div class="modal fade sub-edit-modal" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

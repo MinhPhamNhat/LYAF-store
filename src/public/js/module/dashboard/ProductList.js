@@ -334,7 +334,7 @@ var G_currentInput = {
                           }'>
                           <div id="list-product-info">
                               <span id="list-product-name">${obj.name}</span>
-                              <span id="list-new">${obj.isNew?'<b>New</b>':''}, ${obj.isSale?'<b>Sale</b>':''}</span>
+                              <span id="list-new">${obj.isNew?'<b>New</b>':''} ${obj.isSale?'<b>Sale</b>':''}</span>
                           </div>
                         </div>`;
     var id = obj._id;
