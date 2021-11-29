@@ -310,7 +310,11 @@ class ManagementController{
                 newcolor.save()
                 .then((data)=>{
                     if(data !=null){
-                        res.status(200).json();
+                        colorModel.find({})
+                        .then((data)=>{
+                            data = data.map(data=>data.toObject());
+                            res.status(200).json(data);
+                        })
                     }
                     else{
                         rss.status(400).json();

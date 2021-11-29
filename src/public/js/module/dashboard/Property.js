@@ -5,16 +5,7 @@
    const input = document.querySelector(" .drag-area input");
    let file; //this is a global variable and we'll use it inside multiple functions
    
-   document.querySelector(" .drag-area button").onclick = ()=>{
-    document.querySelector(" .drag-area input").click(); //if user click on the button then the input also clicked
-   }
-   
-   document.querySelector(" .drag-area input").addEventListener("change", function(){
-     //getting user select file and [0] this means if user select multiple files then we'll select only the first one
-     file = this.files[0];
-     document.querySelector(".drag-area").classList.add("active");
-     showFile(); //calling function
-   });
+  
    
    
    //If user Drag File Over DropArea
@@ -46,8 +37,16 @@ document.querySelector('.drag-area').addEventListener('click',function(){
       
   }
   else{
+    document.querySelector(" .drag-area button").onclick = ()=>{
       document.querySelector(" .drag-area input").click(); //if user click on the button then the input also clicked
-  
+     }
+     
+     document.querySelector(" .drag-area input").addEventListener("change", function(){
+       //getting user select file and [0] this means if user select multiple files then we'll select only the first one
+       file = this.files[0];
+       document.querySelector(".drag-area").classList.add("active");
+       showFile(); //calling function
+     });
   }
   
 })
@@ -550,8 +549,8 @@ addcolorbtn.addEventListener('click',function(){
       fetch(window.location.origin+'/manager/addcolor',{method:'post',body:formData})
           .then((data) => {
               if(data.status == 200){
-                showToast('Thêm Color','Thêm Thành Công !');
-                  console.log('Thành công');
+                return data.json();
+                 
               }
               else if(data.status == 400){
                 showToast('Color đã tồn tại','Thêm Thất Bại !','error');
@@ -559,6 +558,26 @@ addcolorbtn.addEventListener('click',function(){
               else if(data.status == 500){
                 showToast('Thêm Color','Thêm thất bại !','error');
               }
+            })
+            .then(data=>{
+              var colorrow = '';
+              for(let i of data){
+                var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-name="'+i.name+'" data-thumb="'+i.thumb+'">'+
+                '<td>i._id</td>'+
+                '<td>i._id</td>'+
+                '<td>'+
+                    '<img src="'+i.thumbnail+'" alt="" id="thumbnail-color">'+
+                '</td>'+
+            '</tr>';
+                  console.log(row);  
+                catrow+=row;
+              } 
+              console.log('catRow:',catrow);
+              
+              CatTable.innerHTML = catrow;
+              console.log('catTbale',CatTable);
+              clickRowCat();
+                showToast('Xóa Category','Xóa Thành Công');
             })
     }
     
