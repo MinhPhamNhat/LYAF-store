@@ -334,7 +334,11 @@ class ManagementController{
         colorModel.findByIdAndDelete(req.body.colorId).exec()
         .then((data)=>{
             if(data !=null){
-                res.status(200).json();
+                colorModel.find({})
+                .then((data)=>{
+                    data = data.map(data=>data.toObject());
+                    res.status(200).json(data);
+                })
             }
             else{
                 res.status(400).json();
@@ -354,7 +358,11 @@ class ManagementController{
         .exec()
         .then((data) =>{
             if(data !=null){
-                res.status(200).json();
+                colorModel.find({})
+                .then((data)=>{
+                    data = data.map(data=>data.toObject());
+                    res.status(200).json(data);
+                })
             }
             else{
                 res.status(400).json();

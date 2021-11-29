@@ -467,10 +467,10 @@ const removeCat = () => {
               
           }
           else if(data.status == 400){
-            showToast('Size vốn không tồn tại','Xóa Thất Bại !','error');
+            showToast('Category vốn không tồn tại','Xóa Thất Bại !','error');
           }
           else if(data.status == 500){
-            showToast('Xóa Size','Xóa thất bại !','error');
+            showToast('Xóa Category','Xóa thất bại !','error');
           }
         })
         .then(data=>{
@@ -518,41 +518,46 @@ const propertytitleColor = document.querySelector('.propery-title-color');
 const addColorID = document.querySelector('#add-colorid-input');
 const addColorName = document.querySelector('#add-colorname-input');
 const addcolorbtn = document.querySelector('#add-color-btn');
-for(let i of sizeRowColor){
-  i.addEventListener('click',function(){
-    const data = JSON.stringify({
-      addColorID: this.dataset.id,
-      addColorName: this.dataset.name,
-      addColorThumb: this.dataset.thumb
-    });
-  fetch(window.location.origin+'/manager/colorManager',{method:'post',body:data,headers: {
-      'Content-Type': 'application/json'
-  },})
-      .then((data) => {
-          if(data.status == 200){
-              return data.json();
-              
-          }
-      })
-      .then(async data=>{
-         
-          updateColor.style.display = "block";
-          deleteColor.style.display = "block";
-          cancelColor.style.display = "block";
-          propertytitleColor.style.display = "none";
-          addColor.style.display = "none";
-          console.log(data);
-          addColorID.value = data._id;
-          addColorName.value = data.name;
-          file = await urlToObject(data.thumbnail,'colorThumb');
-          showFile();
-        
-      })
-    
-  });
-    
+const clickRowColor = function(){
 
+  for(let i of document.querySelectorAll('#colorTable tr')){
+    i.addEventListener('click',function(){
+      const data = JSON.stringify({
+        addColorID: this.dataset.id,
+        addColorName: this.dataset.name,
+        addColorThumb: this.dataset.thumb
+      });
+    fetch(window.location.origin+'/manager/colorManager',{method:'post',body:data,headers: {
+        'Content-Type': 'application/json'
+    },})
+        .then((data) => {
+            if(data.status == 200){
+                return data.json();
+                
+            }
+        })
+        .then(async data=>{
+           
+            updateColor.style.display = "block";
+            deleteColor.style.display = "block";
+            cancelColor.style.display = "block";
+            propertytitleColor.style.display = "none";
+            addColor.style.display = "none";
+            console.log(data);
+            addColorID.value = data._id;
+            addColorName.value = data.name;
+            file = await urlToObject(data.thumbnail,'colorThumb');
+            showFile();
+          
+        })
+      
+    });
+      
+  
+  }
 }
+
+clickRowColor();
 addcolorbtn.addEventListener('click',function(){
   var formData = new FormData();
   formData.append('colorImage',file);
@@ -579,21 +584,18 @@ addcolorbtn.addEventListener('click',function(){
               var colorrow = '';
               for(let i of data){
                 var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-name="'+i.name+'" data-thumb="'+i.thumb+'">'+
-                '<td>i._id</td>'+
-                '<td>i._id</td>'+
+                '<td>'+i._id+'</td>'+
+                '<td>'+i.name+'</td>'+
                 '<td>'+
                     '<img src="'+i.thumbnail+'" alt="" id="thumbnail-color">'+
                 '</td>'+
             '</tr>';
                   console.log(row);  
-                catrow+=row;
+                colorrow+=row;
               } 
-              console.log('catRow:',catrow);
-              
-              CatTable.innerHTML = catrow;
-              console.log('catTbale',CatTable);
-              clickRowCat();
-                showToast('Xóa Category','Xóa Thành Công');
+              document.querySelector('#colorTable').innerHTML = colorrow;
+              clickRowColor();
+                showToast('Thêm Color','Thêm Thành Công');
             })
     }
     
@@ -616,16 +618,33 @@ const removeColor = () => {
   fetch(window.location.origin+'/manager/deletecolor',{method:'post',body:formData})
       .then((data) => {
           if(data.status == 200){
-            showToast('Xóa Size','Xóa Thành Công !');
+         
             return data.json();
               
           }
           else if(data.status == 400){
-            showToast('Size vốn không tồn tại','Xóa Thất Bại !','error');
+            showToast('Color vốn không tồn tại','Xóa Thất Bại !','error');
           }
           else if(data.status == 500){
-            showToast('Xóa Size','Xóa thất bại !','error');
+            showToast('Xóa Color','Xóa thất bại !','error');
           }
+        })
+        .then(data=>{
+            var colorrow = '';
+            for(let i of data){
+              var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-name="'+i.name+'" data-thumb="'+i.thumb+'">'+
+              '<td>'+i._id+'</td>'+
+              '<td>'+i.name+'</td>'+
+              '<td>'+
+                  '<img src="'+i.thumbnail+'" alt="" id="thumbnail-color">'+
+              '</td>'+
+          '</tr>';
+                console.log(row);  
+              colorrow+=row;
+            } 
+            document.querySelector('#colorTable').innerHTML = colorrow;
+            clickRowColor();
+              showToast('Xóa Color','Xóa Thành Công');
         })
 }
 
@@ -656,7 +675,6 @@ updateColor.addEventListener('click',function(){
     fetch(window.location.origin+'/manager/updatecolor',{method:'post',body:formData})
         .then((data) => {
             if(data.status == 200){
-              showToast('Cập nhật Color','Cập nhật Thành Công !');
               return data.json();
                 
             }
@@ -666,6 +684,23 @@ updateColor.addEventListener('click',function(){
             else if(data.status == 500){
               showToast('Cập nhật Color','Cập nhật thất bại !','error');
             }
+          })
+          .then(data =>{
+              var colorrow = '';
+              for(let i of data){
+                var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-name="'+i.name+'" data-thumb="'+i.thumb+'">'+
+                '<td>'+i._id+'</td>'+
+                '<td>'+i.name+'</td>'+
+                '<td>'+
+                    '<img src="'+i.thumbnail+'" alt="" id="thumbnail-color">'+
+                '</td>'+
+            '</tr>';
+                  console.log(row);  
+                colorrow+=row;
+              } 
+              document.querySelector('#colorTable').innerHTML = colorrow;
+              clickRowColor();
+                showToast('Cập nhật Color','Cập nhật Thành Công');
           })
   }
   
