@@ -5,7 +5,8 @@ const catModel = require('../models/Category');
 const colorModel = require('../models/Color');
 const BillDAO = require('../repo/BillDAO');
 const cloudinary = require('../../config/cloudinary');
-const {parseCart} = require('../../helper/function')
+const {parseCart} = require('../../helper/function');
+const bcrypt = require('bcrypt');
 class ManagementController{
 
     proManager(req,res,next){
@@ -391,31 +392,82 @@ class ManagementController{
     }
     accManager(req,res,next){
        
-          
-            userModel.find({})
-            .then(user=>{
-                user = user.map(user=>user.toObject())
-                res.status(200).json({user});
-            })
-       
+        userModel.find({})
+        .then(user=>{
+            user = user.map(user=>user.toObject())
+            res.status(200).json({user});
+        })
     }
     accDetail(req,res,next){
         const id = req.params.id;
         userModel.findById(id).lean().exec()
         .then(data=>{
+          
             res.render('accDetail',{data});
         })
        
     }
     addacc(req,res,next){
-
+        console.log(req.body);
+        accModel.findOne({username : req.body.accUserName}).exec()
+        .then(acc=>{
+            if(acc != null){
+                console.log('400 acc');
+                res.status(400).json();
+            }
+            else{
+                const bcryptpassword = bcrypt.hashSync(req.body.accPass, 10);
+                const newacc = new accModel({
+                    username: req.body.accUserName,
+                    password: bcryptpassword,
+                })
+                newacc.save()
+                .then(newacc=>{
+                    if(newacc != null){
+                        const newuser = new userModel({
+                            _id:req.body.accUserName,
+                            name: req.body.accName,
+                            role: req.body.accRole,
+                        })
+                        newuser.save()
+                        .then(newuser=>{
+                            if(newuser != null){
+                                console.log('200 new user');
+                                res.status(200).json();
+                            }
+                            else{
+                                console.log('400 newuser');
+                                res.status(400).json();
+                            }
+                        })
+                        .catch(()=>{
+                            console.log('500 newuser ');
+                            res.status(500).json();
+                        })
+                    }
+                    else{
+                        console.log('400 newacc');
+                        res.status(400).json();
+                    }
+                })
+                .catch(()=>{
+                    console.log('500 newacc');
+                    res.status(500).json();
+                })
+            }
+            
+        })
+        .catch(()=>{
+            console.log('500 acc');
+            res.status(500).json();
+        })
     }
     deleteacc(req,res,next){
         console.log('user id',req.body.accDetailID);
         userModel.findByIdAndDelete(req.body.accDetailID).exec()
         .then(data=>{
             if(data != null){
-                accModel.findOneAndDelete({name :req.body.accDetailID}).exec()
+                accModel.findOneAndDelete({username :req.body.accDetailID}).exec()
                 .then(acc=>{
                     if(acc != null){
                         console.log('200 acc');
@@ -464,6 +516,23 @@ class ManagementController{
             res.status(500).json();
         })
     }
+    filteracc(req,res,next){
+       if(req.body.filtervalue == 'all'){
+        userModel.find({})
+        .then(user=>{
+            user = user.map(user=>user.toObject())
+            res.status(200).json({user});
+        })
+       }
+       else{
+        userModel.find({role: req.body.filtervalue})
+        .then(user=>{
+            user = user.map(user=>user.toObject())
+            res.status(200).json({user});
+        })
+        }
+    }
+       
 }
 
 // AB dsaasd

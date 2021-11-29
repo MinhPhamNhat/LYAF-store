@@ -32,4 +32,5 @@ route.get('/accountDetail/:id',proManager.accDetail);
 route.post('/addaccount',proManager.addacc);
 route.post('/deleteaccount',proManager.deleteacc);
 route.post('/updateaccount',proManager.updateacc);
+route.post('/filteraccount',proManager.filteracc);
 module.exports = route;

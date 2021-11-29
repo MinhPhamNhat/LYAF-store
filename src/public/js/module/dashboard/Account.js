@@ -36,7 +36,7 @@ const parseToElements = (obj) => {
     };
   };
 $(document).ready(()=>{
-    fetch(window.location.origin+'/manager/accountManager')
+    fetch(window.location.origin+'/manager/accountManager',{method:'get'})
     .then(data=>data.json())
     .then(data=>{
       var accList = data.user.map(_ => {
@@ -88,7 +88,111 @@ $(document).ready(()=>{
         }
       })
   })
+//Event add Acc:
+if( document.querySelector('#accAddBtn') != null){
+  document.querySelector('#accAddBtn').addEventListener('click',function(){
+    if(document.querySelector('#accadd-username').value =='' || document.querySelector('#accadd-role').value =='' ||document.querySelector('#accadd-name').value == '' || document.querySelector('#accadd-pass').value == '' || document.querySelector('#accadd-passcheck').value == ''){
+      console.log('error');
+      showToast('Cảnh báo !',' Input đang trống nè !','warning');
+    }
+    else{
+      if(document.querySelector('#accadd-pass').value != document.querySelector('#accadd-passcheck').value){
+        showToast('Lỗi !',' Xác nhận mật khẩu thất bại !','error');
+      }
+      else{
+        const data = JSON.stringify({
+          accName: document.querySelector('#accadd-name').value,
+          accRole:document.querySelector('#accadd-role').value,
+          accUserName: document.querySelector('#accadd-username').value,
+          accPass: document.querySelector('#accadd-pass').value,
+          accPassCheck: document.querySelector('#accadd-passcheck').value,
+        })
+        fetch(window.location.origin+'/manager/addaccount',{method:'post',body:data,headers: {
+          'Content-Type': 'application/json'
+      },})
+          .then((data) => {
+            if(data.status == 200){
+              window.location.href="/manager/account";
+              showToast('Thêm Tài khoản','Thêm thành công !');
+            }
+            else if(data.status == 400){
+              showToast('Thêm Tài khoản','Thêm thất bại !','error');
+            }
+            else if(data.status == 500){
+              showToast('Thêm Tài khoản','Thêm thất bại !','error');
+            }
+          })
 
+      }
+    }
+  })
+}
+//Event Filter:
+if(document.querySelector('#filterBtn') != null){
+  document.querySelector('#filterBtn').addEventListener('click',function(){
+    var filtervalue;
+    const data = JSON.stringify({
+      filtervalue: document.querySelector('#filterlist').value,
+      filter: true,
+      
+    });
+    fetch(window.location.origin+'/manager/filteraccount',{method:'post',body:data,headers: {
+        'Content-Type': 'application/json'
+    },})
+    .then(data=>data.json())
+    .then(data=>{
+      console.log('data:', data);
+      var accList = data.user.map(_ => {
+        console.log(_)
+        return parseToElements(_)
+      })
+      
+    console.log('accList:',accList);
+  
+      // DATATABLE
+      if ($("#accTable")[0]) {
+        var columns = [
+          {
+            title: "UserName",
+            data: "username",
+          },
+          {
+            title: "Name",
+            data: "name",
+          },
+          {
+            title: "Role",
+            data: "role",
+          },
+          {
+            title: "Phone",
+            data: "phone",
+          },
+          {
+            title: "Email",
+            data: "email",
+          },
+          {
+            title: "Action",
+            data: "action",
+          },
+         
+        ];
+        if(!accList.length){
+          $('#accTable').dataTable().fnClearTable();
+        }
+        else{
+          $('#accTable').dataTable().fnClearTable();
+          $('#accTable').dataTable().fnAddData(accList);
+        }
+      
+  
+       
+        }
+      })
+  })
+}
+ 
 //Event Account:
 document.querySelector('#accDetailCancel').addEventListener('click',function(){
     window.location.href="/manager/account";
