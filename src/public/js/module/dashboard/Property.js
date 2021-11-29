@@ -221,45 +221,53 @@ updateSize.addEventListener('click',function(){
   
 });
 
+const removeSize = () => {
+  const data = JSON.stringify({
+    addSizeID : addSizeID.value,
+    addSizeName : addSizeName.value,
+    addSizeDesc : addSizeDesc.value,
+  });
+  fetch(window.location.origin+'/manager/deletesize',{method:'post',body:data,headers: {
+      'Content-Type': 'application/json'
+  },})
+      .then((data) => {
+          if(data.status == 200){
+            return data.json();
+              
+          }
+          else if(data.status == 400){
+            showToast('Size vốn không tồn tại','Xóa Thất Bại !','error');
+          }
+          else{
+            showToast('Xóa Size','Xóa thất bại !','error');
+          }
+        })
+        .then(data=>{
+          var sizerow = '';
+          for(let i of data){
+            var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-desc="'+i.desc+'">'+
+                    '<td>'+i._id+'</td>'+
+                    '<td>'+i._id+'</td>'+
+                    '<td>'+i.desc+'</td>'+
+                '</tr>'
+            sizerow+=row;
+          } 
+          sizeTable.innerHTML = sizerow;
+          clickRowSize();
+          showToast('Xóa Size','Xóa Thành Công');
+        })
+}
+
 deleteSize.addEventListener('click',function(){
   if(addSizeID.value ==  '' || addSizeName.value == '' || addSizeDesc.value == ''){
     showToast('Cảnh báo !','Có input đang trống','warning');
   }
   else{
-    const data = JSON.stringify({
-      addSizeID : addSizeID.value,
-      addSizeName : addSizeName.value,
-      addSizeDesc : addSizeDesc.value,
-    });
-    fetch(window.location.origin+'/manager/deletesize',{method:'post',body:data,headers: {
-        'Content-Type': 'application/json'
-    },})
-        .then((data) => {
-            if(data.status == 200){
-              return data.json();
-                
-            }
-            else if(data.status == 400){
-              showToast('Size vốn không tồn tại','Xóa Thất Bại !','error');
-            }
-            else{
-              showToast('Xóa Size','Xóa thất bại !','error');
-            }
-          })
-          .then(data=>{
-            var sizerow = '';
-            for(let i of data){
-              var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-desc="'+i.desc+'">'+
-                      '<td>'+i._id+'</td>'+
-                      '<td>'+i._id+'</td>'+
-                      '<td>'+i.desc+'</td>'+
-                  '</tr>'
-              sizerow+=row;
-            } 
-            sizeTable.innerHTML = sizerow;
-            clickRowSize();
-            showToast('Xóa Size','Xóa Thành Công');
-          })
+    $(".property-confirm-modal .modal-title").html('Xoá size')
+    $(".property-confirm-modal .modal-body").html(`Bạn có muốn xoá size <b>${addSizeName.value}</b>`)
+    $(".property-confirm-modal .confirm").attr("data-property", "size")
+    $(".property-confirm-modal .confirm").attr("data-id", addSizeID.value)
+    $(".property-confirm-modal").modal("show")
   }
   
 });
@@ -444,50 +452,58 @@ updateCat.addEventListener('click',function(){
   
 });
 
+const removeCat = () => {
+  const data = JSON.stringify({
+    addCatID : addCatID.value,
+    addCatName : addCatName.value,
+    addCatParent : addCatParent.value,
+  });
+  fetch(window.location.origin+'/manager/deletecategory',{method:'post',body:data,headers: {
+      'Content-Type': 'application/json'
+  },})
+      .then((data) => {
+          if(data.status == 200){
+            return data.json();
+              
+          }
+          else if(data.status == 400){
+            showToast('Size vốn không tồn tại','Xóa Thất Bại !','error');
+          }
+          else if(data.status == 500){
+            showToast('Xóa Size','Xóa thất bại !','error');
+          }
+        })
+        .then(data=>{
+          var catrow = '';
+          for(let i of data){
+            var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-name="'+i.name+'"'+(i.parentId?("data-parentid='"+i.parentId._id+"'"):"")+'>'+
+                    '<td>'+i._id+'</td>'+
+                    '<td>'+i._id+'</td>'+
+                    '<td>'+(i.parentId?(i.parentId.name):"")+'</td>'+
+                '</tr>';
+              console.log(row);  
+            catrow+=row;
+          } 
+          console.log('catRow:',catrow);
+          
+          CatTable.innerHTML = catrow;
+          console.log('catTbale',CatTable);
+          clickRowCat();
+            showToast('Xóa Category','Xóa Thành Công');
+        })
+}
+
 deleteCat.addEventListener('click',function(){
   if(addCatID.value ==  '' || addCatName.value == ''){
     showToast('Cảnh báo !','Có input đang trống','warning');
   }
   else{
-  
-    const data = JSON.stringify({
-      addCatID : addCatID.value,
-      addCatName : addCatName.value,
-      addCatParent : addCatParent.value,
-    });
-    fetch(window.location.origin+'/manager/deletecategory',{method:'post',body:data,headers: {
-        'Content-Type': 'application/json'
-    },})
-        .then((data) => {
-            if(data.status == 200){
-              return data.json();
-                
-            }
-            else if(data.status == 400){
-              showToast('Size vốn không tồn tại','Xóa Thất Bại !','error');
-            }
-            else if(data.status == 500){
-              showToast('Xóa Size','Xóa thất bại !','error');
-            }
-          })
-          .then(data=>{
-            var catrow = '';
-            for(let i of data){
-              var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-name="'+i.name+'"'+(i.parentId?("data-parentid='"+i.parentId._id+"'"):"")+'>'+
-                      '<td>'+i._id+'</td>'+
-                      '<td>'+i._id+'</td>'+
-                      '<td>'+(i.parentId?(i.parentId.name):"")+'</td>'+
-                  '</tr>';
-                console.log(row);  
-              catrow+=row;
-            } 
-            console.log('catRow:',catrow);
-            
-            CatTable.innerHTML = catrow;
-            console.log('catTbale',CatTable);
-            clickRowCat();
-              showToast('Xóa Category','Xóa Thành Công');
-          })
+    $(".property-confirm-modal .modal-title").html('Xoá danh mục')
+    $(".property-confirm-modal .modal-body").html(`Bạn có muốn xoá danh mục <b>${addCatName.value}</b>`)
+    $(".property-confirm-modal .confirm").attr("data-property", "category")
+    $(".property-confirm-modal .confirm").attr("data-id", addCatID.value)
+    $(".property-confirm-modal").modal("show")
+    
   }
   
 });
@@ -592,29 +608,38 @@ cancelColor.addEventListener('click',function(){
   addcolorbtn.style.display = "block";
 })
 
+const removeColor = () => {
+  const formData = new FormData();
+  formData.append('colorImage',file);
+  formData.append('colorId',addColorID.value);
+  formData.append('colorName',addColorName.value);
+  fetch(window.location.origin+'/manager/deletecolor',{method:'post',body:formData})
+      .then((data) => {
+          if(data.status == 200){
+            showToast('Xóa Size','Xóa Thành Công !');
+            return data.json();
+              
+          }
+          else if(data.status == 400){
+            showToast('Size vốn không tồn tại','Xóa Thất Bại !','error');
+          }
+          else if(data.status == 500){
+            showToast('Xóa Size','Xóa thất bại !','error');
+          }
+        })
+}
+
 deleteColor.addEventListener('click',function(){
   if(addColorID.value ==  '' || addColorName.value == ''){
     showToast('Cảnh báo !','Có input đang trống','warning');
   }
   else{
-    const formData = new FormData();
-    formData.append('colorImage',file);
-    formData.append('colorId',addColorID.value);
-    formData.append('colorName',addColorName.value);
-    fetch(window.location.origin+'/manager/deletecolor',{method:'post',body:formData})
-        .then((data) => {
-            if(data.status == 200){
-              showToast('Xóa Size','Xóa Thành Công !');
-              return data.json();
-                
-            }
-            else if(data.status == 400){
-              showToast('Size vốn không tồn tại','Xóa Thất Bại !','error');
-            }
-            else if(data.status == 500){
-              showToast('Xóa Size','Xóa thất bại !','error');
-            }
-          })
+    $(".property-confirm-modal .modal-title").html('Xoá màu sắc')
+    $(".property-confirm-modal .modal-body").html(`Bạn có muốn xoá màu săc <b>${addColorName.value}</b>`)
+    $(".property-confirm-modal .confirm").attr("data-property", "color")
+    $(".property-confirm-modal .confirm").attr("data-id", addColorID.value)
+    $(".property-confirm-modal").modal("show")
+    
   }
   
 });
@@ -649,3 +674,26 @@ updateColor.addEventListener('click',function(){
 
 
 
+
+
+
+
+
+
+$(".property-confirm-modal .confirm").click(function(){
+  const property = this.dataset.property
+  switch (property){
+    case "size":
+      removeSize()
+      $(".property-confirm-modal").modal("hide")
+      break;
+    case "color":
+      removeColor()
+      $(".property-confirm-modal").modal("hide")
+      break;
+    case "category":
+      removeCategory()
+      $(".property-confirm-modal").modal("hide")
+      break;
+  }
+})

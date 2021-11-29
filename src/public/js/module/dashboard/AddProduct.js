@@ -363,8 +363,8 @@ async function extractData() {
  *
  * @return An File object.
  */
-const urlToObject = async (image, name) => {
-  const response = await fetch(image);
+const urlToObject = async (url, name) => {
+  const response = await fetch(url);
   // here image is url/location of image
   const blob = await response.blob();
   const file = new File([blob], name, { type: blob.type });
