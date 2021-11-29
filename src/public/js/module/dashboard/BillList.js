@@ -35,6 +35,7 @@ $(document).ready(()=>{
           data: parseData(data) ,
           columns,
           columnDefs: [{ orderable: false, targets: 0 }],
+          "order": []
         });
     })
 

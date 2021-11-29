@@ -157,5 +157,48 @@ module.exports = {
 
     getSubProductById: async (id) => {
         return SubProduct.findById(id).lean().populate('productId').populate('colorId').populate('sizeId').exec()   
+    },
+
+    updateSubProduct: async (id, payload)=>{
+        return SubProduct.findByIdAndUpdate(id, payload).exec()
+        .then(data=>{
+            if(data){
+                return {
+                    code: 1,
+                    data
+                }
+            }else{
+                return {
+                    code: 0,
+                    message: "SubProduct not found"
+                }
+            }
+        }).catch(err=>{
+            return {
+                code: -1,
+                message: err
+            }
+        })
+    },
+    updateProduct: async(id, payload)=> {
+        return Product.findByIdAndUpdate(id, payload).exec()
+        .then(data=>{
+            if(data){
+                return {
+                    code: 1,
+                    data
+                }
+            }else{
+                return {
+                    code: 0,
+                    message: "SubProduct not found"
+                }
+            }
+        }).catch(err=>{
+            return {
+                code: -1,
+                message: err
+            }
+        })
     }
 }

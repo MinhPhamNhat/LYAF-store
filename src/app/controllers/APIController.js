@@ -42,6 +42,9 @@ class APIController {
 
   async getBills(req, res, next) {
     const data = await BillDAO.getBills()
+    data.forEach(_ => {
+      console.log(_.date.toLocaleString('vi-VN'))
+    })
     res.status(200).json(data)
   }
 
@@ -202,6 +205,56 @@ class APIController {
             break;
         }
       }
+    }
+  }
+  async updateQuantity(req, res, next) {
+    const id = req.body.id;
+    const quantity = req.body.quantity;
+    const result = await ProductDAO.updateSubProduct(id, {quantity})
+    switch (result.code) {
+      case 1:
+        res.status(200).json({ code: 200, data: result.data });
+        break;
+      case 0:
+        res.status(404).json({ code: 404, message: result.message });
+        break;
+      case -1:
+        res.status(500).json({ code: 500, message: result.message });
+        break;
+    }
+  }
+
+  async updateName(req, res, next){
+    const id = req.body.id;
+    const name = req.body.name;
+    const result = await ProductDAO.updateProduct(id, {name})
+    switch (result.code) {
+      case 1:
+        res.status(200).json({ code: 200, data: result.data });
+        break;
+      case 0:
+        res.status(404).json({ code: 404, message: result.message });
+        break;
+      case -1:
+        res.status(500).json({ code: 500, message: result.message });
+        break;
+    }
+  }
+
+  async updatePrice(req, res, next){
+    const id = req.body.id;
+    const price = req.body.price;
+    const result = await ProductDAO.updateProduct(id, {price})
+    switch (result.code) {
+      case 1:
+        res.status(200).json({ code: 200, data: result.data });
+        break;
+      case 0:
+        res.status(404).json({ code: 404, message: result.message });
+        break;
+      case -1:
+        res.status(500).json({ code: 500, message: result.message });
+        break;
     }
   }
 

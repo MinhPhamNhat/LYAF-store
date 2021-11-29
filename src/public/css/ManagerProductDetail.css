@@ -3,3 +3,18 @@
 
 .LYAF-dasboard-body .LYAF-sub-products-list .quantity .edit-btn:hover {
   color: #004db3; }
+
+.LYAF-dasboard-body #edit-btn {
+  color: #006eff;
+  margin-left: 10px; }
+
+.LYAF-dasboard-body #edit-btn:hover {
+  color: #004db3; }
+
+.description {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #eafdfd;
+  border: 1px dashed #b8b8b8;
+  border-radius: 10px;
+  color: #646464; }

@@ -32,7 +32,7 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const hdbHelper = require('./helper/handlebars/helper')
 const cookieParser = require('cookie-parser')
-
+require("dotenv").config();
 //Require handlebars:
 const hdbars = require('express-handlebars');
 const path = require('path');
@@ -71,9 +71,9 @@ app.use(flash());
 app.use(passport.initialize()); 
 app.use(passport.session());
 
-require('dotenv').config();
 require('./config/passport');
 const port = process.env.PORT;
+console.log(port)
 //route:
 const route = require('./routes/index');
 route(app);

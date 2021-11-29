@@ -20,6 +20,9 @@ route.get('/manager/getProducts', APIController.getProducts)
 route.post('/manager/billState', APIController.billState);
 route.post('/manager/billPayment', APIController.billPayment);
 route.post('/product/add', upload.array('images', 10), validator.productValidator(), APIController.addProduct);
+route.post('/product/updateQuantity', APIController.updateQuantity);
+route.post('/product/updateName', APIController.updateName);
+route.post('/product/updatePrice', APIController.updatePrice);
 route.get('/province', APIController.province)
 route.get('/district/:id', APIController.district)
 route.get('/ward/:id', APIController.ward)

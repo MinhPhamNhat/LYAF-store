@@ -131,8 +131,8 @@
             </div>
             <div class="LYAF-block-content">
                 <div class="LYAF-product-name">
-                    <span class=" font-weight-bold">Product name :</span>
-                    <input type="text" placeholder="Type your product name here" value="{{data.name}}" readonly disabled>
+                    <span class=" font-weight-bold">Product name : <span class="name-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></span>
+                    <input type="text" id="nameeee" placeholder="Type your product name here" value="{{data.name}}" readonly disabled>
                 </div>
                 <div class="LYAF-product-name">
                     <span class=" font-weight-bold">Date create :</span>
@@ -140,24 +140,24 @@
                 </div>
                 <div class="row">
                     <div class="LYAF-product-name col">
-                        <label for="basic-url" class="font-weight-bold">Category</label>
+                        <label for="basic-url" class="font-weight-bold">Category :</label>
                         <div class="input-group mb-3">
                             <input type="text" placeholder="Type your product name here" value="{{#if data.categoryId.parentId}}{{data.categoryId.parentId.name}}, {{/if}} {{data.categoryId.name}}" readonly disabled></i> 
                         </div>
                     </div>
                     <div class="LYAF-product-price col">
-                        <label for="basic-url" class="font-weight-bold">Product price</label>
+                        <label for="basic-url" class="font-weight-bold">Product price : <span class="price-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></label>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text font-weight-bold">VNĐ</span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Price" aria-label="Price"   readonly disabled value="{{#priceFormat price=data.price}}{{/priceFormat}}">
+                            <input type="text" id="priceeee" class="form-control" placeholder="Price" aria-label="Price" readonly disabled value="{{#priceFormat price=data.price}}{{/priceFormat}}">
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="LYAF-product-category col">
-                        <label for="basic-url" class="font-weight-bold">Đang giảm giá</label>
+                        <label for="basic-url" class="font-weight-bold">Đang giảm giá : <span class="sale-edit-btn" id="edit-btn" data-id="{{data._id}}"><i class="fas fa-edit"></i></span></label>
                         <div class="input-group mb-3">
                             {{#if data.isSale}}
                                 <div class="form-check form-check-inline">
@@ -188,7 +188,7 @@
                         </div>
                     </div>
                     <div class="LYAF-product-price col">
-                        <label for="basic-url" class="font-weight-bold">Sản phẩm mới</label>
+                        <label for="basic-url" class="font-weight-bold">Sản phẩm mới : <span class="new-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></label>
                         <div class="input-group mb-3">
                             {{#if data.isNew}}
                                 <div class="form-check form-check-inline">
@@ -221,7 +221,7 @@
             </div>
             <div class="LYAF-block-content">
                 <div class="LYAF-product-description">
-                    <span class=" font-weight-bold">Product description :</span>
+                    <span class=" font-weight-bold">Product description : <span class="desc-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></span>
                     <p id="desc">
                         {{{data.desc}}}
                     </p>
@@ -241,7 +241,7 @@
                         <div class="LYAF-preview-container">
                             <div class="list-title">
                                 <div class="title-info">
-                                    <span class="font-weight-bold title" style="letter-spacing: 0.04em">Product images</span>
+                                    <span class="font-weight-bold title" style="letter-spacing: 0.04em">Product images : <span class="images-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></span>
                                     <span class="font-weight-bold info" style="letter-spacing: 0.04em">{{data.images.length}} images</span>
                                 </div>
                             </div>
@@ -269,13 +269,13 @@
             <div class="LYAF-block-content">
                 <div class="LYAF-sub-products-add">
                     <div class="title-info">
-                        <span class="font-weight-bold title" style="letter-spacing: 0.04em">Sub product list</span>
+                        <span class="font-weight-bold title" style="letter-spacing: 0.04em">Sub product list : <span class="new-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></span>
                         <span class="font-weight-bold info" style="letter-spacing: 0.04em">{{data.subProduct.length}} products</span>
                     </div>
                 </div>
                 <div class="LYAF-sub-products-list">
                     {{#each data.subProduct}}
-                        <div class="sub-product">
+                        <div class="sub-product sub-{{this._id}}">
                             <div class="sub-p-infor">
                                 <table>
                                     <tr>
@@ -293,7 +293,7 @@
                                             <div class="quantity">
                                                 <strong>Quantity: </strong>
                                                 <span id="value">{{this.quantity}}</span>
-                                                <span class="edit-btn" data-id="{{this._id}}"><i class="fas fa-edit"></i></span>
+                                                <span class="edit-btn" id="edit-btn"  data-id="{{this._id}}" data-value="{{this.quantity}}" data-size="{{this.sizeId.name}}" data-color="{{this.colorId.name}}"><i class="fas fa-edit"></i></span>
                                             </div>
                                         </td>
                                     </tr>
@@ -308,10 +308,6 @@
     </div>
 </div>
     </div>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelId">
-      Launch
-    </button>
     
     <!-- Modal -->
     <div class="modal fade edit-modal" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -324,11 +320,115 @@
                         </button>
                 </div>
                 <div class="modal-body">
-                    
+                    <div class="mb-3">
+                        <span id="title"></span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text font-weight-bold">Số lượng</span>
+                        </div>
+                        <input type="number" class="form-control value-update" placeholder="Quantity" aria-label="Quantity" value="">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-success confirm-update">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{!-- End Dashboard body --}}
+    
+    <!-- Modal -->
+    <div class="modal fade name-edit-modal" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <span id="title"></span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text font-weight-bold">Tên sản phẩm</span>
+                        </div>
+                        <input type="text" class="form-control value-update" placeholder="Name" aria-label="Name" value="{{data.name}}">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success confirm-update">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{!-- End Dashboard body --}}
+
+    <!-- Modal -->
+    <div class="modal fade price-edit-modal" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <span id="title"></span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text font-weight-bold">Giá sản phẩm</span>
+                        </div>
+                        <input type="number" class="form-control value-update" placeholder="Price" aria-label="Price" value="{{data.price}}">
+                        <div class="description">
+                            Vui lòng bỏ qua phần nghìn trên giá sản phẩm. <i><u>Ví dụ: </u></i> <b>100.000VNĐ</b> sẽ nhập là <b>100</b>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success confirm-update">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{!-- End Dashboard body --}}
+
+    <!-- Modal -->
+    <div class="modal fade price-edit-modal" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <span id="title"></span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text font-weight-bold">Giảm giá sản phẩm</span>
+                        </div>
+                        <input type="number" class="form-control value-update" placeholder="Price" aria-label="Price" value="{{data.sale}}">
+                        <div class="description">
+                            Vui lòng nhập số phần trăm. <i><u>Ví dụ: </u></i> <b>20%</b> sẽ nhập là <b>20</b>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success confirm-update">Save</button>
                 </div>
             </div>
         </div>

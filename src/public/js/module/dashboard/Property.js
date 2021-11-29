@@ -293,16 +293,13 @@ $( document ).ready(function() {
       })
       .then(data =>{
         var parentrow = '';
-        console.log(data);
         for(let i of data){
           if(i.parentId ==null){
             var row =  '<option value="'+i._id+'">'+i.name+'</option>';
-            console.log(row);  
             parentrow+=row;
           }
          
         }
-        console.log('parentrow',parentrow);
         parentrow += '<option value="'+''+'">'+'Không ParentId'+'</option>';
         document.querySelector('#add-category-input-parent').innerHTML = parentrow;
       })
@@ -389,13 +386,10 @@ addCat.addEventListener('click',function(){
                       '<td>'+i.name+'</td>'+
                       '<td>'+(i.parentId?(i.parentId.name):"")+'</td>'+
                   '</tr>';
-                console.log(row);  
               catrow+=row;
             } 
-            console.log('catRow:',catrow);
             
             CatTable.innerHTML = catrow;
-            console.log('catTbale',CatTable);
             clickRowCat();
             showToast('Thêm Category','Thêm Thành Công');
           })
@@ -434,16 +428,13 @@ updateCat.addEventListener('click',function(){
             for(let i of data){
               var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-name="'+i.name+'"'+(i.parentId?("data-parentid='"+i.parentId._id+"'"):"")+'>'+
                       '<td>'+i._id+'</td>'+
-                      '<td>'+i._id+'</td>'+
+                      '<td>'+i.name+'</td>'+
                       '<td>'+(i.parentId?(i.parentId.name):"")+'</td>'+
                   '</tr>';
-                console.log(row);  
               catrow+=row;
             } 
-            console.log('catRow:',catrow);
             
             CatTable.innerHTML = catrow;
-            console.log('catTbale',CatTable);
             clickRowCat();
               showToast('Cập nhật Category','Cập nhật Thành Công');
           })
@@ -478,16 +469,13 @@ const removeCat = () => {
           for(let i of data){
             var row =  '<tr id="'+i._id+'" data-id="'+i._id+'" data-name="'+i.name+'"'+(i.parentId?("data-parentid='"+i.parentId._id+"'"):"")+'>'+
                     '<td>'+i._id+'</td>'+
-                    '<td>'+i._id+'</td>'+
+                    '<td>'+i.name+'</td>'+
                     '<td>'+(i.parentId?(i.parentId.name):"")+'</td>'+
                 '</tr>';
-              console.log(row);  
             catrow+=row;
           } 
-          console.log('catRow:',catrow);
           
           CatTable.innerHTML = catrow;
-          console.log('catTbale',CatTable);
           clickRowCat();
             showToast('Xóa Category','Xóa Thành Công');
         })
@@ -543,7 +531,6 @@ const clickRowColor = function(){
             cancelColor.style.display = "block";
             propertytitleColor.style.display = "none";
             addColor.style.display = "none";
-            console.log(data);
             addColorID.value = data._id;
             addColorName.value = data.name;
             file = await urlToObject(data.thumbnail,'colorThumb');
@@ -590,7 +577,6 @@ addcolorbtn.addEventListener('click',function(){
                     '<img src="'+i.thumbnail+'" alt="" id="thumbnail-color">'+
                 '</td>'+
             '</tr>';
-                  console.log(row);  
                 colorrow+=row;
               } 
               document.querySelector('#colorTable').innerHTML = colorrow;
@@ -639,7 +625,6 @@ const removeColor = () => {
                   '<img src="'+i.thumbnail+'" alt="" id="thumbnail-color">'+
               '</td>'+
           '</tr>';
-                console.log(row);  
               colorrow+=row;
             } 
             document.querySelector('#colorTable').innerHTML = colorrow;
@@ -695,7 +680,6 @@ updateColor.addEventListener('click',function(){
                     '<img src="'+i.thumbnail+'" alt="" id="thumbnail-color">'+
                 '</td>'+
             '</tr>';
-                  console.log(row);  
                 colorrow+=row;
               } 
               document.querySelector('#colorTable').innerHTML = colorrow;
@@ -727,7 +711,7 @@ $(".property-confirm-modal .confirm").click(function(){
       $(".property-confirm-modal").modal("hide")
       break;
     case "category":
-      removeCategory()
+      removeCat()
       $(".property-confirm-modal").modal("hide")
       break;
   }

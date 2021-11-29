@@ -9,4 +9,20 @@
             }
         }
     }
+
+    #edit-btn{
+        color: rgb(0, 110, 255);
+        margin-left: 10px;
+    }
+    #edit-btn:hover{
+        color: rgb(0, 77, 179);
+    }
+}
+.description{
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #eafdfd;
+    border: 1px dashed #b8b8b8;
+    border-radius: 10px;
+    color: rgb(100, 100, 100);
 }
