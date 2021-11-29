@@ -1,6 +1,17 @@
 .accTable-body{
   
 }
-#accTable td{
-    width: 30%;
+#accTable {
+    th{
+        text-transform: uppercase;
+       
+    }
+    td{
+        padding: 10px;
+    }
+    .account-action{
+        color: white;
+        cursor: pointer;
+    }
 }
+

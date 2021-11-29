@@ -19,10 +19,20 @@ const parseToElements = (obj) => {
     else{
         role = 'User';
     }
+    var email = obj.email||'None'
+    var phone = obj.phoneNumber||'None'
+    var action = `
+      <div class="account-action">
+        <a class="btn btn-primary">Detail</a> 
+      </div>
+    `
     return {
         username,
         name,
+        phone,
         role,
+        email,
+        action
     };
   };
 $(document).ready(()=>{
@@ -30,7 +40,7 @@ $(document).ready(()=>{
     .then(data=>data.json())
     .then(data=>{
       var accList = data.user.map(_ => {
-        console.log(new Date(_.date).toLocaleString())
+        console.log(_)
         return parseToElements(_)
       })
       
@@ -50,6 +60,18 @@ $(document).ready(()=>{
           {
             title: "Role",
             data: "role",
+          },
+          {
+            title: "Phone",
+            data: "phone",
+          },
+          {
+            title: "Email",
+            data: "email",
+          },
+          {
+            title: "Action",
+            data: "action",
           },
          
         ];

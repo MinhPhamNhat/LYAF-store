@@ -1,2 +1,9 @@
+#accTable th {
+  text-transform: uppercase; }
+
 #accTable td {
-  width: 30%; }
+  padding: 10px; }
+
+#accTable .account-action {
+  color: white;
+  cursor: pointer; }
