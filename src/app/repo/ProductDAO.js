@@ -48,7 +48,6 @@ module.exports = {
         .then(async (result)=>{
             // Increase number of product in category
             var category = await Category.findById(payload.categoryId).exec()
-            console.log(category.numberOfProd, (category.numberOfProd||0)+ 1)
             await Category.findByIdAndUpdate(category._id, {numberOfProd: (category.numberOfProd||0)+ 1}).exec()
 
             // Create new SubProduct

@@ -57,6 +57,27 @@ class ManagementController{
         )
     }    
     async billDetail(req, res, next) {
+        const billId = req.params.id
+        const result = await BillDAO.getBillDetail({_id: billId})
+        switch (result.code) {
+            case 1:
+                result.data.billDetail = await parseCart(result.data.billDetail)
+                const parsedCart = result.data.billDetail
+                const truePrice = parsedCart.reduce((x,y) => x + y.price*y.quantity, 0);
+                const salePrice = truePrice - parsedCart.reduce((x,y) => x + y.salePrice*y.quantity, 0);
+                const tempPrice = truePrice - salePrice
+                const deliveryPrice = (tempPrice - salePrice) > 500 ? 0 : 50; 
+                const totalPrice = tempPrice - salePrice + deliveryPrice
+                res.render('billDetail', {route: "billDetail", header: false, user: req.user, data: result.data, salePrice, deliveryPrice, tempPrice, totalPrice});
+                break;
+            case 0:
+                res.render('404');
+                break;
+            case -1:
+                console.log(result)
+                res.render('404');
+                break;
+          }
     }
     addsize(req,res,next){
         sizeModel.findById(req.body.addSizeID).lean().exec()
@@ -147,7 +168,6 @@ class ManagementController{
                 res.render('404');
                 break;
             case -1:
-                console.log(result)
                 res.render('404');
                 break;
           }
@@ -159,14 +179,12 @@ class ManagementController{
             const result = await ProductDAO.findById(id)
             switch (result.code) {
                 case 1:
-                    console.log(result.data)
                     res.render('ManagerProductDetail', {data: result.data});
                     break;
                 case 0:
                     res.render('404');
                     break;
                 case -1:
-                    console.log(result)
                     res.render('404');
                     break;
               }
@@ -178,7 +196,6 @@ class ManagementController{
         catModel.find({}).populate('parentId')
         .then(data=>{
             data = data.map((data)=>data.toObject());
-            console.log('parentData:',data);
             return res.status(200).json(data);
         })
     }
@@ -193,7 +210,6 @@ class ManagementController{
     addcategory(req,res,next){
         catModel.findById(req.body.addCatID).lean().exec()
         .then((data)=>{
-            console.log('Catdata:',data);
             if(data == null){
                     const newcat = new catModel({
                         _id:req.body.addCatID,
@@ -288,7 +304,6 @@ class ManagementController{
         colorModel.findById(req.body.addColorID).lean().exec()
         .then(
             (data)=>{
-                console.log('dataserver:',data);
                 res.status(200).json(data);
             }
         )

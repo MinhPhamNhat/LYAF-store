@@ -38,7 +38,6 @@ module.exports = {
             alreadyPay: false
         }).save()
         .then(async (data)=>{
-            console.log(cart)
             var price = await Promise.all(cart.map(async c=>{
                 var subProd = await SubProduct.findById(c.subProdId).populate("productId").exec()
                 var price =   (subProd.productId.price-(subProd.productId.price * subProd.productId.sale||0))*c.quantity;

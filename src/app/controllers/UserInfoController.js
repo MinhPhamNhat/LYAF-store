@@ -6,7 +6,6 @@ const { parseCart } = require("../../helper/function");
 class userInfoController{
 
     start(req,res,next){
-        console.log(req.user)
         userModel.findById(req.user._id).lean().exec()
         .then(user=> {
             if (user)
