@@ -21,10 +21,21 @@ module.exports = {
     getList: async ()=>{
         return Category.find().populate('parentId').exec()
         .then(data => {
+            var parent = data.filter(_ => !(_.parentId))
+            parent.sort((x,y) => x.name > y.name)
+            var result = []
+            parent.forEach(p => {
+                result.push(p)
+                data.forEach(_ => {
+                    if (_.parentId && _.parentId._id === p._id){
+                        result.push(_)
+                    }
+                })
+            })
             return {
                 code: 1,
                 message: "Thấy dữ liệu thành công",
-                data
+                data: result
             }
         })
         .catch(err=>{

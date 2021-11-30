@@ -92,6 +92,41 @@ module.exports = {
         })
     },
 
+    advancedSearch: async (option, categoryList, limit={}, skip={}, sort={}) => {
+        console.log(categoryList)
+        return Product.find(option).populate({
+            path: 'categoryId',
+            populate: {
+                path: 'parentId'
+            }
+        }).limit(limit).sort(sort).skip(skip).exec()
+        .then(data=>{
+            if (!categoryList){
+                return {
+                    code: 1,
+                    data
+                }
+            }else{
+                var result = []
+                data.forEach(item=>{
+                    if (categoryList.includes(item.categoryId._id) || categoryList.includes(item.categoryId.parentId?item.categoryId.parentId._id:'')){
+                        result.push(item)
+                    }
+                })
+                return {
+                    code: 1,
+                    data: result
+                }
+            }
+        }).catch(err=>{
+            console.log(err)
+            return {
+                code: -1,
+                message: err
+            } 
+        })
+    },
+
     getMinMaxPriceRange: async () => {
         return await Product.aggregate([{
             $group: {
@@ -200,5 +235,74 @@ module.exports = {
                 message: err
             }
         })
+    },
+
+    addUpdateAndDeleteSubProduct: async (productId, subList) => {
+        const product = await Product.findById(productId).exec()
+        if (product){
+            var count = product.subProductCount
+            await Promise.all(subList.map( s => {
+                return SubProduct.findOneAndUpdate({productId, colorId: s.colorId, sizeId: s.sizeId}, {quantity: s.quantity}).exec()
+                .then(subProd=>{
+                    if (!subProd){
+                        var newSub = SubProduct({
+                            _id: product._id + '-' + count,
+                            productId, 
+                            colorId: s.colorId, 
+                            sizeId: s.sizeId,
+                            quantity: s.quantity
+                        }).save()
+                        count += 1
+                        return newSub
+                    }
+                    return subProd
+                }) 
+            }))
+            product.subProductCount = count
+            await product.save()
+            const subProdList = await SubProduct.find({productId}).populate('colorId').populate('sizeId').exec()
+            const updateList = await Promise.all(subProdList.map(async s=>{
+                const value = subList.find(v=> v.colorId === s.colorId._id && v.sizeId === s.sizeId._id)
+                if (!value){
+                    await SubProduct.findByIdAndDelete(s._id).exec()
+                    return undefined
+                }else{
+                    return s
+                }
+            }))
+            return {
+                code: 1,
+                data: updateList.filter(_ => _ !== undefined)
+            }
+        }else{
+            return {
+                code: 0,
+                message: "Product not found"
+            }
+        }
+    },
+
+    removeProduct: async (id)=>{
+        return Product.delete({_id: id}).exec()
+        .then(data=>{
+            if(data){
+                console.log(data)
+                return {
+                    code: 1,
+                    data
+                }
+            }else{
+                return {
+                    code: 0,
+                    message: "Product not found"
+                }
+            }
+        }).catch(err=>{
+            return {
+                code: -1,
+                message: err
+            }
+        })
+
     }
 }

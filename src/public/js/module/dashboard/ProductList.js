@@ -13,320 +13,6 @@ var G_currentInput = {
     thumbnails: null,
   };
   
-  // const colorList = [
-  //   {
-  //     name: "Đỏ",
-  //     _id: "R",
-  //     colorImage: "color-red.jpg",
-  //   },
-  //   {
-  //     name: "Đen",
-  //     _id: "B",
-  //     colorImage: "color-black.jpg",
-  //   },
-  //   {
-  //     name: "Camo rêu",
-  //     _id: "CR",
-  //     colorImage: "color-camo-green.jpg",
-  //   },
-  //   {
-  //     name: "Camo xám",
-  //     _id: "CX",
-  //     colorImage: "color-camo-grey.jpg",
-  //   },
-  //   {
-  //     name: "Caro đen",
-  //     _id: "CRB",
-  //     colorImage: "color-caro-black.jpg",
-  //   },
-  //   {
-  //     name: "Caro vàng",
-  //     _id: "CRY",
-  //     colorImage: "color-caro-yellow.jpg",
-  //   },
-  //   {
-  //     name: "Camo xanh",
-  //     _id: "CXA",
-  //     colorImage: "color-camo-blue.jpg",
-  //   },
-  // ];
-  
-  // const sizeList = [
-  //   {
-  //     name: "XXS",
-  //     _id: "XXS",
-  //     desc: "Rất rất nhỏ",
-  //   },
-  //   {
-  //     name: "XS",
-  //     _id: "XS",
-  //     desc: "Rất nhỏ",
-  //   },
-  //   {
-  //     name: "S",
-  //     _id: "S",
-  //     desc: "Nhỏ",
-  //   },
-  //   {
-  //     name: "M",
-  //     _id: "M",
-  //     desc: "Trung bình",
-  //   },
-  //   {
-  //     name: "L",
-  //     _id: "L",
-  //     desc: "Lớn",
-  //   },
-  //   {
-  //     name: "XL",
-  //     _id: "XL",
-  //     desc: "Rất lớn",
-  //   },
-  //   {
-  //     name: "XXL",
-  //     _id: "XXL",
-  //     desc: "Rất rất lớn",
-  //   },
-  // ];
-  
-  // const categoryList = [
-  //   {
-  //     name: "Áo",
-  //     _id: "A",
-  //     child: ["AT", "ASM", "AK", "AH", "AL", "AP"],
-  //   },
-  //   {
-  //     name: "Áo Thun",
-  //     _id: "AT",
-  //     parent: "A",
-  //   },
-  //   {
-  //     name: "Áo Sơ mi",
-  //     _id: "ASM",
-  //     parent: "A",
-  //   },
-  //   {
-  //     name: "Áo khoác",
-  //     _id: "AK",
-  //     parent: "A",
-  //   },
-  //   {
-  //     name: "Áo Hoodie",
-  //     _id: "AH",
-  //     parent: "A",
-  //   },
-  //   {
-  //     name: "Áo len",
-  //     _id: "AL",
-  //     parent: "A",
-  //   },
-  //   {
-  //     name: "Áo polo",
-  //     _id: "AP",
-  //     parent: "A",
-  //   },
-  //   {
-  //     name: "Quần",
-  //     _id: "Q",
-  //     child: ["QJ", "QT", "QS"],
-  //   },
-  //   {
-  //     name: "Quần jean",
-  //     _id: "QJ",
-  //     parent: "Q",
-  //   },
-  //   {
-  //     name: "Quần tây",
-  //     _id: "QT",
-  //     parent: "Q",
-  //   },
-  //   {
-  //     name: "Quần short",
-  //     _id: "QS",
-  //     parent: "Q",
-  //   },
-  //   {
-  //     name: "Giày, dép",
-  //     _id: "GD",
-  //     child: ["GS","GT","DK"],
-  //   },
-  //   {
-  //     name: "Giày sandal",
-  //     _id: "GS",
-  //     parent: "GD",
-  //   },
-  //   {
-  //     name: "Giày thể thao",
-  //     _id: "GT",
-  //     parent: "GD",
-  //   },
-  //   {
-  //     name: "Dép kẹp",
-  //     _id: "DK",
-  //     parent: "GD",
-  //   },
-  // ];
-  
-  // const myProducts = [
-  //   {
-  //     id: "ANS1001",
-  //     name: "Áo Sơmi",
-  //     thumbnail: "ATNS1002-1.jpg",
-  //     category: {
-  //       name: "Áo",
-  //       _id: "A",
-  //       child: {
-  //         name: "Áo Sơ mi",
-  //         _id: "ASM",
-  //         parent: "A",
-  //       },
-  //     },
-  //     size: [
-  //       {
-  //         name: "XXS",
-  //         _id: "XXS",
-  //         desc: "Rất rất nhỏ",
-  //       },
-  //       {
-  //         name: "XS",
-  //         _id: "XS",
-  //         desc: "Rất nhỏ",
-  //       },
-  //       {
-  //         name: "S",
-  //         _id: "S",
-  //         desc: "Nhỏ",
-  //       },
-  //       {
-  //         name: "M",
-  //         _id: "M",
-  //         desc: "Trung bình",
-  //       },
-  //       {
-  //         name: "L",
-  //         _id: "L",
-  //         desc: "Lớn",
-  //       },
-  //       {
-  //         name: "XL",
-  //         _id: "XL",
-  //         desc: "Rất lớn",
-  //       },
-  //       {
-  //         name: "XXL",
-  //         _id: "XXL",
-  //         desc: "Rất rất lớn",
-  //       },
-  //     ],
-  //     color: [
-  //       {
-  //         name: "Đỏ",
-  //         _id: "R",
-  //         colorImage: "color-red.jpg",
-  //       },
-  //       {
-  //         name: "Đen",
-  //         _id: "B",
-  //         colorImage: "color-black.jpg",
-  //       },
-  //       {
-  //         name: "Camo rêu",
-  //         _id: "CR",
-  //         colorImage: "color-camo-green.jpg",
-  //       },
-  //       {
-  //         name: "Camo xám",
-  //         _id: "CX",
-  //         colorImage: "color-camo-grey.jpg",
-  //       },
-  //       {
-  //         name: "Caro đen",
-  //         _id: "CRB",
-  //         colorImage: "color-caro-black.jpg",
-  //       },
-  //       {
-  //         name: "Caro vàng",
-  //         _id: "CRY",
-  //         colorImage: "color-caro-yellow.jpg",
-  //       },
-  //       {
-  //         name: "Camo xanh",
-  //         _id: "CXA",
-  //         colorImage: "color-camo-blue.jpg",
-  //       },
-  //     ],
-  //     price: 200,
-  //     quantity: 200,
-  //     rate: 3,
-  //   },
-  //   {
-  //     id: "ANS1001",
-  //     name: "Áo thun",
-  //     thumbnail: "ATNS1003-1.jpg",
-  //     category: {
-  //       name: "Áo",
-  //       _id: "A",
-  //       child: {
-  //         name: "Áo Thun",
-  //         _id: "AT",
-  //         parent: "A",
-  //       },
-  //     },
-  //     size: [
-  //       {
-  //         name: "XS",
-  //         _id: "XS",
-  //         desc: "Rất nhỏ",
-  //       },
-  //       {
-  //         name: "S",
-  //         _id: "S",
-  //         desc: "Nhỏ",
-  //       },
-  //       {
-  //         name: "M",
-  //         _id: "M",
-  //         desc: "Trung bình",
-  //       },
-  //       {
-  //         name: "L",
-  //         _id: "L",
-  //         desc: "Lớn",
-  //       },
-  //     ],
-  //     color: [
-  //       {
-  //         name: "Đen",
-  //         _id: "B",
-  //         colorImage: "color-black.jpg",
-  //       },
-  //       {
-  //         name: "Camo rêu",
-  //         _id: "CR",
-  //         colorImage: "color-camo-green.jpg",
-  //       },
-  //       {
-  //         name: "Camo xám",
-  //         _id: "CX",
-  //         colorImage: "color-camo-grey.jpg",
-  //       },
-  //       {
-  //         name: "Caro đen",
-  //         _id: "CRB",
-  //         colorImage: "color-caro-black.jpg",
-  //       },
-  //       {
-  //         name: "Camo xanh",
-  //         _id: "CXA",
-  //         colorImage: "color-camo-blue.jpg",
-  //       },
-  //     ],
-  //     price: 250,
-  //     quantity: 500,
-  //     rate: 4.5,
-  //   },
-  // ];
-  
   const parseToElements = (obj) => {
     var productDetail = `<div id="list-product-detail">
                           <img id="list-product-thumbail" src='${
@@ -393,7 +79,6 @@ $(document).ready(()=>{
   .then(data=>data.json())
   .then(data=>{
     var productList = data.data.map(_ => {
-      console.log(new Date(_.date).toLocaleString())
       return parseToElements(_)
     })
     getSetupList().then(data=>{
@@ -418,27 +103,35 @@ $(document).ready(()=>{
             title: "Category",
             type: "category"
         },{
-            property: "color",
-            title: "Color",
-            type: "category"
-        },{
-            property: "quantity",
-            title: "Stock",
-            type: "number"
-        },{
             property: "rate",
             title: "Rate",
             type: "number"
         },{
-            property: "size",
-            title: "Size",
-            type: "category"
-        }],
+          property: "date",
+          title: "Date",
+          type: "date"
+      }],
         submit: function() {
-          $(".LYAF-product-list .LYAF-table-loading").show()
-          setTimeout(() => {
-            $(".LYAF-product-list .LYAF-table-loading").hide()
-          }, 300);
+          const tags = this.tags
+          showLoading()
+          fetch(window.location.origin+"/api/product/filter",{
+            method: "POST",
+            headers: {
+              'content-type': 'application/json',
+              
+            },
+            body: JSON.stringify(tags)
+          })
+          .then(data=>data.json())
+          .then(data=> {
+            var productList = data.data.map(_ => {
+              return parseToElements(_)
+            })
+            $('#LYAF-list').dataTable().fnClearTable();
+            if (productList.length)
+            $('#LYAF-list').dataTable().fnAddData(productList);
+              hideLoading()
+          })
         }, sizeList, colorList, categoryList})
     })
   
@@ -447,11 +140,11 @@ $(document).ready(()=>{
     if ($("#LYAF-list")[0]) {
       var columns = [
         {
-          title: "Product Details",
+          title: "Chi tiết",
           data: "productDetail",
         },
         {
-          title: "Date create",
+          title: "Ngày tạo",
           data: "date",
         },
         {
@@ -459,19 +152,19 @@ $(document).ready(()=>{
           data: "id",
         },
         {
-          title: "Categories",
+          title: "Danh mục",
           data: "categories",
         },
         {
-          title: "Price",
+          title: "Giá",
           data: "price",
         },
         {
-          title: "Rate",
+          title: "Rating",
           data: "rate",
         },
         {
-          title: "Action",
+          title: "",
           data: "action",
         },
       ];
@@ -514,6 +207,7 @@ $(document).ready(()=>{
 })
 
 async function getSetupList(){
+  showLoading()
   let res = await fetch(window.location.origin+"/api/getSetupList", {
       method: "GET",
       headers: {
@@ -528,5 +222,6 @@ async function getSetupList(){
     }).then((data) => {
       return data;
     });
+    hideLoading()
     return res
 }

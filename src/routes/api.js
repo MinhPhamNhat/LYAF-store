@@ -17,6 +17,7 @@ route.get('/product/getSub', validator.subProductValidator(), APIController.getS
 route.get('/product/getMinMax', APIController.getMinMaxPrice);
 route.get('/manager/getBills', APIController.getBills);
 route.get('/manager/getProducts', APIController.getProducts)
+route.post('/product/filter', APIController.filter);
 route.post('/manager/billState', APIController.billState);
 route.post('/manager/billPayment', APIController.billPayment);
 route.post('/product/add', upload.array('images', 10), validator.productValidator(), APIController.addProduct);
@@ -28,6 +29,7 @@ route.post('/product/updateNew', APIController.updateNew);
 route.post('/product/updateDesc', APIController.updateDesc);
 route.post('/product/updateImages', upload.array('images', 10), APIController.updateImages);
 route.post('/product/updateSub', APIController.updateSub);
+route.delete('/product/removeProduct', APIController.removeProduct);
 route.get('/product/getImages', APIController.getImages);
 route.get('/province', APIController.province)
 route.get('/district/:id', APIController.district)

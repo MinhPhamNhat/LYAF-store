@@ -75,7 +75,6 @@ class ManagementController{
                 res.render('404');
                 break;
             case -1:
-                console.log(result)
                 res.render('404');
                 break;
           }

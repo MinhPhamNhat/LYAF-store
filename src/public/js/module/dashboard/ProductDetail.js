@@ -19,7 +19,7 @@ $(document).ready(()=>{
         $(v).html(await getSize(url))
     })
 
-    $(".edit-btn").click(function(){
+    $(document).on('click', ".edit-btn", function(){
         const id = this.dataset.id
         const quantity = this.dataset.value
         const color = this.dataset.color
@@ -439,7 +439,6 @@ $(document).ready(()=>{
               fetch(window.location.origin + '/api/product/getImages?id='+id)
               .then(data=>data.json())
               .then(data=>{
-                console.log(data)
                 const resultImages = data.data
                 $(".image-update-input .LYAF-image-preview").remove()
                 resultImages.forEach(async url => {
@@ -484,6 +483,7 @@ $(document).ready(()=>{
   })
   
   $(".sub-edit-btn").click(function(){
+    subProduct = getSubProduct();
     const id = this.dataset.id
     $(".sub-edit-modal .modal-title").html('Cập nhật sản phẩm phụ')
     $(".sub-edit-modal #title").html(`Bạn muốn cập nhật sản phẩm phụ`)
@@ -494,7 +494,6 @@ $(document).ready(()=>{
   $(".sub-edit-modal .confirm-update").click(function(){
     const id = this.dataset.id
     const subList = getSubProduct()
-    console.log(subList)
     if (id && subList.length){
       showLoading()
         fetch(window.location.origin + '/api/product/updateSub', {
@@ -502,30 +501,65 @@ $(document).ready(()=>{
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({id, desc})
+            body: JSON.stringify({id, subList})
         }).then(data=>data.json())
         .then(data=>{
           if (data.code === 200){
-            $(`.LYAF-product-description #desc`).html(desc)
-            $(".desc-edit-modal").modal("hide")
-            showToast("Cập nhật mô tả", "Cập nhật mô tả thành công", "success")
+            $(".sub-product-preview .LYAF-sub-products-list .sub-product").remove()
+            const subListUpdate = data.data
+            subListUpdate.forEach(v=>{
+              $(".sub-product-preview .LYAF-sub-products-list").append(`
+                <div class="sub-product sub-${v._id}">
+                    <div class="sub-p-infor">
+                        <table>
+                            <tr>
+                                <td><div class="id">
+                                    <strong>Mã: </strong>
+                                    <span id="id">${v._id}</span>
+                                    </div>
+                                </td>
+                                <td><div class="color">
+                                    <strong>Màu: </strong>
+                                    <span id="value">${v.colorId.name}</span>
+                                    </div>
+                                </td>
+                                <td><div class="size">
+                                        <strong>Size: </strong>
+                                        <span id="value">${v.sizeId.name}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="quantity">
+                                        <strong>Số lượng: </strong>
+                                        <span id="value">${v.quantity}</span>
+                                        <span class="edit-btn" id="edit-btn"  data-id="${v._id}" data-value="${v.quantity}" data-size="${v.sizeId.name}" data-color="${v.colorId.name}"><i class="fas fa-edit"></i></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+              `)
+            })
+            $(".sub-product-preview .info").html(subListUpdate.length + ' products')
+            $(".sub-edit-modal").modal("hide")
+            showToast("Cập nhật sản phẩm phụ", "Cập nhật sản phẩm phụ thành công", "success")
           }else if (data.code===404){
-            showToast("Cập nhật mô tả", "Không tìm thấy sản phẩm", "error")
+            showToast("Cập nhật sản phẩm phụ", "Không tìm thấy sản phẩm", "error")
           }else{
-            showToast("Cập nhật mô tả", data.message, "error")
+            showToast("Cập nhật sản phẩm phụ", data.message, "error")
           }
           hideLoading()
         }).catch(e=>{
           hideLoading()
-            showToast("Cập nhật mô tả", "Lỗi rồi", "error")
+            showToast("Cập nhật sản phẩm phụ", "Lỗi rồi", "error")
         })
     }else{
-        showToast("Cập nhật mô tả", "Vui lòng mô tả hợp lệ", "warning")
+        showToast("Cập nhật sản phẩm phụ", "Vui lòng sản phẩm phụ hợp lệ", "warning")
     }
   })
     
   $(".sub-edit-modal .LYAF-sub-products-add .add-sub-product").click(() => {
-    subProduct = getSubProduct();
     $(".add-sub-modal").modal("show");
   });
   getSetupList().then(data=>{
@@ -608,7 +642,7 @@ $(document).ready(()=>{
     }
   });
 
-  $(document).on('click', '.sub-product .remove-sub-btn', function(){
+  $(document).on('click', '.sub-edit-modal .sub-product .remove-sub-btn', function(){
     const color = $(this).parent().find("#color").val()
     const size = $(this).parent().find("#size").val()
     const value = subProduct.find(v=> v.colorId === color && v.sizeId === size)
@@ -616,11 +650,49 @@ $(document).ready(()=>{
     if (index > -1) {
       subProduct.splice(index, 1);
       $(this).parent().remove()
-      $(".LYAF-sub-products-add .info").html(subProduct.length + ' products')
+      $(".sub-edit-modal .LYAF-sub-products-add .info").html(subProduct.length + ' products')
     }else{
       showToast("Xoá sản phẩm phụ", "Không thể xoá", "warning")
     }
   })
+
+  $(".LYAF-remove-product-btn").click(()=>{
+    $(".remove-product-confirm").modal("show")
+  })
+  
+  $(".remove-product-confirm .confirm-remove").click(()=>{
+    const id = $("#LYAF-the-product-id").val()
+    const confirmId = $(".remove-product-confirm .remove-product-infor #confirm-code").val()
+    if (id === confirmId){
+        showLoading()
+        fetch(window.location.origin + '/api/product/removeProduct', {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id})
+        }).then(data=>data.json())
+        .then(data=>{
+          if (data.code === 200){
+            hideLoading() 
+            showToast("Xoá sản phẩm", "Xoá sản phẩm thành công", "success")
+            setTimeout(()=>{window.location.href = '/manager/list'}, 100)
+          }else if (data.code===404){
+            showToast("Xoá sản phẩm", "Không tìm thấy sản phẩm", "error")
+          }else{
+            showToast("Xoá sản phẩm", data.message, "error")
+          }
+          hideLoading()
+        }).catch(e=>{
+          hideLoading()
+            showToast("Xoá sản phẩm", e, "error")
+        })
+    }else{
+      showToast("Xoá sản phẩm", "Mã xác nhận không đúng", "warning")
+     $(".remove-product-confirm .remove-product-infor #confirm-code").val('')
+    }
+  })
+  
 
 })
 
