@@ -1,5 +1,6 @@
-userModel = require('../models/User');
-accModel = require('../models/Account');
+const userModel = require('../models/User');
+const accModel = require('../models/Account');
+const ShipModel = require('../models/ShipProfile');
 const BillDAO = require('../repo/BillDAO');
 const bcrypt = require("bcrypt");
 const { parseCart } = require("../../helper/function");
@@ -99,8 +100,59 @@ class userInfoController{
         }
     }
 
-    async addressList(req,res,next){
-        res.render('AddressList');
+    addressList(req,res,next){
+        ShipModel.find({user: req.user._id}).populate('province').populate('distric').populate('ward').exec()
+                .then(data=>{
+                    console.log('data start:',data);
+                    data = data.map(data=>data.toObject());
+                    res.render('AddressList',{data});
+                })
+                .catch(()=>{
+                    console.log('500 shipmodel');
+                    res.status(500).json();
+                })
+        
+    }
+
+     addressListAdd(req,res,next){
+         console.log('addData:',req.body);
+        const newship = new ShipModel({
+            user: req.user._id,
+            name:req.body.name,
+            phone:req.body.phone,
+            province: req.body.province,
+            distric: req.body.district,
+            ward:req.body.ward,
+            address:req.body.stress,
+        })
+        newship.save()
+        .then(ship=>{
+            if(ship != null){
+                ShipModel.find({user: req.user._id}).populate('province').populate('distric').populate('ward').exec()
+                .then(data=>{
+                    data = data.map(data=>data.toObject());
+                    res.status(200).json(data);
+                })
+                .catch(()=>{
+                    console.log('500 shipmodel');
+                    res.status(500).json();
+                })
+            }
+            else{
+                console.log('400 shipmodel');
+                res.status(400).json();
+            }
+        })
+        .catch(()=>{
+            console.log('500 newship');
+            res.status(500).json();
+        })
+    }
+    async addressListDelete(req,res,next){
+        
+    }
+    async addressListUpdate(req,res,next){
+        
     }
 }
 
