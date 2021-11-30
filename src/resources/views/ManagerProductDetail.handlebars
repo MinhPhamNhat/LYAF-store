@@ -124,194 +124,196 @@
             <span class="text-uppercase font-weight-bold">PRODUCT DETAIL</span>
         </div>
         <div class="LYAF-dashboard-content">
-    <div class="row">
-        <div class="LYAF-dashboard-block col">
-            <div class="LYAF-block-title">
-                <span class="font-weight-bold" style="letter-spacing: 0.04em">Product property</span>
-            </div>
-            <div class="LYAF-block-content">
-                <div class="LYAF-product-name">
-                    <span class=" font-weight-bold">Product name : <span class="name-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></span>
-                    <input type="text" id="nameeee" placeholder="Type your product name here" value="{{data.name}}" readonly disabled>
-                </div>
-                <div class="LYAF-product-name">
-                    <span class=" font-weight-bold">Date create :</span>
-                    <input type="text" placeholder="Type your product name here" value="{{#dateFormat date=data.date}}{{/dateFormat}}" readonly disabled>
-                </div>
-                <div class="row">
-                    <div class="LYAF-product-name col">
-                        <label for="basic-url" class="font-weight-bold">Category :</label>
-                        <div class="input-group mb-3">
-                            <input type="text" placeholder="Type your product name here" value="{{#if data.categoryId.parentId}}{{data.categoryId.parentId.name}}, {{/if}} {{data.categoryId.name}}" readonly disabled></i> 
+            <div class="row">
+                <div class="LYAF-dashboard-block col">
+                    <div class="LYAF-block-title">
+                        <span class="font-weight-bold" style="letter-spacing: 0.04em">Product property</span>
+                    </div>
+                    <div class="LYAF-block-content">
+                        <input type="hidden" id="LYAF-the-product-id" value="{{data._id}}">
+                        <div class="LYAF-product-name">
+                            <span class=" font-weight-bold">Product name : <span class="name-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></span>
+                            <input type="text" id="nameeee" placeholder="Type your product name here" value="{{data.name}}" readonly disabled>
                         </div>
-                    </div>
-                    <div class="LYAF-product-price col">
-                        <label for="basic-url" class="font-weight-bold">Product price : <span class="price-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text font-weight-bold">VNĐ</span>
-                            </div>
-                            <input type="text" id="priceeee" class="form-control" placeholder="Price" aria-label="Price" readonly disabled value="{{#priceFormat price=data.price}}{{/priceFormat}}">
+                        <div class="LYAF-product-name">
+                            <span class=" font-weight-bold">Date create :</span>
+                            <input type="text" placeholder="Type your product name here" value="{{#dateFormat date=data.date}}{{/dateFormat}}" readonly disabled>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="LYAF-product-category col">
-                        <label for="basic-url" class="font-weight-bold">Đang giảm giá : <span class="sale-edit-btn" id="edit-btn" data-id="{{data._id}}"><i class="fas fa-edit"></i></span></label>
-                        <div class="input-group mb-3 sale-input-group">
-                            {{#if data.isSale}}
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="isSale" id="inlineRadio1" checked value="option1">
-                                    <label class="form-check-label" for="inlineRadio1">
-                                         <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text font-weight-bold">%</span>
-                                            </div>
-                                            <input type="text" class="form-control" placeholder="Price" readonly disabled aria-label="Price" value="{{#salePercentFormat data.sale}}{{/salePercentFormat}}">
-                                        </div>
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="isSale" id="inlineRadio2" readonly disabled  value="option2">
-                                    <label class="form-check-label" for="inlineRadio2">False</label>
-                                </div>
-                            {{else}}
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="isSale" id="inlineRadio1" readonly disabled  value="option1">
-                                    <label class="form-check-label" for="inlineRadio1">True</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="isSale" id="inlineRadio2" checked value="option2">
-                                    <label class="form-check-label" for="inlineRadio2">False</label>
-                                </div>
-                            {{/if}}
-                        </div>
-                    </div>
-                    <div class="LYAF-product-price col">
-                        <label for="basic-url" class="font-weight-bold">Sản phẩm mới : <span class="new-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></label>
-                        <div class="input-group mb-3 new-input-group">
-                            {{#if data.isNew}}
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="isNew" id="inlineRadio1" checked value="option1">
-                                    <label class="form-check-label" for="inlineRadio1">True</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="isNew" id="inlineRadio2"  readonly disabled   value="option2">
-                                    <label class="form-check-label" for="inlineRadio2">False</label>
-                                </div>
-                            {{else}}
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="isNew" id="inlineRadio1" readonly disabled  value="option1">
-                                    <label class="form-check-label" for="inlineRadio1">True</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="isNew" id="inlineRadio2" checked value="option2">
-                                    <label class="form-check-label" for="inlineRadio2">False</label>
-                                </div>
-                            {{/if}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="LYAF-dashboard-block col">
-            <div class="LYAF-block-title">
-                <span class="font-weight-bold" style="letter-spacing: 0.04em">Product description</span>
-            </div>
-            <div class="LYAF-block-content">
-                <div class="LYAF-product-description">
-                    <span class=" font-weight-bold">Product description : <span class="desc-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></span>
-                    <div id="desc">
-                        {{{data.desc}}}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="row">
-        <div class="LYAF-dashboard-block col">
-            <div class="LYAF-block-title">
-                <span class="font-weight-bold" style="letter-spacing: 0.04em">Images supplement</span>
-            </div>
-            <div class="LYAF-block-content">
-                <div class="LYAF-product-image ">
-                    <div class="LYAF-preview-wrapper">
-                        <div class="LYAF-preview-container">
-                            <div class="list-title">
-                                <div class="title-info">
-                                    <span class="font-weight-bold title" style="letter-spacing: 0.04em">Product images : <span class="images-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></span>
-                                    <span class="font-weight-bold info" style="letter-spacing: 0.04em">{{data.images.length}} images</span>
+                        <div class="row">
+                            <div class="LYAF-product-name col">
+                                <label for="basic-url" class="font-weight-bold">Category :</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" placeholder="Type your product name here" value="{{#if data.categoryId.parentId}}{{data.categoryId.parentId.name}}, {{/if}} {{data.categoryId.name}}" readonly disabled></i> 
                                 </div>
                             </div>
-                            <div class="LYAF-preview-list image-update-input">
-                                {{#each data.images}}
-                                    <div class="LYAF-image-preview">
-                                        <a class="LYAF-aaaa" href="{{this}}">
-                                        <img src="{{this}}" class="$@da@# " height="auto" width="100">
-                                        </a>
-                                        {{#imageName url=this}}
-                                        {{/imageName}}
+                            <div class="LYAF-product-price col">
+                                <label for="basic-url" class="font-weight-bold">Product price : <span class="price-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text font-weight-bold">VNĐ</span>
                                     </div>
-                                {{/each}}
+                                    <input type="text" id="priceeee" class="form-control" placeholder="Price" aria-label="Price" readonly disabled value="{{#priceFormat price=data.price}}{{/priceFormat}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="LYAF-product-category col">
+                                <label for="basic-url" class="font-weight-bold">Đang giảm giá : <span class="sale-edit-btn" id="edit-btn" data-id="{{data._id}}"><i class="fas fa-edit"></i></span></label>
+                                <div class="input-group mb-3 sale-input-group">
+                                    {{#if data.isSale}}
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="isSale" id="inlineRadio1" checked value="option1">
+                                            <label class="form-check-label" for="inlineRadio1">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text font-weight-bold">%</span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Price" readonly disabled aria-label="Price" value="{{#salePercentFormat data.sale}}{{/salePercentFormat}}">
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="isSale" id="inlineRadio2" readonly disabled  value="option2">
+                                            <label class="form-check-label" for="inlineRadio2">False</label>
+                                        </div>
+                                    {{else}}
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="isSale" id="inlineRadio1" readonly disabled  value="option1">
+                                            <label class="form-check-label" for="inlineRadio1">True</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="isSale" id="inlineRadio2" checked value="option2">
+                                            <label class="form-check-label" for="inlineRadio2">False</label>
+                                        </div>
+                                    {{/if}}
+                                </div>
+                            </div>
+                            <div class="LYAF-product-price col">
+                                <label for="basic-url" class="font-weight-bold">Sản phẩm mới : <span class="new-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></label>
+                                <div class="input-group mb-3 new-input-group">
+                                    {{#if data.isNew}}
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="isNew" id="inlineRadio1" checked value="option1">
+                                            <label class="form-check-label" for="inlineRadio1">True</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="isNew" id="inlineRadio2"  readonly disabled   value="option2">
+                                            <label class="form-check-label" for="inlineRadio2">False</label>
+                                        </div>
+                                    {{else}}
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="isNew" id="inlineRadio1" readonly disabled  value="option1">
+                                            <label class="form-check-label" for="inlineRadio1">True</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="isNew" id="inlineRadio2" checked value="option2">
+                                            <label class="form-check-label" for="inlineRadio2">False</label>
+                                        </div>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="LYAF-dashboard-block col">
+                    <div class="LYAF-block-title">
+                        <span class="font-weight-bold" style="letter-spacing: 0.04em">Product description</span>
+                    </div>
+                    <div class="LYAF-block-content">
+                        <div class="LYAF-product-description">
+                            <span class=" font-weight-bold">Product description : <span class="desc-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></span>
+                            <div id="desc">
+                                {{{data.desc}}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    
-        <div class="LYAF-dashboard-block col">
-            <div class="LYAF-block-title">
-                <span class="font-weight-bold" style="letter-spacing: 0.04em">Sub Products</span>
-            </div>
-            <div class="LYAF-block-content">
-                <div class="LYAF-sub-products-add">
-                    <div class="title-info">
-                        <span class="font-weight-bold title" style="letter-spacing: 0.04em">Sub product list : <span class="sub-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></span>
-                        <span class="font-weight-bold info" style="letter-spacing: 0.04em">{{data.subProduct.length}} products</span>
+            <div class="row">
+                <div class="LYAF-dashboard-block col">
+                    <div class="LYAF-block-title">
+                        <span class="font-weight-bold" style="letter-spacing: 0.04em">Images supplement</span>
                     </div>
-                </div>
-                <div class="LYAF-sub-products-list">
-                    {{#each data.subProduct}}
-                        <div class="sub-product sub-{{this._id}}">
-                            <div class="sub-p-infor">
-                                <table>
-                                    <tr>
-                                        <td><div class="id">
-                                            <strong>Mã: </strong>
-                                            <span id="id">{{this._id}}</span>
+                    <div class="LYAF-block-content">
+                        <div class="LYAF-product-image ">
+                            <div class="LYAF-preview-wrapper">
+                                <div class="LYAF-preview-container">
+                                    <div class="list-title">
+                                        <div class="title-info">
+                                            <span class="font-weight-bold title" style="letter-spacing: 0.04em">Product images : <span class="images-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></span>
+                                            <span class="font-weight-bold info" style="letter-spacing: 0.04em">{{data.images.length}} images</span>
+                                        </div>
+                                    </div>
+                                    <div class="LYAF-preview-list image-update-input">
+                                        {{#each data.images}}
+                                            <div class="LYAF-image-preview">
+                                                <a class="LYAF-aaaa" href="{{this}}">
+                                                <img src="{{this}}" class="$@da@# " height="auto" width="100">
+                                                </a>
+                                                {{#imageName url=this}}
+                                                {{/imageName}}
                                             </div>
-                                        </td>
-                                        <td><div class="color">
-                                            <strong>Màu: </strong>
-                                            <span id="value">{{this.colorId.name}}</span>
-                                            </div>
-                                        </td>
-                                        <td><div class="size">
-                                                <strong>Size: </strong>
-                                                <span id="value">{{this.sizeId.name}}</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="quantity">
-                                                <strong>Số lượng: </strong>
-                                                <span id="value">{{this.quantity}}</span>
-                                                <span class="edit-btn" id="edit-btn"  data-id="{{this._id}}" data-value="{{this.quantity}}" data-size="{{this.sizeId.name}}" data-color="{{this.colorId.name}}"><i class="fas fa-edit"></i></span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
+                                        {{/each}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        
-                    {{/each}}
+                    </div>
+                </div>
+            
+                <div class="LYAF-dashboard-block col">
+                    <div class="LYAF-block-title">
+                        <span class="font-weight-bold" style="letter-spacing: 0.04em">Sub Products</span>
+                    </div>
+                    <div class="LYAF-block-content sub-product-preview">
+                        <div class="LYAF-sub-products-add">
+                            <div class="title-info">
+                                <span class="font-weight-bold title" style="letter-spacing: 0.04em">Sub product list : <span class="sub-edit-btn" id="edit-btn"  data-id="{{data._id}}"><i class="fas fa-edit"></i></span></span>
+                                <span class="font-weight-bold info" style="letter-spacing: 0.04em">{{data.subProduct.length}} products</span>
+                            </div>
+                        </div>
+                        <div class="LYAF-sub-products-list">
+                            {{#each data.subProduct}}
+                                <div class="sub-product sub-{{this._id}}">
+                                    <div class="sub-p-infor">
+                                        <table>
+                                            <tr>
+                                                <td><div class="id">
+                                                    <strong>Mã: </strong>
+                                                    <span id="id">{{this._id}}</span>
+                                                    </div>
+                                                </td>
+                                                <td><div class="color">
+                                                    <strong>Màu: </strong>
+                                                    <span id="value">{{this.colorId.name}}</span>
+                                                    </div>
+                                                </td>
+                                                <td><div class="size">
+                                                        <strong>Size: </strong>
+                                                        <span id="value">{{this.sizeId.name}}</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="quantity">
+                                                        <strong>Số lượng: </strong>
+                                                        <span id="value">{{this.quantity}}</span>
+                                                        <span class="edit-btn" id="edit-btn"  data-id="{{this._id}}" data-value="{{this.quantity}}" data-size="{{this.sizeId.name}}" data-color="{{this.colorId.name}}"><i class="fas fa-edit"></i></span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+        <div class="LYAF-remove-product-btn">
+            <button type="button" class="btn btn-danger text-uppercase font-weight-bold">XOÁ SẢN PHẨM</button>
+        </div>
     </div>
     
     <!-- Modal -->
@@ -621,8 +623,8 @@
                     <div class="LYAF-sub-products-list">
                         {{#each data.subProduct}}
                         <div class="sub-product sub-{{this._id}}">
-                            <input type="hidden" id="color" value="{{this.colorId}}">
-                            <input type="hidden" id="size" value="{{this.sizeId}}">
+                            <input type="hidden" id="color" value="{{this.colorId._id}}">
+                            <input type="hidden" id="size" value="{{this.sizeId._id}}">
                             <input type="hidden" id="quantity" value="{{this.quantity}}">
                             <div class="sub-p-infor">
                                 <div class="color">
@@ -652,6 +654,7 @@
     </div>
     {{!-- End Dashboard body --}}
 
+    <!-- Modal -->
     <div class="modal add-sub-modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -686,6 +689,43 @@
             </div>
         </div>
     </div>
+    {{!-- End Dashboard body --}}
+    
+    <!-- Modal -->
+    <div class="modal fade remove-product-confirm" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xoá sản phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-product-infor">
+                        <p>Bạn có chắc muốn xoá sản phẩm này ?</p>
+                        <p>Mã sản phẩm: <b>{{data._id}}</b></p>
+                        <p>Tên sản phẩm: <b>{{data.name}}</b></p>
+                        <div id="warning">
+                            <p>Vui lòng điền mã xác nhận bên dướinếu bạn đã chắc chắn muốn xoá</p>
+                            <p>Mã xác nhận: <code>{{data._id}}</code> </p>
+                            <div class="input-group mb-3 confirm-code-input">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text font-weight-bold">Mã xác nhận</span>
+                                </div>
+                                <input type="text" id="confirm-code" class="form-control" placeholder="Confirm" aria-label="Confirm" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Huỷ</button>
+                    <button type="button" class="btn btn-danger confirm-remove">Xác nhận xoá</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <script  type="module" src="/js/productManager.js"></script>
 <script src="https://cdn.tiny.cloud/1/ycp1l3m6y4usaxn582ylh8wk67s6ze43ttkwlrbrd180idz6/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>

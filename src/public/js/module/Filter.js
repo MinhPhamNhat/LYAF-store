@@ -1,44 +1,9 @@
 var G_CURRENT_TAG
 export class Filter {
-    // tag1 = {
-    //     property: "price",
-    //     name:"Price",
-    //     action: "equal",
-    //     value: 100,
-    // }
-    // tag2 = {
-    //     property: "price",
-    //     name:"Price",
-    //     action: "between",
-    //     value: {
-    //         from: 0,
-    //         to: 100
-    //     }
-    // }
-    // tag3 = {
-    //     property: "color",
-    //     name:"Color",
-    //     action: "category",
-    //     value: [{
-    //         name: "Đỏ",
-    //         _id: "R",
-    //         colorImage: "color-red.jpg",
-    //       },
-    //       {
-    //         name: "Đen",
-    //         _id: "B",
-    //         colorImage: "color-black.jpg",
-    //       },
-    //       {
-    //         name: "Camo rêu",
-    //         _id: "CR",
-    //         colorImage: "color-camo-green.jpg",
-    //       }]
-    // }
 
     tags = [
-        // this.tag1,this.tag2,this.tag3
     ]
+    
     constructor(elementClassName, {data, submit, sizeList, colorList, categoryList}){
         this.elementClassName = elementClassName
         this.data = data
@@ -67,7 +32,8 @@ export class Filter {
         var property = target.dataset.filter
         var name = target.dataset.name
         var action = "category"
-        var value = val.map(ID=>(eval(property+'List')).find(_ => _[property+"ID"]===ID))
+        console.log(val)
+        var value = val.map(ID=>(eval(property+'List')).find(_ => _["_id"]===ID))
         if (!value.length){
           $(`.${elementClassName} .filter-${property} #content`).html("")
           G_CURRENT_TAG = null
@@ -122,8 +88,47 @@ export class Filter {
           var inputId = this.dataset.toggle
           $(`.${elementClassName} .filter-${filterType} .input-value input`).attr('readonly', true)
           $(`.${elementClassName} .filter-${filterType} #${inputId} input`).attr('readonly', false)
+          $(`.${elementClassName} .filter-${filterType} .input-value input`).attr('disabled', 'disabled')
+          $(`.${elementClassName} .filter-${filterType} #${inputId} input`).removeAttr('disabled')
       })
 
+      console.log($(`.${elementClassName} #my-date`))
+      $(`.${elementClassName} #my-date`).change(function() {
+        const attr = $(this).attr("type")
+        var date = $(this).val();
+
+        var property = 'date'
+        var name = 'Date'
+        var action = 'date'
+        G_CURRENT_TAG = {
+            property,
+            name,
+            action,
+            value: ''
+        }
+        switch(attr){
+          case "date":
+            G_CURRENT_TAG.value ={
+              start: new Date(date)
+            }
+            break;
+          case "week":
+            var week = getWeekDateRange(date)
+            G_CURRENT_TAG.value ={
+              start: week.start,
+              end: week.end
+            }
+            break;
+          case "month":
+            var month = getMonthDateRange(date.split('-')[0], date.split('-')[1])
+            G_CURRENT_TAG.value ={
+              start: month.start.toDate(),
+              end: month.end.toDate()
+            }
+            break;
+        }
+        $(`.${elementClassName} .filter-${property} #content`).html(generateTag(G_CURRENT_TAG))
+    });
 
       $(`.${elementClassName} .value-input`).on('input',function() {
           var property = this.dataset.filter
@@ -149,7 +154,22 @@ export class Filter {
 
       const addTags = () => {
         if (G_CURRENT_TAG){
+          var value = this.tags.find(_ => _.property === G_CURRENT_TAG.property)
+          var indx = this.tags.indexOf(value);
+          if (indx > -1){
+            this.tags.splice(indx, 1)
+          }
           this.tags.push(G_CURRENT_TAG)
+        }
+        $(`.${elementClassName} #tag`).remove()
+        $(showTags(this.tags)).insertAfter(`.${elementClassName} .LYAF-product-filter-search`)
+      }
+
+      const removeTags = (property) => {
+        var value = this.tags.find(_ => _.property === property)
+        var indx = this.tags.indexOf(value);
+        if (indx > -1){
+          this.tags.splice(indx, 1)
         }
         $(`.${elementClassName} #tag`).remove()
         $(showTags(this.tags)).insertAfter(`.${elementClassName} .LYAF-product-filter-search`)
@@ -180,6 +200,12 @@ export class Filter {
       $(`.${elementClassName} .LYAF-product-filter-search`).on('click', () => {
         this.extractTags()
       })
+
+      $(document).on('click', `.${elementClassName} #tag`, function(){
+        const property = this.dataset.property
+        removeTags(property)
+      })
+
     }
 
     extractTags = () => {
@@ -267,7 +293,7 @@ export class Filter {
 
 
 const showTags = (tags) => {
-    return tags.map(_ => `<span id="tag">${generateTag(_)}<i class="fas fa-times"></i></span>`).join('')
+    return tags.map(_ => `<span data-property="${_.property}" id="tag">${generateTag(_)}<i class="fas fa-times"></i></span>`).join('')
 }
 
 const generateTag = (tag) => {
@@ -279,17 +305,21 @@ const generateTag = (tag) => {
             return `<strong>${tag.name}</strong> has <b><i>${tag.value.map(_=> `${_.name}`).join(', ')}</i></b>`
             break;
         case "equal":
-            return `<strong>${tag.name}</strong> equals to <b><i>${tag.property==='price'?`${tag.value}.000 VNĐ`:tag.value}</i></b>`
+            return `<strong>${tag.name}</strong> equals to <b><i>${tag.property==='price'?`${(tag.value*1000).toLocaleString('it-IT')} VNĐ`:tag.value}</i></b>`
             break;
         case "greater":
-            return `<strong>${tag.name}</strong> greater than <b><i>${tag.property==='price'?`${tag.value}.000 VNĐ`:tag.value}</i></b>`
+            return `<strong>${tag.name}</strong> greater than <b><i>${tag.property==='price'?`${(tag.value*1000).toLocaleString('it-IT')} VNĐ`:tag.value}</i></b>`
             break;
         case "less":
-            return `<strong>${tag.name}</strong> less than <b><i>${tag.property==='price'?`${tag.value}.000 VNĐ`:tag.value}</i></b>`
+            return `<strong>${tag.name}</strong> less than <b><i>${tag.property==='price'?`${(tag.value*1000).toLocaleString('it-IT')} VNĐ`:tag.value}</i></b>`
             break;
         case "between":
-            return `<strong>${tag.name}</strong> between <b><i>${tag.property==='price'?`${tag.value.from}.000 VNĐ`:tag.value.from}</i></b> and <b><i>${tag.property==='price'?`${tag.value.to}.000 VNĐ`:tag.value.to}</i></b>`
+            return `<strong>${tag.name}</strong> between <b><i>${tag.property==='price'?`${(tag.value.from*1000).toLocaleString('it-IT')} VNĐ`:tag.value.from}</i></b> and <b><i>${tag.property==='price'?`${(tag.value.to*1000).toLocaleString('it-IT')} VNĐ`:tag.value.to}</i></b>`
             break;
+        case "date":
+            return `<strong>${tag.name}</strong> from <b><i>${tag.value.start.toLocaleDateString('vi-VN')}</i></b> ${tag.value.end?` to <b><i>${tag.value.end.toLocaleDateString('vi-VN')}</i></b>`:''}`
+            break;
+
     }
 }
 
@@ -342,5 +372,45 @@ const filterType = {
     ,
     "category" : (_) => `
         <select name="simple" id="filter-${_.property}-select" class="LYAF-selecter" data-filter="${_.property}" data-name="${_.title}" data-placeholder="Select your option ..." multiple>
-        </select>  `
+        </select>  `,
+    "date" : (_) => `
+      <!-- DAY -->
+      <div class="form-check mb-1">
+        <input class="form-check-input filter-radio-toggle" type="radio" name="date" id="date-radio" data-action="date" data-toggle='1'>
+        <label class="form-check-label" for="date-radio">Day</label>
+      </div>
+      <div class="form-group mb-1 input-value"  id="1">
+        <input readonly disabled type="date" id="my-date" name="start" min="2018-03" value="2018-05">
+      </div>
+      <!-- WEEK -->
+      <div class="form-check mb-1">
+        <input class="form-check-input filter-radio-toggle" type="radio" name="date" id="week-radio" data-action="date" data-toggle='2'>
+        <label class="form-check-label" for="week-radio">Week</label>
+      </div>
+      <div class="form-group mb-1 input-value"  id="2">
+        <input readonly disabled type="week" id="my-date" name="start" min="2018-03" value="2018-05">
+      </div>
+      <!-- MONTH -->
+      <div class="form-check mb-1">
+        <input class="form-check-input filter-radio-toggle" type="radio" name="date" id="month-radio" data-action="date" data-toggle='3'>
+        <label class="form-check-label" for="month-radio">Month</label>
+      </div>
+      <div class="form-group mb-1 input-value"  id="3">
+        <input readonly disabled type="month" id="my-date" name="start" min="2018-03" value="2018-05">
+      </div>
+
+    `
+}
+
+function getWeekDateRange(date){
+  var startDate = moment(date.replace("-",'')).toDate()
+  var endDate = moment(date.replace("-",'')).toDate()
+  endDate.setDate(endDate.getDate() + 6)
+  return {start: startDate, end: endDate}
+}
+
+function getMonthDateRange(year, month) {
+  var startDate = moment([year, month - 1]);
+  var endDate = moment(startDate).endOf('month');
+  return { start: startDate, end: endDate };
 }

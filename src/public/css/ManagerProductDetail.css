@@ -47,6 +47,18 @@
     overflow: hidden;
     text-overflow: ellipsis; }
 
+.remove-product-confirm .confirm-code-input {
+  margin-top: 20px; }
+
+.remove-product-confirm #warning {
+  padding: 10px;
+  border: 2px dashed red;
+  border-radius: 10px;
+  background-color: #ffd5d5; }
+  .remove-product-confirm #warning code {
+    font-weight: 600;
+    color: red; }
+
 .description {
   margin-top: 20px;
   padding: 20px;
@@ -54,3 +66,14 @@
   border: 1px dashed #b8b8b8;
   border-radius: 10px;
   color: #646464; }
+
+.LYAF-dashboard-content {
+  margin-bottom: 0px !important; }
+
+.LYAF-remove-product-btn {
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: end; }
+  .LYAF-remove-product-btn button {
+    padding: 10px; }

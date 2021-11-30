@@ -1,6 +1,7 @@
 const ProductDAO = require('../repo/ProductDAO')
 const Product = require('../models/Product')
 const SubProduct = require('../models/SubProduct')
+const CategoryDAO = require('../repo/CategoryDAO')
 class ClientController{
 
     async client(req,res,next){
@@ -31,8 +32,9 @@ class ClientController{
         }
     }
 
-    productCollection(req,res,next){
-        res.render('productCollection');
+    async productCollection(req,res,next){
+        var categories = await CategoryDAO.getList();
+        res.render('productCollection', {categories: categories.data});
     }
 }
 

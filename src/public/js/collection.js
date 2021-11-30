@@ -2,6 +2,7 @@ var G_star_id = 5
 $(document).ready(()=>{
     setStar(G_star_id)
     var slider = document.querySelector('.price-selecter');
+    showLoading()
     fetch(window.location.origin + '/api/product/getMinMax')
     .then(data=>data.json())
     .then(data=>{
@@ -16,17 +17,22 @@ $(document).ready(()=>{
                 'max': range.maxPrice
             }
         });
+        hideLoading()
     })
 
     $(".collection-search").click(()=>{ 
         const keyword = $(".LYAF-collection-filter #keyword").val()
         const isNew = $(".LYAF-collection-filter #condition-checkbox").is(':checked')
         const isSale = $(".LYAF-collection-filter #condition-checkbox2").is(':checked')
+        const sort = $(".LYAF-sort-section select[name=sort] option:selected").val()
+        const category = $(".LYAF-sort-section select[name=category] option:selected").val()
         const price = slider.noUiSlider.get()
         const priceFrom = price[0]
         const priceTo = price[1]
         const rating = G_star_id
-        fetch(window.location.origin + '/api/product/search?' + new URLSearchParams({keyword, isNew, isSale, priceFrom, priceTo, rating, page: 1}))
+        console.log(window.location.origin + '/api/product/search?' + new URLSearchParams({keyword, isNew, isSale, priceFrom, priceTo, rating, page: 1, sort, category}))
+        showLoading()
+        fetch(window.location.origin + '/api/product/search?' + new URLSearchParams({keyword, isNew, isSale, priceFrom, priceTo, rating, page: 1, sort, category}))
         .then(data=>data.json())
         .then(data=>{
             if (data.code ===200){
@@ -52,11 +58,7 @@ $(document).ready(()=>{
                                 <div id="category">${p.categoryId.parentId?`<a href="#" id="parent">${p.categoryId.parentId.name}</a>, `:''}<a href="#" id="child">${p.categoryId.name}</a></div>
                                 <div id="rating">
                                     <div class="rating-stars">
-                                        <span><i class="fas fa-star"></i></span>
-                                        <span><i class="fas fa-star"></i></span>
-                                        <span><i class="fas fa-star"></i></span>
-                                        <span><i class="fas fa-star"></i></span>
-                                        <span><i class="fas fa-star-half-alt"></i></span>
+                                        ${ratingStar(p.rating)}
                                     </div>
                                     <div class="rating-value">
                                         ${p.rating}/5
@@ -67,6 +69,7 @@ $(document).ready(()=>{
                     `)
                 })
             }
+            hideLoading()
         })
     })
     $(".LYAF-collection-filter #rating span").click(function(){
@@ -101,4 +104,20 @@ function saleFormat (price, sale){
     var _price = price - sale * price
     _price = (_price*1000).toLocaleString('it-IT');
     return _price
+}
+
+
+function ratingStar (value){
+    var rateStar = ''
+    const val = value
+    for (var i = 0; i < 5; i++) {
+        if (val - i >= 1) {
+            rateStar += '<span><i class="fas fa-star"></i></span>';
+        } else if (val - i > 0 && val - i < 1) {
+            rateStar +=  '<span><i class="fas fa-star-half-alt"></i></span>';
+        } else {
+            rateStar += '<span><i class="far fa-star"></i></span>';
+        }
+    }
+    return rateStar
 }

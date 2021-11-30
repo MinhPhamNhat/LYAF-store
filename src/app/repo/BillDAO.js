@@ -98,7 +98,8 @@ module.exports = {
     },
 
     getBills: async(option, userId, limit={}, skip={}, sort={})=>{
-        return Bill.find(option).sort({ date: -1 }).skip(skip).limit(limit).lean().exec()
+        return Bill.find(option).sort({ date: -1 }).skip(skip).limit(limit)
+        .populate('shipProfile.province').populate('shipProfile.distric').populate('shipProfile.ward').lean().exec()
     },
 
     updateState: async (billId, value)=>{

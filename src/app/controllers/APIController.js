@@ -5,13 +5,19 @@ const CategoryDAO = require("../repo/CategoryDAO");
 const AddressDAO = require("../repo/AddressDAO");
 const BillDAO = require("../repo/BillDAO");
 const { validationResult } = require("express-validator");
-const { getPayload, addCart, parseCart, removeCart, parseSearch, updateFiles } = require("../../helper/function");
+const { getPayload, addCart, parseCart, removeCart, parseSearch, updateFiles, parseFilter } = require("../../helper/function");
 class APIController {
   async getSetupList(req, res, next) {
     var colors = await ColorDAO.getList();
     var sizes = await SizeDAO.getList();
     var categories = await CategoryDAO.getList();
     res.status(200).json({ colors, sizes, categories });
+  }
+
+  async getCategory(req, res, next) {    
+    var categories = await CategoryDAO.getList();
+    res.status(200).json({ categories });
+
   }
 
   async checkOut(req, res, next) {
@@ -24,7 +30,6 @@ class APIController {
         const user = req.user;
         const cart = req.cookies.cart
         const result = await BillDAO.createBill(payload, user, cart)
-        console.log(result)
         switch (result.code) {
           case 1:
             res.cookie('cart', [])
@@ -42,16 +47,18 @@ class APIController {
 
   async getBills(req, res, next) {
     const data = await BillDAO.getBills()
-    data.forEach(_ => {
-      console.log(_.date.toLocaleString('vi-VN'))
-    })
+    res.status(200).json(data)
+  }
+
+  async shipBills(req, res, next) {
+    const data = await BillDAO.getBills({state: 2})
+    console.log(data)
     res.status(200).json(data)
   }
 
   async billState(req, res, next) {
     const id = req.body.id
     const value = Number.parseInt(req.body.value)
-    console.log(id, value)
     if (id && (value >= 0 && value <=3)){
       const result = await BillDAO.updateState(id, value)
       switch (result.code) {
@@ -279,7 +286,6 @@ class APIController {
   async updateNew(req, res, next) {
     const id = req.body.id;
     const isNew = req.body.isNew;
-    console.log(id, isNew)
     const result = await ProductDAO.updateProduct(id, {isNew})
     switch (result.code) {
       case 1:
@@ -338,12 +344,60 @@ class APIController {
   }
  
   async updateSub(req, res, next) {
-    
+    const id = req.body.id;
+    const subList = req.body.subList
+    const result = await ProductDAO.addUpdateAndDeleteSubProduct(id, subList)
+    switch (result.code) {
+      case 1:
+        res.status(200).json({ code: 200, data: result.data });
+        break;
+      case 0:
+        res.status(404).json({ code: 404, message: result.message });
+        break;
+      case -1:
+        res.status(500).json({ code: 500, message: result.message });
+        break;
+    }
+
+  }
+
+  async removeProduct(req, res, next) {
+    const id = req.body.id;
+    const result = await ProductDAO.removeProduct(id)
+    switch (result.code) {
+      case 1:
+        res.status(200).json({ code: 200, data: result.data });
+        break;
+      case 0:
+        res.status(404).json({ code: 404, message: result.message });
+        break;
+      case -1:
+        res.status(500).json({ code: 500, message: result.message });
+        break;
+    }
+  }
+
+  async filter(req, res, next) {
+    const data = req.body
+    const filterObj = parseFilter(data)
+    const category = getData('category', data)
+    const catList = category?(category.value.map(item => item._id)):undefined
+    const result = await ProductDAO.advancedSearch(filterObj, catList ,{},{},{date: -1})
+    switch (result.code) {
+      case 1:
+        res.status(200).json({ code: 200, data: result.data });
+        break;
+      case 0:
+        res.status(404).json({ code: 404, message: result.message });
+        break;
+      case -1:
+        res.status(500).json({ code: 500, message: result.message });
+        break;
+    }
   }
 
   async getImages(req, res, next) {
     const id = req.query.id
-    console.log(id)
     const result = await ProductDAO.findById(id)
     switch (result.code) {
       case 1:
@@ -417,4 +471,11 @@ class APIController {
   }
 }
 
+const getData = (property, data) => {
+  for (var i of data){
+    if (i.property === property){
+      return i
+    }
+  }
+}
 module.exports = new APIController();

@@ -137,3 +137,77 @@ exports.parseSearch = (payload) => {
   Object.keys(search).forEach(key => search[key] === undefined && delete search[key])
   return search
 }
+
+exports.parseFilter = (payload) => {
+  var filter = {
+    date: parseProperty(getData('date', payload)),
+    price: parseProperty(getData('price', payload)),
+    id: parseProperty(getData('id', payload)),
+    name: parseProperty(getData('name', payload)),
+    rating: parseProperty(getData('rate', payload))
+  }
+  Object.keys(filter).forEach(key => filter[key] === undefined && delete filter[key])
+  
+  return filter
+}
+
+const getData = (property, data) => {
+  for (var i of data){
+    if (i.property === property){
+      return i
+    }
+  }
+}
+
+const parseProperty = (data) => {
+  if (data){
+
+    switch(data.property){
+      case "date":
+        const value = data.value
+        const start = new Date(value.start)
+        const end = new Date(value.start)
+        end.setDate(end.getDate() + 1)
+        return {$gte:start.toISOString() ,$lt:end.toISOString()}
+      case "id":
+        return {$regex:new RegExp(data.value, "i")}
+      case "name":
+        return {$regex:new RegExp(data.value, "i")}
+      case "price":
+        switch(data.action){
+          case "less":
+            return {$lte: Number(data.value)}
+          case "greater":
+            return {$gte: Number(data.value)}
+          case "equal":
+            return Number(data.value)
+          case "between":
+            return {
+              $gte: Number(data.value.from),
+              $lte: Number(data.value.to)
+            }
+        }
+      case "rate":
+        switch(data.action){
+          case "less":
+            return {
+                $lte: Number(data.value)
+            }
+          case "greater":
+            return {
+                $gte: Number(data.value)
+            }
+          case "equal":
+            return Number(data.value)
+          case "between":
+            return {
+              $gte: Number(data.value.from),
+              $lte: Number(data.value.to)
+            }
+        }
+      case "category":
+        const catValue = data.value.map(item => item._id)
+        return { categoryId: { $in: catValue }, 'categoryId.parentId': { $in: catValue }}
+    }
+  }
+}
