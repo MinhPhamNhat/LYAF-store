@@ -1,5 +1,5 @@
 .profile_body {
-  background-color: #424949;
+  background-color: #e0ebeb;
   display: flex;
   height: 100%;
   justify-content: center; }
@@ -64,7 +64,7 @@
     align-items: center;
     justify-content: center; }
   .profile_body .profile_menu-item:hover {
-    background-color: orange;
+    background-color: black;
     color: wheat;
     font-weight: bold;
     cursor: pointer; }
@@ -133,7 +133,8 @@
     flex-direction: column;
     border-radius: 5px; }
     .profile_body .userStatus .address-profile {
-      width: 100%; }
+      width: 100%;
+      margin-top: 30px; }
       .profile_body .userStatus .address-profile td {
         padding: 10px !important; }
     .profile_body .userStatus .price-infor .temp-price, .profile_body .userStatus .price-infor .sale-price, .profile_body .userStatus .price-infor .delivery-price, .profile_body .userStatus .price-infor .total-price {
@@ -147,7 +148,8 @@
     height: 70px;
     display: flex;
     justify-content: left;
-    align-items: center; }
+    align-items: center;
+    margin-bottom: 30px; }
   .profile_body .userStatus-name span {
     font-size: 30px;
     font-weight: bold;
@@ -161,7 +163,7 @@
   .profile_body .proStatus-detail:hover {
     background-color: rgba(112, 107, 98, 0.5); }
   .profile_body .focus-item {
-    background-color: orange;
+    background-color: #0c0c0b;
     font-weight: bold;
     color: white; }
   .profile_body #return-proStatus {
@@ -220,14 +222,14 @@
     height: 20%;
     background-color: #da690d; }
   .profile_body .forList {
-    border: 2px solid #da690d; }
+    border: 2px solid #0f0e0d; }
   .profile_body .countName {
-    background-color: #da690d;
+    background-color: black;
     color: white; }
   .profile_body .Address-optionList {
     width: 136px;
     height: 45px;
-    background-color: #da690d;
+    background-color: black;
     border-radius: 5px;
     margin-left: 118px;
     display: flex;
@@ -237,3 +239,10 @@
     margin: 10px 0px 10px 0px; }
   .profile_body .Address-optionList i {
     width: 10%; }
+  .profile_body .icon-trash {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%; }
+    .profile_body .icon-trash .addressUpdate {
+      width: 30px;
+      margin-left: 40px; }

@@ -42,4 +42,7 @@ route.post('/changePass/done',
     }
 ,UserInfoController.changePassDone);
 route.get('/addressList', authen.authenLogin2,UserInfoController.addressList);
+route.post('/addressList/add', authen.authenLogin2,UserInfoController.addressListAdd);
+route.post('/addressList/update', authen.authenLogin2,UserInfoController.addressListUpdate);
+route.post('/addressList/delete', authen.authenLogin2,UserInfoController.addressListDelete);
 module.exports = route;
