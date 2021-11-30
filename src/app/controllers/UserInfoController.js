@@ -192,7 +192,40 @@ class userInfoController{
                 })
     }
     addressListUpdateAfter(req,res,next){
-        
+        console.log('data for update: ',req.body);
+        console.log('id người dùng for update: ',req.user._id);
+        ShipModel.findByIdAndUpdate(req.body.id,{
+            user:req.user._id,
+            name:req.body.name,
+            phone:req.body.phone,
+            province: req.body.province,
+            distric: req.body.district,
+            ward: req.body.ward,
+            address: req.body.stress,
+
+        }).exec()
+        .then(updatedata=>{
+            if(updatedata != null){
+                ShipModel.find({user: req.user._id}).populate('province').populate('distric').populate('ward').exec()
+                .then(data=>{
+                    data = data.map(data=>data.toObject());
+                    res.status(200).json(data);
+                })
+                .catch(()=>{
+                    console.log('500 shipmodel');
+                    res.status(500).json();
+                })
+            }
+            else{
+                console.log('400 updateData');
+                res.status(400).json();
+            }
+        })
+        .catch(()=>{
+            console.log('500 updateData');
+            res.status(500).json();
+        })
+
     }
 }
 

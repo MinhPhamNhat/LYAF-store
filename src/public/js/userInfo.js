@@ -91,6 +91,9 @@ $(document).ready(()=>{
             fetch(window.location.origin+'/api/district/'+provinceId)
             .then(data=> data.json())
             .then(data=>{
+                $("#addadd-ward option").remove()
+                const wards = data.wards
+                $("#addadd-ward").append(`<option selected>Chọn phường/xã</option>`)
                 $("#addadd-district option").remove()
                 const districts = data.districts
                 $("#addadd-district").append(`<option value="" selected>Chọn quận/huyện</option>`)
@@ -104,6 +107,7 @@ $(document).ready(()=>{
         }
     })
     $("#addadd-district").change(()=>{
+        console.log(1)
         const districtId = $("#addadd-district option:selected").val()
         if (districtId){
             fetch(window.location.origin+'/api/ward/'+districtId)
@@ -121,6 +125,46 @@ $(document).ready(()=>{
             $("#addadd-ward option").remove()
         }
     })
+    $("#addupdate-province").change(()=>{
+        const provinceId = $("#addupdate-province option:selected").val()
+        if (provinceId){
+            fetch(window.location.origin+'/api/district/'+provinceId)
+            .then(data=> data.json())
+            .then(data=>{
+                $("#addupdate-ward option").remove()
+                const wards = data.wards
+                $("#addupdate-ward").append(`<option selected>Chọn phường/xã</option>`)
+                $("#addupdate-district option").remove()
+                const districts = data.districts
+                $("#addupdate-district").append(`<option value="" selected>Chọn quận/huyện</option>`)
+                districts.forEach(_=> {
+                    $("#addupdate-district").append(`<option value="${_._id}">${_.name}</option>`)
+                })
+            })
+        }
+        else{
+            $("#addupdate-district option").remove()
+        }
+    })
+    $("#addupdate-district").change(()=>{
+        console.log(1)
+        const districtId = $("#addupdate-district option:selected").val()
+        if (districtId){
+            fetch(window.location.origin+'/api/ward/'+districtId)
+            .then(data=> data.json())
+            .then(data=>{
+                $("#addupdate-ward option").remove()
+                const wards = data.wards
+                $("#addupdate-ward").append(`<option selected>Chọn phường/xã</option>`)
+                wards.forEach(_=> {
+                    $("#addupdate-ward").append(`<option value="${_._id}">${_.name}</option>`)
+                })
+            })
+        }
+        else{
+            $("#addupdate-ward option").remove()
+        }
+    })
 
 })
 ///
@@ -128,6 +172,7 @@ $(document).ready(()=>{
 if(document.querySelector('#addAddBtn') != null){
     document.querySelector('#addAddBtn').addEventListener('click',function(){
         if(document.querySelector('#addadd-name') && document.querySelector('#addadd-stress').value && document.querySelector('#addadd-province').value && document.querySelector('#addadd-district').value && document.querySelector('#addadd-ward').value && document.querySelector('#addadd-phone').value){
+            console.log();
             const data = JSON.stringify({
                 name: document.querySelector('#addadd-name').value,
                 stress: document.querySelector('#addadd-stress').value,
@@ -149,7 +194,7 @@ if(document.querySelector('#addAddBtn') != null){
                 })
                 .then(data=>{
                     var addressRow = '';
-                    console.log(data);
+                    console.log('DATA FOR RELOAD AFTER CREATING',data);
                     for(let i of data){
                             var row = `<table class="address-profile forList">
                             <tr id="header" class="countName">
@@ -191,6 +236,7 @@ if(document.querySelector('#addAddBtn') != null){
                     document.querySelector('#addressHolder').innerHTML = addressRow;
                     addressDelete();
                     addressUpdateBefore();
+                    // addressUpdateAfter();
                     showToast('Thêm Địa chỉ','Thêm Thành Công !');
                    
                 })
@@ -221,13 +267,14 @@ const addressDelete = function(){
                              return data.json();
                          }
                          else if(data.status == 400 || data.status == 500){
-                             showToast('Thêm Địa chỉ','Thêm Thất Bại !','error');
+                             showToast('Xóa Địa chỉ','Xóa Thất Bại !','error');
                          }
                      })
                      .then(data=>{
                          var addressRow = '';
-                         console.log(data);
+                         console.log('DATA RELOAD AFTER DELETING',data);
                          for(let i of data){
+                            console.log('###',i);
                                  var row =  `<table class="address-profile forList">
                                  <tr id="header" class="countName">
                                      <td style="background-color: black;"></td>
@@ -268,6 +315,7 @@ const addressDelete = function(){
                          document.querySelector('#addressHolder').innerHTML = addressRow;
                          addressDelete();
                          addressUpdateBefore();
+                        //  addressUpdateAfter();
                          showToast('Xóa địa chỉ','Xóa Thành Công !');
                      })
      
@@ -372,6 +420,7 @@ const addressUpdateBefore = function(){
                             // }
                      
                          document.querySelector('#addupdate-phone').value = updateData.phone;
+                         document.querySelector('#addupdate-id').value = updateData._id;
                      })
             })
         }
@@ -379,4 +428,86 @@ const addressUpdateBefore = function(){
 }
 
 addressUpdateBefore();
+const addressUpdateAfter = function(){
 
+    if(document.querySelector('#addUpdateBtn') != null){
+        document.querySelector('#addUpdateBtn').addEventListener('click',function(){
+            if(document.querySelector('#addupdate-name') && document.querySelector('#addupdate-stress').value && document.querySelector('#addupdate-province').value && document.querySelector('#addupdate-district').value && document.querySelector('#addupdate-ward').value && document.querySelector('#addupdate-phone').value){
+                const data = JSON.stringify({
+                    id:document.querySelector('#addupdate-id').value,
+                    name: document.querySelector('#addupdate-name').value,
+                    stress: document.querySelector('#addupdate-stress').value,
+                    province: document.querySelector('#addupdate-province').value,
+                    district: document.querySelector('#addupdate-district').value,
+                    ward: document.querySelector('#addupdate-ward').value,
+                    phone: document.querySelector('#addupdate-phone').value,
+                });
+                fetch(window.location.origin+'/userInfo/addressList/updateafter',{method:'post',body:data,headers: {
+                    'Content-Type': 'application/json'
+                },})
+                    .then((data) => {
+                        if(data.status == 200){
+                            return data.json();
+                        }
+                        else if(data.status == 400 || data.status == 500){
+                            showToast('Cập nhật Địa chỉ','Cập nhật Thất Bại !','error');
+                        }
+                    })
+                    .then(data=>{
+                        var addressRow = '';
+                        console.log('DATA RELOAD AFTER UPDATING',data);
+                        for(let i of data){
+                                var row = `<table class="address-profile forList">
+                                <tr id="header" class="countName">
+                                    <td style="background-color: black;"></td>
+                                    <td class="icon-trash">
+                                        <div class="addressUpdate" data-id="${i._id}" data-toggle="modal" data-target="#addUpdate"><i class="fas fa-marker"></i></div>
+                                        <div  class="addressDelete" data-id="${i._id}"><i class="fas fa-trash-alt"></i></div>
+                                        
+                                    </td>
+                                
+                                </tr>
+                                <tr>
+                                    <td><strong>Họ và tên</strong></td>
+                                    <td id="tdname">${i.name}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Địa chỉ</strong></td>
+                                    <td id="tdaddress">${i.address}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Tỉnh / Thành</strong></td>
+                                    <td id="tdprovince">${i.province.name}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Quận / Huyện</strong></td>
+                                    <td id="tddistrict">${i.distric.name}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Phường / Xã</strong></td>
+                                    <td id="tdward">${i.ward.name}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Số điện thoại</strong></td>
+                                    <td id="tdphone">${i.phone}</td>
+                                </tr>
+                            </table>`;
+                            addressRow+=row;
+                        }
+                        document.querySelector('#addressHolder').innerHTML = addressRow;
+                        addressDelete();
+                        addressUpdateBefore();
+                        // addressUpdateAfter();
+                        showToast('Cập nhật Địa chỉ','Cập nhật Thành Công !');
+                       
+                    })
+                   
+            }
+            else{
+                showToast('Cảnh báo','Có input đang trống !','warning');
+            }
+        })
+      
+    }
+}
+addressUpdateAfter();
