@@ -14,6 +14,12 @@ class APIController {
     res.status(200).json({ colors, sizes, categories });
   }
 
+  async getCategory(req, res, next) {    
+    var categories = await CategoryDAO.getList();
+    res.status(200).json({ categories });
+
+  }
+
   async checkOut(req, res, next) {
     const validate = validationResult(req);
     if (validate.errors.length) {
@@ -41,6 +47,12 @@ class APIController {
 
   async getBills(req, res, next) {
     const data = await BillDAO.getBills()
+    res.status(200).json(data)
+  }
+
+  async shipBills(req, res, next) {
+    const data = await BillDAO.getBills({state: 2})
+    console.log(data)
     res.status(200).json(data)
   }
 

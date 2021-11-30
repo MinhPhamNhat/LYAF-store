@@ -53,7 +53,6 @@ $(document).ready(()=>{
     })
 
     $(".LYAF-cart-pay-btn").click(()=>{
-        // localhost:2000/api/checkOut
         fetch(window.location.origin+'/api/checkOut')
         .then(data=>{
             if (data.status === 200){
@@ -61,6 +60,31 @@ $(document).ready(()=>{
             }else{
                 $(".prompt-login-modal").modal("show")
             }
+        })
+    })
+
+    fetch(window.location.origin+'/api/getCategory')
+    .then(data=>data.json())
+    .then(data=>{
+        const categories = data.categories.data
+        $(".LYAF-header-dropdown .LYAF-product-dropdown .dropdown-cluster").remove()
+        var parent = categories.filter(_ => !(_.parentId))
+        parent.sort((x,y) => x.name > y.name)
+        $(".LYAF-header-dropdown .LYAF-product-dropdown .dropdown-cluster").remove()
+        parent.forEach(p => {
+            var children = ''
+            categories.forEach(_ => {
+                if (_.parentId && _.parentId._id === p._id){
+                    children += `<a class="dropdown-item" href="#">${_.name}</a>`
+                }
+            })
+            var tag = `
+                <div class="dropdown-cluster">
+                    <a href=""><h6 class="dropdown-header font-weight-bold text-uppercase">${p.name}</h6></a>
+                    ${children}
+                </div>
+            `
+            $(".LYAF-header-dropdown .LYAF-product-dropdown").append(tag)
         })
     })
   })

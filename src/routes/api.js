@@ -7,6 +7,7 @@ const authen = require('../middleware/authen')
 const APIController = require('../app/controllers/APIController');
 
 route.get('/getSetupList',APIController.getSetupList);
+route.get('/getCategory',APIController.getCategory);
 route.get('/addCart', validator.cartValidator(), APIController.addCart)
 route.get('/removeCart', APIController.removeCart)
 route.get('/getCart', APIController.getCart)
@@ -16,6 +17,7 @@ route.get('/product/search', APIController.search);
 route.get('/product/getSub', validator.subProductValidator(), APIController.getSub);
 route.get('/product/getMinMax', APIController.getMinMaxPrice);
 route.get('/manager/getBills', APIController.getBills);
+route.get('/manager/shipBills', APIController.shipBills);
 route.get('/manager/getProducts', APIController.getProducts)
 route.post('/product/filter', APIController.filter);
 route.post('/manager/billState', APIController.billState);

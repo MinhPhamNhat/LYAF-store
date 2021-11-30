@@ -19,7 +19,7 @@ const Category = require('../models/Category')
 
 module.exports = {
     getList: async ()=>{
-        return Category.find().populate('parentId').exec()
+        return Category.find().lean().populate('parentId').exec()
         .then(data => {
             var parent = data.filter(_ => !(_.parentId))
             parent.sort((x,y) => x.name > y.name)
