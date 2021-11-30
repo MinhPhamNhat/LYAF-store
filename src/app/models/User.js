@@ -11,7 +11,7 @@ const User = new Schema({
     birthday:{type:mongoose.Schema.Types.Date},
     phoneNumber: {type: mongoose.Schema.Types.String},
     email:{type:String},
-    address: [{type: mongoose.Schema.ObjectId, ref: 'ShipProfile'}]
+    address: [{type: mongoose.Schema.ObjectId, ref: 'ShipProfile'}],
 },{
     versionKey: false,
     timestamp:true

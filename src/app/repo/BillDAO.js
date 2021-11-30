@@ -19,6 +19,7 @@ const Province = require('../models/Province');
 const District = require('../models/District');
 const Ward = require('../models/Ward');
 const Bill = require('../models/Bill');
+const ShipConfirm = require('../models/ShipConfirm')
 const SubProduct = require('../models/SubProduct');
 const BillDetail = require('../models/BillDetail');
 module.exports = {
@@ -147,4 +148,63 @@ module.exports = {
             }
         })
     },
+
+    confirmDelivery:async (id, user)=>{
+        return Bill.findOneAndUpdate({_id: id}, {
+            state: 3
+        }).then(data=>{
+            new ShipConfirm({
+                user: user._id,
+                bill: data._id
+            }).save()
+            if (data){
+                return {
+                    code: 1,
+                    message: "Đã cập nhật tình trạng đơn"
+                }
+            }else{
+                return {
+                    code: 0,
+                    message: "Bill không tồn tại"
+                }
+            }
+        }).catch(err=>{
+            return {
+                code: -1,
+                message: err
+            }
+        })
+    },
+    
+
+    confirmDeliverySuccess:async (id, user)=>{
+        const check = await ShipConfirm.find({user: user._id, bill: id}).exec()
+        if (check){
+            return Bill.findOneAndUpdate({_id: billId}, {
+                state: 4
+            }).then(data=>{
+                if (data){
+                    return {
+                        code: 1,
+                        message: "Đã cập nhật tình trạng đơn"
+                    }
+                }else{
+                    return {
+                        code: 0,
+                        message: "Bill không tồn tại"
+                    }
+                }
+            }).catch(err=>{
+                return {
+                    code: -1,
+                    message: err
+                }
+            })
+        }else{
+            return {
+                code: 0,
+                message: "Bill không tồn tại"
+            }
+        }
+    }
 }

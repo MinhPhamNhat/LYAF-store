@@ -1,51 +1,82 @@
 
 $(document).ready(()=>{
-    const columns = [
-      {
-        title: "Mã",
-        data: "_id",
-      },
-      {
-        title: "Ngày đặt",
-        data: "date",
-      },
-      {
-        title: "Tổng tiền",
-        data: "totalPrice",
-      },
-      {
-        title: "Tỉnh/thành",
-        data: "province",
-      },
-      {
-        title: "Quận/huyện",
-        data: "district",
-      },
-      {
-        title: "Phường/xã",
-        data: "ward",
-      },
-      {
-        title: "",
-        data: "detail",
-      },
-    ];
-    showLoading()
-    fetch(window.location.origin+'/api/manager/shipBills')
-    .then(data=>data.json())
-    .then(data=>{
-
-       var t = $("#bill-list").DataTable({
-          responsive: true,
-          data: parseData(data) ,
-          columns,
-          columnDefs: [{ orderable: false, targets: 0 }],
-          "order": []
-        });
-        hideLoading()
+    showTable()
+    $(".confirm-delivery").click(function(){
+        const id = this.dataset.id
+        showLoading()
+        fetch(window.location.origin+'/api/manager/confirmDelivery',{
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({id})
+        })
+        .then(data=>data.json())
+        .then(data=>{
+            if(data.code === 200){
+                showToast("Xác nhận vận chuyển", data.message)
+            }else{
+                showToast("Xác nhận vận chuyển", data.message, "error")
+            }
+            hideLoading()
+        }).catch(err=>{
+            hideLoading()
+            
+            showToast("Xác nhận vận chuyển ", err, "error")
+        })
     })
-
   })
+
+
+function showTable(){
+    
+    
+    const columns = [
+        {
+          title: "Mã",
+          data: "_id",
+        },
+        {
+          title: "Ngày đặt",
+          data: "date",
+        },
+        {
+          title: "Tổng tiền",
+          data: "totalPrice",
+        },
+        {
+          title: "Tỉnh/thành",
+          data: "province",
+        },
+        {
+          title: "Quận/huyện",
+          data: "district",
+        },
+        {
+          title: "Phường/xã",
+          data: "ward",
+        },
+        {
+          title: "",
+          data: "detail",
+        },
+      ];
+      
+      showLoading()
+      fetch(window.location.origin+'/api/manager/shipBills')
+      .then(data=>data.json())
+      .then(data=>{
+  
+         var t = $("#bill-list").DataTable({
+            responsive: true,
+            data: parseData(data) ,
+            columns,
+            columnDefs: [{ orderable: false, targets: 0 }],
+            "order": []
+          });
+          hideLoading()
+      })
+}
 
 function parseData(data) {
   const result = data.map(v=>{

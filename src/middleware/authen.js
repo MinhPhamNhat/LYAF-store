@@ -21,7 +21,6 @@ module.exports = {
     },
     authenLogin2: (req, res, next) => {
         if (req.user){
-            res.status(200)
             next()
         }else{
             res.status(404).redirect('/')
@@ -33,6 +32,23 @@ module.exports = {
             next()
         }else{
             res.status(401).json({code: 401, message:"Bạn chưa đăng nhập. Vui lòng đăng nhập để sử dụng chức năng này"})
+        }
+    },
+
+    authenShipper: (req, res, next) => {
+        if (req.user.role === "NVVC"){
+            console.log(req.user)
+            next()
+        }else{
+            res.status(401).render('404')
+        }
+    },
+
+    apiAuthenShipper: (req, res, next) => {
+        if (req.user.role === "NVVC"){
+            next()
+        }else{
+            res.status(401).json({code: 401, message:"Unauhorized"})
         }
     }
 }

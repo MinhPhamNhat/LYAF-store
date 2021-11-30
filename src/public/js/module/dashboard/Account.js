@@ -186,8 +186,6 @@ if(document.querySelector('#filterBtn') != null){
           $('#accTable').dataTable().fnAddData(accList);
         }
       
-  
-       
         }
       })
   })

@@ -4,10 +4,12 @@ const route = express.Router();
 const multer = require('../middleware/multer');
 //Require controller:
 const proManager = require('../app/controllers/ManagementController');
+const authen = require('../middleware/authen')
 
 //Body
 route.get('/',proManager.proManager);
 route.get('/add',proManager.create);
+route.get('/shipper',authen.authenLogin2, authen.authenShipper ,proManager.shiper);
 route.get('/list/detail/:id',proManager.productDetail);
 route.get('/list',proManager.list);
 route.get('/bill/ship',proManager.ship);

@@ -4,7 +4,10 @@ const ProductDAO = require('../repo/ProductDAO')
 const catModel = require('../models/Category');
 const colorModel = require('../models/Color');
 const BillDAO = require('../repo/BillDAO');
+const userModel = require('../models/User')
+const accModel = require('../models/Account')
 const cloudinary = require('../../config/cloudinary');
+const ShipConfirm = require('../models/ShipConfirm')
 const {parseCart} = require('../../helper/function');
 const bcrypt = require('bcrypt');
 class ManagementController{
@@ -30,6 +33,10 @@ class ManagementController{
     }
     bill(req, res, next){
         res.render('proManager', {route: "bill", header: false});
+    }
+
+    async shiper(req, res, next) {
+        res.render('ShipperProfile', {user: req.user});
     }
 
     async shipDetail(req, res, next){
