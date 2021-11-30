@@ -148,11 +148,84 @@ class userInfoController{
             res.status(500).json();
         })
     }
-    async addressListDelete(req,res,next){
-        
+    addressListDelete(req,res,next){
+
+        ShipModel.findByIdAndDelete(req.body.id).exec()
+        .then(data=>{
+            if(data != null){
+                ShipModel.find({user: req.user._id}).populate('province').populate('distric').populate('ward').exec()
+                .then(data=>{
+                    data = data.map(data=>data.toObject());
+                    res.status(200).json(data);
+                })
+                .catch(()=>{
+                    console.log('500 shipmodel');
+                    res.status(500).json();
+                })
+            }
+            else{
+                console.log('400 delete');
+                res.status(400).json();
+            }
+        })
+        .catch(()=>{
+            console.log('500 delete');
+            res.status(500).json();
+        })
     }
-    async addressListUpdate(req,res,next){
-        
+    addressListUpdateBefore(req,res,next){
+        ShipModel.findById(req.body.id).populate('province').populate('distric').populate('ward').exec()
+                .then(data=>{
+                    if(data != null){
+                        console.log('200 findOne');
+                        res.status(200).json(data);
+                    }
+                    else{
+                        console.log('400 findOne');
+                        res.status(400).json(data);
+                    }
+                  
+                })
+                .catch(()=>{
+                    console.log('500 findOne');
+                    res.status(500).json(data);
+                })
+    }
+    addressListUpdateAfter(req,res,next){
+        console.log('data for update: ',req.body);
+        console.log('id người dùng for update: ',req.user._id);
+        ShipModel.findByIdAndUpdate(req.body.id,{
+            user:req.user._id,
+            name:req.body.name,
+            phone:req.body.phone,
+            province: req.body.province,
+            distric: req.body.district,
+            ward: req.body.ward,
+            address: req.body.stress,
+
+        }).exec()
+        .then(updatedata=>{
+            if(updatedata != null){
+                ShipModel.find({user: req.user._id}).populate('province').populate('distric').populate('ward').exec()
+                .then(data=>{
+                    data = data.map(data=>data.toObject());
+                    res.status(200).json(data);
+                })
+                .catch(()=>{
+                    console.log('500 shipmodel');
+                    res.status(500).json();
+                })
+            }
+            else{
+                console.log('400 updateData');
+                res.status(400).json();
+            }
+        })
+        .catch(()=>{
+            console.log('500 updateData');
+            res.status(500).json();
+        })
+
     }
 }
 

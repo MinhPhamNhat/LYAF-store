@@ -26,7 +26,7 @@
                             <tr id="header" class="countName">
                                 <td style="background-color: black;"></td>
                                 <td class="icon-trash">
-                                    <div class="addressUpdate"><i class="fas fa-marker"></i></div>
+                                    <div class="addressUpdate" data-id="{{this._id}}" data-toggle="modal" data-target="#addUpdate"><i class="fas fa-marker"></i></div>
                                     <div  class="addressDelete" data-id="{{this._id}}"><i class="fas fa-trash-alt"></i></div>
                                     
                                 </td>
@@ -34,27 +34,27 @@
                             </tr>
                             <tr>
                                 <td><strong>Họ và tên</strong></td>
-                                <td>{{this.name}}</td>
+                                <td class="tdname">{{this.name}}</td>
                             </tr>
                             <tr>
                                 <td><strong>Địa chỉ</strong></td>
-                                <td>{{this.address}}</td>
+                                <td class="tdaddress">{{this.address}}</td>
                             </tr>
                             <tr>
                                 <td><strong>Tỉnh / Thành</strong></td>
-                                <td>{{this.province.name}}</td>
+                                <td class="tdprovince">{{this.province.name}}</td>
                             </tr>
                             <tr>
                                 <td><strong>Quận / Huyện</strong></td>
-                                <td>{{this.distric.name}}</td>
+                                <td class="tddistrict">{{this.distric.name}}</td>
                             </tr>
                             <tr>
                                 <td><strong>Phường / Xã</strong></td>
-                                <td>{{this.ward.name}}</td>
+                                <td class="tdward">{{this.ward.name}}</td>
                             </tr>
                             <tr>
                                 <td><strong>Số điện thoại</strong></td>
-                                <td>{{this.phone}}</td>
+                                <td class="tdphone">{{this.phone}}</td>
                             </tr>
                         </table>
             {{/each}}
@@ -62,7 +62,7 @@
        
     </div>
 
-    {{!-- Modal --}}
+    {{!-- Modal ADD--}}
      <div class="modal fade" id="addAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -114,4 +114,58 @@
     </div>
     </div>
 </div>
+{{!-- End Modal Add --}}
+{{!-- Modal Update --}}
+<div class="modal fade" id="addUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">SỬA ĐỊA CHỈ</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div id="accAddForm">
+                <div class="form-group">
+                    <label for="username">Họ và tên:</label>
+                    <input type="text" class="form-control" id="addupdate-name" value="">
+                </div>
+                 <div class="form-group">
+                    <label for="username">Địa chỉ:</label>
+                    <input type="text" class="form-control" id="addupdate-stress" value="">
+                </div>
+                <div class="form-group">
+                    <label for="username">Tỉnh/Thành:</label>
+                    <select name="addadd-province" id="addupdate-province">
+
+                    </select>
+                </div>
+                 <div class="form-group">
+                    <label for="username">Quận/Huyện:</label>
+                    <select name="addadd-district" id="addupdate-district">
+
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="username">Phường/Xã:</label>
+                    <select name="addadd-ward" id="addupdate-ward">
+
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="username">Số điện thoại:</label>
+                    <input type="text" name="addadd-phone" id="addupdate-phone">
+                </div>
+                <input type="hidden" id="addupdate-id">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            <button type="button" class="btn btn-success" id="addUpdateBtn">Sửa</button>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+{{!-- End Modal Update --}}
 <script src="/js/userInfo.js"></script>

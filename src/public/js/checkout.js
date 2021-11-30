@@ -46,7 +46,61 @@ $(document).ready(()=>{
     })
 
     $(".pick-a-profile").click(()=>{
-        $(".select-profile-modal").modal("show")
+        fetch(window.location.origin+'/checkout/showAddress',{method:'post'})
+            .then((data) => {
+                if(data.status == 200){
+                    return data.json();
+                }
+                else{
+                    showToast('Hiện thi Danh sách Địa chỉ','Hiện Thị Thất Bại !','error');
+                }
+            })
+            .then(data=>{
+                var profileList = '';
+                for( let i of data){
+                    var row = `<table class="forShowAddress" data-id="${i._id}">
+                            <tr id="header" class="countName">
+                                <td id="tempborder"></td>
+                                <td class="icon-trash">
+                                    
+                                </td>
+                            
+                            </tr>
+                            <tr>
+                                <td><strong>Họ và tên</strong></td>
+                                <td id="tdname">${i.name}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Địa chỉ</strong></td>
+                                <td id="tdaddress">${i.address}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tỉnh / Thành</strong></td>
+                                <td id="tdprovince">${i.province.name}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Quận / Huyện</strong></td>
+                                <td id="tddistrict">${i.distric.name}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Phường / Xã</strong></td>
+                                <td id="tdward">${i.ward.name}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Số điện thoại</strong></td>
+                                <td id="tdphone">${i.phone}</td>
+                            </tr>
+
+                        </table>`;
+                        profileList+=row;
+                       
+                }   
+                document.querySelector('.showProfileHere').innerHTML = profileList;
+                showToast('Hiện thi danh sách địa chỉ','Hiện Thị Thành Công !');
+                $(".select-profile-modal").modal("show")
+            })
+
+        
     })
 
     $(".go-checkout").click((e)=>{
@@ -80,3 +134,10 @@ $(document).ready(()=>{
         })
     })
 })
+
+console.log(document.querySelectorAll('.forShowAddress'))
+// for(let i of document.querySelectorAll('.forShowAddress')){
+//         i.addEventListener('click',function(){
+//             console.log('OK');
+//         })
+//     }

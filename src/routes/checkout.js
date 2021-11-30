@@ -7,5 +7,6 @@ const authen = require('../middleware/authen')
 const CheckoutController = require('../app/controllers/CheckoutController');
 
 route.get('/', CheckoutController.index);
+route.post('/showAddress', CheckoutController.showAddress);
 
 module.exports = route;

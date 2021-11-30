@@ -1,4 +1,5 @@
 const { parseCart } = require("../../helper/function");
+const ShipModel = require('../models/ShipProfile');
 class userInfoController{
 
     async index(req,res,next){
@@ -10,6 +11,15 @@ class userInfoController{
         var deliveryPrice = (tempPrice - salePrice) > 500 ? 0 : 50; 
         var totalPrice = tempPrice - salePrice + deliveryPrice
         res.render('checkOut', {cart: parsedCart, tempPrice, salePrice, deliveryPrice, totalPrice});
+    }
+    showAddress(req,res,next){
+        console.log(req.user._id);
+        ShipModel.find({user: req.user._id}).populate('province').populate('distric').populate('ward').exec()
+        .then(data=>{
+            console.log('show hồ sơ:',data);
+            data = data.map(data=>data.toObject());
+            res.status(200).json(data);
+        })
     }
 }
 

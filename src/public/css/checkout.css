@@ -137,19 +137,26 @@
   flex-direction: column;
   align-items: center; }
 
-.select-profile-modal .address-profile {
+.select-profile-modal .showProfileHere {
+  width: 100%; }
+
+.select-profile-modal .forShowAddress {
   margin-bottom: 20px;
   width: 100%;
   cursor: pointer;
   border: 1px solid black; }
-  .select-profile-modal .address-profile td {
+  .select-profile-modal .forShowAddress td {
     padding: 10px; }
-  .select-profile-modal .address-profile #header {
+  .select-profile-modal .forShowAddress #header {
     color: white;
     height: 30px;
     background-color: black; }
+    .select-profile-modal .forShowAddress #header #tempborder {
+      background-color: black; }
 
-.select-profile-modal .address-profile:hover {
+.select-profile-modal .forShowAddress:hover {
   border: 2px solid #00336d; }
-  .select-profile-modal .address-profile:hover #header {
+  .select-profile-modal .forShowAddress:hover #header {
     background-color: #00336d; }
+    .select-profile-modal .forShowAddress:hover #header #tempborder {
+      background-color: #00336d; }

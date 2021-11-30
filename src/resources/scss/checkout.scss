@@ -207,7 +207,10 @@
         flex-direction: column;
         align-items: center;
     }
-    .address-profile{
+    .showProfileHere{
+        width: 100%;
+    }
+    .forShowAddress{
         margin-bottom: 20px;
         width: 100%;
         cursor: pointer;
@@ -219,12 +222,21 @@
             color: white;
             height: 30px;
             background-color: black;
+            #tempborder{
+                background-color: black;
+            }
         }
+       
     }
-    .address-profile:hover{
+    .forShowAddress:hover{
         border: 2px solid rgb(0, 51, 109);
         #header{
             background-color: rgb(0, 51, 109);
+            #tempborder{
+                background-color: rgb(0, 51, 109);
+            }
         }
+       
+
     }
 }
