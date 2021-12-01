@@ -221,30 +221,34 @@
 }
 
 .LYAF-header .LYAF-search-box .LYAF-search-output .LYAF-search-product{
+    width: 80%;
     cursor: pointer;
     display: flex;
-    flex-direction: row;
     justify-content: center;
+    align-items: center;
+    margin-top: 30px;
 }
-
+.LYAF-header .LYAF-search-box .LYAF-search-output .LYAF-search-product:hover{
+    border: 2px solid black;
+}
 .LYAF-header .LYAF-search-box .LYAF-search-output .LYAF-search-product-info{
+    flex:2;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
-    width: 80%;
+    // width: 80%;
 }
 
 .LYAF-header .LYAF-search-box .LYAF-search-output .LYAF-search-product p{
-    font-size: 11px;
-    margin-bottom: 0;
-    margin: 2px;
-    margin-right: 20px;
+    text-align: center;
 }
 
 .LYAF-header .LYAF-search-box .LYAF-search-output .LYAF-search-product img{
-    height: 50px;
-    width: 50px;
+    flex: 1;
+    max-height: 90px;
+    max-width: 90px;
+
 }
 
 .LYAF-header .LYAF-search-box .LYAF-more-search a{
@@ -437,4 +441,15 @@
         }
         
     }
+}
+#errorSearch{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    #error1{
+        font-weight: bold;
+        color: red;
+    }
+
 }
