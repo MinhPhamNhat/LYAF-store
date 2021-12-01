@@ -35,6 +35,14 @@ class ClientController{
         var categories = await CategoryDAO.getList();
         res.render('productCollection', {categories: categories.data});
     }
+    search(req,res,next){
+        console.log(req.body);
+        Product.find({name: {$regex:new RegExp(req.body.keyword, "i")}}).exec()
+        .then(data=>{
+            console.log('product for search:',data);
+           
+        })
+    }
 }
 
 module.exports = new ClientController;

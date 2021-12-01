@@ -5,5 +5,5 @@ const authen = require('../middleware/authen')
 route.get('/', authen.authen, ClientController.client);
 route.get('/product/detail/:id', ClientController.productDetail);
 route.get('/product/collection', ClientController.productCollection);
-
+route.post('/search', ClientController.search);
 module.exports = route;

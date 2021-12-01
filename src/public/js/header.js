@@ -163,4 +163,21 @@ const showToast = (title, mess, type = "success", x = 20, y = 20) => {
 
   const hideLoading = () => {
     $(".LYAF-loading").fadeOut(300)
-  }
+  }  
+  document.querySelector('#searchbtn').addEventListener('click',function(){
+      console.log(document.querySelector('#searchinput').value);
+      const data = JSON.stringify({
+          keyword: document.querySelector('#searchinput').value,
+      })
+      fetch(window.location.origin+'/search',{method:'post',body:data,headers: {
+        'Content-Type': 'application/json'
+    },})
+            .then((data) => {
+                if(data.status == 200){
+                    return data.json();
+                }
+                else{
+                    showToast('Hiện thi Danh sách Địa chỉ','Hiện Thị Thất Bại !','error');
+                }
+            })
+  })
