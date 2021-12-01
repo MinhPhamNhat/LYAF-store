@@ -75,12 +75,12 @@ $(document).ready(()=>{
             var children = ''
             categories.forEach(_ => {
                 if (_.parentId && _.parentId._id === p._id){
-                    children += `<a class="dropdown-item" href="#">${_.name}</a>`
+                    children += `<a class="dropdown-item" href="/product/collection?category=${_._id}">${_.name}</a>`
                 }
             })
             var tag = `
                 <div class="dropdown-cluster">
-                    <a href=""><h6 class="dropdown-header font-weight-bold text-uppercase">${p.name}</h6></a>
+                    <a href="/product/collection?category=${p._id}"><h6 class="dropdown-header font-weight-bold text-uppercase">${p.name}</h6></a>
                     ${children}
                 </div>
             `
@@ -192,23 +192,29 @@ const showToast = (title, mess, type = "success", x = 20, y = 20) => {
                     console.log('data length =',data.length);
                     var topten = '';
                     for(let i = 0; i < 10; i++){
-                        console.log('i =',i);
                         if(i < data.length){
-                              const item = `<div class="LYAF-search-product">
-                                        <div class="LYAF-search-product-info">
-                                            <p class="LYAF-search-product-name text-uppercase">${data[i].name}</p>
-                                            <p class="LYAF-search-product-price">${data[0].price}<u>đ</u></p>
-                                        </div>
-                                        <img src="${data[i].images[0]}"class="LYAF-search-product-thumbnail">
-                                       </div>`;
+                            var truePrice = data[i].isSale?(data[i].price - (data[i].sale*data[i].price)):data[i].price
+                              const item = `
+                                <div class="LYAF-search-product">
+                                    <div class="LYAF-search-product-info">
+                                        <p class="LYAF-search-product-name text-uppercase"><a href="/product/detail/${data[i]._id}">${data[i].name}</a></p>
+                                        <span class="price-search">
+                                            <p class="LYAF-search-price text-uppercase">${(truePrice*1000).toLocaleString('it-IT')}<u>đ</u>
+                                            </p>
+                                            ${(data[i].isSale)?`<p class="LYAF-search-price text-uppercase true-price">${(data[i].price*1000).toLocaleString('it-IT')}<u>đ</u></p>`:''}
+                                        </span>
+                                        
+                                    </div>
+                                    <img src="${data[i].images[0]}"class="LYAF-search-product-thumbnail">
+                                </div>
+                              `;
                                  topten += item;      
                         }
                         else{
                             break;
                         }
-                        
-                      
                     }
+                    $(".LYAF-more-search a").attr('href', '/product/collection?keyword='+$('#searchinput').val())
                     document.querySelector('.LYAF-search-output').innerHTML = topten;
                 }
             })

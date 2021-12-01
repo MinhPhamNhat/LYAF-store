@@ -100,6 +100,9 @@
 .LYAF-side-bar-menu .LYAF-menu .LYAF-menu-content .LYAF-menu-option {
   padding: 25px;
   padding-left: 35px; }
+  .LYAF-side-bar-menu .LYAF-menu .LYAF-menu-content .LYAF-menu-option a {
+    text-decoration: none;
+    color: #b7b7b9; }
 
 .LYAF-side-bar-menu .LYAF-menu .LYAF-menu-content .LYAF-menu-option .icon {
   font-size: 10px; }

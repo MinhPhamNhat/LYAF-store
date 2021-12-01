@@ -24,38 +24,38 @@
 
             <div id="block-products">
                 {{#each data}}
-                <div class="LYAF-product-component">
-                    <div class="LYAF-product-thumbnails">
-                        {{#getThumbnails images=this.images id=this._id}}
-                        {{/getThumbnails}}
-                    </div>
-                    <div class="LYAF-product-info">
-                        <div id="price">
-                        {{#if this.isSale}}
-                            <span id="true-price">{{#saleFormat price=this.price sale=this.sale}} {{/saleFormat}}<span id="currency">đ</span></span>
-                            <span id="sale-price">{{#priceFormat price=this.price}} {{/priceFormat}}<span id="currency">đ</span></span>
-                        {{else}}
-                            <span id="true-price">{{#priceFormat price=this.price}} {{/priceFormat}}<span id="currency">đ</span></span>
-                        {{/if}}
+                    <div class="LYAF-product-component">
+                        <div class="LYAF-product-thumbnails">
+                            {{#getThumbnails images=this.images id=this._id}}
+                            {{/getThumbnails}}
                         </div>
-                        <div id="name"><a href="/product/detail/{{this._id}}">{{this.name}}</a></div>
-                        <div id="category">
-                        {{#if this.categoryId.parentId}}
-                            <a href="#" id="parent">{{this.categoryId.parentId.name}}</a>, 
-                        {{/if}}
-                            <a href="#" id="child">{{this.categoryId.name}}</a>
-                        </div>
-                        <div id="rating">
-                            <div class="rating-stars">
-                                {{#ratingStar value=this.rating}}
-                                {{/ratingStar}}
+                        <div class="LYAF-product-info">
+                            <div id="price">
+                            {{#if this.isSale}}
+                                <span id="true-price">{{#saleFormat price=this.price sale=this.sale}} {{/saleFormat}}<span id="currency">đ</span></span>
+                                <span id="sale-price">{{#priceFormat price=this.price}} {{/priceFormat}}<span id="currency">đ</span></span>
+                            {{else}}
+                                <span id="true-price">{{#priceFormat price=this.price}} {{/priceFormat}}<span id="currency">đ</span></span>
+                            {{/if}}
                             </div>
-                            <div class="rating-value">
-                                {{this.rating}}/5
+                            <div id="name"><a href="/product/detail/{{this._id}}">{{this.name}}</a></div>
+                            <div id="category">
+                            {{#if this.categoryId.parentId}}
+                                <a href="/product/collection?category={{this.categoryId.parentId}}" id="parent">{{this.categoryId.parentId.name}}</a>, 
+                            {{/if}}
+                                <a href="/product/collection?category={{this.categoryId}}" id="child">{{this.categoryId.name}}</a>
+                            </div>
+                            <div id="rating">
+                                <div class="rating-stars">
+                                    {{#ratingStar value=this.rating}}
+                                    {{/ratingStar}}
+                                </div>
+                                <div class="rating-value">
+                                    {{this.rating}}/5
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 {{/each}}
             </div>
             <div id="block-products-bottom">

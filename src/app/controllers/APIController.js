@@ -21,6 +21,24 @@ class APIController {
 
   }
   
+  async rating(req, res, next){
+    console.log(req.body)
+    const productId = req.body.productId
+    const value = req.body.value
+    const result = await ProductDAO.rateProduct(req.user, productId, value)
+    switch (result.code) {
+      case 1:
+        res.status(200).json({ code: 200, message: result.message });
+        break;
+      case 0:
+        res.status(404).json({ code: 404, message: result.message });
+        break;
+      case -1:
+        res.status(500).json({ code: 500, message: result.message });
+        break;
+    }
+  }
+
   async getShipperBills(req, res, next){
     const bills = await ShipConfirm.find({user: req.user._id}).sort({date: -1}).populate({
       path: 'bill',
@@ -39,7 +57,7 @@ class APIController {
       },
     }).exec()
     const result = await Promise.all(bills.map(item=>item.bill))
-    res.status(200).json({data:result})
+    res.status(200).json({data:result.filter(item=>item)})
   }
 
   async getManageBills(req, res, next) {
@@ -60,7 +78,7 @@ class APIController {
       },
     }).exec()
     const result = await Promise.all(bills.map(item=>item.bill))
-    res.status(200).json({data:result})
+    res.status(200).json({data:result.filter(item=>item)})
   }
 
   async checkOut(req, res, next) {

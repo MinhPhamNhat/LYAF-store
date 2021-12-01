@@ -201,22 +201,23 @@
   width: 80%;
   cursor: pointer;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px; }
+  justify-content: space-between;
+  padding: 5px; }
+  .LYAF-header .LYAF-search-box .LYAF-search-output .LYAF-search-product .price-search {
+    display: flex;
+    flex-direction: row; }
+    .LYAF-header .LYAF-search-box .LYAF-search-output .LYAF-search-product .price-search .true-price {
+      text-decoration: line-through red;
+      font-size: 11px;
+      margin-left: 10px; }
 
 .LYAF-header .LYAF-search-box .LYAF-search-output .LYAF-search-product:hover {
   border: 2px solid black; }
 
 .LYAF-header .LYAF-search-box .LYAF-search-output .LYAF-search-product-info {
-  flex: 2;
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
-  justify-content: center; }
-
-.LYAF-header .LYAF-search-box .LYAF-search-output .LYAF-search-product p {
-  text-align: center; }
+  justify-content: start; }
 
 .LYAF-header .LYAF-search-box .LYAF-search-output .LYAF-search-product img {
   flex: 1;

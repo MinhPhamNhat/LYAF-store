@@ -246,3 +246,6 @@
     .profile_body .icon-trash .addressUpdate {
       width: 30px;
       margin-left: 40px; }
+
+.rating-modal .LYAF-rating-container #rating span {
+  font-size: 18px; }

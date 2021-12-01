@@ -2,6 +2,9 @@ const ProductDAO = require('../repo/ProductDAO')
 const Product = require('../models/Product')
 const SubProduct = require('../models/SubProduct')
 const CategoryDAO = require('../repo/CategoryDAO')
+const url = require('url');
+const querystring = require('querystring');
+const {parseSearch, parseSort, createPageRange} = require('../../helper/function')
 class ClientController{
     async client(req,res,next){
         var result = await ProductDAO.getProductsList({isNew: true},10, {}, {date: -1})
@@ -32,26 +35,32 @@ class ClientController{
     }
 
     async productCollection(req,res,next){
-        var categories = await CategoryDAO.getList();
-        res.render('productCollection', {categories: categories.data});
+        const numOfPro = 20
+        const categories = await CategoryDAO.getList();
+        const option = parseSearch(req.query)
+        const page = req.query.page||1
+        const sort = parseSort(req.query.sort)
+        const numberOfDocs = await Product.countDocuments(option).exec()
+        const pageRange = createPageRange(page, Math.ceil(numberOfDocs/numOfPro))
+        const category = req.query.category==='any'?null:req.query.category
+        const result = await ProductDAO.search(option, category, numOfPro, numOfPro*(page-1), sort)
+
+        var query =  req.query
+        delete query.page
+        res.render('productCollection', {categories: categories.data, data: result.data, page, pageRange, option: req.query, search: new URLSearchParams(req.query).toString()});
     }
+
     search(req,res,next){
-        console.log(req.body);
         Product.find({name: {$regex:new RegExp(req.body.keyword, "i")}}).exec()
         .then(data=>{
-            console.log('product for search:',data);
             data = data.map(data=>data.toObject());
             if(data.length > 0){
-                console.log('SHOW DATA:',data);
                 res.status('200').json(data);
             }
             else{
-                console.log('EMPTY');
                 const isempty = {empty:'empty'}
                 res.status('200').json(isempty);
             }
-            
-           
         })
     }
     notfound(req,res,next){

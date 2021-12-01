@@ -22,6 +22,7 @@ route.get('/manager/getBills', APIController.getBills);
 route.get('/manager/manageBills', APIController.manageBills);
 route.get('/manager/shipBills', APIController.shipBills);
 route.get('/manager/getProducts', APIController.getProducts)
+route.post('/rating', authen.authenLogin3, APIController.rating)
 route.post('/product/filter', APIController.filter);
 route.post('/manager/confirmBill', APIController.confirmBill);
 route.post('/manager/billState', APIController.billState);

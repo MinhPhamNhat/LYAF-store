@@ -18,6 +18,7 @@
 const Product = require('../models/Product')
 const SubProduct = require('../models/SubProduct')
 const Category = require('../models/Category')
+const Rating = require('../models/Rating')
 
 async function generateId(categoryId, codeLength=5){
     const category = await Category.findById(categoryId).select('numberOfProd').exec()
@@ -71,14 +72,44 @@ module.exports = {
             }
         })
     },
-
+    search: async (option, category, limit={}, skip={}, sort={}) => {
+        return Product.find(option).populate({
+            path: 'categoryId',
+            populate: {
+                path: 'parentId'
+            }
+        }).lean().limit(limit).sort(sort).collation({ locale: "vi", caseLevel: true }).skip(skip).exec()
+        .then(data=>{
+            if (category){
+                var result = []
+                data.forEach(item=>{
+                    if (category === item.categoryId._id || category === (item.categoryId.parentId?item.categoryId.parentId._id:'')){
+                        result.push(item)
+                    }
+                })
+                return {
+                    code: 1,
+                    data: result
+                }
+            }
+            return {
+                code: 1,
+                data
+            }
+        }).catch(err=>{
+            return {
+                code: -1,
+                message: err
+            } 
+        })
+    },
     getProductsList: async (option, limit={}, skip={}, sort={}) => {
         return Product.find(option).populate({
             path: 'categoryId',
             populate: {
                 path: 'parentId'
             }
-        }).limit(limit).sort(sort).skip(skip).exec()
+        }).limit(limit).sort(sort).collation({ locale: "vi", caseLevel: true }).skip(skip).exec()
         .then(data=>{
             return {
                 code: 1,
@@ -304,5 +335,51 @@ module.exports = {
             }
         })
 
+    },
+
+    rateProduct: async(user, productId, value)=>{
+        if (value>=0 && value <=5){
+            const product = await Product.findById(productId).exec()
+            if (product){
+                const rating = await Rating.find({userRating: user._id, productRating: product._id}).exec()
+                if (rating.length){
+                    return {
+                        code: 0,
+                        message: "Bạn đã đánh giá sản phẩm này"
+                    }
+                }else{
+                    await new Rating({
+                        userRating: user._id, 
+                        productRating: product._id,
+                        value
+                    }).save()
+                    const productRating = await Rating.find({productRating: product._id}).exec()
+                    console.log(productRating)
+                    var sum = productRating.map(r => r.value)
+                    console.log("sum", sum)
+                    sum = sum.reduce((x,y) => x+y, 0)
+                    console.log("sum", sum)
+                    var avg = sum/(productRating.length)
+                    console.log("avg", avg)
+                    product.rating = avg
+                    product.save()
+                    return {
+                        code: 1,
+                        message: "Đánh giá thành công"
+                    }
+                }
+            }else{
+                return {
+                    code: 0,
+                    message: "Product not found"
+                }
+            }
+        }else{
+            return {
+                code: 0,
+                message: "Không hợp lệ"
+            }
+        }
+        
     }
 }

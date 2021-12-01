@@ -112,6 +112,10 @@
 .LYAF-side-bar-menu .LYAF-menu .LYAF-menu-content .LYAF-menu-option{
     padding: 25px;
     padding-left: 35px;
+    a{
+        text-decoration: none;
+        color: rgb(183, 183, 185);
+    }
 }
 
 .LYAF-side-bar-menu .LYAF-menu .LYAF-menu-content .LYAF-menu-option .icon{

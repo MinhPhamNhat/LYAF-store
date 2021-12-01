@@ -86,4 +86,15 @@
             }
         }
     }
+    .no-data{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 20px;
+        p{
+            font-weight: 600;
+            font-size: 24px;
+        }
+    }
 }

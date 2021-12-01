@@ -126,3 +126,12 @@
           background-color: white;
           padding-left: 5px;
           padding-right: 5px; }
+  .LYAF-collection-wrapper .no-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px; }
+    .LYAF-collection-wrapper .no-data p {
+      font-weight: 600;
+      font-szie: 24px; }

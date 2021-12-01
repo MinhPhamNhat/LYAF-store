@@ -511,3 +511,55 @@ const addressUpdateAfter = function(){
     }
 }
 addressUpdateAfter();
+var G_star_id = 5
+
+$(document).ready(()=>{
+    $(".LYAF-rating-container #rating span").hover(function(){
+        const id = this.dataset.id
+        setStar(id)
+    }, function(){
+        setStar(G_star_id)
+    })
+
+    $(".LYAF-rating-container #rating span").click(function(){
+        const id = this.dataset.id
+        $(".LYAF-rating-container #title #value").text(G_star_id)
+        G_star_id = id
+    })
+    $(".rating-button").click(function(){
+        const id = this.dataset.id
+        G_star_id = 5
+        setStar(G_star_id)
+        $(".LYAF-rating-container #title #value").text(G_star_id)
+        $(".rating-modal .confirm-rating").attr("data-id", id)
+        $(".rating-modal").modal("show")
+    })
+    
+    $(".rating-modal .confirm-rating").click(function(){
+        const id = this.dataset.id
+        fetch(window.location.origin + '/api/rating', 
+        {
+            method: "POST",
+            headers:{
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({productId: id, value: G_star_id})
+        }).then(data=>data.json())
+        .then(data=>{
+            if (data.code===200){
+                showToast("Đánh giá sản phẩm", data.message)
+            }else{
+                showToast("Đánh giá sản phẩm", data.message, "error")
+            }
+            $(".rating-modal").modal("hide")
+        })
+    })
+})
+function setStar(id){
+    $(`.LYAF-rating-container #rating span .fa-star`).remove()
+    for (var i = 1; i <= 5 ; i++){
+        $(`.LYAF-rating-container #rating .star-${i}`).append(`
+            <i class="${i<=id?'fas':''} fa-star fa-sm text-primary far start-${i}" title="" data-toggle="tooltip" data-original-title="${i}" data-id="${i}"></i>
+        `)
+    }
+}

@@ -124,18 +124,56 @@ exports.parseSearch = (payload) => {
   const name = payload.keyword?{$regex:new RegExp(payload.keyword, "i")}:undefined
   const priceFrom = payload.priceFrom?Number.parseInt(payload.priceFrom):undefined
   const priceTo = payload.priceTo?Number.parseInt(payload.priceTo):undefined
-  const price = {
+  const price = priceTo&&priceTo?{
     $gte: priceFrom,
     $lte: priceTo
-  }
+  }:undefined
   const ratingTo = payload.rating?Number.parseInt(payload.rating):undefined
-  const rating = {
-    $gte: 0,
+  
+  const rating = payload.ratingAll==='true'?undefined:ratingTo?{
+    $gte: ratingTo-1,
     $lte: ratingTo
-  }
+  }:undefined
   var search = {isNew, isSale, name, price, rating}
   Object.keys(search).forEach(key => search[key] === undefined && delete search[key])
   return search
+}
+const range= (size, startAt) => {
+  return [...Array(size).keys()].map(i => i + startAt);
+}
+exports.createPageRange=(curPage, maxPage)=>{
+    var pageRange = range(5, curPage-2)
+    var start = pageRange.indexOf(1)
+    var end = pageRange.indexOf(maxPage)
+    if (start === -1 && end === -1){
+        return pageRange
+    }else if (start === -1){
+        return pageRange.slice(0,end+1)
+    }else if (end === -1){
+        return pageRange.slice(start,)
+    }else{
+        return pageRange.slice(start, end+1)
+    }
+}
+exports.parseSort = (sort) => {
+  switch(sort){
+    case 'any':
+      return {}
+    case 'price-desc':
+      return {price: -1}
+    case 'price-asc':
+      return {price: 1}
+    case 'rating-desc':
+      return {rating: -1}
+    case 'rating-asc':
+      return {rating: 1}
+    case 'name-az':
+      return {name: -1}
+    case 'name-za':
+      return {name: 1}
+    default:
+      return undefined
+  }
 }
 
 exports.parseFilter = (payload) => {

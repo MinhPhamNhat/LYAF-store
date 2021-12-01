@@ -15,7 +15,7 @@ const Product = new Schema(
     isSale: { type: mongoose.Schema.Types.Boolean },
     isNew: { type: mongoose.Schema.Types.Boolean },
     sale: { type: mongoose.Schema.Types.Number },
-    rating: { type: mongoose.Schema.Types.Number },
+    rating: { type: mongoose.Schema.Types.Number, default: 0 },
     amountOfAccess: { type: mongoose.Schema.Types.Number },
     subProductCount: { type: mongoose.Schema.Types.Number },
     date: {type: Date, default: Date.now()}

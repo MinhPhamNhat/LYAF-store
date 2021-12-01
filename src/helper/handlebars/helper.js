@@ -3,6 +3,9 @@ module.exports = {
     equals: (options) =>{ 
         return options.hash.val1 === options.hash.val2 ? options.fn(this) : options.inverse(this) 
     },
+    numberEquals: (options) =>{ 
+        return Number.parseInt(options.hash.val1) === Number.parseInt(options.hash.val2) ? options.fn(this) : options.inverse(this) 
+    },
     notEquals: (options) =>{ return options.hash.val1 !== options.hash.val2 ? options.fn(this) : options.inverse(this) },
     manyEqTo: (options) => {
         return (options.hash.val1 === options.hash.key ||  options.hash.val2 === options.hash.key) ? options.fn(this) : options.inverse(this)
@@ -64,6 +67,23 @@ module.exports = {
         price = (price*1000).toLocaleString('it-IT');
         return price
     },
+
+    operator: (option)=>{
+        var operation = option.hash.op
+        var val1 = option.hash.val1
+        var val2 = option.hash.val2
+        switch(operation){
+            case "+":
+                return val1 + val2
+            case "-":
+                return val1 - val2
+            case "*":
+                return val1 * val2
+            case "/":
+                return val1 / val2
+        }
+    }
+    ,
 
     billStatus: (option)=>{
         switch(option.hash.state){// 0: Huỷ đơn hàng ,1: Đang chờ xử lý, 2: Đã xác nhận đơn hàng, 3: Đang vận chuyển, 4: Đã giao hàng

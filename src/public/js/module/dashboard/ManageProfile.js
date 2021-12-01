@@ -52,6 +52,7 @@ function showTable(){
 
 function parseData(data) {
     const result = data.map(v=>{
+        console.log(v)
       return {
         _id: v._id,
         date: new Date(v.date).toLocaleString("vi-VN"),

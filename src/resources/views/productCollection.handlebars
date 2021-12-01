@@ -18,26 +18,25 @@
                 <hr>
                 <!-- Section: Condition -->
                 <section class="mb-4" data-filter="search">
-                    <h6 class="font-weight-bold mb-3">Search Name</h6>
-
+                    <h6 class="font-weight-bold mb-3">Tìm tên</h6>
                     <div class="form-check mb-3">
-                        <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Keyword...">
+                        <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Keyword..." value="{{option.keyword}}">
                     </div>
                 </section>
 
                 <!-- Section: Condition -->
                 <section class="mb-4" data-filter="condition">
-                    <h6 class="font-weight-bold mb-3">Condition</h6>
+                    <h6 class="font-weight-bold mb-3">Điều kiện</h6>
 
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="new" name="condition" id="condition-checkbox">
+                        <input class="form-check-input" type="checkbox" value="new" name="condition" {{#equals val1=option.isNew val2='true'}}checked{{/equals}} id="condition-checkbox">
                         <label class="form-check-label text-uppercase small text-muted" for="condition-checkbox">
                         Sản phẩm mới
                         </label>
                     </div>
 
                     <div class="form-check mb-  ">
-                        <input class="form-check-input" type="checkbox" value="sale" name="condition" id="condition-checkbox2">
+                        <input class="form-check-input" type="checkbox" value="sale" name="condition" {{#equals val1=option.isSale val2='true'}}checked{{/equals}} id="condition-checkbox2">
                         <label class="form-check-label text-uppercase small text-muted" for="condition-checkbox2">
                         Khuyến mãi
                         </label>
@@ -47,7 +46,9 @@
 
                 <!-- Section: Avg. Customer Review -->
                 <section class="mb-4">
-                <h6 class="font-weight-bold mb-3">Avg. Customer Review</h6>
+                <h6 class="font-weight-bold mb-3">Rating trung bình</h6>
+                    <label for="rating-all">Tất cả</label>
+                    <input name="rating" id="rating-all" value="all" {{#equals val1=option.ratingAll val2='true'}}checked{{/equals}} type='checkbox'>
                     <div class="" id="rating">
                         <span class="star-1" data-id="1"><i class="fa-star fa-sm text-primary far" title="" data-toggle="tooltip" data-original-title="1"></i></span>
                         <span class="star-2" data-id="2"><i class="fa-star fa-sm text-primary far" title="" data-toggle="tooltip" data-original-title="2"></i></span>
@@ -60,51 +61,94 @@
 
                 <!-- Section: Price -->
                 <section class="mb-4">
-                <h6 class="font-weight-bold mb-3">Price</h6>
+                    <h6 class="font-weight-bold mb-3">Giá</h6>
 
-                <div class="price-selecter">
-
-                </div>
+                    <div class="price-selecter">
+                        
+                    </div>
+                    <input type="hidden" id="price-from" value="{{option.priceFrom}}">
+                    <input type="hidden" id="price-to" value="{{option.priceTo}}">
                 </section>
             </section>
             <!-- Section: Filters -->
         </section>
                 <hr>
-        <button type="button" class="btn btn-primary collection-search">Search</button>
+        <button type="button" class="btn btn-primary collection-search">Tìm kiếm</button>
     </div>
     <div class="LYAF-collection-products-wrapper">
         <div class="LYAF-collection-product-sort">
             <div class="LYAF-sort-section">
-                <label for="LYAF-form-sort">Sort</label>
+                <label for="LYAF-form-sort">Sắp xếp</label>
                 <select name="sort" id="LYAF-form-sort">
-                    <option value="any">Tất cả</option>
-                    <option value="price-desc">Giá từ cao đến thấp</option>
-                    <option value="price-asc">Giá từ thấp đến cao</option>
-                    <option value="name-az">Tên từ a đến z</option>
-                    <option value="name-za">Tên từ z đến a</option>
-                    <option value="rating-desc">Đánh giá từ cao đến thấp</option>
-                    <option value="rating-asc">Đánh giá từ thấp đến cao</option>
+                    <option value="any" {{#equals val1=option.sort val2='price-desc'}}selected{{/equals}}>Tất cả</option>
+                    <option value="price-desc" {{#equals val1=option.sort val2='price-desc'}}selected{{/equals}}>Giá từ cao đến thấp</option>
+                    <option value="price-asc" {{#equals val1=option.sort val2='price-asc'}}selected{{/equals}}>Giá từ thấp đến cao</option>
+                    <option value="rating-desc" {{#equals val1=option.sort val2='rating-desc'}}selected{{/equals}}>Đánh giá từ cao đến thấp</option>
+                    <option value="rating-asc" {{#equals val1=option.sort val2='rating-asc'}}selected{{/equals}}>Đánh giá từ thấp đến cao</option>
                 </select>
             </div>
             <div class="LYAF-sort-section">
-                <label for="LYAF-form-sort">Category</label>
+                <label for="LYAF-form-sort">Danh mục</label>
                 <select name="category" id="LYAF-form-sort">
-                    <option value="any">Tất cả</option>
+                    <option {{#equals val1=../option.category val2='any'}}selected{{/equals}} value="any">Tất cả</option>
                     {{#each categories}}
-                        <option value="{{this._id}}">{{this.name}}</option>
+                        <option {{#equals val1=../option.category val2=this._id}}selected{{/equals}} value="{{this._id}}">{{this.name}}</option>
                     {{/each }}
                 </select>
             </div>
         </div>
         <div class="LYAF-products-container">
+            {{#if data.length}}
+                {{#each data}}
+                    <div class="LYAF-product-component">
+                        <div class="LYAF-product-thumbnails">
+                            {{#getThumbnails images=this.images id=this._id}}
+                            {{/getThumbnails}}
+                        </div>
+                        <div class="LYAF-product-info">
+                            <div id="price">
+                            {{#if this.isSale}}
+                                <span id="true-price">{{#saleFormat price=this.price sale=this.sale}} {{/saleFormat}}<span id="currency">đ</span></span>
+                                <span id="sale-price">{{#priceFormat price=this.price}} {{/priceFormat}}<span id="currency">đ</span></span>
+                            {{else}}
+                                <span id="true-price">{{#priceFormat price=this.price}} {{/priceFormat}}<span id="currency">đ</span></span>
+                            {{/if}}
+                            </div>
+                            <div id="name"><a href="/product/detail/{{this._id}}">{{this.name}}</a></div>
+                            <div id="category">
+                            {{#if this.categoryId.parentId}}
+                                <a href="#" id="parent">{{this.categoryId.parentId.name}}</a>, 
+                            {{/if}}
+                                <a href="#" id="child">{{this.categoryId.name}}</a>
+                            </div>
+                            <div id="rating">
+                                <div class="rating-stars">
+                                    {{#ratingStar value=this.rating}}
+                                    {{/ratingStar}}
+                                </div>
+                                <div class="rating-value">
+                                    {{this.rating}}/5
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            {{else}}
+                <div class="no-data">
+                    <img src="/img/logo.jpg" width="100" height="100">
+                    <p>Sản phẩm bạn tìm không có ...</p>
+                </div>
+            {{/if}}
         </div>
         <div class="LYAF-product-pagination">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                <li class="page-item"><a class="page-link" href="/product/collection?{{search}}&page={{#operator val1=page op="-" val2=1}}{{/operator}}">Previous</a></li>
+                    {{#each pageRange}}
+                        <li class="page-item {{#numberEquals val1=../page val2=this}}active{{/numberEquals}}">
+                            <a class="page-link" href="/product/collection?{{../search}}&page={{this}}">{{this}}</a>
+                        </li>
+                    {{/each}}
+                <li class="page-item"><a class="page-link" href="/product/collection?{{search}}&page={{#operator val1=page op="+" val2=1}}{{/operator}}">Next</a></li>
             </ul>
         </div>
     </div>

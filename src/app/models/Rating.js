@@ -5,8 +5,8 @@ const mongooseDelete = require('mongoose-delete'); // Require mongoose-delete
 
 //Connect DB:
 const Rating = new Schema({
-    userRating: {type: mongoose.Schema.Types.String},
-    productRating: {type: mongoose.Schema.Types.String},
+    userRating: {type: mongoose.Schema.Types.String, ref: 'User'},
+    productRating: {type: mongoose.Schema.Types.String, ref: 'Product'},
     value: { type: mongoose.Schema.Types.Number }
 },{
     versionKey: false,
