@@ -65,7 +65,7 @@ app.use(session({ secret: 'yamete kudasai',
                   resave: true,
                   saveUninitialized: true,
                   cookie:{
-                    maxAge:60000*10,
+                    maxAge:6000000,
                   }}));
 app.use(flash());
 app.use(passport.initialize()); 

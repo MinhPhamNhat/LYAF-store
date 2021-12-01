@@ -21,6 +21,14 @@ class userInfoController{
             res.status(200).json(data);
         })
     }
+    pushAddress(req,res,next){
+        console.log(req.user._id);
+        ShipModel.findById(req.body.id).populate('province').populate('distric').populate('ward').exec()
+        .then(data=>{
+            console.log('show hồ sơ:',data);
+            res.status(200).json(data);
+        })
+    }
 }
 
 module.exports = new userInfoController;

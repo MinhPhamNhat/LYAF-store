@@ -57,12 +57,15 @@ $(document).ready(()=>{
             })
             .then(data=>{
                 var profileList = '';
+                console.log('data for address',data);
                 for( let i of data){
-                    var row = `<table class="forShowAddress" data-id="${i._id}">
+                    var row = `<table class="forShowAddress">
                             <tr id="header" class="countName">
                                 <td id="tempborder"></td>
-                                <td class="icon-trash">
-                                    
+                                <td class="icon-trash" style="display:flex; justify-content:flex-end" title="Click để chọn">
+                                <div class="pushAddress" data-id="${i._id}">
+                                    <i class="fas fa-address-book" ></i>
+                                </div>
                                 </td>
                             
                             </tr>
@@ -95,6 +98,7 @@ $(document).ready(()=>{
                         profileList+=row;
                        
                 }   
+                console.log(document.querySelectorAll('.pushAddress'));
                 document.querySelector('.showProfileHere').innerHTML = profileList;
                 showToast('Hiện thi danh sách địa chỉ','Hiện Thị Thành Công !');
                 $(".select-profile-modal").modal("show")
@@ -133,11 +137,96 @@ $(document).ready(()=>{
             }
         })
     })
+ 
 })
+$(document).ready(()=>{
+    $(document).on('click', '.pushAddress', function(){
+        console.log(this.dataset.id);
+        const data = JSON.stringify({
+            id: this.dataset.id,
+        })
+        fetch(window.location.origin+'/checkout/pushAddress',{method:'post',body:data,headers: {
+            'Content-Type': 'application/json'
+        },})
+            .then((push) => {
+                if(push.status == 200){
+                    return push.json();
+                }
+                else{
+                    showToast('Hiện thi Danh sách Địa chỉ','Hiện Thị Thất Bại !','error');
+                }
+            })
+            .then(push=>{
+                console.log(push);
+                document.querySelector('#name').value = push.name;
+                document.querySelector('#phone').value = push.phone;
+                document.querySelector('#address').value = push.address;
+                fetch(window.location.origin+'/api/province')
+                        .then(data=> data.json())
+                        .then(data=>{
+                            // $(".delivery-form #province option").remove()
+                            const provinces = data.provinces
+                            $("#province").append(`<option id="firstselected" value="">Chọn tỉnh/thành</option>`)
+                            provinces.forEach(_=> {
+                                if(_._id == push.province._id){
+                                    $("#province").append(`<option selected value="${_._id}">${_.name}</option>`)
+                                }
+                                else{
+                                    $("province").append(`<option value="${_._id}">${_.name}</option>`)
+                                }   
+                               
+                            })
+                        })
+                        const provinceId = push.province._id
+                        // if (provinceId){
+                            fetch(window.location.origin+'/api/district/'+provinceId)
+                            .then(data=> data.json())
+                            .then(data=>{
+                                $("#district option").remove()
+                                const districts = data.districts
+                                $("#district").append(`<option value="">Chọn quận/huyện</option>`)
+                                for (var _ of districts){
 
-console.log(document.querySelectorAll('.forShowAddress'))
-// for(let i of document.querySelectorAll('.forShowAddress')){
+                                    if(_._id == push.distric._id){
+                                        $("#district").append(`<option selected value="${_._id}">${_.name}</option>`)
+                                    }
+                                    else{
+                                        $("#district").append(`<option value="${_._id}">${_.name}</option>`)
+                                    }
+                                }
+                            }).catch(err=>{
+                                console.log(err)
+                            })
+                            const districtId =  push.distric._id
+                            // if (districtId){
+                                fetch(window.location.origin+'/api/ward/'+districtId)
+                                .then(data=> data.json())
+                                .then(data=>{
+                                    $("#ward option").remove()
+                                    const wards = data.wards
+                                    $("#ward").append(`<option value="">Chọn phường/xã</option>`)
+                                    wards.forEach(_=> {
+                                        if(_._id == push.ward._id){
+                                            $("#ward").append(`<option selected value="${_._id}">${_.name}</option>`)
+                                        }
+                                        else{
+                                            $("#ward").append(`<option value="${_._id}">${_.name}</option>`)
+                                        }
+                                       
+                                    })
+                                })
+                $(".select-profile-modal").modal('hide')
+            })
+    })
+})
+// if(document.querySelectorAll('.pushAddress')){
+//     console.log(document.querySelectorAll('.pushAddress'));
+//     for(let i of document.querySelectorAll('.pushAddress')){
 //         i.addEventListener('click',function(){
-//             console.log('OK');
+            
 //         })
 //     }
+    
+// }
+
+

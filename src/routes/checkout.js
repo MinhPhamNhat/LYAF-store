@@ -8,5 +8,5 @@ const CheckoutController = require('../app/controllers/CheckoutController');
 
 route.get('/', CheckoutController.index);
 route.post('/showAddress', CheckoutController.showAddress);
-
+route.post('/pushAddress', CheckoutController.pushAddress);
 module.exports = route;
