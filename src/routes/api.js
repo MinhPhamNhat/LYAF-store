@@ -18,11 +18,14 @@ route.get('/product/search', APIController.search);
 route.get('/product/getSub', validator.subProductValidator(), APIController.getSub);
 route.get('/product/getMinMax', APIController.getMinMaxPrice);
 route.get('/manager/getBills', APIController.getBills);
+route.get('/manager/manageBills', APIController.manageBills);
 route.get('/manager/shipBills', APIController.shipBills);
 route.get('/manager/getProducts', APIController.getProducts)
 route.post('/product/filter', APIController.filter);
+route.post('/manager/confirmBill', APIController.confirmBill);
 route.post('/manager/billState', APIController.billState);
 route.post('/manager/billPayment', APIController.billPayment);
+route.post('/manager/confirmSuccessDelivery', APIController.confirmSuccessDelivery)
 route.post('/manager/confirmDelivery',authen.apiAuthenShipper, APIController.confirmDelivery);
 route.post('/product/add', upload.array('images', 10), validator.productValidator(), APIController.addProduct);
 route.post('/product/updateQuantity', APIController.updateQuantity);

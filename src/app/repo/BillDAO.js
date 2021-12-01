@@ -149,18 +149,41 @@ module.exports = {
         })
     },
 
-    confirmDelivery:async (id, user)=>{
-        return Bill.findOneAndUpdate({_id: id}, {
-            state: 3
-        }).then(data=>{
-            new ShipConfirm({
-                user: user._id,
-                bill: data._id
-            }).save()
+    confirmBill:async (id, user)=>{
+        return Bill.findById(id).exec().then(data=>{
             if (data){
+                new ShipConfirm({
+                    user: user._id,
+                    bill: data._id
+                }).save()
                 return {
                     code: 1,
                     message: "Đã cập nhật tình trạng đơn"
+                }
+            }else{
+                return {
+                    code: 0,
+                    message: "Bill không tồn tại"
+                }
+            }
+        }).catch(err=>{
+            return {
+                code: -1,
+                message: err
+            }
+        })
+    },
+
+    confirmDelivery:async (id, user)=>{
+        return Bill.findById(id).exec().then(data=>{
+            if (data){
+                new ShipConfirm({
+                    user: user._id,
+                    bill: data._id
+                }).save()
+                return {
+                    code: 1,
+                    message: "Đã xác nhận vận chuyển đơn cho bạn"
                 }
             }else{
                 return {
@@ -180,7 +203,7 @@ module.exports = {
     confirmDeliverySuccess:async (id, user)=>{
         const check = await ShipConfirm.find({user: user._id, bill: id}).exec()
         if (check){
-            return Bill.findOneAndUpdate({_id: billId}, {
+            return Bill.findOneAndUpdate({_id: id}, {
                 state: 4
             }).then(data=>{
                 if (data){

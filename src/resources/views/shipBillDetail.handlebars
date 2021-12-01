@@ -130,12 +130,20 @@
                     <span id="title" class="mb-3">Quản lý vận chuyển</span>
                     <hr>
                     <h4>Tình trạng vận chuyển</h4>
+                    {{#equals val1=data.state val2=2}}
                     <div class="form-group row">
-                        <label for="inputState" class="col-sm-4 col-form-label col-form-label-sm">Thay đổi</label>
                         <div class="col-sm-8">
-                            <button type="submit" class="btn btn-primary confirm-delivery" data-id="{{data._id}}">Xác nhận vận chuyển</button>
+                            <button type="submit" class="btn btn-primary confirm-delivery" data-id="{{../data._id}}">Xác nhận vận chuyển</button>
                         </div>
                     </div>
+                    {{/equals}}
+                    {{#equals val1=data.state val2=3}}
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <button type="submit" class="btn btn-success confirm-success" data-id="{{../data._id}}">Giao hàng thành công</button>
+                        </div>
+                    </div>
+                    {{/equals}}
                     <hr>
                 </div>
                 <div class="userStatus col-md-8">
@@ -256,4 +264,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js" integrity="sha512-NgXVRE+Mxxf647SqmbB9wPS5SEpWiLFp5G7ItUNFi+GVUyQeP+7w4vnKtc2O/Dm74TpTFKXNjakd40pfSKNulg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.css" integrity="sha512-gGkweS4I+MDqo1tLZtHl3Nu3PGY7TU8ldedRnu60fY6etWjQ/twRHRG2J92oDj7GDU2XvX8k6G5mbp0yCoyXCA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://unpkg.com/dom-autoscroller@2.2.3/dist/dom-autoscroller.js"></script>
-<script src="/js/module/dashboard/ShipBill.js"></script>
+<script src="/js/module/dashboard/ShipDetail.js"></script>
