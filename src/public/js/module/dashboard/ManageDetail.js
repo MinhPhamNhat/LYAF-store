@@ -1,23 +1,31 @@
 $(document).ready(()=>{
-
-    $(".confirm-bill").click(function(){
+    $(".confirm-manage").click(function(){
         const id = this.dataset.id
-        const value = $("#inputState").val()
-        fetch(window.location.origin + '/api/manager/confirmBill',{
+        console.log(id)
+        showLoading()
+        fetch(window.location.origin+'/api/manager/confirmManage',{
             method: "POST",
-            headers:{
-                'Content-Type': 'application/json'
+            headers: {
+                "content-type": "application/json"
             },
-            body: JSON.stringify({id, value})
-        }).then(data=> data.json())
+            body: JSON.stringify({id})
+        })
+        .then(data=>data.json())
         .then(data=>{
-            if (data.code===200){
-                showToast("Cập nhật tình trạng", data.message)
+            if(data.code === 200){
+                showToast("Nhận đơn", "Đơn hàng đã giao cho bạn")
+                setTimeout(()=>{window.location.reload()}, 500)
             }else{
-                showToast("Cập nhật tình trạng", data.message, "error")
+                showToast("Nhận đơn", data.message, "error")
             }
+            hideLoading()
+        }).catch(err=>{
+            hideLoading()
+            
+            showToast("Nhận đơn ", err, "error")
         })
     })
+
     $(".confirm-state").click(function(){
         const id = this.dataset.id
         const value = $("#inputState").val()
@@ -31,6 +39,7 @@ $(document).ready(()=>{
         .then(data=>{
             if (data.code===200){
                 showToast("Cập nhật tình trạng", data.message)
+                setTimeout(()=>{window.location.reload()}, 500)
             }else{
                 showToast("Cập nhật tình trạng", data.message, "error")
             }
@@ -49,6 +58,7 @@ $(document).ready(()=>{
         .then(data=>{
             if (data.code===200){
                 showToast("Cập nhật thanh toán", data.message)
+                setTimeout(()=>{window.location.reload()}, 500)
             }else{
                 showToast("Cập nhật thanh toán", data.message, "error")
             }

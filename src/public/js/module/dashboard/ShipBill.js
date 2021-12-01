@@ -1,30 +1,6 @@
 
 $(document).ready(()=>{
     showTable()
-    $(".confirm-delivery").click(function(){
-        const id = this.dataset.id
-        showLoading()
-        fetch(window.location.origin+'/api/manager/confirmDelivery',{
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({id})
-        })
-        .then(data=>data.json())
-        .then(data=>{
-            if(data.code === 200){
-                showToast("Xác nhận vận chuyển", data.message)
-            }else{
-                showToast("Xác nhận vận chuyển", data.message, "error")
-            }
-            hideLoading()
-        }).catch(err=>{
-            hideLoading()
-            
-            showToast("Xác nhận vận chuyển ", err, "error")
-        })
-    })
   })
 
 
@@ -69,11 +45,9 @@ function showTable(){
         },
       ];
       
-      showLoading()
       fetch(window.location.origin+'/api/manager/shipBills')
       .then(data=>data.json())
       .then(data=>{
-  
          var t = $("#bill-list").DataTable({
             responsive: true,
             data: parseData(data) ,

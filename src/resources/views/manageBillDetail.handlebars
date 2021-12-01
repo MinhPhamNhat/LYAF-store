@@ -127,22 +127,45 @@
         <div class="ma-bill-detail">
             <div class="row">
                 <div class="action-bill-detail col-md-4">
-                    <span id="title" class="mb-3">Quản lý vận chuyển</span>
+                    <span id="title" class="mb-3">Quản lý đơn hàng </span>
                     <hr>
                     
-                    {{#equals val1=data.state val2=2}}
-                    <div class="form-group row">
-                        <label for="inputState" class="col-sm-6 col-form-label col-form-label-sm"><h4>Tình trạng vận chuyển</h4></label>
-                        <button type="submit" class="btn btn-primary confirm-delivering" data-id="{{../data._id}}">Xác nhận đang vận chuyển</button>
-                    </div>
-                    {{/equals}}
-                    {{#equals val1=data.state val2=3}}
-                        <label for="inputState" class="col-sm-6 col-form-label col-form-label-sm"><h4>Tình trạng vận chuyển</h4></label>
-                    <div class="form-group row">
-                            <button type="submit" class="col-sm-5 btn btn-success confirm-success m-3" data-id="{{../data._id}}">Giao hàng thành công</button>
-                            <button type="submit" class="col-sm-5 btn btn-danger confirm-fail m-3" data-id="{{../data._id}}">Giao hàng thất bại</button>
-                    </div>
-                    {{/equals}}
+                    {{#if data.manageAssigned}}
+                        <h4>Tình trạng đơn hàng</h4>
+                        <div class="form-group row">
+                            <label for="inputState" class="col-sm-2 col-form-label col-form-label-sm">Thay đổi</label>
+                            <div class="col-sm-7">
+                            <select id="inputState" name="inputState" class="form-control">
+                                <option value="2" {{#equals val1=data.state val2=2}}selected{{/equals}}>Xác nhận đơn hàng</option>
+                                <option value="0" {{#equals val1=data.state val2=0}}selected{{/equals}}>Huỷ đơn hàng</option>
+                            </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary col-sm-3 confirm-state" data-id="{{data._id}}">Xác nhận</button>
+                        </div>
+                        <hr>
+                        <h4>Tình trạng thanh toán</h4>
+                        <div class="form-group row">
+                            <label for="payState" class="col-sm-2 col-form-label col-form-label-sm">Thay đổi</label>
+                            <div class="col-sm-7">
+                            <select id="payState" name="payState" class="form-control">
+                                {{#equals val1=data.alreadyPay val2=false}}
+                                    <option value="0" selected>Chưa thanh toán</option>
+                                    <option value="1">Đã thanh toán</option>
+                                {{/equals}}
+                                {{#equals val1=data.alreadyPay val2=true}}
+                                    <option value="0">Chưa thanh toán</option>
+                                    <option value="1" selected>Đã thanh toán</option>
+                                {{/equals}}
+                            </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary col-sm-3 confirm-payment" data-id="{{data._id}}">Xác nhận</button>
+                        </div>
+                    {{else}}
+                        <div class="form-group row">
+                            <label for="inputState" class="col-sm-6 col-form-label col-form-label-sm"><h4>Nhận đơn hàng này</h4></label>
+                            <button type="submit" class="btn btn-primary col-sm-4 confirm-manage" data-id="{{data._id}}">Xác nhận</button>
+                        </div>
+                    {{/if}}
                     <hr>
                 </div>
                 <div class="userStatus col-md-8">
@@ -263,4 +286,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js" integrity="sha512-NgXVRE+Mxxf647SqmbB9wPS5SEpWiLFp5G7ItUNFi+GVUyQeP+7w4vnKtc2O/Dm74TpTFKXNjakd40pfSKNulg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.css" integrity="sha512-gGkweS4I+MDqo1tLZtHl3Nu3PGY7TU8ldedRnu60fY6etWjQ/twRHRG2J92oDj7GDU2XvX8k6G5mbp0yCoyXCA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://unpkg.com/dom-autoscroller@2.2.3/dist/dom-autoscroller.js"></script>
-<script src="/js/module/dashboard/ShipDetail.js"></script>
+<script src="/js/module/dashboard/ManageDetail.js"></script>

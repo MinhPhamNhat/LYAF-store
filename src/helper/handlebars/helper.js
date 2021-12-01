@@ -76,7 +76,9 @@ module.exports = {
             case 3:
                 return "Đang vận chuyển"
             case 4:
-                return "Đã giao hàng"
+                return "Giao hàng thành công"
+            case 5:
+                return "Giao hàng thất bại"
         }
     },
 

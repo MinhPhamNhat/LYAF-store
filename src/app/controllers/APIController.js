@@ -41,6 +41,28 @@ class APIController {
     const result = await Promise.all(bills.map(item=>item.bill))
     res.status(200).json({data:result})
   }
+
+  async getManageBills(req, res, next) {
+    const bills = await ShipConfirm.find({user: req.user._id}).sort({date: -1}).populate({
+      path: 'bill',
+      populate: {
+          path: 'shipProfile.province',
+      },
+    }).populate({
+      path: 'bill',
+      populate: {
+          path: 'shipProfile.distric',
+      },
+    }).populate({
+      path: 'bill',
+      populate: {
+          path: 'shipProfile.ward',
+      },
+    }).exec()
+    const result = await Promise.all(bills.map(item=>item.bill))
+    res.status(200).json({data:result})
+  }
+
   async checkOut(req, res, next) {
     const validate = validationResult(req);
     if (validate.errors.length) {
@@ -72,12 +94,13 @@ class APIController {
   }
 
   async manageBills(req, res, next){
-    const data = await BillDAO.getBills({state: 1})
+    const data = await BillDAO.getBills({state: 1, manageAssigned: false})
     res.status(200).json(data)
   }
 
   async shipBills(req, res, next) {
-    const data = await BillDAO.getBills({state: 2})
+    const data = await BillDAO.getBills({state: 2, shipAssigned: false})
+    console.log(data)
     res.status(200).json(data)
   }
 
@@ -105,17 +128,22 @@ class APIController {
     const id = req.body.id
     const value = Number.parseInt(req.body.value)
     if (id && (value >= 0 && value <=3)){
-      const result = await BillDAO.updateState(id, value)
-      switch (result.code) {
-        case 1:
-          res.status(200).json({ code: 200, message: result.message });
-          break;
-        case 0:
-          res.status(404).json({ code: 404, message: result.message });
-          break;
-        case -1:
-          res.status(500).json({ code: 500, message: result.message });
-          break;
+      const check = await ShipConfirm.find({user: req.user._id, bill: id}).exec()
+      if (check){
+        const result = await BillDAO.updateState(id, value)
+        switch (result.code) {
+          case 1:
+            res.status(200).json({ code: 200, message: result.message });
+            break;
+          case 0:
+            res.status(404).json({ code: 404, message: result.message });
+            break;
+          case -1:
+            res.status(500).json({ code: 500, message: result.message });
+            break;
+        }
+      }else{
+        res.status(401).json({code: 401, message: "Bạn không được thay đổi đơn này"}) 
       }
     }else{
       res.status(400).json({code: 400, message: "Đơn hàng không hợp lệ"}) 
@@ -141,7 +169,32 @@ class APIController {
     const id = req.body.id
     const value = Number.parseInt(req.body.value)
     if (id && (value === 0 || value === 1)){
-      const result = await BillDAO.updatePayment(id, value)
+      const check = await ShipConfirm.find({user: req.user._id, bill: id}).exec()
+      if (check){
+        const result = await BillDAO.updatePayment(id, value)
+        switch (result.code) {
+          case 1:
+            res.status(200).json({ code: 200, message: result.message });
+            break;
+          case 0:
+            res.status(404).json({ code: 404, message: result.message });
+            break;
+          case -1:
+            res.status(500).json({ code: 500, message: result.message });
+            break;
+        }
+      }else{
+        res.status(401).json({code: 401, message: "Bạn không được thay đổi đơn này"}) 
+      }
+    }else{
+      res.status(400).json({code: 400, message: "Đơn hàng không hợp lệ"}) 
+    }
+  }
+  
+  async confirmDelivering(req, res, next){
+    const id = req.body.id
+    if (id){
+      const result = await BillDAO.confirmDelivering(id, req.user)
       switch (result.code) {
         case 1:
           res.status(200).json({ code: 200, message: result.message });
@@ -157,11 +210,31 @@ class APIController {
       res.status(400).json({code: 400, message: "Đơn hàng không hợp lệ"}) 
     }
   }
+
   async confirmSuccessDelivery(req, res, next){
     const id = req.body.id
-    console.log(id)
     if (id){
       const result = await BillDAO.confirmDeliverySuccess(id, req.user)
+      switch (result.code) {
+        case 1:
+          res.status(200).json({ code: 200, message: result.message });
+          break;
+        case 0:
+          res.status(404).json({ code: 404, message: result.message });
+          break;
+        case -1:
+          res.status(500).json({ code: 500, message: result.message });
+          break;
+      }
+    }else{
+      res.status(400).json({code: 400, message: "Đơn hàng không hợp lệ"}) 
+    }
+  }
+
+  async confirmFailDelivery(req, res, next){
+    const id = req.body.id
+    if (id){
+      const result = await BillDAO.confirmDeliveryFail(id, req.user)
       switch (result.code) {
         case 1:
           res.status(200).json({ code: 200, message: result.message });
@@ -182,6 +255,26 @@ class APIController {
     const id = req.body.id
     if (id){
       const result = await BillDAO.confirmDelivery(id, req.user)
+      switch (result.code) {
+        case 1:
+          res.status(200).json({ code: 200, message: result.message });
+          break;
+        case 0:
+          res.status(404).json({ code: 404, message: result.message });
+          break;
+        case -1:
+          res.status(500).json({ code: 500, message: result.message });
+          break;
+      }
+    }else{
+      res.status(400).json({code: 400, message: "Đơn hàng không hợp lệ"}) 
+    }
+  }
+
+  async confirmManage(req, res, next) {
+    const id = req.body.id
+    if (id){
+      const result = await BillDAO.confirmManage(id, req.user)
       switch (result.code) {
         case 1:
           res.status(200).json({ code: 200, message: result.message });

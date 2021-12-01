@@ -4,7 +4,7 @@ $(document).ready(()=>{
     $(".confirm-delivery").click(function(){
         const id = this.dataset.id
         showLoading()
-        fetch(window.location.origin+'/api/manager/confirmDelivery',{
+        fetch(window.location.origin+'/api/manager/confirmManage',{
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -62,7 +62,6 @@ function showTable(){
       fetch(window.location.origin+'/api/manager/manageBills')
       .then(data=>data.json())
       .then(data=>{
-  
          var t = $("#bill-list").DataTable({
             responsive: true,
             data: parseData(data) ,
@@ -82,7 +81,7 @@ function parseData(data) {
         totalPrice: (v.totalPrice*1000).toLocaleString('it-IT') +'<u>đ</u>',
         state: billStatestate(v.state),
         alreadyPay: v.alreadyPay?"Đã thanh toán":"Chưa thanh toán",
-        detail: `<a href="/manager/bill/detail/${v._id}">Chi tiết</a>`
+        detail: `<a href="/manager/bill/manageDetail/${v._id}">Chi tiết</a>`
     }
   })
   return result
@@ -99,5 +98,7 @@ function billStatestate(state){
     case 3:
         return "Đang vận chuyển"
     case 4:
-        return "Đã giao hàng"
+        return "Giao hàng thành công"
+    case 5:
+        return "Giao hàng thất bại"
 }}

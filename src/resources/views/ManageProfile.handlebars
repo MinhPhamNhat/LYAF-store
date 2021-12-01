@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/css/proManager.css">
+<link rel="stylesheet" href="/css/ShipperProfile.css">
 <div class="LYAF-dashboard-main">
     {{!-- Dashboard navbar --}}
 <div class="LYAF-side-bar">
@@ -116,88 +117,44 @@
 </div>
     {{!-- End Dashboard navbar --}}
     {{!-- Dashboard body --}}
- 
     <div class="LYAF-dasboard-body">
         <div class="LYAF-dashboard-header">
-            <span class="text-uppercase font-weight-bold">ACCOUNT LIST</span>
+            <span class="text-uppercase font-weight-bold">Danh sách đơn xác nhận của nhân viên {{user.name}}</span>
         </div>
-           <div class="LYAF-dashboard-content">
-               <div class="accManagerOption">
-
-                <button type="submit" class="btn btn-secondary" id="accDetailAdd" data-toggle="modal" data-target="#accAdd">Thêm Tài khoản</button>
-                <div class="filterarea">
-
-                    <select class="form-control" id="filterlist">
-                            <option value="admin">Admin</option>
-                            <option value="NVVC">Nhân viên vận chuyển</option>
-                            <option value="NVDH">Nhân viên đơn hàng</option>
-                            <option value="NVSP">Nhân viên sản phẩm</option>
-                            <option value="user">Người dùng</option>
-                            <option value="all">Tất cả</option>
-                    </select>
-                    <button class="btn btn-secondary" id="filterBtn">Lọc theo chức vụ</button>
+        <div class="LYAF-dashboard-content">
+            <div class="aa-profile">
+                <div class="aa-name">
+                    {{data.name}}
                 </div>
-               </div>
-               <div class="accTable-body">
-                   
-                <table id="accTable" class="table-striped dt-responsive nowrap"  style="width:100%">
-                </table>
-               </div>
             </div>
-        
+            <div class="aa-bill-list">
+                <table id="aa-list" class="table-striped dt-responsive nowrap"   style="width:100%">
+
+                </table>
+            </div>
+        </div>
     </div>
     {{!-- End Dashboard body --}}
     
     <!-- Modal -->
-    <div class="modal fade" id="accAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">THÊM TÀI KHOẢN</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div id="accAddForm">
-                <div class="form-group">
-                    <label for="username">Họ và tên:</label>
-                    <input type="text" class="form-control" id="accadd-name" value="">
+    <div class="modal fade property-confirm-modal" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                 </div>
-                <div class="form-group">
-                    <label for="role">Chức vụ:</label>
-                        <select class="form-control" id="accadd-role">
-                            <option value="admin">Admin</option>
-                            <option value="NVVC">Nhân viên vận chuyển</option>
-                            <option value="NVDH">Nhân viên đơn hàng</option>
-                            <option value="NVSP">Nhân viên sản phẩm</option>
-                            <option value="user">Người dùng</option>
-                        </select>
+                <div class="modal-body">
+                    
                 </div>
-            
-              
-                <div class="form-group">
-                    <label for="name">Tài khoản:</label>
-                    <input type="text" class="form-control" id="accadd-username"value="">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger confirm" data-dismiss="modal">Xác nhận</button>
+                    <button type="button" class="btn btn-primary">Huỷ</button>
                 </div>
-                <div class="form-group">
-                    <label for="name">Mật khẩu:</label>
-                    <input type="password" class="form-control" id="accadd-pass"value="">
-                </div>
-                <div class="form-group">
-                    <label for="name">Xác nhận mật khẩu:</label>
-                    <input type="password" class="form-control" id="accadd-passcheck"value="">
-                </div>
-
-   
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-            <button type="button" class="btn btn-success" id="accAddBtn">Thêm</button>
-        </div>
-        </div>
-    </div>
     </div>
 </div>
 <script  type="module" src="/js/productManager.js"></script>
@@ -205,4 +162,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js" integrity="sha512-NgXVRE+Mxxf647SqmbB9wPS5SEpWiLFp5G7ItUNFi+GVUyQeP+7w4vnKtc2O/Dm74TpTFKXNjakd40pfSKNulg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.css" integrity="sha512-gGkweS4I+MDqo1tLZtHl3Nu3PGY7TU8ldedRnu60fY6etWjQ/twRHRG2J92oDj7GDU2XvX8k6G5mbp0yCoyXCA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://unpkg.com/dom-autoscroller@2.2.3/dist/dom-autoscroller.js"></script>
-<script type="module" src="/js/module/dashboard/Account.js"></script>
+<script type="module" src="/js/module/dashboard/ManageProfile.js"></script>

@@ -38,15 +38,24 @@ class ManagementController{
         res.render('proManager', {route: "bill", header: false});
     }
 
-    async shiper(req, res, next) {
+    async me(req, res, next) {
+        if (req.user.role === 'NVDH')
+        res.render('ManageProfile', {user: req.user});
+        if (req.user.role === 'NVVC')
         res.render('ShipperProfile', {user: req.user});
     }
 
     async manageDetail(req, res, next){
         const billId = req.params.id    
-        const result = await BillDAO.getBillDetail({_id: billId, state: 1})
+        const result = await BillDAO.getBillDetail({_id: billId})
         switch (result.code) {
             case 1:
+                if (result.data.manageAssigned){
+                    const check = await ShipConfirm.find({user: req.user._id, bill: billId}).exec()
+                    if (!check){
+                        res.render('404');
+                    }
+                }
                 result.data.billDetail = await parseCart(result.data.billDetail)
                 const parsedCart = result.data.billDetail
                 const truePrice = parsedCart.reduce((x,y) => x + y.price*y.quantity, 0);
@@ -54,7 +63,7 @@ class ManagementController{
                 const tempPrice = truePrice - salePrice
                 const deliveryPrice = (tempPrice - salePrice) > 500 ? 0 : 50; 
                 const totalPrice = tempPrice - salePrice + deliveryPrice
-                res.render('shipBillDetail', {user: req.user, data: result.data, salePrice, deliveryPrice, tempPrice, totalPrice});
+                res.render('manageBillDetail', {user: req.user, data: result.data, salePrice, deliveryPrice, tempPrice, totalPrice});
                 break;
             case 0:
                 res.render('404');
@@ -66,10 +75,16 @@ class ManagementController{
     }
 
     async shipDetail(req, res, next){
-        const billId = req.params.id    
-        const result = await BillDAO.getBillDetail({_id: billId, state: 2})
+        const billId = req.params.id   
+        const result = await BillDAO.getBillDetail({_id: billId})
         switch (result.code) {
             case 1:
+                if (result.data.shipAssigned){
+                    const check = await ShipConfirm.find({user: req.user._id, bill: billId}).exec()
+                    if (!check){
+                        res.render('404');
+                    }
+                }
                 result.data.billDetail = await parseCart(result.data.billDetail)
                 const parsedCart = result.data.billDetail
                 const truePrice = parsedCart.reduce((x,y) => x + y.price*y.quantity, 0);
@@ -85,7 +100,7 @@ class ManagementController{
             case -1:
                 res.render('404');
                 break;
-          }
+        }
     }
 
     property(req, res, next){
