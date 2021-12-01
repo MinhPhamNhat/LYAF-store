@@ -54,6 +54,9 @@ class ClientController{
            
         })
     }
+    notfound(req,res,next){
+        res.render('404');
+    }
 }
 
 module.exports = new ClientController;
