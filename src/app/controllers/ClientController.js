@@ -40,6 +40,17 @@ class ClientController{
         Product.find({name: {$regex:new RegExp(req.body.keyword, "i")}}).exec()
         .then(data=>{
             console.log('product for search:',data);
+            data = data.map(data=>data.toObject());
+            if(data.length > 0){
+                console.log('SHOW DATA:',data);
+                res.status('200').json(data);
+            }
+            else{
+                console.log('EMPTY');
+                const isempty = {empty:'empty'}
+                res.status('200').json(isempty);
+            }
+            
            
         })
     }

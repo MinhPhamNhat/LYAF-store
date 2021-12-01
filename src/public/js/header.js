@@ -177,7 +177,39 @@ const showToast = (title, mess, type = "success", x = 20, y = 20) => {
                     return data.json();
                 }
                 else{
-                    showToast('Hiện thi Danh sách Địa chỉ','Hiện Thị Thất Bại !','error');
+                    showToast('Tìm kiếm sản phẩm','Tìm Kiếm Thất Bai!','error');
+                }
+            })
+            .then(data=>{
+                if(data.empty){
+                    console.log('empty');
+                    document.querySelector('.LYAF-search-output').innerHTML = `<div id="errorSearch">
+                                                                                <span id="error1">KHÔNG CÓ SẢN PHẨM NÀO NHƯ THẾ</span>
+                                                                                <span id="error2">Vui Lòng Thử Lại !</span>
+                                                                                </div>`;
+                }
+                else{
+                    console.log('data length =',data.length);
+                    var topten = '';
+                    for(let i = 0; i < 10; i++){
+                        console.log('i =',i);
+                        if(i < data.length){
+                              const item = `<div class="LYAF-search-product">
+                                        <div class="LYAF-search-product-info">
+                                            <p class="LYAF-search-product-name text-uppercase">${data[i].name}</p>
+                                            <p class="LYAF-search-product-price">${data[0].price}<u>đ</u></p>
+                                        </div>
+                                        <img src="${data[i].images[0]}"class="LYAF-search-product-thumbnail">
+                                       </div>`;
+                                 topten += item;      
+                        }
+                        else{
+                            break;
+                        }
+                        
+                      
+                    }
+                    document.querySelector('.LYAF-search-output').innerHTML = topten;
                 }
             })
   })
