@@ -49,19 +49,8 @@ function showTable(){
           data: "alreadyPay",
         },
         {
-          title: "Hình thức TT",
-          data: "paymentType",
-        },{
-          title: "Tỉnh/thành",
-          data: "province",
-        },
-        {
-          title: "Quận/huyện",
-          data: "district",
-        },
-        {
-          title: "Phường/xã",
-          data: "ward",
+          title: "Tình trạng",
+          data: "state",
         },
         {
           title: "",
@@ -70,7 +59,7 @@ function showTable(){
       ];
       
       showLoading()
-      fetch(window.location.origin+'/api/manager/shipBills')
+      fetch(window.location.origin+'/api/manager/manageBills')
       .then(data=>data.json())
       .then(data=>{
   
@@ -88,18 +77,14 @@ function showTable(){
 function parseData(data) {
   const result = data.map(v=>{
     return {
-      _id: v._id,
-      date: new Date(v.date).toLocaleString("vi-VN"),
-      totalPrice: (v.totalPrice*1000).toLocaleString('it-IT') +'<u>đ</u>',
-      province: v.shipProfile.province.name,
-      district: v.shipProfile.distric.name,
-      ward: v.shipProfile.ward.name,
-      alreadyPay: v.alreadyPay?"Đã thanh toán":"Chưa thanh toán",
-      paymentType: v.paymentType===0?"COD":"Bằng MOMO",
-      detail: `<a href="/manager/bill/shipDetail/${v._id}">Chi tiết</a>`
+        _id: v._id,
+        date: new Date(v.date).toLocaleString("vi-VN"),
+        totalPrice: (v.totalPrice*1000).toLocaleString('it-IT') +'<u>đ</u>',
+        state: billStatestate(v.state),
+        alreadyPay: v.alreadyPay?"Đã thanh toán":"Chưa thanh toán",
+        detail: `<a href="/manager/bill/detail/${v._id}">Chi tiết</a>`
     }
   })
-  console.log(result)
   return result
 }
 

@@ -35,6 +35,10 @@ function showTable(){
         },
         {
           title: "",
+          data: "confirm",
+        },
+        {
+          title: "",
           data: "detail",
         },
       ];
@@ -68,6 +72,7 @@ function parseData(data) {
         district: v.shipProfile.distric.name,
         ward: v.shipProfile.ward.name,
         state: billStatestate(v.state),
+        confirm: v.state===2?`<button class="btn btn-success">Giao hàng thành công</button>`:'',
         detail: `<a href="/manager/bill/shipDetail/${v._id}">Chi tiết</a>`
       }
     })

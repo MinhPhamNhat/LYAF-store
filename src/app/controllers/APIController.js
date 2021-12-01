@@ -22,7 +22,7 @@ class APIController {
   }
   
   async getShipperBills(req, res, next){
-    const bills = await ShipConfirm.find({user: req.user._id}).populate({
+    const bills = await ShipConfirm.find({user: req.user._id}).sort({date: -1}).populate({
       path: 'bill',
       populate: {
           path: 'shipProfile.province',
@@ -41,7 +41,6 @@ class APIController {
     const result = await Promise.all(bills.map(item=>item.bill))
     res.status(200).json({data:result})
   }
-
   async checkOut(req, res, next) {
     const validate = validationResult(req);
     if (validate.errors.length) {
@@ -72,10 +71,34 @@ class APIController {
     res.status(200).json(data)
   }
 
+  async manageBills(req, res, next){
+    const data = await BillDAO.getBills({state: 1})
+    res.status(200).json(data)
+  }
+
   async shipBills(req, res, next) {
     const data = await BillDAO.getBills({state: 2})
-    console.log(data)
     res.status(200).json(data)
+  }
+
+  async confirmBill(req, res, next){
+    const id = req.body.id
+    if (id){
+      const result = await BillDAO.confirmBill(id, req.user)
+      switch (result.code) {
+        case 1:
+          res.status(200).json({ code: 200, message: result.message });
+          break;
+        case 0:
+          res.status(404).json({ code: 404, message: result.message });
+          break;
+        case -1:
+          res.status(500).json({ code: 500, message: result.message });
+          break;
+      }
+    }else{
+      res.status(400).json({code: 400, message: "Đơn hàng không hợp lệ"}) 
+    }
   }
 
   async billState(req, res, next) {
@@ -119,6 +142,26 @@ class APIController {
     const value = Number.parseInt(req.body.value)
     if (id && (value === 0 || value === 1)){
       const result = await BillDAO.updatePayment(id, value)
+      switch (result.code) {
+        case 1:
+          res.status(200).json({ code: 200, message: result.message });
+          break;
+        case 0:
+          res.status(404).json({ code: 404, message: result.message });
+          break;
+        case -1:
+          res.status(500).json({ code: 500, message: result.message });
+          break;
+      }
+    }else{
+      res.status(400).json({code: 400, message: "Đơn hàng không hợp lệ"}) 
+    }
+  }
+  async confirmSuccessDelivery(req, res, next){
+    const id = req.body.id
+    console.log(id)
+    if (id){
+      const result = await BillDAO.confirmDeliverySuccess(id, req.user)
       switch (result.code) {
         case 1:
           res.status(200).json({ code: 200, message: result.message });
