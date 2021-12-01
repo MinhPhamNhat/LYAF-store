@@ -10,7 +10,7 @@ const parseToElements = (obj) => {
     else if(obj.role == 'NVVC'){
         role = 'Nhân viên vận chuyển';
     }
-    else if(obj.role == 'NVĐH'){
+    else if(obj.role == 'NVDH'){
         role = 'Nhân viên đơn hàng';
     }
     else if(obj.role == 'NVSP'){

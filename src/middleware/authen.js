@@ -35,9 +35,16 @@ module.exports = {
         }
     },
 
+    authenManager: (req, res, next) => {
+        if (req.user.role === "NVDH"){
+            next()
+        }else{
+            res.status(401).render('404')
+        }
+    },
+
     authenShipper: (req, res, next) => {
         if (req.user.role === "NVVC"){
-            console.log(req.user)
             next()
         }else{
             res.status(401).render('404')
@@ -50,5 +57,13 @@ module.exports = {
         }else{
             res.status(401).json({code: 401, message:"Unauhorized"})
         }
-    }
+    },
+
+    apiAuthenManager: (req, res, next) => {
+        if (req.user.role === "NVDH"){
+            next()
+        }else{
+            res.status(401).json({code: 401, message:"Unauhorized"})
+        }
+    },
 }

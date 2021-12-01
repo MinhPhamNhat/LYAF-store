@@ -9,13 +9,13 @@ const authen = require('../middleware/authen')
 //Body
 route.get('/',proManager.proManager);
 route.get('/add',proManager.create);
-route.get('/shipper',authen.authenLogin2, authen.authenShipper ,proManager.shiper);
+route.get('/me',authen.authenLogin2 ,proManager.me);
 route.get('/list/detail/:id',proManager.productDetail);
 route.get('/list',proManager.list);
-route.get('/bill/ship',proManager.ship);
-route.get('/bill/manage',proManager.manage);
-route.get('/bill/manageDetail/:id',proManager.manageDetail);
-route.get('/bill/shipDetail/:id',proManager.shipDetail);
+route.get('/bill/ship',authen.authenShipper ,proManager.ship);
+route.get('/bill/manage',authen.authenManager,proManager.manage);
+route.get('/bill/manageDetail/:id',authen.authenManager,proManager.manageDetail);
+route.get('/bill/shipDetail/:id',authen.authenShipper,proManager.shipDetail);
 route.get('/bill/detail/:id',proManager.billDetail);
 route.get('/bill',proManager.bill);
 route.get('/property',proManager.property);

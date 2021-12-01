@@ -73,6 +73,8 @@ function billStatestate(state){
         return "Đã xác nhận đơn"
     case 3:
         return "Đang vận chuyển"
-    case 4:
-        return "Đã giao hàng"
+      case 4:
+          return "Giao hàng thành công"
+      case 5:
+          return "Giao hàng thất bại"
 }}
