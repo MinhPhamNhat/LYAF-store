@@ -43,6 +43,7 @@ function showTable(){
       fetch(window.location.origin+'/api/getShipperBills')
       .then(data=>data.json())
       .then(data=>{
+        console.log(data)
           var result = data.data
          var t = $("#aa-list").DataTable({
             responsive: true,

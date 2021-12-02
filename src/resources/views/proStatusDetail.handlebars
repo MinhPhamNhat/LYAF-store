@@ -1,8 +1,8 @@
 <div class="profile_body">
     <div class="profile_menu">
         <div class="profile_intro">
-                <span id="profile_intro-name">An Nguyễn</span>
-                <span id="profile_intro-role">Thành viên</span>
+                <span id="profile_intro-name">{{user.name}}</span>
+                <span id="profile_intro-role">{{#whatRole role=user.role}}{{/whatRole}}</span>
             </div>
         <div class="profile_menu-detail">
             <div class="profile_menu-item" id="userInfo"><span>Hồ sơ của tôi</span></div>
@@ -156,6 +156,26 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
                     <button type="button" class="btn btn-primary confirm-rating">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input id="MA-BILL-ID" type="hidden" value="{{data._id}}">
+    <div class="modal fade cancel-bill-modal" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Huỷ đơn hàng</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    Bạn có muốn huỷ đơn hàng này ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                    <button type="button" class="btn btn-danger confirm-cancel" data-id="{{data._id}}">Xác nhận</button>
                 </div>
             </div>
         </div>

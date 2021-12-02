@@ -8,9 +8,10 @@ const {parseSearch, parseSort, createPageRange} = require('../../helper/function
 class ClientController{
     async client(req,res,next){
         var result = await ProductDAO.getProductsList({isNew: true},10, {}, {date: -1})
+        var sale = await ProductDAO.getProductsList({isSale: true},10, {}, {date: -1})
         switch(result.code){
             case 1:
-                res.status(200).render('home', {user: req.user, data: result.data.map((_)=>_.toObject()), boss: req.params.boss});
+                res.status(200).render('home', {user: req.user, data: result.data.map((_)=>_.toObject()), boss: req.params.boss, sale: sale.data.map((_)=>_.toObject()) });
                 break;
             case -1:
                 res.status(500).render('404', {user: req.user});
@@ -23,7 +24,7 @@ class ClientController{
         var result = await ProductDAO.findById(id)
         switch(result.code){
             case 1:
-                res.status(200).render('productDetail', {user: req.user, data: result.data});
+                res.status(200).render('productDetail', {user: req.user, data: result.data, boss: req.params.boss});
                 break;
             case 0:
                 res.status(404).render('404', {user: req.user});
@@ -47,7 +48,7 @@ class ClientController{
 
         var query =  req.query
         delete query.page
-        res.render('productCollection', {categories: categories.data, data: result.data, page, pageRange, option: req.query, search: new URLSearchParams(req.query).toString()});
+        res.render('productCollection', {categories: categories.data, data: result.data, page, pageRange, option: req.query, search: new URLSearchParams(req.query).toString(), boss: req.params.boss});
     }
 
     search(req,res,next){

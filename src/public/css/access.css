@@ -3,8 +3,7 @@
   height: 900px;
   background-color: #201a20;
   display: flex;
-  justify-content: space-between;
-  margin-top: -20px; }
+  justify-content: space-between; }
 
 .form__logo {
   width: 400px;
@@ -142,8 +141,7 @@ form {
     height: 800px;
     background-color: #201a20;
     display: flex;
-    justify-content: center;
-    margin-top: -20px; }
+    justify-content: center; }
   .form__login {
     width: 50%;
     background-color: aliceblue;

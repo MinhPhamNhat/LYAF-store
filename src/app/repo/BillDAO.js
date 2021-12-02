@@ -69,7 +69,7 @@ module.exports = {
     },
 
     findBillById: async(userId) => {
-        const bills =  Bill.find({ user: userId }).lean().exec()
+        const bills =  Bill.find({ user: userId }).sort({date: -1}).lean().exec()
         return bills
     },
 
@@ -176,13 +176,13 @@ module.exports = {
     },
 
     confirmDelivery:async (id, user)=>{
-        return Bill.findById(id).exec().then(data=>{
+        return Bill.findById(id).exec().then(async data=>{
             if (data){
                 new ShipConfirm({
                     user: user._id,
                     bill: data._id
                 }).save()
-                Bill.findByIdAndUpdate(id, {shipAssigned: true}).exec()
+                await Bill.findByIdAndUpdate(id, {shipAssigned: true}).exec()
                 return {
                     code: 1,
                     message: "Đã xác nhận vận chuyển đơn cho bạn"
@@ -236,9 +236,15 @@ module.exports = {
         const check = await ShipConfirm.find({user: user._id, bill: id}).exec()
         if (check){
             return Bill.findOneAndUpdate({_id: id}, {
-                state: 4
-            }).then(data=>{
+                state: 4, alreadyPay: true
+            }).then(async data=>{
                 if (data){
+                    const billDetail = await BillDetail.find({bill: data._id}).exec()
+                    for (s of billDetail){
+                        var sub = await SubProduct.findById(s.subProdId).exec()
+                        sub.quantity -= s.quantity
+                        await sub.save()
+                    }
                     return {
                         code: 1,
                         message: "Đã cập nhật tình trạng đơn"

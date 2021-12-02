@@ -431,6 +431,11 @@
 
 .LYAF-home-container{
     width: 100%;
+    #block-products-title span{
+        color: black;
+        border-bottom: 2px solid black;
+        padding-bottom: 5px;
+    }
     .LYAF-home-banner{
         .splide {
             .splide__slide img{

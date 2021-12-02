@@ -1,12 +1,12 @@
 <div class="profile_body">
     <div class="profile_menu">
         <div class="profile_intro">
-                <span id="profile_intro-name">An Nguyễn</span>
-                <span id="profile_intro-role">Thành viên</span>
+                <span id="profile_intro-name">{{user.name}}</span>
+                <span id="profile_intro-role">{{#whatRole role=user.role}}{{/whatRole}}</span>
             </div>
         <div class="profile_menu-detail">
             <div class="profile_menu-item " id="userInfo"><span>Hồ sơ của tôi</span></div>
-            <div class="profile_menu-item" id="proStatus"><span>Tình trạng đơn hàng</span></div>
+            <div class="profile_menu-item" id="proStatus"><span>Đơn hàng</span></div>
               <div class="profile_menu-item focus-item" id="addressList"><span>Sổ địa chỉ</span></div>
             <div class="profile_menu-item" id="changePass"><span>Đổi mật khẩu</span></div>
             <div class="profile_menu-item" id="Logout"><span>Đăng xuất</span></div>

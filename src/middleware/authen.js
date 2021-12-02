@@ -36,7 +36,7 @@ module.exports = {
     },
 
     authenManager: (req, res, next) => {
-        if (req.user.role === "NVDH"){
+        if (req.user.role === "NVDH"|| req.user.role === "admin"){
             next()
         }else{
             res.status(401).render('404')
@@ -44,7 +44,23 @@ module.exports = {
     },
 
     authenShipper: (req, res, next) => {
-        if (req.user.role === "NVVC"){
+        if (req.user.role === "NVVC"|| req.user.role === "admin"){
+            next()
+        }else{
+            res.status(401).render('404')
+        }
+    },
+
+    authenProductManager: (req, res, next) => {
+        if (req.user.role === "NVSP"|| req.user.role === "admin"){
+            next()
+        }else{
+            res.status(401).render('404')
+        }
+    },
+
+    authenAdmin: (req, res, next) => {
+        if (req.user.role === "admin"){
             next()
         }else{
             res.status(401).render('404')
@@ -52,7 +68,7 @@ module.exports = {
     },
 
     apiAuthenShipper: (req, res, next) => {
-        if (req.user.role === "NVVC"){
+        if (req.user.role === "NVVC"|| req.user.role === "admin"){
             next()
         }else{
             res.status(401).json({code: 401, message:"Unauhorized"})
@@ -60,10 +76,20 @@ module.exports = {
     },
 
     apiAuthenManager: (req, res, next) => {
-        if (req.user.role === "NVDH"){
+        if (req.user.role === "NVDH"|| req.user.role === "admin"){
             next()
         }else{
             res.status(401).json({code: 401, message:"Unauhorized"})
         }
     },
+
+
+    authenBoss: (req, res, next) => {
+        if (req.user.role === "NVSP" || req.user.role === "admin" || req.user.role === "NVVC" || req.user.role === "NVDH"){
+            next()
+        }else{
+            res.status(401).render('404')
+        }
+    },
+
 }

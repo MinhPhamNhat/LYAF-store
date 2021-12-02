@@ -7,14 +7,14 @@ const authen = require('../middleware/authen')
 const UserInfoController = require('../app/controllers/UserInfoController');
 route.get('/',
    authen.authenLogin2
-,UserInfoController.start);
+   , authen.authen,UserInfoController.start);
 route.post('/userInfoUpdate',
-    authen.authenLogin2
+    authen.authenLogin2, authen.authen
 ,UserInfoController.userInfoUpdate);
-route.get('/proStatus',authen.authenLogin2,UserInfoController.proStatus);
-route.get('/proStatus/proStatusDetail/:id',authen.authenLogin2,UserInfoController.proStatusDetail);
+route.get('/proStatus',authen.authenLogin2, authen.authen,UserInfoController.proStatus);
+route.get('/proStatus/proStatusDetail/:id',authen.authenLogin2, authen.authen,UserInfoController.proStatusDetail);
 route.get('/changePass',
-    authen.authenLogin2,
+    authen.authenLogin2, authen.authen,
     (req,res,next)=>{
         accModel.findOne({username: req.user._id}).exec()
         .then((data)=>{
@@ -28,7 +28,7 @@ route.get('/changePass',
     }
 ,UserInfoController.changePass);
 route.post('/changePass/done',
-    authen.authenLogin2,
+    authen.authenLogin2, authen.authen,
     (req,res,next)=>{
         accModel.findOne({username: req.user._id}).exec()
         .then((data)=>{
@@ -41,7 +41,7 @@ route.post('/changePass/done',
         })
     }
 ,UserInfoController.changePassDone);
-route.get('/addressList', authen.authenLogin2,UserInfoController.addressList);
+route.get('/addressList', authen.authenLogin2, authen.authen,UserInfoController.addressList);
 route.post('/addressList/add', authen.authenLogin2,UserInfoController.addressListAdd);
 route.post('/addressList/updatebefore', authen.authenLogin2,UserInfoController.addressListUpdateBefore);
 route.post('/addressList/updateafter', authen.authenLogin2,UserInfoController.addressListUpdateAfter);

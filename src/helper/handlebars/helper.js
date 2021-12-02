@@ -102,6 +102,21 @@ module.exports = {
         }
     },
 
+    whatRole: (option)=>{
+        switch(option.hash.role){// 0: Huỷ đơn hàng ,1: Đang chờ xử lý, 2: Đã xác nhận đơn hàng, 3: Đang vận chuyển, 4: Đã giao hàng
+            case "NVVC":
+                return "Nhân viên vận chuyển"
+            case "admin":
+                return "ADMIN"
+            case "NVSP":
+                return "Nhân viên quản lý sản phẩm"
+            case "NVDH":
+                return "Nhân viên đơn hàng"
+            case "user":
+                return "Thành viên"
+        }
+    },
+
     dateFormat: (option) => {
         return option.hash.date.toLocaleString('vi-VN')
     },

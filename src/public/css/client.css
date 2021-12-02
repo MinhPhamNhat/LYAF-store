@@ -20,6 +20,10 @@
 
 .LYAF-home-container {
   width: 100%; }
+  .LYAF-home-container #block-products-title span {
+    color: black;
+    border-bottom: 2px solid black;
+    padding-bottom: 5px; }
   .LYAF-home-container .LYAF-home-banner .splide .splide__slide img {
     display: block;
     margin-left: auto;

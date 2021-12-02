@@ -103,6 +103,28 @@ module.exports = {
             } 
         })
     },
+    
+    getPopular: async () => {
+        return Product.find().populate({
+            path: 'categoryId',
+            populate: {
+                path: 'parentId'
+            }
+        }).limit(20).sort({rating: -1}).collation({ locale: "vi", caseLevel: true }).skip(skip).exec()
+        .then(data=>{
+            
+            return {
+                code: 1,
+                data
+            }
+        }).catch(err=>{
+            return {
+                code: -1,
+                message: err
+            } 
+        })
+    },
+
     getProductsList: async (option, limit={}, skip={}, sort={}) => {
         return Product.find(option).populate({
             path: 'categoryId',
@@ -180,7 +202,8 @@ module.exports = {
                 var subProduct = await SubProduct.find({productId: data._id}).lean()
                 .populate('colorId')
                 .populate('sizeId').exec()
-                var result = {...data.toJSON(), subProduct}
+                var numOfRating = await Rating.countDocuments({productRating: data._id}).lean().exec()
+                var result = {...data.toJSON(), subProduct, numOfRating}
                 return {
                     code: 1,
                     data: result

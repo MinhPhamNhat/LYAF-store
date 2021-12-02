@@ -8,7 +8,7 @@
         <i class="fas fa-bars"></i>
     </div>
     <div class="LYAF-side-bar-menu">
-        <div class="LYAF-profit-menu LYAF-menu">
+        {{!-- <div class="LYAF-profit-menu LYAF-menu">
             <div class="LYAF-menu-header">
                 <i class="fas fa-hand-holding-usd icon"></i>
                 <span class="title">Revenue</span>
@@ -28,26 +28,28 @@
                     <span class="title">Revenue</span>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="LYAF-admin-menu LYAF-menu">
             <div class="LYAF-menu-header">
                 <i class="fas fa-user-shield icon"></i>
-                <span class="title">Admin</span>
+                <span class="title">Cá nhân</span>
                 <i class="fas fa-chevron-right end"></i>
             </div>
             <div class="LYAF-menu-content">
                 <div class="LYAF-menu-option">
+                    <a href="/manager/me">
+                        <i class="fas fa-circle icon"></i>
+                        <span class="title">Các đơn đã nhận</span>
+                    </a>
+                </div>
+                {{!-- <div class="LYAF-menu-option">
                     <i class="fas fa-circle icon"></i>
                     <span class="title">Revenue</span>
                 </div>
                 <div class="LYAF-menu-option">
                     <i class="fas fa-circle icon"></i>
                     <span class="title">Revenue</span>
-                </div>
-                <div class="LYAF-menu-option">
-                    <i class="fas fa-circle icon"></i>
-                    <span class="title">Revenue</span>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div class="LYAF-user-menu LYAF-menu">
@@ -65,7 +67,7 @@
                 </div>
             </div>
         </div>
-        <div class="LYAF-staff-menu LYAF-menu">
+        {{!-- <div class="LYAF-staff-menu LYAF-menu">
             <div class="LYAF-menu-header">
                 <i class="fas fa-user-check icon"></i>
                 <span class="title">Staff</span>
@@ -85,7 +87,7 @@
                     <span class="title">Revenue</span>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="LYAF-product-menu LYAF-menu">
             <div class="LYAF-menu-header">
                 <i class="fas fa-receipt icon"></i>
@@ -93,13 +95,13 @@
                 <i class="fas fa-chevron-right end"></i>
             </div>
             <div class="LYAF-menu-content">
-                <div class="LYAF-menu-option">
+                <div class="LYAF-menu-option {{#equals val1=route val2="ship"}} LYAF-option-active {{/equals}}">
                     <a href="/manager/bill/ship">
                         <i class="fas fa-circle icon"></i>
                         <span class="title">Đơn cần giao</span>
                     </a>
                 </div>
-                <div class="LYAF-menu-option">
+                <div class="LYAF-menu-option {{#equals val1=route val2="manage"}} LYAF-option-active {{/equals}}">
                     <a href="/manager/bill/manage">
                         <i class="fas fa-circle icon"></i>
                         <span class="title">Đơn cần xử lý</span>
@@ -114,13 +116,13 @@
                 <i class="fas fa-chevron-right end"></i>
             </div>
             <div class="LYAF-menu-content">
-                <div class="LYAF-menu-option LYAF-option-active">
+                <div class="LYAF-menu-option {{#equals val1=route val2="list"}} LYAF-option-active {{/equals}}">
                     <a href="/manager/list">
                         <i class="fas fa-circle icon"></i>
                         <span class="title">Danh sách sản phẩm</span>
                     </a>
                 </div>
-                <div class="LYAF-menu-option">
+                <div class="LYAF-menu-option {{#equals val1=route val2="add"}} LYAF-option-active {{/equals}}">
                     <a href="/manager/add">
                         <i class="fas fa-circle icon"></i>
                         <span class="title">Thêm sản phẩm</span>

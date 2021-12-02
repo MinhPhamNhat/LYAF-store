@@ -125,7 +125,8 @@ $(document).ready(()=>{
         }).then(data=> data.json())
         .then(data=> {
             if (data.code===200){
-                window.location.href = '/'
+                console.log(data)
+                window.location.href = '/userInfo/proStatus/proStatusDetail/'+ data.data
             }else if (data.errors){
                 const err = data.errors
                 for (var prop in err) {

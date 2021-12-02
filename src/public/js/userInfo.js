@@ -554,6 +554,29 @@ $(document).ready(()=>{
             $(".rating-modal").modal("hide")
         })
     })
+
+    $("#cancel-bill").click(function(){
+        $(".cancel-bill-modal").modal("show")
+    })
+
+    $(".confirm-cancel").click(function(){
+        const id = this.dataset.id
+        fetch(window.location.origin + '/api/cancelBill',{
+            method: "POST",
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id})
+        }).then(data=> data.json())
+        .then(data=>{
+            if (data.code===200){
+                showToast("Huỷ đơn hàng","Huỷ đơn thành công")
+                setTimeout(()=>{window.location.reload()}, 500)
+            }else{
+                showToast("Huỷ đơn hàng", data.message, "error")
+            }
+        })
+    })
 })
 function setStar(id){
     $(`.LYAF-rating-container #rating span .fa-star`).remove()

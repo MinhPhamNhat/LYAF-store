@@ -8,6 +8,25 @@ const ShipConfirm = require('../models/ShipConfirm')
 const { validationResult } = require("express-validator");
 const { getPayload, addCart, parseCart, removeCart, parseSearch, updateFiles, parseFilter } = require("../../helper/function");
 class APIController {
+  async cancelBill(req, res, next) {
+    const id = req.body.id
+    if (id){
+      const result = await BillDAO.updateState(id, 0)
+      switch (result.code) {
+        case 1:
+          res.status(200).json({ code: 200, message: result.message });
+          break;
+        case 0:
+          res.status(404).json({ code: 404, message: result.message });
+          break;
+        case -1:
+          res.status(500).json({ code: 500, message: result.message });
+          break;
+      }
+    }else{
+      res.status(400).json({code: 400, message: "Thông tin không hợp lệ"}) 
+    }
+  }
   async getSetupList(req, res, next) {
     var colors = await ColorDAO.getList();
     var sizes = await SizeDAO.getList();
@@ -40,6 +59,7 @@ class APIController {
   }
 
   async getShipperBills(req, res, next){
+    console.log(req.user._id)
     const bills = await ShipConfirm.find({user: req.user._id}).sort({date: -1}).populate({
       path: 'bill',
       populate: {
@@ -56,6 +76,7 @@ class APIController {
           path: 'shipProfile.ward',
       },
     }).exec()
+    console.log(bills)
     const result = await Promise.all(bills.map(item=>item.bill))
     res.status(200).json({data:result.filter(item=>item)})
   }
@@ -145,7 +166,7 @@ class APIController {
   async billState(req, res, next) {
     const id = req.body.id
     const value = Number.parseInt(req.body.value)
-    if (id && (value >= 0 && value <=3)){
+    if (id && (value >= 0 && value <=5)){
       const check = await ShipConfirm.find({user: req.user._id, bill: id}).exec()
       if (check){
         const result = await BillDAO.updateState(id, value)

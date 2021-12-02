@@ -7,10 +7,11 @@ const { parseCart } = require("../../helper/function");
 class userInfoController{
 
     start(req,res,next){
+        console.log(req.params)
         userModel.findById(req.user._id).lean().exec()
         .then(user=> {
             if (user)
-            res.render('userInformation',{user});
+            res.render('userInformation',{user, boss: req.params.boss});
             else
             res.render('404');
         }).catch(err=>{
@@ -34,7 +35,7 @@ class userInfoController{
     async proStatus(req,res,next){
         const userId = req.user._id
         const bills = await BillDAO.findBillById(userId)
-        res.render('proStatus', {user: req.user, bills});
+        res.render('proStatus', {user: req.user, bills, boss: req.params.boss});
     }
     async proStatusDetail(req,res,next){
         const billId = req.params.id
@@ -49,7 +50,7 @@ class userInfoController{
                 const tempPrice = truePrice - salePrice
                 const deliveryPrice = (tempPrice - salePrice) > 500 ? 0 : 50; 
                 const totalPrice = tempPrice - salePrice + deliveryPrice
-                res.render('proStatusDetail', {user: req.user, data: result.data, salePrice, deliveryPrice, tempPrice, totalPrice});
+                res.render('proStatusDetail', {user: req.user, data: result.data, salePrice, deliveryPrice, tempPrice, totalPrice, boss: req.params.boss});
                 break;
             case 0:
                 res.render('404');
@@ -61,7 +62,7 @@ class userInfoController{
     }
     async changePass(req,res,next){
     
-            res.render('changePass',{error: req.params.error});
+            res.render('changePass',{error: req.params.error, user: req.user, boss: req.params.boss});
         
     }
     async changePassDone(req,res,next){
@@ -105,7 +106,7 @@ class userInfoController{
                 .then(data=>{
                     console.log('data start:',data);
                     data = data.map(data=>data.toObject());
-                    res.render('AddressList',{data});
+                    res.render('AddressList',{data, user: req.user, boss: req.params.boss});
                 })
                 .catch(()=>{
                     console.log('500 shipmodel');

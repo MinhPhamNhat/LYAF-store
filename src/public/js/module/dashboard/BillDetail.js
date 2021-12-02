@@ -13,6 +13,7 @@ $(document).ready(()=>{
         .then(data=>{
             if (data.code===200){
                 showToast("Cập nhật tình trạng", data.message)
+                setTimeout(()=>{window.location.reload()}, 500)
             }else{
                 showToast("Cập nhật tình trạng", data.message, "error")
             }
@@ -31,6 +32,7 @@ $(document).ready(()=>{
         .then(data=>{
             if (data.code===200){
                 showToast("Cập nhật tình trạng", data.message)
+                setTimeout(()=>{window.location.reload()}, 500)
             }else{
                 showToast("Cập nhật tình trạng", data.message, "error")
             }
@@ -49,6 +51,7 @@ $(document).ready(()=>{
         .then(data=>{
             if (data.code===200){
                 showToast("Cập nhật thanh toán", data.message)
+                setTimeout(()=>{window.location.reload()}, 500)
             }else{
                 showToast("Cập nhật thanh toán", data.message, "error")
             }

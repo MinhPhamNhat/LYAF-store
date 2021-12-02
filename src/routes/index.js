@@ -13,7 +13,7 @@ const authen = require('../middleware/authen')
 
 const route = (app)=>{
     app.use('/',client);
-    app.use('/manager',proManager);
+    app.use('/manager', authen.authenBoss ,proManager);
     app.use('/api',apiRouter);
     app.use('/color',corlorRouter);
     app.use('/checkout', checkoutRounter);

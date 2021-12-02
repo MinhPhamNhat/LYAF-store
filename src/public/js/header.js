@@ -42,25 +42,32 @@ $(document).ready(()=>{
 
     $(document).on('click', '.LYAF-cart-product-remove', function(){
         const id = this.dataset.id;
-        console.log(id)
+        showLoading()
         fetch(window.location.origin+'/api/removeCart?id='+id)
         .then(data=>{
             if (data.status == 200)
             makeCart()
             else
             showToast("Cart", "Lấy giỏ hàng thất bại", "error")
+            hideLoading()
         })
     })
 
     $(".LYAF-cart-pay-btn").click(()=>{
-        fetch(window.location.origin+'/api/checkOut')
-        .then(data=>{
-            if (data.status === 200){
-                window.location.href = '/checkout'
-            }else{
-                $(".prompt-login-modal").modal("show")
-            }
-        })
+        if ($(".LYAF-cart-product").length){
+            fetch(window.location.origin+'/api/checkOut')
+            .then(data=>{
+                showLoading()
+                if (data.status === 200){
+                    window.location.href = '/checkout'
+                }else{
+                    $(".prompt-login-modal").modal("show")
+                }
+                hideLoading()
+            })
+        }else{
+            showToast("Cart", "Bạn chưa thêm sản phẩm", "warning")
+        }
     })
 
     fetch(window.location.origin+'/api/getCategory')

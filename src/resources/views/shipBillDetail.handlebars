@@ -9,7 +9,7 @@
         <i class="fas fa-bars"></i>
     </div>
     <div class="LYAF-side-bar-menu">
-        <div class="LYAF-profit-menu LYAF-menu">
+        {{!-- <div class="LYAF-profit-menu LYAF-menu">
             <div class="LYAF-menu-header">
                 <i class="fas fa-hand-holding-usd icon"></i>
                 <span class="title">Revenue</span>
@@ -29,50 +29,46 @@
                     <span class="title">Revenue</span>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="LYAF-admin-menu LYAF-menu">
             <div class="LYAF-menu-header">
                 <i class="fas fa-user-shield icon"></i>
-                <span class="title">Admin</span>
+                <span class="title">Cá nhân</span>
                 <i class="fas fa-chevron-right end"></i>
             </div>
             <div class="LYAF-menu-content">
-                <div class="LYAF-menu-option">
+                <div class="LYAF-menu-option LYAF-option-active">
+                    <a href="/manager/me">
+                        <i class="fas fa-circle icon"></i>
+                        <span class="title">Các đơn đã nhận</span>
+                    </a>
+                </div>
+                {{!-- <div class="LYAF-menu-option">
                     <i class="fas fa-circle icon"></i>
                     <span class="title">Revenue</span>
                 </div>
                 <div class="LYAF-menu-option">
                     <i class="fas fa-circle icon"></i>
                     <span class="title">Revenue</span>
-                </div>
-                <div class="LYAF-menu-option">
-                    <i class="fas fa-circle icon"></i>
-                    <span class="title">Revenue</span>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div class="LYAF-user-menu LYAF-menu">
             <div class="LYAF-menu-header">
                 <i class="fas fa-users icon"></i>
-                <span class="title">User</span>
+                <span class="title">Tài khoản</span>
                 <i class="fas fa-chevron-right end"></i>
             </div>
             <div class="LYAF-menu-content">
                 <div class="LYAF-menu-option">
-                    <i class="fas fa-circle icon"></i>
-                    <span class="title">Revenue</span>
-                </div>
-                <div class="LYAF-menu-option">
-                    <i class="fas fa-circle icon"></i>
-                    <span class="title">Revenue</span>
-                </div>
-                <div class="LYAF-menu-option">
-                    <i class="fas fa-circle icon"></i>
-                    <span class="title">Revenue</span>
+                    <a href="/manager/account">
+                        <i class="fas fa-circle icon"></i>
+                        <span class="title">Quản lý tài khoản</span>
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="LYAF-staff-menu LYAF-menu">
+        {{!-- <div class="LYAF-staff-menu LYAF-menu">
             <div class="LYAF-menu-header">
                 <i class="fas fa-user-check icon"></i>
                 <span class="title">Staff</span>
@@ -92,25 +88,52 @@
                     <span class="title">Revenue</span>
                 </div>
             </div>
+        </div> --}}
+        <div class="LYAF-product-menu LYAF-menu">
+            <div class="LYAF-menu-header">
+                <i class="fas fa-receipt icon"></i>
+                <span class="title">Đơn hàng</span>
+                <i class="fas fa-chevron-right end"></i>
+            </div>
+            <div class="LYAF-menu-content">
+                <div class="LYAF-menu-option">
+                    <a href="/manager/bill/ship">
+                        <i class="fas fa-circle icon"></i>
+                        <span class="title">Đơn cần giao</span>
+                    </a>
+                </div>
+                <div class="LYAF-menu-option">
+                    <a href="/manager/bill/manage">
+                        <i class="fas fa-circle icon"></i>
+                        <span class="title">Đơn cần xử lý</span>
+                    </a>
+                </div>
+            </div>
         </div>
         <div class="LYAF-product-menu LYAF-menu">
             <div class="LYAF-menu-header">
                 <i class="fab fa-product-hunt icon"></i>
-                <span class="title">Product</span>
+                <span class="title">Sản phẩm</span>
                 <i class="fas fa-chevron-right end"></i>
             </div>
             <div class="LYAF-menu-content">
-                <div class="LYAF-menu-option LYAF-option-active">
-                    <i class="fas fa-circle icon"></i>
-                    <span class="title">add product</span>
+                <div class="LYAF-menu-option">
+                    <a href="/manager/list">
+                        <i class="fas fa-circle icon"></i>
+                        <span class="title">Danh sách sản phẩm</span>
+                    </a>
                 </div>
                 <div class="LYAF-menu-option">
-                    <i class="fas fa-circle icon"></i>
-                    <span class="title">Revenue</span>
+                    <a href="/manager/add">
+                        <i class="fas fa-circle icon"></i>
+                        <span class="title">Thêm sản phẩm</span>
+                    </a>
                 </div>
                 <div class="LYAF-menu-option">
-                    <i class="fas fa-circle icon"></i>
-                    <span class="title">Revenue</span>
+                    <a href="/manager/property">
+                        <i class="fas fa-circle icon"></i>
+                        <span class="title">Thuộc tính</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -129,20 +152,27 @@
                 <div class="action-bill-detail col-md-4">
                     <span id="title" class="mb-3">Quản lý vận chuyển</span>
                     <hr>
-                    
-                    {{#equals val1=data.state val2=2}}
-                    <div class="form-group row">
-                        <label for="inputState" class="col-sm-6 col-form-label col-form-label-sm"><h4>Tình trạng vận chuyển</h4></label>
-                        <button type="submit" class="btn btn-primary confirm-delivering" data-id="{{../data._id}}">Xác nhận đang vận chuyển</button>
-                    </div>
-                    {{/equals}}
-                    {{#equals val1=data.state val2=3}}
-                        <label for="inputState" class="col-sm-6 col-form-label col-form-label-sm"><h4>Tình trạng vận chuyển</h4></label>
-                    <div class="form-group row">
-                            <button type="submit" class="col-sm-5 btn btn-success confirm-success m-3" data-id="{{../data._id}}">Giao hàng thành công</button>
-                            <button type="submit" class="col-sm-5 btn btn-danger confirm-fail m-3" data-id="{{../data._id}}">Giao hàng thất bại</button>
-                    </div>
-                    {{/equals}}
+                    {{#if data.shipAssigned }}
+                        
+                        {{#equals val1=data.state val2=2}}
+                        <div class="form-group row">
+                            <label for="inputState" class="col-sm-6 col-form-label col-form-label-sm"><h4>Tình trạng vận chuyển</h4></label>
+                            <button type="submit" class="btn btn-primary confirm-delivering" data-id="{{../data._id}}">Xác nhận đang vận chuyển</button>
+                        </div>
+                        {{/equals}}
+                        {{#equals val1=data.state val2=3}}
+                            <label for="inputState" class="col-sm-6 col-form-label col-form-label-sm"><h4>Tình trạng vận chuyển</h4></label>
+                        <div class="form-group row">
+                                <button type="submit" class="col-sm-5 btn btn-success confirm-success m-3" data-id="{{../data._id}}">Giao hàng thành công</button>
+                                <button type="submit" class="col-sm-5 btn btn-danger confirm-fail m-3" data-id="{{../data._id}}">Giao hàng thất bại</button>
+                        </div>
+                        {{/equals}}
+                    {{else}}
+                        <div class="form-group row">
+                            <label for="inputState" class="col-sm-6 col-form-label col-form-label-sm"><h4>Xác nhận vận chuyển</h4></label>
+                            <button type="submit" class="btn btn-primary confirm-delivery" data-id="{{data._id}}">Xác nhận đơn</button>
+                        </div>
+                    {{/if}}
                     <hr>
                 </div>
                 <div class="userStatus col-md-8">

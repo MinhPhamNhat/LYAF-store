@@ -13,12 +13,7 @@ const bcrypt = require('bcrypt');
 class ManagementController{
 
     proManager(req,res,next){
-        proModel.find({})
-                .then((data) =>{
-                    data = data.map((data) => data.toObject());
-                    res.render('proManager',{data, header: false});
-                })
-                .catch(next)
+        res.redirect('/manager/me')
     }
 
     create(req,res,next){
@@ -43,6 +38,10 @@ class ManagementController{
         res.render('ManageProfile', {user: req.user});
         if (req.user.role === 'NVVC')
         res.render('ShipperProfile', {user: req.user});
+        if (req.user.role === 'NVSP')
+        res.redirect('/manager/list')
+        if (req.user.role === 'admin')
+        res.redirect('/manager/account')
     }
 
     async manageDetail(req, res, next){
@@ -71,7 +70,7 @@ class ManagementController{
             case -1:
                 res.render('404');
                 break;
-          }
+        }
     }
 
     async shipDetail(req, res, next){

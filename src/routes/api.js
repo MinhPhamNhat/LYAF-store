@@ -6,6 +6,7 @@ const authen = require('../middleware/authen')
 
 const APIController = require('../app/controllers/APIController');
 
+route.post('/cancelBill', APIController.cancelBill)
 route.get('/getSetupList',APIController.getSetupList);
 route.get('/getCategory',APIController.getCategory);
 route.get('/addCart', validator.cartValidator(), APIController.addCart)
