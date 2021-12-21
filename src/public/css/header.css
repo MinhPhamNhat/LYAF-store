@@ -219,6 +219,14 @@
   flex-direction: column;
   justify-content: start; }
 
+.LYAF-header-account-infor a, .LYAF-header-login-prompt a {
+  text-decoration: none;
+  color: black;
+  transition: 0.3s; }
+
+.LYAF-header-account-infor a:hover, .LYAF-header-login-prompt a:hover {
+  color: #0074e0; }
+
 .LYAF-header .LYAF-search-box .LYAF-search-output .LYAF-search-product img {
   flex: 1;
   max-height: 90px;

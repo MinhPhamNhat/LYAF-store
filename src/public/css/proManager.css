@@ -549,6 +549,10 @@ table.dataTable thead th {
   border-spacing: 0 10px !important;
   border-collapse: separate;
   width: 100% !important; }
+  .LYAF-product-list #LYAF-list th:first-child {
+    width: fit-content !important; }
+  .LYAF-product-list #LYAF-list td:first-child {
+    width: fit-content !important; }
 
 .LYAF-product-list #LYAF-list_wrapper {
   padding-top: 20px;

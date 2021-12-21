@@ -46,20 +46,9 @@ var G_currentInput = {
                   </div>
                 </div>`;
     var action = ` <div id="list-product-action">
-                    <div class="btn-group dropup">
-                      <button type="button" class="btn btn-outline-secondary">
-                        <a href="/manager/list/detail/${obj._id}">Detail</a>
-                      </button>
-                      <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      </button>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Remove</a>
-                        <a class="dropdown-item" href="#">Edit</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Separated link</a>
-                      </div>
-                    </div>
+                    <button type="button" class="btn btn-outline-secondary">
+                      <a href="/manager/list/detail/${obj._id}">Detail</a>
+                    </button>
                   </div>`;
     return {
       productDetail,

@@ -5,11 +5,18 @@ const catModel = require('../models/Category');
 const colorModel = require('../models/Color');
 const BillDAO = require('../repo/BillDAO');
 const userModel = require('../models/User')
+const SubProduct = require('../models/SubProduct')
 const accModel = require('../models/Account')
 const cloudinary = require('../../config/cloudinary');
 const ShipConfirm = require('../models/ShipConfirm')
 const {parseCart} = require('../../helper/function');
 const bcrypt = require('bcrypt');
+function checkId(value) {
+    if (/^[a-zA-Z0-9_]*$/.test(value)) {
+        return true
+    }
+    return false
+}
 class ManagementController{
 
     proManager(req,res,next){
@@ -17,20 +24,20 @@ class ManagementController{
     }
 
     create(req,res,next){
-        res.render('proManager', {route: "add", header: false});
+        res.render('proManager', {route: "add", header: false, user: req.user});
     }
     
     list(req, res, next){
-        res.render('proManager', {route: "list", header: false});
+        res.render('proManager', {route: "list", header: false, user: req.user});
     }
     ship(req, res, next) {
-        res.render('proManager', {route: "ship", header: false});
+        res.render('proManager', {route: "ship", header: false, user: req.user});
     }
     manage(req, res, next){
-        res.render('proManager', {route: "manage", header: false});
+        res.render('proManager', {route: "manage", header: false, user: req.user});
     }
     bill(req, res, next){
-        res.render('proManager', {route: "bill", header: false});
+        res.render('proManager', {route: "bill", header: false, user: req.user});
     }
 
     async me(req, res, next) {
@@ -112,7 +119,7 @@ class ManagementController{
                 colorModel.find({})
                     .then((colorList)=>{
                         colorList = colorList.map((colorList) => colorList.toObject());
-                        res.render('property', {sizeList,colorList,catList});
+                        res.render('property', {sizeList,colorList,catList, user: req.user});
                     })
               
             })
@@ -152,37 +159,40 @@ class ManagementController{
           }
     }
     addsize(req,res,next){
-        sizeModel.findById(req.body.addSizeID).lean().exec()
-        .then((data)=>{
-            if(data == null){
-                const newsize = new sizeModel({
-                    _id:req.body.addSizeID,
-                    name:req.body.addSizeName,
-                    desc:req.body.addSizeDesc,
-                });
-                newsize.save()
-                .then(()=>{
-                    sizeModel.find({})
-                    .then((data)=>{
-                        data = data.map(data=>data.toObject());
-                        res.status(200).json(data);
+        if (!checkId(req.body.addSizeID)){
+            res.status(500).json();
+        }else{
+            sizeModel.findById(req.body.addSizeID).lean().exec()
+            .then((data)=>{
+                if(data == null){
+                    const newsize = new sizeModel({
+                        _id:req.body.addSizeID,
+                        name:req.body.addSizeName,
+                        desc:req.body.addSizeDesc,
+                    });
+                    newsize.save()
+                    .then(()=>{
+                        sizeModel.find({})
+                        .then((data)=>{
+                            data = data.map(data=>data.toObject());
+                            res.status(200).json(data);
+                        })
+                       
                     })
-                   
-                })
-                .catch(()=>{
-                    res.status(300).json();
-                })
-            }
-            else{
-                res.status(400).json();
-            }
-        })
-        .catch(()=>{
-            res.status(500).json()
-        })
+                    .catch(()=>{
+                        res.status(300).json();
+                    })
+                }
+                else{
+                    res.status(400).json();
+                }
+            })
+            .catch(()=>{
+                res.status(500).json()
+            })
+        }
     } 
     updatesize(req,res,next){
-
         sizeModel.findByIdAndUpdate(req.body.addSizeID,{
             name:req.body.addSizeName,
             desc:req.body.addSizeDesc,
@@ -203,23 +213,28 @@ class ManagementController{
             res.status(500).json();
         })
     }   
-    deletesize(req,res,next){
-        sizeModel.findByIdAndDelete(req.body.addSizeID).exec()
-        .then((data)=>{
-            if(data !=null){
-                sizeModel.find({})
-                .then((data)=>{
-                    data = data.map(data=>data.toObject());
-                    res.status(200).json(data);
-                })
-            }
-            else{
-                res.status(400).json();
-            }
-        })
-        .catch(()=>{
-            res.status(500).json();
-        })
+    async deletesize(req,res,next){
+        const countSize = await SubProduct.countDocuments({sizeId: req.body.addSizeID}).exec()
+        if (countSize > 0){
+            res.status(300).json();
+        }else{
+            sizeModel.findByIdAndDelete(req.body.addSizeID).exec()
+            .then((data)=>{
+                if(data !=null){
+                    sizeModel.find({})
+                    .then((data)=>{
+                        data = data.map(data=>data.toObject());
+                        res.status(200).json(data);
+                    })
+                }
+                else{
+                    res.status(400).json();
+                }
+            })
+            .catch(()=>{
+                res.status(500).json();
+            })
+        }
     }
     async detail(req, res, next) {
         const billId = req.params.id
@@ -250,7 +265,7 @@ class ManagementController{
             const result = await ProductDAO.findById(id)
             switch (result.code) {
                 case 1:
-                    res.render('ManagerProductDetail', {data: result.data});
+                    res.render('ManagerProductDetail', {data: result.data, user: req.user});
                     break;
                 case 0:
                     res.render('404');
@@ -279,52 +294,73 @@ class ManagementController{
         )
     }
     addcategory(req,res,next){
-        catModel.findById(req.body.addCatID).lean().exec()
-        .then((data)=>{
-            if(data == null){
-                const newcat = new catModel({
-                    _id:req.body.addCatID,
-                    name:req.body.addCatName,
-                    parentId:req.body.addCatParent,
-                });
-                newcat.save()
-                .then(()=>{
-                    catModel.find({}).populate('parentId')
-                    .then((data)=>{
-                        data = data.map(data=>data.toObject());
-                        res.status(200).json(data);
-                    })
-                })
-                .catch(()=>{
-                    res.status(300).json();
-                })
-            }
-            else{
-                res.status(400).json();
-            }
-        })
-        .catch(()=>{
-            res.status(500).json()
-        })
-    }
-    deletecategory(req,res,next){
-        catModel.findByIdAndDelete(req.body.addCatID).exec()
-        .then((data)=>{
-            if(data !=null){
-                catModel.find({}).populate('parentId')
+        if (!checkId(req.body.addCatID)){
+            res.status(500).json();
+        }else{
+            catModel.findById(req.body.addCatID).lean().exec()
+            .then((data)=>{
+                if(data == null){
+                    const newcat = new catModel({
+                        _id:req.body.addCatID,
+                        name:req.body.addCatName,
+                        parentId:req.body.addCatParent,
+                    });
+                    newcat.save()
+                    .then(()=>{
+                        catModel.find({}).populate('parentId')
                         .then((data)=>{
                             data = data.map(data=>data.toObject());
                             res.status(200).json(data);
                         })
+                    })
+                    .catch(()=>{
+                        res.status(300).json();
+                    })
+                }
+                else{
+                    res.status(400).json();
+                }
+            })
+            .catch(()=>{
+                res.status(500).json()
+            })
+        }
+    }
+    async deletecategory(req,res,next){
+        const products = await proModel.find().populate('categoryId').exec()
+        const categories = await catModel.countDocuments({parentId: req.body.addCatID}).populate('categoryId').exec()
+        var check = false
+        for (var p of products){
+            if (p.categoryId._id === req.body.addCatID || p.categoryId.parentId === req.body.addCatID){
+                check = true
+                break;
             }
-            else{
-                res.status(400).json();
-            }
-        })
-        .catch((err)=>{
-            res.status(500).json();
-           
-        })
+        }
+        if (categories > 0 ){
+            check = true
+        }
+        if (check){
+            res.status(300).json();
+        }else{
+            catModel.findByIdAndDelete(req.body.addCatID).exec()
+            .then((data)=>{
+                if(data !=null){
+                    catModel.find({}).populate('parentId')
+                            .then((data)=>{
+                                data = data.map(data=>data.toObject());
+                                res.status(200).json(data);
+                            })
+                }
+                else{
+                    res.status(400).json();
+                }
+            })
+            .catch((err)=>{
+                res.status(500).json();
+               
+            })
+        }
+        
         
     }
     updatecategory(req,res,next){
@@ -381,59 +417,71 @@ class ManagementController{
         )
     }
     async addcolor(req,res,next){
-        var file = req.file;
-        var upload = await cloudinary.uploads(file.path,'color');
-        colorModel.findById(req.body.colorId).exec()
-        .then((data)=>{
-            if(data != null){
-                res.status(400).json();
-            }
-            else{
-                const newcolor = new colorModel({
-                    _id:req.body.colorId,
-                    name: req.body.colorName,
-                    thumbnail:upload.url,
-                })
-                newcolor.save()
-                .then((data)=>{
-                    if(data !=null){
-                        colorModel.find({})
-                        .then((data)=>{
-                            data = data.map(data=>data.toObject());
-                            res.status(200).json(data);
-                        })
-                    }
-                    else{
-                        rss.status(400).json();
-                    }
-                   
-                })
-                .catch(()=>{
-                    res.status(500).json();
-                })
-            }
-        })
-        .catch(()=>{
+        if (!checkId(req.body.colorId)){
             res.status(500).json();
-        })
+        }else{
+            var file = req.file;
+            var upload = await cloudinary.uploads(file.path,'color');
+            colorModel.findById(req.body.colorId).exec()
+            .then((data)=>{
+                if(data != null){
+                    res.status(400).json();
+                }
+                else{
+                    const newcolor = new colorModel({
+                        _id:req.body.colorId,
+                        name: req.body.colorName,
+                        thumbnail:upload.url,
+                    })
+                    newcolor.save()
+                    .then((data)=>{
+                        if(data !=null){
+                            colorModel.find({})
+                            .then((data)=>{
+                                data = data.map(data=>data.toObject());
+                                res.status(200).json(data);
+                            })
+                        }
+                        else{
+                            rss.status(400).json();
+                        }
+                       
+                    })
+                    .catch(()=>{
+                        res.status(500).json();
+                    })
+                }
+            })
+            .catch(()=>{
+                res.status(500).json();
+            })
+        }
+        
     }
-    deletecolor(req,res,next){
-        colorModel.findByIdAndDelete(req.body.colorId).exec()
-        .then((data)=>{
-            if(data !=null){
-                colorModel.find({})
-                .then((data)=>{
-                    data = data.map(data=>data.toObject());
-                    res.status(200).json(data);
-                })
-            }
-            else{
-                res.status(400).json();
-            }
-        })
-        .catch(()=>{
-            res.status(500).json();
-        });
+    async deletecolor(req,res,next){
+        console.log(req.body)
+        const countColor = await SubProduct.countDocuments({colorId: req.body.colorId}).exec()
+        console.log(countColor)
+        if (countColor > 0){
+            res.status(300).json();
+        }else{
+            colorModel.findByIdAndDelete(req.body.colorId).exec()
+            .then((data)=>{
+                if(data !=null){
+                    colorModel.find({})
+                    .then((data)=>{
+                        data = data.map(data=>data.toObject());
+                        res.status(200).json(data);
+                    })
+                }
+                else{
+                    res.status(400).json();
+                }
+            })
+            .catch(()=>{
+                res.status(500).json();
+            });
+        }
     }
     async updatecolor(req,res,next){
         var upload = await cloudinary.uploads(req.file.path,'color');
@@ -567,8 +615,8 @@ class ManagementController{
         })
     }
     updateacc(req,res,next){
+        console.log(req.body)
         userModel.findByIdAndUpdate(req.body.accDetailID,{
-            _id: req.body.accDetailID,
             name:req.body.accDetailName,
             role:req.body.accDetailRole,
             email:req.body.accDetailEmail,

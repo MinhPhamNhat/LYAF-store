@@ -199,7 +199,7 @@ document.querySelector('#accDetailUpdate').addEventListener('click',function(){
       const data = JSON.stringify({
         accDetailID : document.querySelector('#acc-username').value,
         acDetailName : document.querySelector('#acc-name').value,
-        accDetailRole: document.querySelector('#acc-role').value,
+        accDetailRole: document.querySelector('#filterlist').value,
         accDetailPhone: document.querySelector('#acc-phone').value,
         accDetailEmail: document.querySelector('#acc-email').value,
       });
@@ -211,10 +211,10 @@ document.querySelector('#accDetailUpdate').addEventListener('click',function(){
               showToast('Cập nhật Tài Khoản','Cập nhật thành công !');
             }
             else if(data.status ==400){
-              showToast('Cập nhật Tài khoản','Cập nhật thất bại !');
+              showToast('Cập nhật Tài khoản','Cập nhật thất bại !', "error");
             }
             else if(data.status == 500){
-              showToast('Cập nhật Tài khoản','Cập nhật thất bại !');
+              showToast('Cập nhật Tài khoản','Cập nhật thất bại !', "error");
             }
           })
   
@@ -243,13 +243,15 @@ document.querySelector('#accDetailUpdate').addEventListener('click',function(){
 });
 
 ////Event Modal:
-document.querySelector('accDetailAdd').addEventListener('click',function(){
-  $(".property-confirm-modal .modal-title").html('Xoá màu sắc')
-  $(".property-confirm-modal .modal-body").html(`Bạn có muốn xoá màu săc <b>OKOK</b>`)
-  $(".property-confirm-modal .confirm").attr("data-property", "color")
-  $(".property-confirm-modal .confirm").attr("data-id", 'OK LUÔN')
-  $(".property-confirm-modal").modal("show")
-})
+if (document.querySelector('accDetailAdd')){
+  document.querySelector('accDetailAdd').addEventListener('click',function(){
+    $(".property-confirm-modal .modal-title").html('Xoá màu sắc')
+    $(".property-confirm-modal .modal-body").html(`Bạn có muốn xoá màu săc <b>OKOK</b>`)
+    $(".property-confirm-modal .confirm").attr("data-property", "color")
+    $(".property-confirm-modal .confirm").attr("data-id", 'OK LUÔN')
+    $(".property-confirm-modal").modal("show")
+  })
+}
 
 $('#myModal').on('shown.bs.modal', function () {
   $('#myInput').trigger('focus')

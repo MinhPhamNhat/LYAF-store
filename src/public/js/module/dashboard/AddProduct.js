@@ -251,8 +251,10 @@ $(document).ready(() => {
       var size = sizeList.find((_) => _._id == sizeId);
       var color = colorList.find((_) => _._id == colorId);
       var quantity = Number.parseInt($(".add-sub-modal #quantity").val());
-      if (size && color && quantity > 0){
-        if (checkDuplicate(size._id, color._id)){
+      if (size && color && quantity){
+        if (quantity <= 0){
+          showToast("Thêm sản phẩm phụ", "Số lượng phải lớn hơn 0", "warning")
+        }else if (checkDuplicate(size._id, color._id)){
           showToast("Thêm sản phẩm phụ", "Đã có sản phẩm phụ này", "warning")
         }else{
           $(".LYAF-sub-products-list").append(`
@@ -301,6 +303,10 @@ $(document).ready(() => {
 
     $(".LYAF-save-new").click(async ()=>{
       var data = await extractData()
+      if (data.price <= 0){
+        showToast("Thêm sản phẩm", "Giá phải lớn không 0", "warning")
+        return
+      }
       const formData = new FormData()
       formData.append("name", data.name)
       formData.append("desc", data.desc)
@@ -329,7 +335,7 @@ $(document).ready(() => {
           if (data.code === 200){
             hideLoading()
             showToast("Thêm sản phẩm", "Thêm thành công")
-            setTimeout(() => {window.location.href = '/manager/product/detail/'+ data.productId},500)
+            setTimeout(() => {window.location.href = '/manager/list/detail/'+ data.productId},500)
           }else{
             showToast("Thêm sản phẩm", data.message, "error")
           }

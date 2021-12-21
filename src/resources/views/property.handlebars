@@ -3,8 +3,11 @@
     {{!-- Dashboard navbar --}}
 <div class="LYAF-side-bar">
     <div class="LYAF-side-bar-header">
-        <span class="LYAF-side-bar-title text-uppercase font-weight-bold">Dasboard</span>
+        <span class="LYAF-side-bar-title text-uppercase font-weight-bold"><a href="/" style="color: white; text-decoration:none">LYAF</a></span>
         <i class="fas fa-bars"></i>
+    </div>
+    <div class="LYAF-dashboard-user">
+        <span>Phạm Nhật Minh</span>
     </div>
     <div class="LYAF-side-bar-menu">
         {{!-- <div class="LYAF-profit-menu LYAF-menu">
@@ -28,29 +31,32 @@
                 </div>
             </div>
         </div> --}}
-        <div class="LYAF-admin-menu LYAF-menu">
-            <div class="LYAF-menu-header">
-                <i class="fas fa-user-shield icon"></i>
-                <span class="title">Cá nhân</span>
-                <i class="fas fa-chevron-right end"></i>
-            </div>
-            <div class="LYAF-menu-content">
-                <div class="LYAF-menu-option">
-                    <a href="/manager/me">
+        {{#NVDHAndNVVC role=user.role}}
+            <div class="LYAF-admin-menu LYAF-menu">
+                <div class="LYAF-menu-header">
+                    <i class="fas fa-user-shield icon"></i>
+                    <span class="title">Cá nhân</span>
+                    <i class="fas fa-chevron-right end"></i>
+                </div>
+                <div class="LYAF-menu-content">
+                    <div class="LYAF-menu-option">
+                        <a href="/manager/me">
+                            <i class="fas fa-circle icon"></i>
+                            <span class="title">Các đơn đã nhận</span>
+                        </a>
+                    </div>
+                    {{!-- <div class="LYAF-menu-option">
                         <i class="fas fa-circle icon"></i>
-                        <span class="title">Các đơn đã nhận</span>
-                    </a>
+                        <span class="title">Revenue</span>
+                    </div>
+                    <div class="LYAF-menu-option">
+                        <i class="fas fa-circle icon"></i>
+                        <span class="title">Revenue</span>
+                    </div> --}}
                 </div>
-                {{!-- <div class="LYAF-menu-option">
-                    <i class="fas fa-circle icon"></i>
-                    <span class="title">Revenue</span>
-                </div>
-                <div class="LYAF-menu-option">
-                    <i class="fas fa-circle icon"></i>
-                    <span class="title">Revenue</span>
-                </div> --}}
             </div>
-        </div>
+        {{/NVDHAndNVVC}}
+        {{#equals val1=user.role val2="admin"}}
         <div class="LYAF-user-menu LYAF-menu">
             <div class="LYAF-menu-header">
                 <i class="fas fa-users icon"></i>
@@ -66,6 +72,7 @@
                 </div>
             </div>
         </div>
+        {{/equals}}
         {{!-- <div class="LYAF-staff-menu LYAF-menu">
             <div class="LYAF-menu-header">
                 <i class="fas fa-user-check icon"></i>
@@ -87,54 +94,73 @@
                 </div>
             </div>
         </div> --}}
-        <div class="LYAF-product-menu LYAF-menu">
-            <div class="LYAF-menu-header">
-                <i class="fas fa-receipt icon"></i>
-                <span class="title">Đơn hàng</span>
-                <i class="fas fa-chevron-right end"></i>
-            </div>
-            <div class="LYAF-menu-content">
-                <div class="LYAF-menu-option">
-                    <a href="/manager/bill/ship">
-                        <i class="fas fa-circle icon"></i>
-                        <span class="title">Đơn cần giao</span>
-                    </a>
+        
+        {{#notEquals val1=user.role val2="NVSP"}}
+            <div class="LYAF-product-menu LYAF-menu">
+                <div class="LYAF-menu-header">
+                    <i class="fas fa-receipt icon"></i>
+                    <span class="title">Đơn hàng</span>
+                    <i class="fas fa-chevron-right end"></i>
                 </div>
-                <div class="LYAF-menu-option">
-                    <a href="/manager/bill/manage">
-                        <i class="fas fa-circle icon"></i>
-                        <span class="title">Đơn cần xử lý</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="LYAF-product-menu LYAF-menu">
-            <div class="LYAF-menu-header">
-                <i class="fab fa-product-hunt icon"></i>
-                <span class="title">Sản phẩm</span>
-                <i class="fas fa-chevron-right end"></i>
-            </div>
-            <div class="LYAF-menu-content">
-                <div class="LYAF-menu-option">
-                    <a href="/manager/list">
-                        <i class="fas fa-circle icon"></i>
-                        <span class="title">Danh sách sản phẩm</span>
-                    </a>
-                </div>
-                <div class="LYAF-menu-option">
-                    <a href="/manager/add">
-                        <i class="fas fa-circle icon"></i>
-                        <span class="title">Thêm sản phẩm</span>
-                    </a>
-                </div>
-                <div class="LYAF-menu-option LYAF-option-active">
-                    <a href="/manager/property">
-                        <i class="fas fa-circle icon"></i>
-                        <span class="title">Thuộc tính</span>
-                    </a>
+                <div class="LYAF-menu-content">
+                {{#NVDHAndNVVC role=../user.role}}
+                    {{#adminAndNVVC role=../../user.role}}
+                        <div class="LYAF-menu-option {{#equals val1=../../../route val2="ship"}} LYAF-option-active {{/equals}}">
+                            <a href="/manager/bill/ship">
+                                <i class="fas fa-circle icon"></i>
+                                <span class="title">Đơn cần giao</span>
+                            </a>
+                        </div>
+                    {{/adminAndNVVC}}
+                    {{#adminAndNVDH role=../../user.role}}
+                        <div class="LYAF-menu-option {{#equals val1=../../../route val2="manage"}} LYAF-option-active {{/equals}}">
+                            <a href="/manager/bill/manage">
+                                <i class="fas fa-circle icon"></i>
+                                <span class="title">Đơn cần xử lý</span>
+                            </a>
+                        </div>
+                    {{/adminAndNVDH}}
+                {{/NVDHAndNVVC }}
+                {{#equals val1=../user.role val2="admin"}}
+                    <div class="LYAF-menu-option">
+                        <a href="/manager/bill">
+                            <i class="fas fa-circle icon"></i>
+                            <span class="title">Danh sách đơn hàng</span>
+                        </a>
+                    </div>
+                {{/equals}}
                 </div>
             </div>
-        </div>
+        {{/notEquals}}
+        {{#adminAndNVSP role=user.role}}
+            <div class="LYAF-product-menu LYAF-menu">
+                <div class="LYAF-menu-header">
+                    <i class="fab fa-product-hunt icon"></i>
+                    <span class="title">Sản phẩm</span>
+                    <i class="fas fa-chevron-right end"></i>
+                </div>
+                <div class="LYAF-menu-content">
+                    <div class="LYAF-menu-option {{#equals val1=../route val2="list"}} LYAF-option-active {{/equals}}">
+                        <a href="/manager/list">
+                            <i class="fas fa-circle icon"></i>
+                            <span class="title">Danh sách sản phẩm</span>
+                        </a>
+                    </div>
+                    <div class="LYAF-menu-option {{#equals val1=../route val2="add"}} LYAF-option-active {{/equals}}">
+                        <a href="/manager/add">
+                            <i class="fas fa-circle icon"></i>
+                            <span class="title">Thêm sản phẩm</span>
+                        </a>
+                    </div>
+                    <div class="LYAF-menu-option LYAF-option-active">
+                        <a href="/manager/property">
+                            <i class="fas fa-circle icon "></i>
+                            <span class="title">Thuộc tính</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {{/adminAndNVSP}}
     </div>
 </div>
     {{!-- End Dashboard navbar --}}
@@ -193,7 +219,7 @@
                 
                 <div class="add-color">
                     <div class="propery-title-color">
-                        ADD COLOR
+                        <span><b>ADD COLOR</b></span>
                     </div>
                     <div class="property-detail-color">
                         <input type="text" class="add-color-item" id="add-colorid-input" name="add-colorcode-input" placeholder="Enter Color ID">
@@ -255,7 +281,7 @@
                         <select name="add-category-input-parent"  class="add-size-input" id="add-category-input-parent">
 
                         </select>
-                        <button type="submit" id="add-category-btn">Add Size</button>
+                        <button type="submit" id="add-category-btn">Add Category</button>
                         <button type="submit" id="delete-category-btn" >Delete</button>
                         <button type="submit" id="update-category-btn" >Update</button>
                         <button type="submit" id="cancel-category-btn" >Cancel</button>

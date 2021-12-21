@@ -14,7 +14,7 @@ class ClientController{
                 res.status(200).render('home', {user: req.user, data: result.data.map((_)=>_.toObject()), boss: req.params.boss, sale: sale.data.map((_)=>_.toObject()) });
                 break;
             case -1:
-                res.status(500).render('404', {user: req.user});
+                res.status(500).render('404', {user: req.user, boss: req.params.boss});
                 break;
         }
     }
@@ -27,10 +27,10 @@ class ClientController{
                 res.status(200).render('productDetail', {user: req.user, data: result.data, boss: req.params.boss});
                 break;
             case 0:
-                res.status(404).render('404', {user: req.user});
+                res.status(404).render('404', {user: req.user, boss: req.params.boss});
                 break;
             case -1:
-                res.status(500).render('404', {user: req.user});
+                res.status(500).render('404', {user: req.user, boss: req.params.boss});
                 break;
         }
     }
@@ -48,7 +48,7 @@ class ClientController{
 
         var query =  req.query
         delete query.page
-        res.render('productCollection', {categories: categories.data, data: result.data, page, pageRange, option: req.query, search: new URLSearchParams(req.query).toString(), boss: req.params.boss});
+        res.render('productCollection', {user: req.user,categories: categories.data, data: result.data, page, pageRange, option: req.query, search: new URLSearchParams(req.query).toString(), boss: req.params.boss});
     }
 
     search(req,res,next){

@@ -144,6 +144,7 @@ addSize.addEventListener('click',function(){
       addSizeName : addSizeName.value,
       addSizeDesc : addSizeDesc.value,
     });
+    showLoading()
     fetch(window.location.origin+'/manager/addsize',{method:'post',body:data,headers: {
         'Content-Type': 'application/json'
     },})
@@ -155,10 +156,13 @@ addSize.addEventListener('click',function(){
             }
             else if(data.status == 300){
               showToast('Thêm Size','Thêm Thất Bại !','error');
+            }else if (data.status === 500){
+              showToast('Thêm Size', 'Mã size không hợp lệ')
             }
             else{
               showToast('Thêm Size','Size đã tồn tại','error');
             }
+            hideLoading()
           })
           .then(data=>{
             var sizerow = '';
@@ -173,6 +177,7 @@ addSize.addEventListener('click',function(){
             sizeTable.innerHTML = sizerow;
             clickRowSize();
             showToast('Thêm Size','Thêm Thành Công');
+            hideLoading()
           })
   }
 
@@ -188,6 +193,7 @@ updateSize.addEventListener('click',function(){
       addSizeName : addSizeName.value,
       addSizeDesc : addSizeDesc.value,
     });
+    showLoading()
     fetch(window.location.origin+'/manager/updatesize',{method:'post',body:data,headers: {
         'Content-Type': 'application/json'
     },})
@@ -202,6 +208,7 @@ updateSize.addEventListener('click',function(){
             else{
               showToast('Cập nhật Size','Cập Nhật thất bại !','error');
             }
+            hideLoading()
           })
           .then(data=>{
             var sizerow = '';
@@ -216,6 +223,7 @@ updateSize.addEventListener('click',function(){
             sizeTable.innerHTML = sizerow;
             clickRowSize();
             showToast('Cập nhật Size','Cập nhật thành công');
+            hideLoading()
           })
   }
   
@@ -227,6 +235,7 @@ const removeSize = () => {
     addSizeName : addSizeName.value,
     addSizeDesc : addSizeDesc.value,
   });
+  showLoading()
   fetch(window.location.origin+'/manager/deletesize',{method:'post',body:data,headers: {
       'Content-Type': 'application/json'
   },})
@@ -234,13 +243,16 @@ const removeSize = () => {
           if(data.status == 200){
             return data.json();
               
+          }else if (data.status === 300){
+            showToast('Xóa Size','Bạn không thể xoá size này vì có sản phẩm thuộc size này','error');
           }
           else if(data.status == 400){
-            showToast('Size vốn không tồn tại','Xóa Thất Bại !','error');
+            showToast('Xóa Size','Size vốn không tồn tại','error');
           }
           else{
             showToast('Xóa Size','Xóa thất bại !','error');
           }
+          hideLoading()
         })
         .then(data=>{
           var sizerow = '';
@@ -255,6 +267,7 @@ const removeSize = () => {
           sizeTable.innerHTML = sizerow;
           clickRowSize();
           showToast('Xóa Size','Xóa Thành Công');
+          hideLoading()
         })
 }
 
@@ -285,6 +298,7 @@ const addCatID = document.querySelector('#add-category-input-id');
 const addCatName = document.querySelector('#add-category-input-name');
 const addCatParent = document.querySelector('#add-category-input-parent');
 $( document ).ready(function() {
+  
   fetch(window.location.origin+'/manager/categoryParent',{method:'post'})
     .then((data) => {
         if(data.status == 200){
@@ -332,6 +346,7 @@ const clickRowCat = function(){
             addCatID.value = data._id;
             addCatName.value = data.name;
             addCatParent.value = data.parentId;
+            addCatID.setAttribute('disabled','disabled');
             addCatParent.setAttribute('disabled','disabled');
           
         })
@@ -350,6 +365,7 @@ cancelCat.addEventListener('click',function(){
   cancelCat.style.display = "none";
   propertytitleCat.style.display = "block";
   addCat.style.display = "block";
+  addCatID.removeAttribute('disabled')
   addCatParent.removeAttribute("disabled");
 })
 addCat.addEventListener('click',function(){
@@ -363,6 +379,7 @@ addCat.addEventListener('click',function(){
       addCatName : addCatName.value,
       addCatParent : addCatParent.value,
     });
+    showLoading()
     fetch(window.location.origin+'/manager/addcategory',{method:'post',body:data,headers: {
         'Content-Type': 'application/json'
     },})
@@ -373,10 +390,13 @@ addCat.addEventListener('click',function(){
             }
             else if(data.status == 300){
               showToast('Thêm Category','Thêm Thất Bại !');
+            }else if (data.status === 500){
+              showToast('Thêm Category', 'Mã không hợp lệ')
             }
             else{
               showToast('Thêm Category','Category đã tồn tại','error');
             }
+            hideLoading()
           })
           .then(data =>{
             var catrow = '';
@@ -392,6 +412,7 @@ addCat.addEventListener('click',function(){
             CatTable.innerHTML = catrow;
             clickRowCat();
             showToast('Thêm Category','Thêm Thành Công');
+            hideLoading()
           })
   }
 
@@ -407,6 +428,7 @@ updateCat.addEventListener('click',function(){
       addCatName : addCatName.value,
       addCatParent : addCatParent.value,
     });
+    showLoading()
     fetch(window.location.origin+'/manager/updatecategory',{method:'post',body:data,headers: {
         'Content-Type': 'application/json'
     },})
@@ -422,6 +444,7 @@ updateCat.addEventListener('click',function(){
             else{
               showToast('Cập nhật Category','Cập Nhật thất bại !','error');
             }
+            hideLoading()
           })
           .then((data)=>{
             var catrow = '';
@@ -437,6 +460,7 @@ updateCat.addEventListener('click',function(){
             CatTable.innerHTML = catrow;
             clickRowCat();
               showToast('Cập nhật Category','Cập nhật Thành Công');
+              hideLoading()
           })
   }
 
@@ -449,20 +473,25 @@ const removeCat = () => {
     addCatName : addCatName.value,
     addCatParent : addCatParent.value,
   });
+  showLoading()
   fetch(window.location.origin+'/manager/deletecategory',{method:'post',body:data,headers: {
       'Content-Type': 'application/json'
   },})
       .then((data) => {
+          console.log(data)
           if(data.status == 200){
             return data.json();
               
+          }else if (data.status === 300){
+            showToast('Xóa Category','Bạn không thể xoá danh mục này vì có sản phẩm thuộc danh mục này','error');
           }
           else if(data.status == 400){
-            showToast('Category vốn không tồn tại','Xóa Thất Bại !','error');
+            showToast('Xóa Category','Category vốn không tồn tại','error');
           }
           else if(data.status == 500){
             showToast('Xóa Category','Xóa thất bại !','error');
           }
+          hideLoading()
         })
         .then(data=>{
           var catrow = '';
@@ -478,6 +507,7 @@ const removeCat = () => {
           CatTable.innerHTML = catrow;
           clickRowCat();
             showToast('Xóa Category','Xóa Thành Công');
+            hideLoading()
         })
 }
 
@@ -532,6 +562,7 @@ const clickRowColor = function(){
             propertytitleColor.style.display = "none";
             addColor.style.display = "none";
             addColorID.value = data._id;
+            addColorID.setAttribute('disabled','disabled');
             addColorName.value = data.name;
             file = await urlToObject(data.thumbnail,'colorThumb');
             showFile();
@@ -554,6 +585,7 @@ addcolorbtn.addEventListener('click',function(){
   else{
     formData.append('colorId',addColorID.value);
     formData.append('colorName',addColorName.value);
+    showLoading()
       fetch(window.location.origin+'/manager/addcolor',{method:'post',body:formData})
           .then((data) => {
               if(data.status == 200){
@@ -561,11 +593,12 @@ addcolorbtn.addEventListener('click',function(){
                  
               }
               else if(data.status == 400){
-                showToast('Color đã tồn tại','Thêm Thất Bại !','error');
+                showToast('Thêm Color','Color đã tồn tại','error');
               }
               else if(data.status == 500){
                 showToast('Thêm Color','Thêm thất bại !','error');
               }
+              hideLoading()
             })
             .then(data=>{
               var colorrow = '';
@@ -582,6 +615,7 @@ addcolorbtn.addEventListener('click',function(){
               document.querySelector('#colorTable').innerHTML = colorrow;
               clickRowColor();
                 showToast('Thêm Color','Thêm Thành Công');
+                hideLoading()
             })
     }
     
@@ -592,28 +626,33 @@ cancelColor.addEventListener('click',function(){
   updateColor.style.display = "none";
   deleteColor.style.display = "none";
   cancelColor.style.display = "none";
+  addColorID.removeAttribute('disabled')
   propertytitleColor.style.display = "block";
   addcolorbtn.style.display = "block";
 })
 
-const removeColor = () => {
+const removeColor = (id) => {
   const formData = new FormData();
-  formData.append('colorImage',file);
-  formData.append('colorId',addColorID.value);
-  formData.append('colorName',addColorName.value);
-  fetch(window.location.origin+'/manager/deletecolor',{method:'post',body:formData})
+  console.log(id)
+  formData.append('colorId', id);
+  showLoading()
+  fetch(window.location.origin+'/manager/deletecolor',{method:'post',headers: {
+    'Content-Type': 'application/json'
+  },
+  body:JSON.stringify({colorId: id})})
       .then((data) => {
           if(data.status == 200){
-         
             return data.json();
-              
+          }else if (data.status === 300){
+            showToast('Color','Bạn không thể xoá màu này vì có sản phẩm thuộc màu này','error');
           }
           else if(data.status == 400){
-            showToast('Color vốn không tồn tại','Xóa Thất Bại !','error');
+            showToast('Xoá Color','Color vốn không tồn tại','error');
           }
           else if(data.status == 500){
             showToast('Xóa Color','Xóa thất bại !','error');
           }
+          hideLoading()
         })
         .then(data=>{
             var colorrow = '';
@@ -630,6 +669,7 @@ const removeColor = () => {
             document.querySelector('#colorTable').innerHTML = colorrow;
             clickRowColor();
               showToast('Xóa Color','Xóa Thành Công');
+              hideLoading()
         })
 }
 
@@ -657,6 +697,7 @@ updateColor.addEventListener('click',function(){
     formData.append('colorImage',file);
     formData.append('colorId',addColorID.value);
     formData.append('colorName',addColorName.value);
+    showLoading()
     fetch(window.location.origin+'/manager/updatecolor',{method:'post',body:formData})
         .then((data) => {
             if(data.status == 200){
@@ -669,6 +710,7 @@ updateColor.addEventListener('click',function(){
             else if(data.status == 500){
               showToast('Cập nhật Color','Cập nhật thất bại !','error');
             }
+            hideLoading()
           })
           .then(data =>{
               var colorrow = '';
@@ -685,6 +727,7 @@ updateColor.addEventListener('click',function(){
               document.querySelector('#colorTable').innerHTML = colorrow;
               clickRowColor();
                 showToast('Cập nhật Color','Cập nhật Thành Công');
+                hideLoading()
           })
   }
   
@@ -699,4 +742,19 @@ $('#exampleModal').on('show.bs.modal', function (event) {
   var modal = $(this)
   modal.find('.modal-title').text('New message to ' + recipient)
   modal.find('.modal-body input').val(recipient)
+})
+
+$(document).ready(()=>{
+  $(".property-confirm-modal .confirm").click(function(){
+    const property = this.dataset.property;
+    if (property === 'color'){
+      const id = this.dataset.id
+      removeColor(id)
+    }else if(property === 'size'){
+      removeSize()
+    }else if(property === 'category'){
+      removeCat()
+    }
+    
+  })
 })

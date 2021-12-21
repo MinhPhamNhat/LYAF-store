@@ -40,6 +40,7 @@
     background-color: #1E1E2D;
     transition: 0.5s;
     overflow-y:auto;
+
 }
 
 .LYAF-side-bar .LYAF-side-bar-header{
@@ -666,6 +667,12 @@ table.dataTable thead th {
     border-spacing: 0 10px !important;
     border-collapse: separate;
     width: 100% !important;
+    th:first-child {
+        width: fit-content !important;
+    }
+    td:first-child {
+        width: fit-content !important;
+    }
 }
 
 .LYAF-product-list #LYAF-list_wrapper{

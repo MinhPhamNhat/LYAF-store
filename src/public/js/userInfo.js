@@ -181,6 +181,7 @@ if(document.querySelector('#addAddBtn') != null){
                 ward: document.querySelector('#addadd-ward').value,
                 phone: document.querySelector('#addadd-phone').value,
             });
+            showLoading()
             fetch(window.location.origin+'/userInfo/addressList/add',{method:'post',body:data,headers: {
                 'Content-Type': 'application/json'
             },})
@@ -237,8 +238,9 @@ if(document.querySelector('#addAddBtn') != null){
                     addressDelete();
                     addressUpdateBefore();
                     // addressUpdateAfter();
+                    $("#addAdd").modal("hide")
                     showToast('Thêm Địa chỉ','Thêm Thành Công !');
-                   
+                    hideLoading()
                 })
                
         }

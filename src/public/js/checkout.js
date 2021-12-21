@@ -159,9 +159,10 @@ $(document).ready(()=>{
             })
             .then(push=>{
                 console.log(push);
-                document.querySelector('#name').value = push.name;
-                document.querySelector('#phone').value = push.phone;
-                document.querySelector('#address').value = push.address;
+                document.querySelector('.delivery-form #name').value = push.name;
+                document.querySelector('.delivery-form #phone').value = push.phone;
+                document.querySelector('.delivery-form #address').value = push.address;
+                console.log(push)
                 fetch(window.location.origin+'/api/province')
                         .then(data=> data.json())
                         .then(data=>{

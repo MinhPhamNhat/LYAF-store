@@ -158,7 +158,7 @@ exports.createPageRange=(curPage, maxPage)=>{
 exports.parseSort = (sort) => {
   switch(sort){
     case 'any':
-      return {}
+      return {date: -1}
     case 'price-desc':
       return {price: -1}
     case 'price-asc':

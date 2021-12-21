@@ -5,9 +5,10 @@
     {{!-- Dashboard navbar --}}
 <div class="LYAF-side-bar">
     <div class="LYAF-side-bar-header">
-        <span class="LYAF-side-bar-title text-uppercase font-weight-bold">Dasboard</span>
+        <span class="LYAF-side-bar-title text-uppercase font-weight-bold"><a href="/" style="color: white; text-decoration:none">LYAF</a></span>
         <i class="fas fa-bars"></i>
     </div>
+    
     <div class="LYAF-side-bar-menu">
         {{!-- <div class="LYAF-profit-menu LYAF-menu">
             <div class="LYAF-menu-header">
@@ -53,7 +54,7 @@
                 </div> --}}
             </div>
         </div>
-        <div class="LYAF-user-menu LYAF-menu">
+        {{!-- <div class="LYAF-user-menu LYAF-menu">
             <div class="LYAF-menu-header">
                 <i class="fas fa-users icon"></i>
                 <span class="title">Tài khoản</span>
@@ -67,7 +68,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> --}}
         {{!-- <div class="LYAF-staff-menu LYAF-menu">
             <div class="LYAF-menu-header">
                 <i class="fas fa-user-check icon"></i>
@@ -97,20 +98,20 @@
             </div>
             <div class="LYAF-menu-content">
                 <div class="LYAF-menu-option">
-                    <a href="/manager/bill/ship">
-                        <i class="fas fa-circle icon"></i>
-                        <span class="title">Đơn cần giao</span>
-                    </a>
-                </div>
-                <div class="LYAF-menu-option">
                     <a href="/manager/bill/manage">
                         <i class="fas fa-circle icon"></i>
                         <span class="title">Đơn cần xử lý</span>
                     </a>
                 </div>
+                {{!-- <div class="LYAF-menu-option">
+                    <a href="/manager/bill/manage">
+                        <i class="fas fa-circle icon"></i>
+                        <span class="title">Đơn cần xử lý</span>
+                    </a>
+                </div> --}}
             </div>
         </div>
-        <div class="LYAF-product-menu LYAF-menu">
+        {{!-- <div class="LYAF-product-menu LYAF-menu">
             <div class="LYAF-menu-header">
                 <i class="fab fa-product-hunt icon"></i>
                 <span class="title">Sản phẩm</span>
@@ -136,7 +137,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
     {{!-- End Dashboard navbar --}}
@@ -165,8 +166,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary col-sm-3 confirm-state" data-id="{{data._id}}">Xác nhận</button>
                         </div>
-                        <hr>
-                        <h4>Tình trạng thanh toán</h4>
+                        {{!-- <h4>Tình trạng thanh toán</h4>
                         <div class="form-group row">
                             <label for="payState" class="col-sm-2 col-form-label col-form-label-sm">Thay đổi</label>
                             <div class="col-sm-7">
@@ -182,7 +182,7 @@
                             </select>
                             </div>
                             <button type="submit" class="btn btn-primary col-sm-3 confirm-payment" data-id="{{data._id}}">Xác nhận</button>
-                        </div>
+                        </div> --}}
                     {{else}}
                         <div class="form-group row">
                             <label for="inputState" class="col-sm-6 col-form-label col-form-label-sm"><h4>Nhận đơn hàng này</h4></label>

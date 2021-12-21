@@ -6,6 +6,12 @@ const FacebookStrategy  = require('passport-facebook').Strategy;
 const passport = require("passport");
 const bcrypt = require("bcrypt");
 
+function checkId(value) {
+  if (/^[a-zA-Z0-9_]*$/.test(value)) {
+      return true
+  }
+  return false
+}
 passport.serializeUser(function (user, done) {
   done(null, user);
 });
@@ -119,6 +125,10 @@ passport.use(
         req.flash("error", "Tài khoản hoăc mật khẩu đang trống !");
         return done(null, false);
       } else {
+        if (!checkId(username)){
+          req.flash("error", "Tên tài khoản không hợp lệ");
+          return done(null, false);
+        }
         accModel
           .findOne({
             username: username,

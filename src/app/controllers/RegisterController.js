@@ -1,6 +1,13 @@
 const accModel = require("../models/Account");
 const userModel = require("../models/User");
 const bcrypt = require("bcrypt");
+
+function checkId(value) {
+  if (/^[a-zA-Z0-9_]*$/.test(value)) {
+      return true
+  }
+  return false
+}
 class RegisterController {
   accessRegister(req, res, next) {
     res.render("register");
@@ -19,7 +26,12 @@ class RegisterController {
       valuename = rname;
       valueuser = rusername;
       res.render("register", { error, valuename, valueuser });
-    } else if (rpassword.length < 8) {
+    } else if (!checkId(rusername)){
+      error = "Tên tài khoản không hợp lệ";
+      valuename = rname;
+      valueuser = rusername;
+      res.render("register", { error, valuename, valueuser });
+    }else if (rpassword.length < 8) {
         error = "Mật khẩu phải nhiều hơn 8 ký tự !";
         valuename = rname;
         valueuser = rusername;

@@ -138,6 +138,34 @@ module.exports = {
             <span id="size" data-url="${url}"></span>
         </span>
         `
-    }
+    },
+
+    adminAndNVSP: (option) => {
+        if (option.hash.role === "admin" || option.hash.role === "NVSP" )
+        return option.fn(this)
+        else
+        return  option.inverse(this) 
+    },
+
+    adminAndNVDH: (option) => {
+        if (option.hash.role === "admin" || option.hash.role === "NVDH" )
+        return option.fn(this)
+        else
+        return  option.inverse(this) 
+    },
+
+    adminAndNVVC: (option) => {
+        if (option.hash.role === "admin" || option.hash.role === "NVVC" )
+        return option.fn(this)
+        else
+        return  option.inverse(this) 
+    },
+
+    NVDHAndNVVC: (option) => {
+        if (option.hash.role === "NVDH" || option.hash.role === "NVVC" )
+        return option.fn(this)
+        else
+        return  option.inverse(this) 
+    },
 
 }

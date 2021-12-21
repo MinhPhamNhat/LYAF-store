@@ -30,7 +30,7 @@ route.post('/deletecategory',proManager.deletecategory);
 route.post('/updatecategory',proManager.updatecategory);
 route.post('/colorManager',proManager.colorManager);
 route.post('/addcolor',multer.single('colorImage'),proManager.addcolor);
-route.post('/deletecolor',multer.single('colorImage'),proManager.deletecolor);
+route.post('/deletecolor',proManager.deletecolor);
 route.post('/updatecolor',multer.single('colorImage'),proManager.updatecolor);
 route.get('/account',authen.authenAdmin ,proManager.account);
 route.get('/accountManager',authen.authenAdmin ,proManager.accManager);
